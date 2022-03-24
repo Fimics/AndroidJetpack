@@ -3,6 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1045" />
+        <entry key="app/src/main/res/drawable/ic_cast_connected.xml" value="0.1045" />
+        <entry key="app/src/main/res/drawable/ic_home.xml" value="0.2635" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1045" />
+        <entry key="app/src/main/res/drawable/ic_me.xml" value="0.1045" />
+        <entry key="app/src/main/res/drawable/ic_search.xml" value="0.1045" />
+        <entry key="app/src/main/res/drawable/ic_stop.xml" value="0.1045" />
         <entry key="app/src/main/res/layout/activity_local.xml" value="0.16197916666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2053481331987891" />
         <entry key="app/src/main/res/layout/activity_me.xml" value="0.2557291666666667" />
@@ -12,6 +19,7 @@
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.2557291666666667" />
         <entry key="app/src/main/res/layout/fragment_music.xml" value="0.2557291666666667" />
         <entry key="app/src/main/res/layout/fragment_online.xml" value="0.2421875" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1045" />
       </map>
     </option>
   </component>
