@@ -28,14 +28,14 @@ class ItemFragment : Fragment(){
 
 private const val ARG_OBJECT = "object"
 
-class Adapter(fragment: BaseFragment) : FragmentStateAdapter(fragment) {
+class Adapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int {
         return 5
     }
 
     override fun createFragment(position: Int): Fragment {
-        val fragment = BaseFragment()
+        val fragment = ItemFragment()
         fragment.arguments= Bundle().apply {
             putInt(ARG_OBJECT,position+1)
         }
