@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/local"
+    app:startDestination="@id/localFragment">
+
+    <fragment
+        android:id="@+id/localFragment"
+        android:name="com.mic.local.LocalFragment"
+        android:label="fragment_local"
+        tools:layout="@layout/fragment_local" />
+</navigation>
