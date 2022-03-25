@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.mic.BaseFragment
 import com.mic.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -12,13 +13,8 @@ import com.mic.R
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [LocalFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class LocalFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+
+class LocalFragment : BaseFragment() {
     private var param1: String? = null
     private var param2: String? = null
 
