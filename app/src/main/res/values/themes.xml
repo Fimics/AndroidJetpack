@@ -19,6 +19,12 @@
     </style>
 
 
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">@dimen/text_size_16sp</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
 
     <style name="Theme.AndroidJetpack.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

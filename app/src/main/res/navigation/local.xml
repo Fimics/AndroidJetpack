@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/localFragment"
-        android:name="com.mic.local.LocalFragment"
+        android:name="com.mic.local.MainLocalFragment"
         android:label="fragment_local"
         tools:layout="@layout/fragment_local" />
 </navigation>

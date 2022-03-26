@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="tab_home">
+        <item>热点</item>
+        <item>问答</item>
+        <item>关注</item>
+        <item>推荐</item>
+        <item>热榜</item>
+        <item>北京</item>
+        <item>文学历史</item>
+        <item>职场技能</item>
+        <item>生活兴趣</item>
+        <item>运动健身</item>
+        <item>亲子育儿</item>
+        <item>知识片库</item>
+    </string-array>
+
+
+    <string-array name="tab_local">
+        <item>图片</item>
+        <item>文档</item>
+        <item>视频</item>
+        <item>音乐</item>
+        <item>安装包</item>
+        <item>手机信息</item>
+        <item>已删除</item>
+    </string-array>
+
+
+
+    <string-array name="tab_online">
+        <item>家庭</item>
+        <item>爱情</item>
+        <item>青春</item>
+        <item>奇幻</item>
+        <item>华语</item>
+        <item>惊悚</item>
+        <item>动作</item>
+        <item>热血</item>
+        <item>现代</item>
+        <item>中国</item>
+        <item>美国</item>
+        <item>印度</item>
+        <item>欧洲</item>
+        <item>日本</item>
+        <item>韩国</item>
+        <item>其他</item>
+    </string-array>
+
+
+    <string-array name="tab_music">
+        <item>听故事</item>
+        <item>唱儿歌</item>
+        <item>懂国学</item>
+        <item>艺术家</item>
+        <item>知百科</item>
+        <item>学英语</item>
+    </string-array>
+
+
+    <string-array name="tab_me">
+        <item>个人信息</item>
+        <item>下载</item>
+        <item>收藏</item>
+        <item>历史</item>
+        <item>设置</item>
+    </string-array>
+    
+</resources>

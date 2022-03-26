@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../layout/custom_preview.xml" value="0.2222222222222222" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1045" />
         <entry key="app/src/main/res/drawable/ic_cast_connected.xml" value="0.1045" />
         <entry key="app/src/main/res/drawable/ic_home.xml" value="0.2635" />
@@ -18,8 +19,17 @@
         <entry key="app/src/main/res/layout/fragment_base.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_cast.xml" value="0.2557291666666667" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.2557291666666667" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.30570652173913043" />
+        <entry key="app/src/main/res/layout/fragment_indicator.xml" value="0.3079710144927536" />
+        <entry key="app/src/main/res/layout/fragment_local.xml" value="0.3079710144927536" />
+        <entry key="app/src/main/res/layout/fragment_local_tab.xml" value="0.3079710144927536" />
+        <entry key="app/src/main/res/layout/fragment_me.xml" value="0.30570652173913043" />
         <entry key="app/src/main/res/layout/fragment_music.xml" value="0.2557291666666667" />
+        <entry key="app/src/main/res/layout/fragment_on_line.xml" value="0.30570652173913043" />
         <entry key="app/src/main/res/layout/fragment_online.xml" value="0.2421875" />
+        <entry key="app/src/main/res/layout/fragment_picture.xml" value="0.1977800201816347" />
+        <entry key="app/src/main/res/layout/fragment_tab_doc.xml" value="0.2053481331987891" />
+        <entry key="app/src/main/res/layout/layout_indicator_tab.xml" value="0.2053481331987891" />
         <entry key="app/src/main/res/menu/bottom_nav.xml" value="0.315625" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1045" />
       </map>

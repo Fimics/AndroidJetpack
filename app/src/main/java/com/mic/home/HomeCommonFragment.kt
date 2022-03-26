@@ -1,4 +1,4 @@
-package com.mic.indicator
+package com.mic.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,16 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.mic.R
 
-class ItemFragment : Fragment(){
+class TabCommonFragment : Fragment(){
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_indicator, container, false)
+        return inflater.inflate(R.layout.fragment_local_tab, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -26,19 +25,6 @@ class ItemFragment : Fragment(){
     }
 }
 
-private const val ARG_OBJECT = "object"
+private const val ARG_OBJECT = "obje"
 
-class Adapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
-    override fun getItemCount(): Int {
-        return 5
-    }
-
-    override fun createFragment(position: Int): Fragment {
-        val fragment = ItemFragment()
-        fragment.arguments= Bundle().apply {
-            putInt(ARG_OBJECT,position+1)
-        }
-        return fragment;
-    }
-}

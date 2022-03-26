@@ -11,10 +11,9 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mic.R
 
-open class BaseFragment : Fragment() {
+abstract class TabBaseFragment : Fragment() {
 
     open lateinit var viewPager: ViewPager2
-    open lateinit var adapter: Adapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -23,21 +22,26 @@ open class BaseFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_base, container, false)
+        return inflater.inflate(getLayoutId(), container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("a",view.toString())
         viewPager = view.findViewById(R.id.pager2)
-        adapter = Adapter(this)
-        viewPager.adapter=adapter
+        var tabItemAdapter=getTabItemAdapter()
+        var dataSource= tabItemAdapter.getDataSource()
+        viewPager.adapter=tabItemAdapter
         val tabLayout = view.findViewById<TabLayout>(R.id.tab_layout)
         TabLayoutMediator(tabLayout, viewPager){ tab, position ->
-            tab.text = "OBJECT ${(position + 1)}"
+            tab.text = dataSource[position]
         }.attach()
     }
 
+
+    abstract fun getLayoutId():Int
+
+    abstract fun getTabItemAdapter():TabBaseAdapter
 }
 
 

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/musicFragment"
-        android:name="com.mic.music.MusicFragment"
+        android:name="com.mic.music.MainMusicFragment"
         android:label="fragment_music"
         tools:layout="@layout/fragment_music" />
 </navigation>
