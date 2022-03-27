@@ -25,7 +25,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
-import java.net.URLDecoder;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
@@ -352,9 +351,9 @@ public abstract class NanoHTTPD {
                 int qmi = uri.indexOf('?');
                 if (qmi >= 0) {
                     decodeParms(uri.substring(qmi + 1), parms);
-                    uri = decodePercent(uri.substring(0, qmi));
+                    uri = Decoder.decodePercent(uri.substring(0, qmi));
                 } else {
-                    uri = decodePercent(uri);
+                    uri = Decoder.decodePercent(uri);
                 }
 
                 // If there's another token, its protocol version,
@@ -487,9 +486,9 @@ public abstract class NanoHTTPD {
                 String e = st.nextToken();
                 int sep = e.indexOf('=');
                 if (sep >= 0) {
-                    p.put(decodePercent(e.substring(0, sep)).trim(), decodePercent(e.substring(sep + 1)));
+                    p.put(Decoder.decodePercent(e.substring(0, sep)).trim(), Decoder.decodePercent(e.substring(sep + 1)));
                 } else {
-                    p.put(decodePercent(e).trim(), "");
+                    p.put(Decoder.decodePercent(e).trim(), "");
                 }
             }
         }
@@ -582,7 +581,7 @@ public abstract class NanoHTTPD {
                     String acceptEncoding = this.headers.get("accept-encoding");
                     this.cookies.unloadQueue(r);
                     r.setRequestMethod(this.method);
-                    r.setGzipEncoding(useGzipWhenAccepted(r) && acceptEncoding != null && acceptEncoding.contains("gzip"));
+                    r.setGzipEncoding(Decoder.useGzipWhenAccepted(r) && acceptEncoding != null && acceptEncoding.contains("gzip"));
                     r.setKeepAlive(keepAlive);
                     r.send(this.outputStream);
                 }
@@ -1167,10 +1166,9 @@ public abstract class NanoHTTPD {
 
     public static final String MIME_HTML = "text/html";
 
-    private static final String QUERY_STRING_PARAMETER = "NanoHttpd.QUERY_STRING";
+    public static final String QUERY_STRING_PARAMETER = "NanoHttpd.QUERY_STRING";
 
-    private static final Logger LOG = Logger.getLogger(NanoHTTPD.class.getName());
-
+    public static final Logger LOG = Logger.getLogger(NanoHTTPD.class.getName());
 
     public static SSLServerSocketFactory makeSSLSocketFactory(KeyStore loadedKeyStore, KeyManager[] keyManagers) throws IOException {
         SSLServerSocketFactory res = null;
@@ -1244,43 +1242,6 @@ public abstract class NanoHTTPD {
         return new ServerRunnable(timeout);
     }
 
-    protected static Map<String, List<String>> decodeParameters(Map<String, String> parms) {
-        return decodeParameters(parms.get(NanoHTTPD.QUERY_STRING_PARAMETER));
-    }
-
-    protected static Map<String, List<String>> decodeParameters(String queryString) {
-        Map<String, List<String>> parms = new HashMap<String, List<String>>();
-        if (queryString != null) {
-            StringTokenizer st = new StringTokenizer(queryString, "&");
-            while (st.hasMoreTokens()) {
-                String e = st.nextToken();
-                int sep = e.indexOf('=');
-                String propertyName = sep >= 0 ? decodePercent(e.substring(0, sep)).trim() : decodePercent(e).trim();
-                if (!parms.containsKey(propertyName)) {
-                    parms.put(propertyName, new ArrayList<String>());
-                }
-                String propertyValue = sep >= 0 ? decodePercent(e.substring(sep + 1)) : null;
-                if (propertyValue != null) {
-                    parms.get(propertyName).add(propertyValue);
-                }
-            }
-        }
-        return parms;
-    }
-
-    protected static String decodePercent(String str) {
-        String decoded = null;
-        try {
-            decoded = URLDecoder.decode(str, "UTF8");
-        } catch (UnsupportedEncodingException ignored) {
-            NanoHTTPD.LOG.log(Level.WARNING, "Encoding not supported, ignored", ignored);
-        }
-        return decoded;
-    }
-
-    protected boolean useGzipWhenAccepted(Response r) {
-        return r.getMimeType() != null && r.getMimeType().toLowerCase().contains("text/");
-    }
 
     public final int getListeningPort() {
         return this.myServerSocket == null ? -1 : this.myServerSocket.getLocalPort();
