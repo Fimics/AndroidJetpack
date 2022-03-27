@@ -2,6 +2,7 @@ package com.mic.server.http;
 
 import static com.mic.server.http.Constant.MIME_HTML;
 
+import android.util.Log;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.Closeable;
@@ -18,10 +19,11 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
-import java.util.logging.Level;
 import java.util.zip.GZIPOutputStream;
 
 public class Response implements Closeable {
+
+    private static final String TAG="response";
 
     public interface IStatus {
 
@@ -236,8 +238,8 @@ public class Response implements Closeable {
             sendBodyWithCorrectTransferAndEncoding(outputStream, pending);
             outputStream.flush();
             Utils.safeClose(this.data);
-        } catch (IOException ioe) {
-            NanoHTTPD.LOG.log(Level.SEVERE, "Could not send response to the client", ioe);
+        } catch (IOException e) {
+            Log.d(TAG, "Could not send response to the client"+e.getMessage());
         }
     }
 
@@ -330,7 +332,7 @@ public class Response implements Closeable {
             try {
                 bytes = txt.getBytes("UTF-8");
             } catch (UnsupportedEncodingException e) {
-                NanoHTTPD.LOG.log(Level.SEVERE, "encoding problem, responding nothing", e);
+                Log.d(TAG ,"encoding problem, responding nothing"+ e.getMessage());
                 bytes = new byte[0];
             }
             return newFixedLengthResponse(status, mimeType, new ByteArrayInputStream(bytes), bytes.length);

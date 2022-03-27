@@ -1,12 +1,13 @@
 package com.mic.server.http;
 
+import android.util.Log;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 public class DefaultTempFileManager implements TempFileManager {
-
+        private static final String TAG = "server";
         private final File tmpdir;
 
         private final List<TempFile> tempFiles;
@@ -24,8 +25,8 @@ public class DefaultTempFileManager implements TempFileManager {
             for (TempFile file : this.tempFiles) {
                 try {
                     file.delete();
-                } catch (Exception ignored) {
-                    NanoHTTPD.LOG.log(Level.WARNING, "could not delete file ", ignored);
+                } catch (Exception e) {
+                    Log.d(TAG, "could not delete file "+e.getMessage());
                 }
             }
             this.tempFiles.clear();

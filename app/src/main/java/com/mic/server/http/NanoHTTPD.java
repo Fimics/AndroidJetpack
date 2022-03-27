@@ -2,6 +2,8 @@ package com.mic.server.http;
 
 import static com.mic.server.http.Constant.SOCKET_READ_TIMEOUT;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -20,13 +22,14 @@ import javax.net.ssl.SSLServerSocketFactory;
 
 @SuppressWarnings("all")
 public  class NanoHTTPD {
-    public static final Logger LOG = Logger.getLogger(NanoHTTPD.class.getName());
+    public static final String TAG = "server";
     private final String hostname;
     private final int myPort;
     private volatile ServerSocket myServerSocket;
-    private ServerSocketFactory serverSocketFactory = new DefaultServerSocketFactory();
     private Thread myThread;
     protected AsyncRunner asyncRunner;
+
+    private ServerSocketFactory serverSocketFactory = new DefaultServerSocketFactory();
     private TempFileManagerFactory tempFileManagerFactory;
 
     public NanoHTTPD(int port) {
@@ -84,7 +87,7 @@ public  class NanoHTTPD {
                 // SocketTimeoutException, print the
                 // stacktrace
                 if (!(e instanceof SocketException && "NanoHttpd Shutdown".equals(e.getMessage())) && !(e instanceof SocketTimeoutException)) {
-                    NanoHTTPD.LOG.log(Level.FINE, "Communication with the client broken", e);
+                    Log.d(TAG, "Communication with the client broken", e);
                 }
             } finally {
                 Utils.safeClose(outputStream);
@@ -159,7 +162,7 @@ public  class NanoHTTPD {
                     final InputStream inputStream = finalAccept.getInputStream();
                     NanoHTTPD.this.asyncRunner.exec(createClientHandler(finalAccept, inputStream));
                 } catch (IOException e) {
-                    NanoHTTPD.LOG.log(Level.FINE, "Communication with the client broken", e);
+                    Log.d(TAG, "Communication with the client broken"+e.getMessage());
                 }
             } while (!NanoHTTPD.this.myServerSocket.isClosed());
         }
@@ -252,7 +255,7 @@ public  class NanoHTTPD {
                 this.myThread.join();
             }
         } catch (Exception e) {
-            NanoHTTPD.LOG.log(Level.SEVERE, "Could not stop all connections", e);
+            Log.d(TAG, "Could not stop all connections"+e.getMessage());
         }
     }
 

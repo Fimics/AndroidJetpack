@@ -2,6 +2,8 @@ package com.mic.server.http;
 
 import static com.mic.server.http.Constant.QUERY_STRING_PARAMETER;
 
+import android.util.Log;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -12,6 +14,8 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 
 public class Decoder {
+
+    private static final String TAG="decoder";
 
     protected static Map<String, List<String>> decodeParameters(Map<String, String> parms) {
         return decodeParameters(parms.get(QUERY_STRING_PARAMETER));
@@ -41,8 +45,8 @@ public class Decoder {
         String decoded = null;
         try {
             decoded = URLDecoder.decode(str, "UTF8");
-        } catch (UnsupportedEncodingException ignored) {
-            NanoHTTPD.LOG.log(Level.WARNING, "Encoding not supported, ignored", ignored);
+        } catch (UnsupportedEncodingException e) {
+            Log.d(TAG, "Encoding not supported ->"+e.getMessage());
         }
         return decoded;
     }

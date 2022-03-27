@@ -8,6 +8,8 @@ import static com.mic.server.http.PatternConst.CONTENT_DISPOSITION_ATTRIBUTE_PAT
 import static com.mic.server.http.PatternConst.CONTENT_DISPOSITION_PATTERN;
 import static com.mic.server.http.PatternConst.CONTENT_TYPE_PATTERN;
 
+import android.util.Log;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -35,6 +37,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class HTTPSession implements IHTTPSession {
+
+    private static final String TAG = "session";
 
     private static final int REQUEST_BUFFER_LEN = 512;
 
@@ -122,7 +126,7 @@ public class HTTPSession implements IHTTPSession {
                 protocolVersion = st.nextToken();
             } else {
                 protocolVersion = "HTTP/1.1";
-                NanoHTTPD.LOG.log(Level.FINE, "no protocol version specified, strange. Assuming HTTP/1.1.");
+                Log.d(TAG, "no protocol version specified, strange. Assuming HTTP/1.1.");
             }
             String line = in.readLine();
             while (line != null && line.trim().length() > 0) {
