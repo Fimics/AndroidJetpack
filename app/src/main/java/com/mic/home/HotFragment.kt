@@ -89,6 +89,8 @@ class HotFragment : Fragment() {
                 override fun onResponse(call: Call, response: Response) {
                     Log.d(TAG, "onResponse")
                     Log.d(TAG, "onResponse data->  " + response.body.toString())
+                    Log.d(TAG, "onResponse code->  " + response.code)
+
                 }
             })
         }

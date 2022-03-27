@@ -1,5 +1,6 @@
 package com.mic.server.http;
 
+import static com.mic.server.http.Constant.MIME_JSON;
 import static com.mic.server.http.Constant.MIME_PLAINTEXT;
 import static com.mic.server.http.Constant.QUERY_STRING_PARAMETER;
 import static com.mic.server.http.PatternConst.BOUNDARY_PATTERN;
@@ -609,6 +610,6 @@ public class HTTPSession implements IHTTPSession {
 
     @Deprecated
     public Response serve(String uri, Method method, Map<String, String> headers, Map<String, String> parms, Map<String, String> files) {
-        return Response.newFixedLengthResponse(Response.Status.NOT_FOUND, MIME_PLAINTEXT, "Not Found");
+        return Response.newFixedLengthResponse(Response.Status.NOT_FOUND, MIME_JSON, "Not Found");
     }
 }
