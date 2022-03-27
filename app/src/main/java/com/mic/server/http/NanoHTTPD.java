@@ -1,19 +1,23 @@
 package com.mic.server.http;
 
+import static com.mic.server.http.PatternConst.BOUNDARY_PATTERN;
+import static com.mic.server.http.PatternConst.CHARSET_PATTERN;
+import static com.mic.server.http.PatternConst.CONTENT_DISPOSITION_ATTRIBUTE_PATTERN;
+import static com.mic.server.http.PatternConst.CONTENT_DISPOSITION_PATTERN;
+import static com.mic.server.http.PatternConst.CONTENT_TYPE_PATTERN;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutput;
 import java.io.DataOutputStream;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
-import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -23,7 +27,6 @@ import java.net.SocketTimeoutException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
-import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -35,16 +38,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.net.ssl.KeyManager;
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
-import javax.net.ssl.TrustManagerFactory;
-
-import com.mic.server.http.Response.IStatus;
-import com.mic.server.http.Response.Status;
 
 
 @SuppressWarnings("all")
@@ -139,71 +133,6 @@ public abstract class NanoHTTPD {
         }
     }
 
-    public static class DefaultTempFile implements TempFile {
-
-        private final File file;
-
-        private final OutputStream fstream;
-
-        public DefaultTempFile(File tempdir) throws IOException {
-            this.file = File.createTempFile("NanoHTTPD-", "", tempdir);
-            this.fstream = new FileOutputStream(this.file);
-        }
-
-        @Override
-        public void delete() throws Exception {
-            Utils.safeClose(this.fstream);
-            if (!this.file.delete()) {
-                throw new Exception("could not delete temporary file");
-            }
-        }
-
-        @Override
-        public String getName() {
-            return this.file.getAbsolutePath();
-        }
-
-        @Override
-        public OutputStream open() throws Exception {
-            return this.fstream;
-        }
-    }
-
-    public static class DefaultTempFileManager implements TempFileManager {
-
-        private final File tmpdir;
-
-        private final List<TempFile> tempFiles;
-
-        public DefaultTempFileManager() {
-            this.tmpdir = new File(System.getProperty("java.io.tmpdir"));
-            if (!tmpdir.exists()) {
-                tmpdir.mkdirs();
-            }
-            this.tempFiles = new ArrayList<TempFile>();
-        }
-
-        @Override
-        public void clear() {
-            for (TempFile file : this.tempFiles) {
-                try {
-                    file.delete();
-                } catch (Exception ignored) {
-                    NanoHTTPD.LOG.log(Level.WARNING, "could not delete file ", ignored);
-                }
-            }
-            this.tempFiles.clear();
-        }
-
-        @Override
-        public TempFile createTempFile(String filename_hint) throws Exception {
-            DefaultTempFile tempFile = new DefaultTempFile(this.tmpdir);
-            this.tempFiles.add(tempFile);
-            return tempFile;
-        }
-    }
-
-
     private class DefaultTempFileManagerFactory implements TempFileManagerFactory {
 
         @Override
@@ -211,63 +140,6 @@ public abstract class NanoHTTPD {
             return new DefaultTempFileManager();
         }
     }
-
-    private static final String CHARSET_REGEX = "[ |\t]*(charset)[ |\t]*=[ |\t]*['|\"]?([^\"^'^;]*)['|\"]?";
-
-    private static final Pattern CHARSET_PATTERN = Pattern.compile(CHARSET_REGEX, Pattern.CASE_INSENSITIVE);
-
-    private static final String BOUNDARY_REGEX = "[ |\t]*(boundary)[ |\t]*=[ |\t]*['|\"]?([^\"^'^;]*)['|\"]?";
-
-    private static final Pattern BOUNDARY_PATTERN = Pattern.compile(BOUNDARY_REGEX, Pattern.CASE_INSENSITIVE);
-
-    public static class DefaultServerSocketFactory implements ServerSocketFactory {
-
-        @Override
-        public ServerSocket create() throws IOException {
-            return new ServerSocket();
-        }
-
-    }
-
-    public static class SecureServerSocketFactory implements ServerSocketFactory {
-
-        private SSLServerSocketFactory sslServerSocketFactory;
-
-        private String[] sslProtocols;
-
-        public SecureServerSocketFactory(SSLServerSocketFactory sslServerSocketFactory, String[] sslProtocols) {
-            this.sslServerSocketFactory = sslServerSocketFactory;
-            this.sslProtocols = sslProtocols;
-        }
-
-        @Override
-        public ServerSocket create() throws IOException {
-            SSLServerSocket ss = null;
-            ss = (SSLServerSocket) this.sslServerSocketFactory.createServerSocket();
-            if (this.sslProtocols != null) {
-                ss.setEnabledProtocols(this.sslProtocols);
-            } else {
-                ss.setEnabledProtocols(ss.getSupportedProtocols());
-            }
-            ss.setUseClientMode(false);
-            ss.setWantClientAuth(false);
-            ss.setNeedClientAuth(false);
-            return ss;
-        }
-
-    }
-
-    private static final String CONTENT_DISPOSITION_REGEX = "([ |\t]*Content-Disposition[ |\t]*:)(.*)";
-
-    private static final Pattern CONTENT_DISPOSITION_PATTERN = Pattern.compile(CONTENT_DISPOSITION_REGEX, Pattern.CASE_INSENSITIVE);
-
-    private static final String CONTENT_TYPE_REGEX = "([ |\t]*content-type[ |\t]*:)(.*)";
-
-    private static final Pattern CONTENT_TYPE_PATTERN = Pattern.compile(CONTENT_TYPE_REGEX, Pattern.CASE_INSENSITIVE);
-
-    private static final String CONTENT_DISPOSITION_ATTRIBUTE_REGEX = "[ |\t]*([a-zA-Z]*)[ |\t]*=[ |\t]*['|\"]([^\"^']*)['|\"]";
-
-    private static final Pattern CONTENT_DISPOSITION_ATTRIBUTE_PATTERN = Pattern.compile(CONTENT_DISPOSITION_ATTRIBUTE_REGEX);
 
     protected class HTTPSession implements IHTTPSession {
 
@@ -590,11 +462,11 @@ public abstract class NanoHTTPD {
                 // exception up the call stack.
                 throw ste;
             } catch (IOException ioe) {
-                Response resp = newFixedLengthResponse(Response.Status.INTERNAL_ERROR, NanoHTTPD.MIME_PLAINTEXT, "SERVER INTERNAL ERROR: IOException: " + ioe.getMessage());
+                Response resp = Response.newFixedLengthResponse(Response.Status.INTERNAL_ERROR, NanoHTTPD.MIME_PLAINTEXT, "SERVER INTERNAL ERROR: IOException: " + ioe.getMessage());
                 resp.send(this.outputStream);
                 Utils.safeClose(this.outputStream);
             } catch (ResponseException re) {
-                Response resp = newFixedLengthResponse(re.getStatus(), NanoHTTPD.MIME_PLAINTEXT, re.getMessage());
+                Response resp = Response.newFixedLengthResponse(re.getStatus(), NanoHTTPD.MIME_PLAINTEXT, re.getMessage());
                 resp.send(this.outputStream);
                 Utils.safeClose(this.outputStream);
             } finally {
@@ -821,11 +693,6 @@ public abstract class NanoHTTPD {
         }
     }
 
-
-
-
-
-
     public class ServerRunnable implements Runnable {
 
         private final int timeout;
@@ -909,7 +776,6 @@ public abstract class NanoHTTPD {
         return new ServerRunnable(timeout);
     }
 
-
     public final int getListeningPort() {
         return this.myServerSocket == null ? -1 : this.myServerSocket.getLocalPort();
     }
@@ -934,38 +800,9 @@ public abstract class NanoHTTPD {
         return tempFileManagerFactory;
     }
 
-
     public void makeSecure(SSLServerSocketFactory sslServerSocketFactory, String[] sslProtocols) {
         this.serverSocketFactory = new SecureServerSocketFactory(sslServerSocketFactory, sslProtocols);
     }
-
-    public static Response newChunkedResponse(IStatus status, String mimeType, InputStream data) {
-        return new Response(status, mimeType, data, -1);
-    }
-
-    public static Response newFixedLengthResponse(IStatus status, String mimeType, InputStream data, long totalBytes) {
-        return new Response(status, mimeType, data, totalBytes);
-    }
-
-    public static Response newFixedLengthResponse(IStatus status, String mimeType, String txt) {
-        if (txt == null) {
-            return newFixedLengthResponse(status, mimeType, new ByteArrayInputStream(new byte[0]), 0);
-        } else {
-            byte[] bytes;
-            try {
-                bytes = txt.getBytes("UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                NanoHTTPD.LOG.log(Level.SEVERE, "encoding problem, responding nothing", e);
-                bytes = new byte[0];
-            }
-            return newFixedLengthResponse(status, mimeType, new ByteArrayInputStream(bytes), bytes.length);
-        }
-    }
-
-    public static Response newFixedLengthResponse(String msg) {
-        return newFixedLengthResponse(Status.OK, NanoHTTPD.MIME_HTML, msg);
-    }
-
 
     public Response serve(IHTTPSession session) {
         Map<String, String> files = new HashMap<String, String>();
@@ -974,9 +811,9 @@ public abstract class NanoHTTPD {
             try {
                 session.parseBody(files);
             } catch (IOException ioe) {
-                return newFixedLengthResponse(Response.Status.INTERNAL_ERROR, NanoHTTPD.MIME_PLAINTEXT, "SERVER INTERNAL ERROR: IOException: " + ioe.getMessage());
+                return Response.newFixedLengthResponse(Response.Status.INTERNAL_ERROR, NanoHTTPD.MIME_PLAINTEXT, "SERVER INTERNAL ERROR: IOException: " + ioe.getMessage());
             } catch (ResponseException re) {
-                return newFixedLengthResponse(re.getStatus(), NanoHTTPD.MIME_PLAINTEXT, re.getMessage());
+                return Response.newFixedLengthResponse(re.getStatus(), NanoHTTPD.MIME_PLAINTEXT, re.getMessage());
             }
         }
 
@@ -985,10 +822,9 @@ public abstract class NanoHTTPD {
         return serve(session.getUri(), method, session.getHeaders(), parms, files);
     }
 
-
     @Deprecated
     public Response serve(String uri, Method method, Map<String, String> headers, Map<String, String> parms, Map<String, String> files) {
-        return newFixedLengthResponse(Response.Status.NOT_FOUND, NanoHTTPD.MIME_PLAINTEXT, "Not Found");
+        return Response.newFixedLengthResponse(Response.Status.NOT_FOUND, NanoHTTPD.MIME_PLAINTEXT, "Not Found");
     }
 
     public void setAsyncRunner(AsyncRunner asyncRunner) {
