@@ -45,7 +45,7 @@ public class CookieHandler implements Iterable<String> {
             this.queue.add(new Cookie(name, value, Cookie.getHTTPTime(expires)));
         }
 
-        public void unloadQueue(NanoHTTPD.Response response) {
+        public void unloadQueue(Response response) {
             for (Cookie cookie : this.queue) {
                 response.addHeader("Set-Cookie", cookie.getHTTPHeader());
             }

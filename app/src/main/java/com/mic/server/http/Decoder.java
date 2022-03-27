@@ -45,7 +45,7 @@ public class Decoder {
         return decoded;
     }
 
-    public static boolean useGzipWhenAccepted(NanoHTTPD.Response r) {
+    public static boolean useGzipWhenAccepted(Response r) {
         return r.getMimeType() != null && r.getMimeType().toLowerCase().contains("text/");
     }
 }
