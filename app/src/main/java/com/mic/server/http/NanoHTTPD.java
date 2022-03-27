@@ -35,7 +35,6 @@ import java.nio.charset.Charset;
 import java.security.KeyStore;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
@@ -52,14 +51,12 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPOutputStream;
-
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.TrustManagerFactory;
-
 import com.mic.server.http.NanoHTTPD.Response.IStatus;
 import com.mic.server.http.NanoHTTPD.Response.Status;
 
@@ -118,88 +115,6 @@ public abstract class NanoHTTPD {
                 safeClose(this.inputStream);
                 safeClose(this.acceptSocket);
                 NanoHTTPD.this.asyncRunner.closed(this);
-            }
-        }
-    }
-
-    public static class Cookie {
-
-        public static String getHTTPTime(int days) {
-            Calendar calendar = Calendar.getInstance();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
-            dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
-            calendar.add(Calendar.DAY_OF_MONTH, days);
-            return dateFormat.format(calendar.getTime());
-        }
-
-        private final String n, v, e;
-
-        public Cookie(String name, String value) {
-            this(name, value, 30);
-        }
-
-        public Cookie(String name, String value, int numDays) {
-            this.n = name;
-            this.v = value;
-            this.e = getHTTPTime(numDays);
-        }
-
-        public Cookie(String name, String value, String expires) {
-            this.n = name;
-            this.v = value;
-            this.e = expires;
-        }
-
-        public String getHTTPHeader() {
-            String fmt = "%s=%s; expires=%s";
-            return String.format(fmt, this.n, this.v, this.e);
-        }
-    }
-
-
-    public class CookieHandler implements Iterable<String> {
-
-        private final HashMap<String, String> cookies = new HashMap<String, String>();
-
-        private final ArrayList<Cookie> queue = new ArrayList<Cookie>();
-
-        public CookieHandler(Map<String, String> httpHeaders) {
-            String raw = httpHeaders.get("cookie");
-            if (raw != null) {
-                String[] tokens = raw.split(";");
-                for (String token : tokens) {
-                    String[] data = token.trim().split("=");
-                    if (data.length == 2) {
-                        this.cookies.put(data[0], data[1]);
-                    }
-                }
-            }
-        }
-
-        public void delete(String name) {
-            set(name, "-delete-", -30);
-        }
-
-        @Override
-        public Iterator<String> iterator() {
-            return this.cookies.keySet().iterator();
-        }
-
-        public String read(String name) {
-            return this.cookies.get(name);
-        }
-
-        public void set(Cookie cookie) {
-            this.queue.add(cookie);
-        }
-
-        public void set(String name, String value, int expires) {
-            this.queue.add(new Cookie(name, value, Cookie.getHTTPTime(expires)));
-        }
-
-        public void unloadQueue(Response response) {
-            for (Cookie cookie : this.queue) {
-                response.addHeader("Set-Cookie", cookie.getHTTPHeader());
             }
         }
     }
