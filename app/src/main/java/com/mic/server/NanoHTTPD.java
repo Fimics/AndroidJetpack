@@ -66,9 +66,6 @@ import com.mic.server.NanoHTTPD.Response.Status;
 
 public abstract class NanoHTTPD {
 
-    /**
-     * Pluggable strategy for asynchronously executing requests.
-     */
     public interface AsyncRunner {
 
         void closeAll();
@@ -78,9 +75,6 @@ public abstract class NanoHTTPD {
         void exec(ClientHandler code);
     }
 
-    /**
-     * The runnable that will be used for every new client connection.
-     */
     public class ClientHandler implements Runnable {
 
         private final InputStream inputStream;
@@ -161,13 +155,7 @@ public abstract class NanoHTTPD {
         }
     }
 
-    /**
-     * Provides rudimentary support for cookies. Doesn't support 'path',
-     * 'secure' nor 'httpOnly'. Feel free to improve it and/or add unsupported
-     * features.
-     * 
-     * @author LordFokas
-     */
+
     public class CookieHandler implements Iterable<String> {
 
         private final HashMap<String, String> cookies = new HashMap<String, String>();
@@ -187,13 +175,6 @@ public abstract class NanoHTTPD {
             }
         }
 
-        /**
-         * Set a cookie with an expiration date from a month ago, effectively
-         * deleting it on the client side.
-         * 
-         * @param name
-         *            The cookie name.
-         */
         public void delete(String name) {
             set(name, "-delete-", -30);
         }
@@ -203,13 +184,6 @@ public abstract class NanoHTTPD {
             return this.cookies.keySet().iterator();
         }
 
-        /**
-         * Read a cookie from the HTTP Headers.
-         * 
-         * @param name
-         *            The cookie's name.
-         * @return The cookie's value if it exists, null otherwise.
-         */
         public String read(String name) {
             return this.cookies.get(name);
         }
@@ -218,28 +192,10 @@ public abstract class NanoHTTPD {
             this.queue.add(cookie);
         }
 
-        /**
-         * Sets a cookie.
-         * 
-         * @param name
-         *            The cookie's name.
-         * @param value
-         *            The cookie's value.
-         * @param expires
-         *            How many days until the cookie expires.
-         */
         public void set(String name, String value, int expires) {
             this.queue.add(new Cookie(name, value, Cookie.getHTTPTime(expires)));
         }
 
-        /**
-         * Internally used by the webserver to add all queued cookies into the
-         * Response's HTTP Headers.
-         * 
-         * @param response
-         *            The Response object to which headers the queued cookies
-         *            will be added.
-         */
         public void unloadQueue(Response response) {
             for (Cookie cookie : this.queue) {
                 response.addHeader("Set-Cookie", cookie.getHTTPHeader());
@@ -247,24 +203,12 @@ public abstract class NanoHTTPD {
         }
     }
 
-    /**
-     * Default threading strategy for NanoHTTPD.
-     * <p/>
-     * <p>
-     * By default, the server spawns a new Thread for every incoming request.
-     * These are set to <i>daemon</i> status, and named according to the request
-     * number. The name is useful when profiling the application.
-     * </p>
-     */
     public static class DefaultAsyncRunner implements AsyncRunner {
 
         private long requestCount;
 
         private final List<ClientHandler> running = Collections.synchronizedList(new ArrayList<NanoHTTPD.ClientHandler>());
 
-        /**
-         * @return a list with currently running clients.
-         */
         public List<ClientHandler> getRunning() {
             return running;
         }
@@ -293,14 +237,6 @@ public abstract class NanoHTTPD {
         }
     }
 
-    /**
-     * Default strategy for creating and cleaning up temporary files.
-     * <p/>
-     * <p>
-     * By default, files are created by <code>File.createTempFile()</code> in
-     * the directory specified.
-     * </p>
-     */
     public static class DefaultTempFile implements TempFile {
 
         private final File file;
@@ -331,16 +267,6 @@ public abstract class NanoHTTPD {
         }
     }
 
-    /**
-     * Default strategy for creating and cleaning up temporary files.
-     * <p/>
-     * <p>
-     * This class stores its files in the standard location (that is, wherever
-     * <code>java.io.tmpdir</code> points to). Files are added to an internal
-     * list, and deleted when no longer needed (that is, when
-     * <code>clear()</code> is invoked at the end of processing a request).
-     * </p>
-     */
     public static class DefaultTempFileManager implements TempFileManager {
 
         private final File tmpdir;
@@ -375,9 +301,7 @@ public abstract class NanoHTTPD {
         }
     }
 
-    /**
-     * Default strategy for creating and cleaning up temporary files.
-     */
+
     private class DefaultTempFileManagerFactory implements TempFileManagerFactory {
 
         @Override
@@ -394,9 +318,6 @@ public abstract class NanoHTTPD {
 
     private static final Pattern BOUNDARY_PATTERN = Pattern.compile(BOUNDARY_REGEX, Pattern.CASE_INSENSITIVE);
 
-    /**
-     * Creates a normal ServerSocket for TCP connections
-     */
     public static class DefaultServerSocketFactory implements ServerSocketFactory {
 
         @Override
@@ -406,9 +327,6 @@ public abstract class NanoHTTPD {
 
     }
 
-    /**
-     * Creates a new SSLServerSocket
-     */
     public static class SecureServerSocketFactory implements ServerSocketFactory {
 
         private SSLServerSocketFactory sslServerSocketFactory;
@@ -499,9 +417,6 @@ public abstract class NanoHTTPD {
             this.headers = new HashMap<String, String>();
         }
 
-        /**
-         * Decodes the sent headers and loads the data into Key/value pairs
-         */
         private void decodeHeader(BufferedReader in, Map<String, String> pre, Map<String, String> parms, Map<String, String> headers) throws ResponseException {
             try {
                 // Read the request line
@@ -557,9 +472,6 @@ public abstract class NanoHTTPD {
             }
         }
 
-        /**
-         * Decodes the Multipart Body data and put it into Key/Value pairs.
-         */
         private void decodeMultipartFormData(String boundary, String encoding, ByteBuffer fbuf, Map<String, String> parms, Map<String, String> files) throws ResponseException {
             try {
                 int[] boundary_idxs = getBoundaryPositions(fbuf, boundary.getBytes());
@@ -653,12 +565,6 @@ public abstract class NanoHTTPD {
             return ++index;
         }
 
-        /**
-         * Decodes parameters in percent-encoded URI-format ( e.g.
-         * "name=Jack%20Daniels&pass=Single%20Malt" ) and adds them to given
-         * Map. NOTE: this doesn't support multiple identical keys due to the
-         * simplicity of Map.
-         */
         private void decodeParms(String parms, Map<String, String> p) {
             if (parms == null) {
                 this.queryParameterString = "";
@@ -795,10 +701,6 @@ public abstract class NanoHTTPD {
             }
         }
 
-        /**
-         * Find byte index separating header from body. It must be the last byte
-         * of the first two sequential new lines.
-         */
         private int findHeaderEnd(final byte[] buf, int rlen) {
             int splitbyte = 0;
             while (splitbyte + 1 < rlen) {
@@ -817,11 +719,6 @@ public abstract class NanoHTTPD {
             return 0;
         }
 
-        /**
-         * Find the byte positions where multipart boundaries start. This reads
-         * a large block at a time and uses a temporary buffer to optimize
-         * (memory mapped) file access.
-         */
         private int[] getBoundaryPositions(ByteBuffer b, byte[] boundary) {
             int[] res = new int[0];
             if (b.remaining() < boundary.length) {
@@ -907,10 +804,6 @@ public abstract class NanoHTTPD {
             return this.uri;
         }
 
-        /**
-         * Deduce body length in bytes. Either from "content-length" header or
-         * read bytes.
-         */
         public long getBodySize() {
             if (this.headers.containsKey("content-length")) {
                 return Long.parseLong(this.headers.get("content-length"));
@@ -1004,10 +897,6 @@ public abstract class NanoHTTPD {
             return matcher.find() ? matcher.group(2) : defaultValue;
         }
 
-        /**
-         * Retrieves the content of a sent file and saves it to a temporary
-         * file. The full path to the saved file is returned.
-         */
         private String saveTmpFile(ByteBuffer b, int offset, int len, String filename_hint) {
             String path = "";
             if (len > 0) {
@@ -1030,10 +919,7 @@ public abstract class NanoHTTPD {
         }
     }
 
-    /**
-     * Handles one session, i.e. parses the HTTP request and returns the
-     * response.
-     */
+
     public interface IHTTPSession {
 
         void execute() throws IOException;
@@ -1050,24 +936,11 @@ public abstract class NanoHTTPD {
 
         String getQueryParameterString();
 
-        /**
-         * @return the path part of the URL.
-         */
         String getUri();
 
-        /**
-         * Adds the files in the request body to the files map.
-         * 
-         * @param files
-         *            map to modify
-         */
         void parseBody(Map<String, String> files) throws IOException, ResponseException;
     }
 
-    /**
-     * HTTP Request methods, with the ability to decode a <code>String</code>
-     * back to its enum value.
-     */
     public enum Method {
         GET,
         PUT,
@@ -1089,9 +962,6 @@ public abstract class NanoHTTPD {
         }
     }
 
-    /**
-     * HTTP response. Return one of these from serve().
-     */
     public static class Response implements Closeable {
 
         public interface IStatus {
@@ -1101,9 +971,7 @@ public abstract class NanoHTTPD {
             int getRequestStatus();
         }
 
-        /**
-         * Some HTTP response status codes
-         */
+
         public enum Status implements IStatus {
             SWITCH_PROTOCOL(101, "Switching Protocols"),
             OK(200, "OK"),
@@ -1147,11 +1015,6 @@ public abstract class NanoHTTPD {
 
         }
 
-        /**
-         * Output stream that will automatically send every write to the wrapped
-         * OutputStream according to chunked transfer:
-         * http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.6.1
-         */
         private static class ChunkedOutputStream extends FilterOutputStream {
 
             public ChunkedOutputStream(OutputStream out) {
@@ -1186,45 +1049,25 @@ public abstract class NanoHTTPD {
 
         }
 
-        /**
-         * HTTP status code after processing, e.g. "200 OK", Status.OK
-         */
+
         private IStatus status;
 
-        /**
-         * MIME type of content, e.g. "text/html"
-         */
         private String mimeType;
 
-        /**
-         * Data of the response, may be null.
-         */
         private InputStream data;
 
         private long contentLength;
 
-        /**
-         * Headers for the HTTP response. Use addHeader() to add lines.
-         */
         private final Map<String, String> header = new HashMap<String, String>();
 
-        /**
-         * The request method that spawned this response.
-         */
         private Method requestMethod;
 
-        /**
-         * Use chunkedTransfer
-         */
         private boolean chunkedTransfer;
 
         private boolean encodeAsGzip;
 
         private boolean keepAlive;
 
-        /**
-         * Creates a fixed length response if totalBytes>=0, otherwise chunked.
-         */
         protected Response(IStatus status, String mimeType, InputStream data, long totalBytes) {
             this.status = status;
             this.mimeType = mimeType;
@@ -1246,9 +1089,6 @@ public abstract class NanoHTTPD {
             }
         }
 
-        /**
-         * Adds given line to the header.
-         */
         public void addHeader(String name, String value) {
             this.header.put(name, value);
         }
@@ -1294,9 +1134,6 @@ public abstract class NanoHTTPD {
             return alreadySent;
         }
 
-        /**
-         * Sends given response to the socket.
-         */
         protected void send(OutputStream outputStream) {
             String mime = this.mimeType;
             SimpleDateFormat gmtFrmt = new SimpleDateFormat("E, d MMM yyyy HH:mm:ss 'GMT'", Locale.US);
@@ -1373,19 +1210,6 @@ public abstract class NanoHTTPD {
             }
         }
 
-        /**
-         * Sends the body to the specified OutputStream. The pending parameter
-         * limits the maximum amounts of bytes sent unless it is -1, in which
-         * case everything is sent.
-         * 
-         * @param outputStream
-         *            the OutputStream to send data to
-         * @param pending
-         *            -1 to send everything, otherwise sets a max limit to the
-         *            number of bytes sent
-         * @throws IOException
-         *             if something goes wrong while sending the data.
-         */
         private void sendBody(OutputStream outputStream, long pending) throws IOException {
             long BUFFER_SIZE = 16 * 1024;
             byte[] buff = new byte[(int) BUFFER_SIZE];
@@ -1460,9 +1284,6 @@ public abstract class NanoHTTPD {
         }
     }
 
-    /**
-     * The runnable that will be used for the main listening thread.
-     */
     public class ServerRunnable implements Runnable {
 
         private final int timeout;
@@ -1499,14 +1320,7 @@ public abstract class NanoHTTPD {
         }
     }
 
-    /**
-     * A temp file.
-     * <p/>
-     * <p>
-     * Temp files are responsible for managing the actual temporary storage and
-     * cleaning themselves up when no longer needed.
-     * </p>
-     */
+
     public interface TempFile {
 
         public void delete() throws Exception;
@@ -1516,14 +1330,6 @@ public abstract class NanoHTTPD {
         public OutputStream open() throws Exception;
     }
 
-    /**
-     * Temp file manager.
-     * <p/>
-     * <p>
-     * Temp file managers are created 1-to-1 with incoming requests, to create
-     * and cleanup temporary files created as a result of handling the request.
-     * </p>
-     */
     public interface TempFileManager {
 
         void clear();
@@ -1531,54 +1337,28 @@ public abstract class NanoHTTPD {
         public TempFile createTempFile(String filename_hint) throws Exception;
     }
 
-    /**
-     * Factory to create temp file managers.
-     */
     public interface TempFileManagerFactory {
 
         public TempFileManager create();
     }
 
-    /**
-     * Factory to create ServerSocketFactories.
-     */
+
     public interface ServerSocketFactory {
 
         public ServerSocket create() throws IOException;
 
     }
 
-    /**
-     * Maximum time to wait on Socket.getInputStream().read() (in milliseconds)
-     * This is required as the Keep-Alive HTTP connections would otherwise block
-     * the socket reading thread forever (or as long the browser is open).
-     */
     public static final int SOCKET_READ_TIMEOUT = 5000;
 
-    /**
-     * Common MIME type for dynamic content: plain text
-     */
     public static final String MIME_PLAINTEXT = "text/plain";
 
-    /**
-     * Common MIME type for dynamic content: html
-     */
     public static final String MIME_HTML = "text/html";
 
-    /**
-     * Pseudo-Parameter to use to store the actual query string in the
-     * parameters map for later re-processing.
-     */
     private static final String QUERY_STRING_PARAMETER = "NanoHttpd.QUERY_STRING";
 
-    /**
-     * logger to log to.
-     */
     private static final Logger LOG = Logger.getLogger(NanoHTTPD.class.getName());
 
-    /**
-     * Hashtable mapping (String)FILENAME_EXTENSION -> (String)MIME_TYPE
-     */
     protected static Map<String, String> MIME_TYPES;
 
     public static Map<String, String> mimeTypes() {
@@ -1615,11 +1395,6 @@ public abstract class NanoHTTPD {
         }
     };
 
-    /**
-     * Creates an SSLSocketFactory for HTTPS. Pass a loaded KeyStore and an
-     * array of loaded KeyManagers. These objects must properly
-     * loaded/initialized by the caller.
-     */
     public static SSLServerSocketFactory makeSSLSocketFactory(KeyStore loadedKeyStore, KeyManager[] keyManagers) throws IOException {
         SSLServerSocketFactory res = null;
         try {
@@ -1634,11 +1409,6 @@ public abstract class NanoHTTPD {
         return res;
     }
 
-    /**
-     * Creates an SSLSocketFactory for HTTPS. Pass a loaded KeyStore and a
-     * loaded KeyManagerFactory. These objects must properly loaded/initialized
-     * by the caller.
-     */
     public static SSLServerSocketFactory makeSSLSocketFactory(KeyStore loadedKeyStore, KeyManagerFactory loadedKeyFactory) throws IOException {
         try {
             return makeSSLSocketFactory(loadedKeyStore, loadedKeyFactory.getKeyManagers());
@@ -1647,10 +1417,6 @@ public abstract class NanoHTTPD {
         }
     }
 
-    /**
-     * Creates an SSLSocketFactory for HTTPS. Pass a KeyStore resource with your
-     * certificate and passphrase
-     */
     public static SSLServerSocketFactory makeSSLSocketFactory(String keyAndTrustStoreClasspathPath, char[] passphrase) throws IOException {
         try {
             KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
@@ -1664,13 +1430,6 @@ public abstract class NanoHTTPD {
         }
     }
 
-    /**
-     * Get MIME type from file name extension, if possible
-     * 
-     * @param uri
-     *            the string representing a file
-     * @return the connected mime/type
-     */
     public static String getMimeTypeForFile(String uri) {
         int dot = uri.lastIndexOf('.');
         String mime = null;
@@ -1708,34 +1467,14 @@ public abstract class NanoHTTPD {
 
     private Thread myThread;
 
-    /**
-     * Pluggable strategy for asynchronously executing requests.
-     */
     protected AsyncRunner asyncRunner;
 
-    /**
-     * Pluggable strategy for creating and cleaning up temporary files.
-     */
     private TempFileManagerFactory tempFileManagerFactory;
 
-    /**
-     * Constructs an HTTP server on given port.
-     */
     public NanoHTTPD(int port) {
         this(null, port);
     }
 
-    // -------------------------------------------------------------------------------
-    // //
-    //
-    // Threading Strategy.
-    //
-    // -------------------------------------------------------------------------------
-    // //
-
-    /**
-     * Constructs an HTTP server on given hostname and port.
-     */
     public NanoHTTPD(String hostname, int port) {
         this.hostname = hostname;
         this.myPort = port;
@@ -1743,67 +1482,22 @@ public abstract class NanoHTTPD {
         setAsyncRunner(new DefaultAsyncRunner());
     }
 
-    /**
-     * Forcibly closes all connections that are open.
-     */
     public synchronized void closeAllConnections() {
         stop();
     }
 
-    /**
-     * create a instance of the client handler, subclasses can return a subclass
-     * of the ClientHandler.
-     * 
-     * @param finalAccept
-     *            the socket the cleint is connected to
-     * @param inputStream
-     *            the input stream
-     * @return the client handler
-     */
     protected ClientHandler createClientHandler(final Socket finalAccept, final InputStream inputStream) {
         return new ClientHandler(inputStream, finalAccept);
     }
 
-    /**
-     * Instantiate the server runnable, can be overwritten by subclasses to
-     * provide a subclass of the ServerRunnable.
-     * 
-     * @param timeout
-     *            the socet timeout to use.
-     * @return the server runnable.
-     */
     protected ServerRunnable createServerRunnable(final int timeout) {
         return new ServerRunnable(timeout);
     }
 
-    /**
-     * Decode parameters from a URL, handing the case where a single parameter
-     * name might have been supplied several times, by return lists of values.
-     * In general these lists will contain a single element.
-     * 
-     * @param parms
-     *            original <b>NanoHTTPD</b> parameters values, as passed to the
-     *            <code>serve()</code> method.
-     * @return a map of <code>String</code> (parameter name) to
-     *         <code>List&lt;String&gt;</code> (a list of the values supplied).
-     */
     protected static Map<String, List<String>> decodeParameters(Map<String, String> parms) {
         return decodeParameters(parms.get(NanoHTTPD.QUERY_STRING_PARAMETER));
     }
 
-    // -------------------------------------------------------------------------------
-    // //
-
-    /**
-     * Decode parameters from a URL, handing the case where a single parameter
-     * name might have been supplied several times, by return lists of values.
-     * In general these lists will contain a single element.
-     * 
-     * @param queryString
-     *            a query string pulled from the URL.
-     * @return a map of <code>String</code> (parameter name) to
-     *         <code>List&lt;String&gt;</code> (a list of the values supplied).
-     */
     protected static Map<String, List<String>> decodeParameters(String queryString) {
         Map<String, List<String>> parms = new HashMap<String, List<String>>();
         if (queryString != null) {
@@ -1824,14 +1518,6 @@ public abstract class NanoHTTPD {
         return parms;
     }
 
-    /**
-     * Decode percent encoded <code>String</code> values.
-     * 
-     * @param str
-     *            the percent encoded <code>String</code>
-     * @return expanded form of the input, for example "foo%20bar" becomes
-     *         "foo bar"
-     */
     protected static String decodePercent(String str) {
         String decoded = null;
         try {
@@ -1842,11 +1528,6 @@ public abstract class NanoHTTPD {
         return decoded;
     }
 
-    /**
-     * @return true if the gzip compression should be used if the client
-     *         accespts it. Default this option is on for text content and off
-     *         for everything. Override this for custom semantics.
-     */
     protected boolean useGzipWhenAccepted(Response r) {
         return r.getMimeType() != null && r.getMimeType().toLowerCase().contains("text/");
     }
@@ -1875,30 +1556,19 @@ public abstract class NanoHTTPD {
         return tempFileManagerFactory;
     }
 
-    /**
-     * Call before start() to serve over HTTPS instead of HTTP
-     */
+
     public void makeSecure(SSLServerSocketFactory sslServerSocketFactory, String[] sslProtocols) {
         this.serverSocketFactory = new SecureServerSocketFactory(sslServerSocketFactory, sslProtocols);
     }
 
-    /**
-     * Create a response with unknown length (using HTTP 1.1 chunking).
-     */
     public static Response newChunkedResponse(IStatus status, String mimeType, InputStream data) {
         return new Response(status, mimeType, data, -1);
     }
 
-    /**
-     * Create a response with known length.
-     */
     public static Response newFixedLengthResponse(IStatus status, String mimeType, InputStream data, long totalBytes) {
         return new Response(status, mimeType, data, totalBytes);
     }
 
-    /**
-     * Create a text response with known length.
-     */
     public static Response newFixedLengthResponse(IStatus status, String mimeType, String txt) {
         if (txt == null) {
             return newFixedLengthResponse(status, mimeType, new ByteArrayInputStream(new byte[0]), 0);
@@ -1914,23 +1584,11 @@ public abstract class NanoHTTPD {
         }
     }
 
-    /**
-     * Create a text response with known length.
-     */
     public static Response newFixedLengthResponse(String msg) {
         return newFixedLengthResponse(Status.OK, NanoHTTPD.MIME_HTML, msg);
     }
 
-    /**
-     * Override this to customize the server.
-     * <p/>
-     * <p/>
-     * (By default, this returns a 404 "Not Found" plain text error response.)
-     * 
-     * @param session
-     *            The HTTP session
-     * @return HTTP response, see class Response for details
-     */
+
     public Response serve(IHTTPSession session) {
         Map<String, String> files = new HashMap<String, String>();
         Method method = session.getMethod();
@@ -1949,76 +1607,28 @@ public abstract class NanoHTTPD {
         return serve(session.getUri(), method, session.getHeaders(), parms, files);
     }
 
-    /**
-     * Override this to customize the server.
-     * <p/>
-     * <p/>
-     * (By default, this returns a 404 "Not Found" plain text error response.)
-     * 
-     * @param uri
-     *            Percent-decoded URI without parameters, for example
-     *            "/index.cgi"
-     * @param method
-     *            "GET", "POST" etc.
-     * @param parms
-     *            Parsed, percent decoded parameters from URI and, in case of
-     *            POST, data.
-     * @param headers
-     *            Header entries, percent decoded
-     * @return HTTP response, see class Response for details
-     */
+
     @Deprecated
     public Response serve(String uri, Method method, Map<String, String> headers, Map<String, String> parms, Map<String, String> files) {
         return newFixedLengthResponse(Response.Status.NOT_FOUND, NanoHTTPD.MIME_PLAINTEXT, "Not Found");
     }
 
-    /**
-     * Pluggable strategy for asynchronously executing requests.
-     * 
-     * @param asyncRunner
-     *            new strategy for handling threads.
-     */
     public void setAsyncRunner(AsyncRunner asyncRunner) {
         this.asyncRunner = asyncRunner;
     }
 
-    /**
-     * Pluggable strategy for creating and cleaning up temporary files.
-     * 
-     * @param tempFileManagerFactory
-     *            new strategy for handling temp files.
-     */
     public void setTempFileManagerFactory(TempFileManagerFactory tempFileManagerFactory) {
         this.tempFileManagerFactory = tempFileManagerFactory;
     }
 
-    /**
-     * Start the server.
-     * 
-     * @throws IOException
-     *             if the socket is in use.
-     */
     public void start() throws IOException {
         start(NanoHTTPD.SOCKET_READ_TIMEOUT);
     }
 
-    /**
-     * Starts the server (in setDaemon(true) mode).
-     */
     public void start(final int timeout) throws IOException {
         start(timeout, true);
     }
 
-    /**
-     * Start the server.
-     * 
-     * @param timeout
-     *            timeout to use for socket connections.
-     * @param daemon
-     *            start the thread daemon or not.
-     * @throws IOException
-     *             if the socket is in use.
-     */
     public void start(final int timeout, boolean daemon) throws IOException {
         this.myServerSocket = this.getServerSocketFactory().create();
         this.myServerSocket.setReuseAddress(true);
@@ -2042,9 +1652,6 @@ public abstract class NanoHTTPD {
         }
     }
 
-    /**
-     * Stop the server.
-     */
     public void stop() {
         try {
             safeClose(this.myServerSocket);

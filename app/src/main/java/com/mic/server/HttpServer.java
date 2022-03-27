@@ -27,13 +27,12 @@ public class HttpServer {
         this.context = context;
     }
 
-    protected void init() {
-
+    public void init() {
         getIpAccess();
         if (isConnectedInWifi()) {
             if (!isStarted && startServer()) {
                 isStarted = true;
-            } else if (stopAndroidWebServer()) {
+            } else if (stopServer()) {
                 isStarted = false;
             }
         }
@@ -42,7 +41,7 @@ public class HttpServer {
     }
 
     //region Start And Stop AndroidWebServer
-    private boolean startServer() {
+    public boolean startServer() {
         if (!isStarted) {
             int port = getPortFromEditText();
             try {
@@ -60,7 +59,7 @@ public class HttpServer {
         return false;
     }
 
-    private boolean stopAndroidWebServer() {
+    public boolean stopServer() {
         if (isStarted && androidWebServer != null) {
             androidWebServer.stop();
             return true;
@@ -86,7 +85,9 @@ public class HttpServer {
         WifiManager wifiManager = (WifiManager) context.getSystemService(WIFI_SERVICE);
         int ipAddress = wifiManager.getConnectionInfo().getIpAddress();
         final String formatedIpAddress = String.format("%d.%d.%d.%d", (ipAddress & 0xff), (ipAddress >> 8 & 0xff), (ipAddress >> 16 & 0xff), (ipAddress >> 24 & 0xff));
-        return "http://" + formatedIpAddress + ":";
+        String host="http://" + formatedIpAddress + ":";
+        Log.d(TAG,"host-->"+host);
+        return host;
     }
 
     private int getPortFromEditText() {
@@ -104,8 +105,8 @@ public class HttpServer {
     }
     //endregion
 
-    protected void onDestroy() {
-        stopAndroidWebServer();
+    protected void destroy() {
+        stopServer();
         isStarted = false;
         if (broadcastReceiverNetworkState != null) {
             context.unregisterReceiver(broadcastReceiverNetworkState);

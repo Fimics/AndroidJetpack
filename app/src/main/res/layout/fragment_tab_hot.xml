@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".local.TabDocFragment"
+    android:orientation="vertical"
+    >
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_server"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="测试Server"
+        android:textSize="20dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_assets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="测试Assets"
+        android:textSize="20dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_webview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WebView测试"
+        android:textSize="20dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_okhttp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="测试Okhttp"
+        android:textSize="20dp"
+        />
+
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

@@ -59,4 +59,6 @@ dependencies {
     // Jetpack Compose Integration
     implementation "androidx.navigation:navigation-compose:$nav_version"
 
+    implementation "com.squareup.okhttp3:okhttp:4.9.0"
+
 }
