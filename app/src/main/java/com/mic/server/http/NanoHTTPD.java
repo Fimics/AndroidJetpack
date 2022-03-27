@@ -64,6 +64,7 @@ import com.mic.server.http.NanoHTTPD.Response.IStatus;
 import com.mic.server.http.NanoHTTPD.Response.Status;
 
 
+@SuppressWarnings("all")
 public abstract class NanoHTTPD {
 
     public interface AsyncRunner {
@@ -939,27 +940,6 @@ public abstract class NanoHTTPD {
         String getUri();
 
         void parseBody(Map<String, String> files) throws IOException, ResponseException;
-    }
-
-    public enum Method {
-        GET,
-        PUT,
-        POST,
-        DELETE,
-        HEAD,
-        OPTIONS,
-        TRACE,
-        CONNECT,
-        PATCH;
-
-        static Method lookup(String method) {
-            for (Method m : Method.values()) {
-                if (m.toString().equalsIgnoreCase(method)) {
-                    return m;
-                }
-            }
-            return null;
-        }
     }
 
     public static class Response implements Closeable {
