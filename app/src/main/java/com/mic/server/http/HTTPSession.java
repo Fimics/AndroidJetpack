@@ -1,5 +1,7 @@
 package com.mic.server.http;
 
+import static com.mic.server.http.Constant.MIME_PLAINTEXT;
+import static com.mic.server.http.Constant.QUERY_STRING_PARAMETER;
 import static com.mic.server.http.PatternConst.BOUNDARY_PATTERN;
 import static com.mic.server.http.PatternConst.CHARSET_PATTERN;
 import static com.mic.server.http.PatternConst.CONTENT_DISPOSITION_ATTRIBUTE_PATTERN;
@@ -353,11 +355,11 @@ public class HTTPSession implements IHTTPSession {
             // exception up the call stack.
             throw ste;
         } catch (IOException ioe) {
-            Response resp = Response.newFixedLengthResponse(Response.Status.INTERNAL_ERROR, NanoHTTPD.MIME_PLAINTEXT, "SERVER INTERNAL ERROR: IOException: " + ioe.getMessage());
+            Response resp = Response.newFixedLengthResponse(Response.Status.INTERNAL_ERROR, MIME_PLAINTEXT, "SERVER INTERNAL ERROR: IOException: " + ioe.getMessage());
             resp.send(this.outputStream);
             Utils.safeClose(this.outputStream);
         } catch (ResponseException re) {
-            Response resp = Response.newFixedLengthResponse(re.getStatus(), NanoHTTPD.MIME_PLAINTEXT, re.getMessage());
+            Response resp = Response.newFixedLengthResponse(re.getStatus(), MIME_PLAINTEXT, re.getMessage());
             resp.send(this.outputStream);
             Utils.safeClose(this.outputStream);
         } finally {
@@ -590,19 +592,19 @@ public class HTTPSession implements IHTTPSession {
             try {
                 session.parseBody(files);
             } catch (IOException ioe) {
-                return Response.newFixedLengthResponse(Response.Status.INTERNAL_ERROR, NanoHTTPD.MIME_PLAINTEXT, "SERVER INTERNAL ERROR: IOException: " + ioe.getMessage());
+                return Response.newFixedLengthResponse(Response.Status.INTERNAL_ERROR, MIME_PLAINTEXT, "SERVER INTERNAL ERROR: IOException: " + ioe.getMessage());
             } catch (ResponseException re) {
-                return Response.newFixedLengthResponse(re.getStatus(), NanoHTTPD.MIME_PLAINTEXT, re.getMessage());
+                return Response.newFixedLengthResponse(re.getStatus(), MIME_PLAINTEXT, re.getMessage());
             }
         }
 
         Map<String, String> parms = session.getParms();
-        parms.put(NanoHTTPD.QUERY_STRING_PARAMETER, session.getQueryParameterString());
+        parms.put(QUERY_STRING_PARAMETER, session.getQueryParameterString());
         return serve(session.getUri(), method, session.getHeaders(), parms, files);
     }
 
     @Deprecated
     public Response serve(String uri, Method method, Map<String, String> headers, Map<String, String> parms, Map<String, String> files) {
-        return Response.newFixedLengthResponse(Response.Status.NOT_FOUND, NanoHTTPD.MIME_PLAINTEXT, "Not Found");
+        return Response.newFixedLengthResponse(Response.Status.NOT_FOUND, MIME_PLAINTEXT, "Not Found");
     }
 }

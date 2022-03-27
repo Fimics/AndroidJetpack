@@ -1,5 +1,7 @@
 package com.mic.server.http;
 
+import static com.mic.server.http.Constant.QUERY_STRING_PARAMETER;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -12,7 +14,7 @@ import java.util.logging.Level;
 public class Decoder {
 
     protected static Map<String, List<String>> decodeParameters(Map<String, String> parms) {
-        return decodeParameters(parms.get(NanoHTTPD.QUERY_STRING_PARAMETER));
+        return decodeParameters(parms.get(QUERY_STRING_PARAMETER));
     }
 
     protected static Map<String, List<String>> decodeParameters(String queryString) {

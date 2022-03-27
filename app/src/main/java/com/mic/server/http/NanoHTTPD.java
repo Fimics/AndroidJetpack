@@ -1,48 +1,44 @@
 package com.mic.server.http;
 
-import static com.mic.server.http.PatternConst.BOUNDARY_PATTERN;
-import static com.mic.server.http.PatternConst.CHARSET_PATTERN;
-import static com.mic.server.http.PatternConst.CONTENT_DISPOSITION_ATTRIBUTE_PATTERN;
-import static com.mic.server.http.PatternConst.CONTENT_DISPOSITION_PATTERN;
-import static com.mic.server.http.PatternConst.CONTENT_TYPE_PATTERN;
+import static com.mic.server.http.Constant.SOCKET_READ_TIMEOUT;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutput;
-import java.io.DataOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.RandomAccessFile;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.net.ssl.SSLServerSocketFactory;
 
+import javax.net.ssl.SSLServerSocketFactory;
 
 @SuppressWarnings("all")
 public abstract class NanoHTTPD {
+    public static final Logger LOG = Logger.getLogger(NanoHTTPD.class.getName());
+    private final String hostname;
+    private final int myPort;
+    private volatile ServerSocket myServerSocket;
+    private ServerSocketFactory serverSocketFactory = new DefaultServerSocketFactory();
+    private Thread myThread;
+    protected AsyncRunner asyncRunner;
+    private TempFileManagerFactory tempFileManagerFactory;
+
+    public NanoHTTPD(int port) {
+        this(null, port);
+    }
+
+    public NanoHTTPD(String hostname, int port) {
+        this.hostname = hostname;
+        this.myPort = port;
+        setTempFileManagerFactory(new DefaultTempFileManagerFactory());
+        setAsyncRunner(new DefaultAsyncRunner());
+    }
 
     public interface AsyncRunner {
 
@@ -169,41 +165,6 @@ public abstract class NanoHTTPD {
         }
     }
 
-    public static final int SOCKET_READ_TIMEOUT = 5000;
-
-    public static final String MIME_PLAINTEXT = "text/plain";
-
-    public static final String MIME_HTML = "text/html";
-
-    public static final String QUERY_STRING_PARAMETER = "NanoHttpd.QUERY_STRING";
-
-    public static final Logger LOG = Logger.getLogger(NanoHTTPD.class.getName());
-
-    private final String hostname;
-
-    private final int myPort;
-
-    private volatile ServerSocket myServerSocket;
-
-    private ServerSocketFactory serverSocketFactory = new DefaultServerSocketFactory();
-
-    private Thread myThread;
-
-    protected AsyncRunner asyncRunner;
-
-    private TempFileManagerFactory tempFileManagerFactory;
-
-    public NanoHTTPD(int port) {
-        this(null, port);
-    }
-
-    public NanoHTTPD(String hostname, int port) {
-        this.hostname = hostname;
-        this.myPort = port;
-        setTempFileManagerFactory(new DefaultTempFileManagerFactory());
-        setAsyncRunner(new DefaultAsyncRunner());
-    }
-
     public synchronized void closeAllConnections() {
         stop();
     }
@@ -244,7 +205,6 @@ public abstract class NanoHTTPD {
         this.serverSocketFactory = new SecureServerSocketFactory(sslServerSocketFactory, sslProtocols);
     }
 
-
     public void setAsyncRunner(AsyncRunner asyncRunner) {
         this.asyncRunner = asyncRunner;
     }
@@ -254,7 +214,7 @@ public abstract class NanoHTTPD {
     }
 
     public void start() throws IOException {
-        start(NanoHTTPD.SOCKET_READ_TIMEOUT);
+        start(SOCKET_READ_TIMEOUT);
     }
 
     public void start(final int timeout) throws IOException {

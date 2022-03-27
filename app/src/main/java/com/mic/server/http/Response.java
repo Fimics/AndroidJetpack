@@ -1,5 +1,7 @@
 package com.mic.server.http;
 
+import static com.mic.server.http.Constant.MIME_HTML;
+
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.Closeable;
@@ -336,6 +338,6 @@ public class Response implements Closeable {
     }
 
     public static Response newFixedLengthResponse(String msg) {
-        return newFixedLengthResponse(Status.OK, NanoHTTPD.MIME_HTML, msg);
+        return newFixedLengthResponse(Status.OK, MIME_HTML, msg);
     }
 }
