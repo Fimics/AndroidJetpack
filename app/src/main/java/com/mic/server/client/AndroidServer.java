@@ -1,11 +1,6 @@
 package com.mic.server.client;
 
 import com.mic.server.http.NanoHTTPD;
-
-import java.util.Map;
-import com.mic.server.http.IHTTPSession;
-import com.mic.server.http.Response;
-
 public class AndroidServer extends NanoHTTPD {
 
     public AndroidServer(int port) {
@@ -14,17 +9,5 @@ public class AndroidServer extends NanoHTTPD {
 
     public AndroidServer(String hostname, int port) {
         super(hostname, port);
-    }
-
-    @Override
-    public Response serve(IHTTPSession session) {
-        String msg = "<html><body><h1>Hello server</h1>\n";
-        Map<String, String> parms = session.getParms();
-        if (parms.get("username") == null) {
-            msg += "<form action='?' method='get'>\n  <p>Your name: <input type='text' name='username'></p>\n" + "</form>\n";
-        } else {
-            msg += "<p>Hello, " + parms.get("username") + "!</p>";
-        }
-        return Response.newFixedLengthResponse( msg + "</body></html>\n" );
     }
 }
