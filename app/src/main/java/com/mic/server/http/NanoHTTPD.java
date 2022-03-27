@@ -1,4 +1,4 @@
-package com.mic.server;
+package com.mic.server.http;
 
 
 
@@ -60,8 +60,8 @@ import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.TrustManagerFactory;
 
-import com.mic.server.NanoHTTPD.Response.IStatus;
-import com.mic.server.NanoHTTPD.Response.Status;
+import com.mic.server.http.NanoHTTPD.Response.IStatus;
+import com.mic.server.http.NanoHTTPD.Response.Status;
 
 
 public abstract class NanoHTTPD {

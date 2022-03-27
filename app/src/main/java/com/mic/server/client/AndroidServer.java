@@ -1,4 +1,6 @@
-package com.mic.server;
+package com.mic.server.client;
+
+import com.mic.server.http.NanoHTTPD;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package com.mic.server;
+package com.mic.server.client;
 
 import static android.content.Context.WIFI_SERVICE;
 
