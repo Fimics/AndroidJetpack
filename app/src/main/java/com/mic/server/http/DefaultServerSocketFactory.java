@@ -9,5 +9,4 @@ public class DefaultServerSocketFactory implements ServerSocketFactory {
     public ServerSocket create() throws IOException {
         return new ServerSocket();
     }
-
 }

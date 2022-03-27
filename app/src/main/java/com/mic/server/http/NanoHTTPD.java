@@ -43,48 +43,8 @@ public  class NanoHTTPD {
         setAsyncRunner(new DefaultAsyncRunner());
     }
 
-    public class ServerRunnable implements Runnable {
-
-        private final int timeout;
-
-        private IOException bindException;
-
-        private boolean hasBinded = false;
-
-        private ServerRunnable(int timeout) {
-            this.timeout = timeout;
-        }
-
-        @Override
-        public void run() {
-            try {
-                myServerSocket.bind(hostname != null ? new InetSocketAddress(hostname, myPort) : new InetSocketAddress(myPort));
-                hasBinded = true;
-            } catch (IOException e) {
-                this.bindException = e;
-                return;
-            }
-            do {
-                try {
-                    final Socket finalAccept = myServerSocket.accept();
-                    if (this.timeout > 0) {
-                        finalAccept.setSoTimeout(this.timeout);
-                    }
-                    final InputStream inputStream = finalAccept.getInputStream();
-                    asyncRunner.exec(ClientHandler.newInstance(inputStream,finalAccept,tempFileManagerFactory,asyncRunner));
-                } catch (IOException e) {
-                    Log.d(TAG, "Communication with the client broken"+e.getMessage());
-                }
-            } while (!myServerSocket.isClosed());
-        }
-    }
-
     public synchronized void closeAllConnections() {
         stop();
-    }
-
-    protected ServerRunnable createServerRunnable(final int timeout) {
-        return new ServerRunnable(timeout);
     }
 
     public final int getListeningPort() {
@@ -111,10 +71,6 @@ public  class NanoHTTPD {
         return tempFileManagerFactory;
     }
 
-    public void makeSecure(SSLServerSocketFactory sslServerSocketFactory, String[] sslProtocols) {
-        this.serverSocketFactory = new SecureServerSocketFactory(sslServerSocketFactory, sslProtocols);
-    }
-
     public void setAsyncRunner(AsyncRunner asyncRunner) {
         this.asyncRunner = asyncRunner;
     }
@@ -135,7 +91,7 @@ public  class NanoHTTPD {
         this.myServerSocket = this.getServerSocketFactory().create();
         this.myServerSocket.setReuseAddress(true);
 
-        ServerRunnable serverRunnable = createServerRunnable(timeout);
+        ServerRunnable serverRunnable = ServerRunnable.newInstance(timeout,hostname,myPort,myServerSocket,asyncRunner,tempFileManagerFactory);
         this.myThread = new Thread(serverRunnable);
         this.myThread.setDaemon(daemon);
         this.myThread.setName("NanoHttpd Main Listener");
