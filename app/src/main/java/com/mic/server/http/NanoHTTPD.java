@@ -1,7 +1,5 @@
 package com.mic.server.http;
 
-
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -27,7 +25,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
-import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -37,13 +34,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
 import java.util.logging.Level;
@@ -85,8 +79,8 @@ public abstract class NanoHTTPD {
         }
 
         public void close() {
-            safeClose(this.inputStream);
-            safeClose(this.acceptSocket);
+            Utils.safeClose(this.inputStream);
+            Utils.safeClose(this.acceptSocket);
         }
 
         @Override
@@ -111,9 +105,9 @@ public abstract class NanoHTTPD {
                     NanoHTTPD.LOG.log(Level.FINE, "Communication with the client broken", e);
                 }
             } finally {
-                safeClose(outputStream);
-                safeClose(this.inputStream);
-                safeClose(this.acceptSocket);
+                Utils.safeClose(outputStream);
+                Utils.safeClose(this.inputStream);
+                Utils.safeClose(this.acceptSocket);
                 NanoHTTPD.this.asyncRunner.closed(this);
             }
         }
@@ -166,7 +160,7 @@ public abstract class NanoHTTPD {
 
         @Override
         public void delete() throws Exception {
-            safeClose(this.fstream);
+            Utils.safeClose(this.fstream);
             if (!this.file.delete()) {
                 throw new Exception("could not delete temporary file");
             }
@@ -518,14 +512,14 @@ public abstract class NanoHTTPD {
                 try {
                     read = this.inputStream.read(buf, 0, HTTPSession.BUFSIZE);
                 } catch (Exception e) {
-                    safeClose(this.inputStream);
-                    safeClose(this.outputStream);
+                    Utils.safeClose(this.inputStream);
+                    Utils.safeClose(this.outputStream);
                     throw new SocketException("NanoHttpd Shutdown");
                 }
                 if (read == -1) {
                     // socket was been closed
-                    safeClose(this.inputStream);
-                    safeClose(this.outputStream);
+                    Utils.safeClose(this.inputStream);
+                    Utils.safeClose(this.outputStream);
                     throw new SocketException("NanoHttpd Shutdown");
                 }
                 while (read > 0) {
@@ -606,13 +600,13 @@ public abstract class NanoHTTPD {
             } catch (IOException ioe) {
                 Response resp = newFixedLengthResponse(Response.Status.INTERNAL_ERROR, NanoHTTPD.MIME_PLAINTEXT, "SERVER INTERNAL ERROR: IOException: " + ioe.getMessage());
                 resp.send(this.outputStream);
-                safeClose(this.outputStream);
+                Utils.safeClose(this.outputStream);
             } catch (ResponseException re) {
                 Response resp = newFixedLengthResponse(re.getStatus(), NanoHTTPD.MIME_PLAINTEXT, re.getMessage());
                 resp.send(this.outputStream);
-                safeClose(this.outputStream);
+                Utils.safeClose(this.outputStream);
             } finally {
-                safeClose(r);
+                Utils.safeClose(r);
                 this.tempFileManager.clear();
             }
         }
@@ -804,7 +798,7 @@ public abstract class NanoHTTPD {
                     files.put("content", saveTmpFile(fbuf, 0, fbuf.limit(), null));
                 }
             } finally {
-                safeClose(randomAccessFile);
+                Utils.safeClose(randomAccessFile);
             }
         }
 
@@ -828,7 +822,7 @@ public abstract class NanoHTTPD {
                 } catch (Exception e) { // Catch exception if any
                     throw new Error(e); // we won't recover, so throw an error
                 } finally {
-                    safeClose(fileOutputStream);
+                    Utils.safeClose(fileOutputStream);
                 }
             }
             return path;
@@ -1021,14 +1015,6 @@ public abstract class NanoHTTPD {
             this.keepAlive = useKeepAlive;
         }
 
-        private static boolean headerAlreadySent(Map<String, String> header, String name) {
-            boolean alreadySent = false;
-            for (String headerName : header.keySet()) {
-                alreadySent |= headerName.equalsIgnoreCase(name);
-            }
-            return alreadySent;
-        }
-
         protected void send(OutputStream outputStream) {
             String mime = this.mimeType;
             SimpleDateFormat gmtFrmt = new SimpleDateFormat("E, d MMM yyyy HH:mm:ss 'GMT'", Locale.US);
@@ -1056,11 +1042,11 @@ public abstract class NanoHTTPD {
                     }
                 }
 
-                if (!headerAlreadySent(header, "connection")) {
+                if (!Utils.headerAlreadySent(header, "connection")) {
                     pw.print("Connection: " + (this.keepAlive ? "keep-alive" : "close") + "\r\n");
                 }
 
-                if (headerAlreadySent(this.header, "content-length")) {
+                if (Utils.headerAlreadySent(this.header, "content-length")) {
                     encodeAsGzip = false;
                 }
 
@@ -1079,7 +1065,7 @@ public abstract class NanoHTTPD {
                 pw.flush();
                 sendBodyWithCorrectTransferAndEncoding(outputStream, pending);
                 outputStream.flush();
-                safeClose(this.data);
+                Utils.safeClose(this.data);
             } catch (IOException ioe) {
                 NanoHTTPD.LOG.log(Level.SEVERE, "Could not send response to the client", ioe);
             }
@@ -1225,41 +1211,6 @@ public abstract class NanoHTTPD {
 
     private static final Logger LOG = Logger.getLogger(NanoHTTPD.class.getName());
 
-    protected static Map<String, String> MIME_TYPES;
-
-    public static Map<String, String> mimeTypes() {
-        if (MIME_TYPES == null) {
-            MIME_TYPES = new HashMap<String, String>();
-            loadMimeTypes(MIME_TYPES, "META-INF/nanohttpd/default-mimetypes.properties");
-            loadMimeTypes(MIME_TYPES, "META-INF/nanohttpd/mimetypes.properties");
-            if (MIME_TYPES.isEmpty()) {
-                LOG.log(Level.WARNING, "no mime types found in the classpath! please provide mimetypes.properties");
-            }
-        }
-        return MIME_TYPES;
-    }
-
-    private static void loadMimeTypes(Map<String, String> result, String resourceName) {
-        try {
-            Enumeration<URL> resources = NanoHTTPD.class.getClassLoader().getResources(resourceName);
-            while (resources.hasMoreElements()) {
-                URL url = (URL) resources.nextElement();
-                Properties properties = new Properties();
-                InputStream stream = null;
-                try {
-                    stream = url.openStream();
-                    properties.load(url.openStream());
-                } catch (IOException e) {
-                    LOG.log(Level.SEVERE, "could not load mimetypes from " + url, e);
-                } finally {
-                    safeClose(stream);
-                }
-                result.putAll((Map) properties);
-            }
-        } catch (IOException e) {
-            LOG.log(Level.INFO, "no mime types available at " + resourceName);
-        }
-    };
 
     public static SSLServerSocketFactory makeSSLSocketFactory(KeyStore loadedKeyStore, KeyManager[] keyManagers) throws IOException {
         SSLServerSocketFactory res = null;
@@ -1293,33 +1244,6 @@ public abstract class NanoHTTPD {
             return makeSSLSocketFactory(keystore, keyManagerFactory);
         } catch (Exception e) {
             throw new IOException(e.getMessage());
-        }
-    }
-
-    public static String getMimeTypeForFile(String uri) {
-        int dot = uri.lastIndexOf('.');
-        String mime = null;
-        if (dot >= 0) {
-            mime = mimeTypes().get(uri.substring(dot + 1).toLowerCase());
-        }
-        return mime == null ? "application/octet-stream" : mime;
-    }
-
-    private static final void safeClose(Object closeable) {
-        try {
-            if (closeable != null) {
-                if (closeable instanceof Closeable) {
-                    ((Closeable) closeable).close();
-                } else if (closeable instanceof Socket) {
-                    ((Socket) closeable).close();
-                } else if (closeable instanceof ServerSocket) {
-                    ((ServerSocket) closeable).close();
-                } else {
-                    throw new IllegalArgumentException("Unknown object to close");
-                }
-            }
-        } catch (IOException e) {
-            NanoHTTPD.LOG.log(Level.SEVERE, "Could not close", e);
         }
     }
 
@@ -1520,7 +1444,7 @@ public abstract class NanoHTTPD {
 
     public void stop() {
         try {
-            safeClose(this.myServerSocket);
+            Utils.safeClose(this.myServerSocket);
             this.asyncRunner.closeAll();
             if (this.myThread != null) {
                 this.myThread.join();
