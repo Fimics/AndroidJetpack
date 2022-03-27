@@ -830,26 +830,7 @@ public abstract class NanoHTTPD {
     }
 
 
-    public interface IHTTPSession {
 
-        void execute() throws IOException;
-
-        CookieHandler getCookies();
-
-        Map<String, String> getHeaders();
-
-        InputStream getInputStream();
-
-        Method getMethod();
-
-        Map<String, String> getParms();
-
-        String getQueryParameterString();
-
-        String getUri();
-
-        void parseBody(Map<String, String> files) throws IOException, ResponseException;
-    }
 
     public static class Response implements Closeable {
 
@@ -1141,27 +1122,6 @@ public abstract class NanoHTTPD {
 
         public void setStatus(IStatus status) {
             this.status = status;
-        }
-    }
-
-    public static final class ResponseException extends Exception {
-
-        private static final long serialVersionUID = 6569838532917408380L;
-
-        private final Response.Status status;
-
-        public ResponseException(Response.Status status, String message) {
-            super(message);
-            this.status = status;
-        }
-
-        public ResponseException(Response.Status status, String message, Exception e) {
-            super(message, e);
-            this.status = status;
-        }
-
-        public Response.Status getStatus() {
-            return this.status;
         }
     }
 

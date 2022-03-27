@@ -3,6 +3,7 @@ package com.mic.server.client;
 import com.mic.server.http.NanoHTTPD;
 
 import java.util.Map;
+import com.mic.server.http.IHTTPSession;
 
 public class AndroidServer extends NanoHTTPD {
 
