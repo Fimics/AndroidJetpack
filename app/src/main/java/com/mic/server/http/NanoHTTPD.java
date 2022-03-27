@@ -1300,35 +1300,6 @@ public abstract class NanoHTTPD {
         }
     }
 
-
-    public interface TempFile {
-
-        public void delete() throws Exception;
-
-        public String getName();
-
-        public OutputStream open() throws Exception;
-    }
-
-    public interface TempFileManager {
-
-        void clear();
-
-        public TempFile createTempFile(String filename_hint) throws Exception;
-    }
-
-    public interface TempFileManagerFactory {
-
-        public TempFileManager create();
-    }
-
-
-    public interface ServerSocketFactory {
-
-        public ServerSocket create() throws IOException;
-
-    }
-
     public static final int SOCKET_READ_TIMEOUT = 5000;
 
     public static final String MIME_PLAINTEXT = "text/plain";
