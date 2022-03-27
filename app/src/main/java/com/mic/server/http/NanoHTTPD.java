@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 import javax.net.ssl.SSLServerSocketFactory;
 
 @SuppressWarnings("all")
-public abstract class NanoHTTPD {
+public  class NanoHTTPD {
     public static final Logger LOG = Logger.getLogger(NanoHTTPD.class.getName());
     private final String hostname;
     private final int myPort;

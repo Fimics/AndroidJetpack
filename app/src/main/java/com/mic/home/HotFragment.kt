@@ -9,7 +9,7 @@ import android.webkit.WebView
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.mic.R
-import com.mic.server.client.HttpServer
+import com.mic.server.client.AndroidServer
 import com.mic.utils.FileTools
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -36,7 +36,7 @@ class HotFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<Button>(R.id.btn_server).setOnClickListener {
-            var httpServer = HttpServer(context)
+            var httpServer = AndroidServer(context)
             httpServer.init()
         }
 
