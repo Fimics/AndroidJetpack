@@ -1,7 +1,6 @@
 package com.mic.home
 
 import android.os.Bundle
-import android.os.Environment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +9,10 @@ import android.webkit.WebView
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.mic.R
+import com.mic.castserver.NetUtils
 import com.mic.server.client.AndroidServer
 import com.mic.utils.FileTools
 import okhttp3.*
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import java.io.File
 import java.io.IOException
 
@@ -39,6 +38,9 @@ class HotFragment : Fragment() {
         view.findViewById<Button>(R.id.btn_server).setOnClickListener {
             var httpServer = AndroidServer(context)
             httpServer.init()
+
+//            ServerService.start(context)
+
         }
 
         view.findViewById<Button>(R.id.btn_assets).setOnClickListener {
@@ -57,7 +59,7 @@ class HotFragment : Fragment() {
         val webView = view.findViewById<WebView>(R.id.webview)
 
         view.findViewById<Button>(R.id.btn_webview).setOnClickListener {
-            webView.loadUrl("http://192.168.2.37:9999/data/user/0/com/mic/cache/json/test.json")
+            webView.loadUrl("http://192.168.2.37:62199/data/user/0/com/mic/cache/json/test.json")
         }
 
         view.findViewById<Button>(R.id.btn_okhttp).setOnClickListener {
@@ -83,9 +85,16 @@ class HotFragment : Fragment() {
 //            Log.d(TAG,"file text  ->"+file.readText())
 
 
-            val request = Request.Builder()
-                .url("http://192.168.2.37:9999/storage/emulated/0/Documents/json/test.json")
+            val ip = NetUtils.getIpOfWifi(context)
+            val port = NetUtils.getPort();
 
+            Log.d(TAG, "ip ->  " + ip)
+            Log.d(TAG, "port->  " + port)
+
+
+
+            val request = Request.Builder()
+                .url("http://192.168.2.37:62199/storage/emulated/0/Documents/json/test.json")
                 .build()
 
             client.newCall(request).enqueue(object : Callback {

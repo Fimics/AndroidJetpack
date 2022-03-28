@@ -38,6 +38,8 @@ s
             </intent-filter>
             <!-- This is added to handle a deep link -->
         </activity>
+
+        <service android:name=".castserver.ServerService"/>
     </application>
 
 </manifest>
