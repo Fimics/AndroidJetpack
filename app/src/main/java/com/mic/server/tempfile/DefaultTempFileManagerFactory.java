@@ -1,4 +1,4 @@
-package com.mic.server.http;
+package com.mic.server.tempfile;
 
 public class DefaultTempFileManagerFactory implements TempFileManagerFactory {
 

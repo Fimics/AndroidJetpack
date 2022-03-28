@@ -1,8 +1,12 @@
-package com.mic.server.http;
+package com.mic.server.response;
 
-import static com.mic.server.http.Constant.MIME_HTML;
+import static com.mic.server.Constant.MIME_HTML;
 
 import android.util.Log;
+
+import com.mic.server.Method;
+import com.mic.server.Utils;
+
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.Closeable;
@@ -187,7 +191,7 @@ public class Response implements Closeable {
         this.keepAlive = useKeepAlive;
     }
 
-    protected void send(OutputStream outputStream) {
+    public void send(OutputStream outputStream) {
         String mime = this.mimeType;
         SimpleDateFormat gmtFrmt = new SimpleDateFormat("E, d MMM yyyy HH:mm:ss 'GMT'", Locale.US);
         gmtFrmt.setTimeZone(TimeZone.getTimeZone("GMT"));

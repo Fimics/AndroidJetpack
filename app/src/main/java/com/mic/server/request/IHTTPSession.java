@@ -1,4 +1,7 @@
-package com.mic.server.http;
+package com.mic.server.request;
+
+import com.mic.server.Method;
+import com.mic.server.response.ResponseException;
 
 import java.io.IOException;
 import java.io.InputStream;

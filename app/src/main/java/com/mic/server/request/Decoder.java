@@ -1,8 +1,10 @@
-package com.mic.server.http;
+package com.mic.server.request;
 
-import static com.mic.server.http.Constant.QUERY_STRING_PARAMETER;
+import static com.mic.server.Constant.QUERY_STRING_PARAMETER;
 
 import android.util.Log;
+
+import com.mic.server.response.Response;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -11,7 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
 
 public class Decoder {
 

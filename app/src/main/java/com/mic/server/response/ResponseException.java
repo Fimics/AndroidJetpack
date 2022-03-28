@@ -1,6 +1,6 @@
-package com.mic.server.http;
+package com.mic.server.response;
 
-import com.mic.server.http.Response.Status;
+import com.mic.server.response.Response.Status;
 public class ResponseException extends Exception {
 
         private static final long serialVersionUID = 6569838532917408380L;

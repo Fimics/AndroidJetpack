@@ -1,4 +1,4 @@
-package com.mic.server.http;
+package com.mic.server.ssl;
 
 import java.io.IOException;
 import java.net.ServerSocket;

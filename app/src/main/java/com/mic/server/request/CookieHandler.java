@@ -1,4 +1,6 @@
-package com.mic.server.http;
+package com.mic.server.request;
+
+import com.mic.server.response.Response;
 
 import java.util.ArrayList;
 import java.util.HashMap;

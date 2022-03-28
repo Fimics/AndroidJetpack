@@ -1,6 +1,7 @@
 package com.mic.home
 
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -46,21 +47,22 @@ class HotFragment : Fragment() {
             val dir = "json"
             this.context?.let { it -> FileTools.copyDir(dir, it) }
             val fileName = StringBuilder(dir).append("/").append("test.json").toString()
-            var data = File(context?.cacheDir, fileName)
+            var data = File(context?.let { it1 -> FileTools.getStorageDir() }, fileName)
 
             Log.d(TAG, data.absolutePath)
             Log.d(TAG, data.readText())
+
         }
 
         val webView = view.findViewById<WebView>(R.id.webview)
 
         view.findViewById<Button>(R.id.btn_webview).setOnClickListener {
-            webView.loadUrl("http://192.168.2.37:8080/data/user/0/com.mic/cache/json/test.json")
+            webView.loadUrl("http://192.168.2.37:8080/data/user/0/com/mic/cache/json/test.json")
         }
 
         view.findViewById<Button>(R.id.btn_okhttp).setOnClickListener {
             val client = OkHttpClient()
-            val url = "http://192.168.2.37:8080/data/user/0/com.mic/cache/json/test.json"
+//            val url = "http://192.168.2.37:8080/storage/emulated/0/Documents/json/test.json"
 //            var request: Request = Request.Builder().url(url).build()
 //            client.newCall(request).enqueue(object :Callback{
 //                override fun onFailure(call: Call, e: IOException) {
@@ -70,14 +72,15 @@ class HotFragment : Fragment() {
 //                override fun onResponse(call: Call, response: Response) {
 //                    Log.d(TAG, "onResponse")
 //                    Log.d(TAG, "onResponse data->  "+response.body.toString())
+//                    Log.d(TAG, "onResponse code->  " + response.code)
 //                }
 //            })
 //        }
 
             val JSON = "application/json; charset=utf-8".toMediaTypeOrNull()
-            var requestBody =RequestBody.create(JSON,"json")
+            var requestBody = RequestBody.create(JSON, "json")
             val request = Request.Builder()
-                .url("http://192.168.2.37:8080/data/user/0/com.mic/cache/json/test.json")
+                .url("http://192.168.2.37:8080/storage/emulated/0/Documents/json/test.json")
                 .post(requestBody)
                 .build()
 
@@ -95,4 +98,5 @@ class HotFragment : Fragment() {
             })
         }
     }
-    }
+
+}

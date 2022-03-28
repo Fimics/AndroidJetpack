@@ -1,4 +1,5 @@
-package com.mic.server.http;
+package com.mic.server.tempfile;
+
 
 public interface TempFileManagerFactory {
 

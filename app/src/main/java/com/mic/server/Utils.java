@@ -1,5 +1,7 @@
-package com.mic.server.http;
+package com.mic.server;
 
+
+import com.mic.server.client.NanoHTTPD;
 
 import java.io.Closeable;
 import java.io.IOException;

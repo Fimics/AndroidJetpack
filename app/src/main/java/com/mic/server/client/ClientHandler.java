@@ -1,6 +1,11 @@
-package com.mic.server.http;
+package com.mic.server.client;
 
 import android.util.Log;
+
+import com.mic.server.request.HTTPSession;
+import com.mic.server.Utils;
+import com.mic.server.tempfile.TempFileManager;
+import com.mic.server.tempfile.TempFileManagerFactory;
 
 import java.io.InputStream;
 import java.io.OutputStream;

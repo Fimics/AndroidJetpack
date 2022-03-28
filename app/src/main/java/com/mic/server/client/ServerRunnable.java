@@ -1,6 +1,8 @@
-package com.mic.server.http;
+package com.mic.server.client;
 
 import android.util.Log;
+
+import com.mic.server.tempfile.TempFileManagerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;

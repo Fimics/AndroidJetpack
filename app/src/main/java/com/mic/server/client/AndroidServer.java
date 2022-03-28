@@ -11,8 +11,6 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.util.Log;
 
-import com.mic.server.http.NanoHTTPD;
-
 public class AndroidServer {
 
     private static final String TAG="http";

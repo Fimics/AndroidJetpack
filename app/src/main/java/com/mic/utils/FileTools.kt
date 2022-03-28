@@ -1,6 +1,8 @@
 package com.mic.utils
 
 import android.content.Context
+import android.os.Build
+import android.os.Environment
 import java.io.File
 import java.io.FileOutputStream
 
@@ -10,16 +12,16 @@ class FileTools {
     companion object {
 
 
-        fun copyDir(dir:String,content: Context){
-            var array:Array<String> = content.resources.assets.list("json") as Array<String>
+        fun copyDir(dir: String, content: Context) {
+            var array: Array<String> = content.resources.assets.list("json") as Array<String>
             array.forEach {
-                copyAssetsFile(dir,it,content)
+                copyAssetsFile(dir, it, content)
             }
         }
 
-        fun copyAssetsFile(dir:String,fileName: String, content: Context): Boolean {
+        fun copyAssetsFile(dir: String, fileName: String, content: Context): Boolean {
             try {
-                val cacheDir = File(content.cacheDir,dir)
+                val cacheDir = File(getStorageDir(), dir)
                 if (!cacheDir.exists()) {
                     cacheDir.mkdirs()
                 }
@@ -56,6 +58,13 @@ class FileTools {
             }
             return false
         }
-    }
 
+        fun getStorageDir(): String {
+            return if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).absolutePath
+            } else {
+                Environment.getExternalStorageDirectory().absolutePath
+            }
+        }
+    }
 }

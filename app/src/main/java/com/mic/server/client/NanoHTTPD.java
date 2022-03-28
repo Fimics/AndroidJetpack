@@ -1,24 +1,20 @@
-package com.mic.server.http;
+package com.mic.server.client;
 
-import static com.mic.server.http.Constant.SOCKET_READ_TIMEOUT;
+import static com.mic.server.Constant.SOCKET_READ_TIMEOUT;
 
 import android.util.Log;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.mic.server.Utils;
+import com.mic.server.client.AsyncRunner;
+import com.mic.server.client.DefaultAsyncRunner;
+import com.mic.server.client.ServerRunnable;
+import com.mic.server.ssl.DefaultServerSocketFactory;
+import com.mic.server.ssl.ServerSocketFactory;
+import com.mic.server.tempfile.DefaultTempFileManagerFactory;
+import com.mic.server.tempfile.TempFileManagerFactory;
 
-import javax.net.ssl.SSLServerSocketFactory;
+import java.io.IOException;
+import java.net.ServerSocket;
 
 @SuppressWarnings("all")
 public  class NanoHTTPD {

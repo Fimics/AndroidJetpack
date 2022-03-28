@@ -1,4 +1,4 @@
-package com.mic.server.http;
+package com.mic.server.client;
 
 import java.util.ArrayList;
 import java.util.Collections;

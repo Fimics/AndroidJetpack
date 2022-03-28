@@ -1,15 +1,22 @@
-package com.mic.server.http;
+package com.mic.server.request;
 
-import static com.mic.server.http.Constant.MIME_JSON;
-import static com.mic.server.http.Constant.MIME_PLAINTEXT;
-import static com.mic.server.http.Constant.QUERY_STRING_PARAMETER;
-import static com.mic.server.http.PatternConst.BOUNDARY_PATTERN;
-import static com.mic.server.http.PatternConst.CHARSET_PATTERN;
-import static com.mic.server.http.PatternConst.CONTENT_DISPOSITION_ATTRIBUTE_PATTERN;
-import static com.mic.server.http.PatternConst.CONTENT_DISPOSITION_PATTERN;
-import static com.mic.server.http.PatternConst.CONTENT_TYPE_PATTERN;
+import static com.mic.server.Constant.MIME_JSON;
+import static com.mic.server.Constant.MIME_PLAINTEXT;
+import static com.mic.server.Constant.QUERY_STRING_PARAMETER;
+import static com.mic.server.PatternConst.BOUNDARY_PATTERN;
+import static com.mic.server.PatternConst.CHARSET_PATTERN;
+import static com.mic.server.PatternConst.CONTENT_DISPOSITION_ATTRIBUTE_PATTERN;
+import static com.mic.server.PatternConst.CONTENT_DISPOSITION_PATTERN;
+import static com.mic.server.PatternConst.CONTENT_TYPE_PATTERN;
 
 import android.util.Log;
+
+import com.mic.server.Method;
+import com.mic.server.Utils;
+import com.mic.server.response.Response;
+import com.mic.server.response.ResponseException;
+import com.mic.server.tempfile.TempFile;
+import com.mic.server.tempfile.TempFileManager;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -33,7 +40,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

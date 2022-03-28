@@ -1,4 +1,4 @@
-package com.mic.server.http;
+package com.mic.server;
 
 public enum Method {
         GET,
@@ -11,7 +11,7 @@ public enum Method {
         CONNECT,
         PATCH;
 
-        static Method lookup(String method) {
+        public static Method lookup(String method) {
             for (Method m : Method.values()) {
                 if (m.toString().equalsIgnoreCase(method)) {
                     return m;
