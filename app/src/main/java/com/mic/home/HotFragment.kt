@@ -13,6 +13,7 @@ import com.mic.castserver.NetUtils
 import com.mic.server.client.AndroidServer
 import com.mic.utils.FileTools
 import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import java.io.File
 import java.io.IOException
 
@@ -64,37 +65,17 @@ class HotFragment : Fragment() {
 
         view.findViewById<Button>(R.id.btn_okhttp).setOnClickListener {
             val client = OkHttpClient()
-//            val url = "http://192.168.2.37:8080/storage/emulated/0/Documents/json/test.json"
-//            var request: Request = Request.Builder().url(url).build()
-//            client.newCall(request).enqueue(object :Callback{
-//                override fun onFailure(call: Call, e: IOException) {
-//                    Log.d(TAG, "onFailure")
-//                }
-//
-//                override fun onResponse(call: Call, response: Response) {
-//                    Log.d(TAG, "onResponse")
-//                    Log.d(TAG, "onResponse data->  "+response.body.toString())
-//                    Log.d(TAG, "onResponse code->  " + response.code)
-//                }
-//            })
-//        }
 
+//            GET
+//            val request = Request.Builder()
+//                .url("http://192.168.2.37:9999/storage/emulated/0/Documents/json/test.json")
+//                .build()
 
-//             val file = File("/storage/emulated/0/Documents/json/test.json")
-//            Log.d(TAG,"file path-->"+file.absolutePath)
-//            Log.d(TAG,"file text  ->"+file.readText())
-
-
-            val ip = NetUtils.getIpOfWifi(context)
-            val port = NetUtils.getPort();
-
-            Log.d(TAG, "ip ->  " + ip)
-            Log.d(TAG, "port->  " + port)
-
-
-
+            val JSON = "application/json; charset=utf-8".toMediaTypeOrNull()
+            var requestBody =RequestBody.create(JSON,"json")
             val request = Request.Builder()
-                .url("http://192.168.2.37:62199/storage/emulated/0/Documents/json/test.json")
+                .url("http://192.168.2.37:9999/storage/emulated/0/Documents/json/test.json")
+                .post(requestBody)
                 .build()
 
             client.newCall(request).enqueue(object : Callback {
@@ -104,7 +85,7 @@ class HotFragment : Fragment() {
 
                 override fun onResponse(call: Call, response: Response) {
                     Log.d(TAG, "onResponse")
-                    val result = response.body.toString()
+                    val result = response.body?.string()
                     Log.d(TAG, "onResponse data->  " + result)
                     Log.d(TAG, "onResponse code->  " + response.code)
 

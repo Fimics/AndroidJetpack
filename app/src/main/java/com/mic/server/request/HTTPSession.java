@@ -1,6 +1,5 @@
 package com.mic.server.request;
 
-import static com.mic.server.Constant.MIME_JSON;
 import static com.mic.server.Constant.MIME_PLAINTEXT;
 import static com.mic.server.Constant.QUERY_STRING_PARAMETER;
 import static com.mic.server.PatternConst.BOUNDARY_PATTERN;
@@ -8,9 +7,8 @@ import static com.mic.server.PatternConst.CHARSET_PATTERN;
 import static com.mic.server.PatternConst.CONTENT_DISPOSITION_ATTRIBUTE_PATTERN;
 import static com.mic.server.PatternConst.CONTENT_DISPOSITION_PATTERN;
 import static com.mic.server.PatternConst.CONTENT_TYPE_PATTERN;
-
+import android.text.TextUtils;
 import android.util.Log;
-
 import com.mic.server.Method;
 import com.mic.server.ServerUtils;
 import com.mic.server.Utils;
@@ -18,7 +16,6 @@ import com.mic.server.response.Response;
 import com.mic.server.response.ResponseException;
 import com.mic.server.tempfile.TempFile;
 import com.mic.server.tempfile.TempFileManager;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -608,17 +605,21 @@ public class HTTPSession implements IHTTPSession {
             } catch (ResponseException re) {
                 return Response.newFixedLengthResponse(re.getStatus(), MIME_PLAINTEXT, re.getMessage());
             }
+        } else if (Method.GET.equals(method)) {
+            String uri = session.getUri();
+            if (TextUtils.isEmpty(uri)) {
+                return Response.newFixedLengthResponse(Response.Status.NOT_FOUND, MIME_PLAINTEXT, "Not Found");
+            }
+
+            String text = ServerUtils.Companion.readText(uri);
+            if (TextUtils.isEmpty(text)) {
+                return Response.newFixedLengthResponse(Response.Status.NOT_FOUND, MIME_PLAINTEXT, "Not Found");
+            }
+            return Response.newFixedLengthResponse(Response.Status.OK, MIME_PLAINTEXT, text);
         }
 
         Map<String, String> parms = session.getParms();
         parms.put(QUERY_STRING_PARAMETER, session.getQueryParameterString());
-        return serve(session.getUri(), method, session.getHeaders(), parms, files);
-    }
-
-    @Deprecated
-    public Response serve(String uri, Method method, Map<String, String> headers, Map<String, String> parms, Map<String, String> files) {
-        String text = ServerUtils.Companion.readText("/storage/emulated/0/Documents/json/test.json");
-        return Response.newFixedLengthResponse(Response.Status.OK, MIME_JSON, text);
-//        return Response.newFixedLengthResponse(Response.Status.NOT_FOUND, MIME_JSON, "Not Found");
+        return Response.newFixedLengthResponse(Response.Status.NOT_FOUND, MIME_PLAINTEXT, "Not Found");
     }
 }
