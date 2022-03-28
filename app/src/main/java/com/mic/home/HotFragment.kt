@@ -57,7 +57,7 @@ class HotFragment : Fragment() {
         val webView = view.findViewById<WebView>(R.id.webview)
 
         view.findViewById<Button>(R.id.btn_webview).setOnClickListener {
-            webView.loadUrl("http://192.168.2.37:8080/data/user/0/com/mic/cache/json/test.json")
+            webView.loadUrl("http://192.168.2.37:9999/data/user/0/com/mic/cache/json/test.json")
         }
 
         view.findViewById<Button>(R.id.btn_okhttp).setOnClickListener {
@@ -77,11 +77,15 @@ class HotFragment : Fragment() {
 //            })
 //        }
 
-            val JSON = "application/json; charset=utf-8".toMediaTypeOrNull()
-            var requestBody = RequestBody.create(JSON, "json")
+
+//             val file = File("/storage/emulated/0/Documents/json/test.json")
+//            Log.d(TAG,"file path-->"+file.absolutePath)
+//            Log.d(TAG,"file text  ->"+file.readText())
+
+
             val request = Request.Builder()
-                .url("http://192.168.2.37:8080/storage/emulated/0/Documents/json/test.json")
-                .post(requestBody)
+                .url("http://192.168.2.37:9999/storage/emulated/0/Documents/json/test.json")
+
                 .build()
 
             client.newCall(request).enqueue(object : Callback {
@@ -91,7 +95,8 @@ class HotFragment : Fragment() {
 
                 override fun onResponse(call: Call, response: Response) {
                     Log.d(TAG, "onResponse")
-                    Log.d(TAG, "onResponse data->  " + response.body.toString())
+                    val result = response.body.toString()
+                    Log.d(TAG, "onResponse data->  " + result)
                     Log.d(TAG, "onResponse code->  " + response.code)
 
                 }

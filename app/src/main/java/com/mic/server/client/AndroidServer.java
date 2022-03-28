@@ -14,7 +14,7 @@ import android.util.Log;
 public class AndroidServer {
 
     private static final String TAG="http";
-    private static final int DEFAULT_PORT = 8080;
+    private static final int DEFAULT_PORT = 9999;
 
     // INSTANCE OF ANDROID WEB SERVER
     private NanoHTTPD androidWebServer;

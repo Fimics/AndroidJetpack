@@ -9,9 +9,11 @@ import static com.mic.server.PatternConst.CONTENT_DISPOSITION_ATTRIBUTE_PATTERN;
 import static com.mic.server.PatternConst.CONTENT_DISPOSITION_PATTERN;
 import static com.mic.server.PatternConst.CONTENT_TYPE_PATTERN;
 
+import android.os.FileUtils;
 import android.util.Log;
 
 import com.mic.server.Method;
+import com.mic.server.ServerUtils;
 import com.mic.server.Utils;
 import com.mic.server.response.Response;
 import com.mic.server.response.ResponseException;
@@ -20,15 +22,21 @@ import com.mic.server.tempfile.TempFileManager;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutput;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.RandomAccessFile;
 import java.net.InetAddress;
 import java.net.SocketException;
@@ -36,6 +44,7 @@ import java.net.SocketTimeoutException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -616,6 +625,8 @@ public class HTTPSession implements IHTTPSession {
 
     @Deprecated
     public Response serve(String uri, Method method, Map<String, String> headers, Map<String, String> parms, Map<String, String> files) {
-        return Response.newFixedLengthResponse(Response.Status.NOT_FOUND, MIME_JSON, "Not Found");
+        String text = ServerUtils.Companion.readText("/storage/emulated/0/Documents/json/test.json");
+        return Response.newFixedLengthResponse(Response.Status.OK, MIME_JSON, text);
+//        return Response.newFixedLengthResponse(Response.Status.NOT_FOUND, MIME_JSON, "Not Found");
     }
 }
