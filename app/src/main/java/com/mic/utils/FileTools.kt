@@ -3,20 +3,32 @@ package com.mic.utils
 import android.content.Context
 import android.os.Build
 import android.os.Environment
+import android.util.Log
 import java.io.File
 import java.io.FileOutputStream
 
 
 class FileTools {
 
+    interface DataSourceCallBack{
+        fun onCompleted()
+    }
+
     companion object {
-
-
-        fun copyDir(dir: String, content: Context) {
-            var array: Array<String> = content.resources.assets.list("json") as Array<String>
+        val TAG:String="data"
+        //TODO  如果已经有最新的数据就不用再次拷贝了 MD5实现
+        fun copyDir(dir: String, context: Context,callback:DataSourceCallBack) {
+            var array: Array<String> = context.resources.assets.list(dir) as Array<String>
             array.forEach {
-                copyAssetsFile(dir, it, content)
+                copyAssetsFile(dir, it, context)
+                Log.d(TAG,it+" onCompleted...")
+                val fileName = StringBuilder(dir).append("/").append(it).toString()
+                var data = File(context?.let { it1 -> getStorageDir() }, fileName)
+                Log.d(TAG, data.absolutePath)
+                Log.d(TAG, data.readText())
             }
+            callback.onCompleted();
+            Log.d(TAG,"all data copy onCompleted...")
         }
 
         fun copyAssetsFile(dir: String, fileName: String, content: Context): Boolean {

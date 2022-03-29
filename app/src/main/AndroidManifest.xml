@@ -39,7 +39,7 @@ s
             <!-- This is added to handle a deep link -->
         </activity>
 
-        <service android:name=".castserver.ServerService"/>
+        <service android:name=".server.ServerService"/>
     </application>
 
 </manifest>

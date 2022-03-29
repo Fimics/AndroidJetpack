@@ -21,14 +21,15 @@ public class AndroidServer {
     private BroadcastReceiver broadcastReceiverNetworkState;
     private static boolean isStarted = false;
 
+    private static AndroidServer instance =null;
+
     private Context context;
 
-    public AndroidServer(Context context) {
+    private AndroidServer(Context context) {
         this.context = context;
     }
 
     public void init() {
-        getIpAccess();
         if (isConnectedInWifi()) {
             if (!isStarted && startServer()) {
                 isStarted = true;
@@ -111,6 +112,14 @@ public class AndroidServer {
         if (broadcastReceiverNetworkState != null) {
             context.unregisterReceiver(broadcastReceiverNetworkState);
         }
+    }
+
+    public String getHost(){
+        return getIpAccess()+DEFAULT_PORT;
+    }
+
+    public static AndroidServer get(Context context){
+        return new AndroidServer(context);
     }
 
 }

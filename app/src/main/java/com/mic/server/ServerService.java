@@ -1,4 +1,4 @@
-package com.mic.castserver;
+package com.mic.server;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -10,18 +10,19 @@ import android.os.Build;
 import android.os.IBinder;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
-import com.mic.castserver.service.SimpleServer;
-import com.mic.castserver.service.Utils;
+import com.mic.server.client.AndroidServer;
+import com.mic.utils.AppUtils;
 
 public class ServerService extends Service {
 
-    private static SimpleServer simpleServer;
-
+    private static AndroidServer simpleServer;
+    private static Context mContext;
     public static void start(Context context) {
         if(context!=null){
+            mContext= context;
             Intent intent = new Intent(context, ServerService.class);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                if(Utils.isAppOnForeground(context)){
+                if(AppUtils.isAppOnForeground(context)){
                     context.startService(intent);
                 }else{
                     context.startForegroundService(intent);
@@ -41,7 +42,7 @@ public class ServerService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         try {
-            if(!Utils.isAppOnForeground(this)){
+            if(!AppUtils.isAppOnForeground(this)){
                 buildNotification();
             }
             startHttpServer();
@@ -51,10 +52,9 @@ public class ServerService extends Service {
         return Service.START_STICKY;
     }
 
-
     private void buildNotification(){
         String id = "13306";
-        String name = "channel_cast";
+        String name = "android_server";
         NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         Notification notification = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -81,16 +81,18 @@ public class ServerService extends Service {
 
     public static void stopHttpServer() {
         if (simpleServer != null) {
-            simpleServer.stopAsync();
+            simpleServer.stopServer();
             simpleServer=null;
         }
     }
 
     private static void startHttpServer() {
-        if (simpleServer == null) {
-            simpleServer = SimpleServer.createServer(NetUtils.getPort());
-        }
-        simpleServer.start();
+        new Thread(() -> {
+            if (simpleServer == null) {
+                simpleServer = AndroidServer.get(mContext);
+                simpleServer.init();
+            }
+        }).start();
     }
 
     @Nullable

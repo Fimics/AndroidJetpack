@@ -1,11 +1,12 @@
-package com.mic.castserver.service;
+package com.mic.utils;
 
 import android.app.ActivityManager;
 import android.content.Context;
 
 import java.util.List;
 
-public class Utils {
+public class AppUtils {
+
     public static boolean isAppOnForeground(Context context) {
 
         if (context == null) return false;

@@ -6,24 +6,6 @@
     tools:context=".local.TabDocFragment"
     android:orientation="vertical"
     >
-
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_server"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="测试Server"
-        android:textSize="20dp"
-        />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_assets"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="测试Assets"
-        android:textSize="20dp"
-        />
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_webview"
         android:layout_width="wrap_content"
