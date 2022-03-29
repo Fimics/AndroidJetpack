@@ -2,6 +2,7 @@ package com.mic.server.response;
 
 import static com.mic.server.Constant.MIME_HTML;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.mic.server.Method;
@@ -328,13 +329,23 @@ public class Response implements Closeable {
         return new Response(status, mimeType, data, totalBytes);
     }
 
-    public static Response newFixedLengthResponse(IStatus status, String mimeType, String txt) {
+    public static Response newFixedLengthResponse(IStatus status, String mimeType, String txt,String userAgent) {
         if (txt == null) {
             return newFixedLengthResponse(status, mimeType, new ByteArrayInputStream(new byte[0]), 0);
         } else {
             byte[] bytes;
             try {
-                bytes = txt.getBytes("UTF-8");
+                String charset = "UTF-8";
+                if(!TextUtils.isEmpty(charset)){
+                    if(userAgent.contains("Android")||userAgent.contains("Mobile")||userAgent.contains("okhttp")){
+                        charset = "UTF-8";
+                    }else {
+                        charset = "gbk";
+                    }
+                }else{
+                    charset = "UTF-8";
+                }
+                bytes = txt.getBytes(charset);
             } catch (UnsupportedEncodingException e) {
                 Log.d(TAG ,"encoding problem, responding nothing"+ e.getMessage());
                 bytes = new byte[0];
@@ -343,7 +354,7 @@ public class Response implements Closeable {
         }
     }
 
-    public static Response newFixedLengthResponse(String msg) {
-        return newFixedLengthResponse(Status.OK, MIME_HTML, msg);
+    public static Response newFixedLengthResponse(String msg,String userAgent) {
+        return newFixedLengthResponse(Status.OK, MIME_HTML, msg,userAgent);
     }
 }

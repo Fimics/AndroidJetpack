@@ -364,11 +364,11 @@ public class HTTPSession implements IHTTPSession {
             // exception up the call stack.
             throw ste;
         } catch (IOException ioe) {
-            Response resp = Response.newFixedLengthResponse(Response.Status.INTERNAL_ERROR, MIME_PLAINTEXT, "SERVER INTERNAL ERROR: IOException: " + ioe.getMessage());
+            Response resp = Response.newFixedLengthResponse(Response.Status.INTERNAL_ERROR, MIME_PLAINTEXT, "SERVER INTERNAL ERROR: IOException: " + ioe.getMessage(),"");
             resp.send(this.outputStream);
             Utils.safeClose(this.outputStream);
         } catch (ResponseException re) {
-            Response resp = Response.newFixedLengthResponse(re.getStatus(), MIME_PLAINTEXT, re.getMessage());
+            Response resp = Response.newFixedLengthResponse(re.getStatus(), MIME_PLAINTEXT, re.getMessage(),"");
             resp.send(this.outputStream);
             Utils.safeClose(this.outputStream);
         } finally {
@@ -597,30 +597,31 @@ public class HTTPSession implements IHTTPSession {
     public Response serve(IHTTPSession session) {
         Map<String, String> files = new HashMap<String, String>();
         Method method = session.getMethod();
+        String userAgent = session.getHeaders().get("user-agent");
 //        if (Method.PUT.equals(method) || Method.POST.equals(method)) {
         if (Method.PUT.equals(method)) {
             try {
                 session.parseBody(files);
             } catch (IOException ioe) {
-                return Response.newFixedLengthResponse(Response.Status.INTERNAL_ERROR, MIME_PLAINTEXT, "SERVER INTERNAL ERROR: IOException: " + ioe.getMessage());
+                return Response.newFixedLengthResponse(Response.Status.INTERNAL_ERROR, MIME_PLAINTEXT, "SERVER INTERNAL ERROR: IOException: " + ioe.getMessage(),userAgent);
             } catch (ResponseException re) {
-                return Response.newFixedLengthResponse(re.getStatus(), MIME_PLAINTEXT, re.getMessage());
+                return Response.newFixedLengthResponse(re.getStatus(), MIME_PLAINTEXT, re.getMessage(),userAgent);
             }
         } else if (Method.GET.equals(method)|| Method.POST.equals(method)) {
             String uri = session.getUri();
             if (TextUtils.isEmpty(uri)) {
-                return Response.newFixedLengthResponse(Response.Status.NOT_FOUND, MIME_PLAINTEXT, "Not Found");
+                return Response.newFixedLengthResponse(Response.Status.NOT_FOUND, MIME_PLAINTEXT, "Not Found",userAgent);
             }
 
             String text = ServerUtils.Companion.readText(uri);
             if (TextUtils.isEmpty(text)) {
-                return Response.newFixedLengthResponse(Response.Status.NOT_FOUND, MIME_PLAINTEXT, "Not Found");
+                return Response.newFixedLengthResponse(Response.Status.NOT_FOUND, MIME_PLAINTEXT, "Not Found",userAgent);
             }
-            return Response.newFixedLengthResponse(Response.Status.OK, MIME_PLAINTEXT, text);
+            return Response.newFixedLengthResponse(Response.Status.OK, MIME_PLAINTEXT, text,userAgent);
         }
 
         Map<String, String> parms = session.getParms();
         parms.put(QUERY_STRING_PARAMETER, session.getQueryParameterString());
-        return Response.newFixedLengthResponse(Response.Status.NOT_FOUND, MIME_PLAINTEXT, "Not Found");
+        return Response.newFixedLengthResponse(Response.Status.NOT_FOUND, MIME_PLAINTEXT, "Not Found",userAgent);
     }
 }

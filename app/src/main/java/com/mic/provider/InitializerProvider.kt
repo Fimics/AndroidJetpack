@@ -16,7 +16,7 @@ class InitializerProvider : ContentProvider() {
     override fun onCreate(): Boolean {
         runServer()
         initDataSource(DIR)
-        Log.d("tag", "ContentProvider onCreate...")
+        Log.d(tag, "ContentProvider onCreate...")
         return true
     }
 

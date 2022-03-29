@@ -47,7 +47,7 @@ class HotFragment : Fragment() {
 //                .url("http://192.168.2.37:9999/storage/emulated/0/Documents/json/test.json")
 //                .build()
 
-            val json = "application/json; charset=utf-8".toMediaTypeOrNull()
+            val json = "application/json; charset=gbk".toMediaTypeOrNull()
             var requestBody = RequestBody.create(json,"json")
             val request = Request.Builder()
                 .url(host+"/storage/emulated/0/Documents/json/tabs.json")
@@ -60,6 +60,8 @@ class HotFragment : Fragment() {
                 }
 
                 override fun onResponse(call: Call, response: Response) {
+                    val url =call.request().url
+                    Log.d(TAG, "url ->"+url)
                     Log.d(TAG, "onResponse")
                     val result = response.body?.string()
                     Log.d(TAG, "onResponse data->  " + result)
