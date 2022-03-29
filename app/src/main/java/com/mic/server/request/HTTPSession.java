@@ -597,7 +597,8 @@ public class HTTPSession implements IHTTPSession {
     public Response serve(IHTTPSession session) {
         Map<String, String> files = new HashMap<String, String>();
         Method method = session.getMethod();
-        if (Method.PUT.equals(method) || Method.POST.equals(method)) {
+//        if (Method.PUT.equals(method) || Method.POST.equals(method)) {
+        if (Method.PUT.equals(method)) {
             try {
                 session.parseBody(files);
             } catch (IOException ioe) {
@@ -605,7 +606,7 @@ public class HTTPSession implements IHTTPSession {
             } catch (ResponseException re) {
                 return Response.newFixedLengthResponse(re.getStatus(), MIME_PLAINTEXT, re.getMessage());
             }
-        } else if (Method.GET.equals(method)) {
+        } else if (Method.GET.equals(method)|| Method.POST.equals(method)) {
             String uri = session.getUri();
             if (TextUtils.isEmpty(uri)) {
                 return Response.newFixedLengthResponse(Response.Status.NOT_FOUND, MIME_PLAINTEXT, "Not Found");

@@ -47,11 +47,11 @@ class HotFragment : Fragment() {
 //                .url("http://192.168.2.37:9999/storage/emulated/0/Documents/json/test.json")
 //                .build()
 
-            val JSON = "application/json; charset=utf-8".toMediaTypeOrNull()
-            var requestBody = RequestBody.create(JSON,"json")
+            val json = "application/json; charset=utf-8".toMediaTypeOrNull()
+            var requestBody = RequestBody.create(json,"json")
             val request = Request.Builder()
                 .url(host+"/storage/emulated/0/Documents/json/test.json")
-//                .post(requestBody)
+                .post(requestBody)
                 .build()
 
             client.newCall(request).enqueue(object : Callback {
