@@ -1,0 +1,10 @@
+{
+  "code": 0,
+  "result": "ok",
+  "data": {
+    "user": {
+      "name": "android",
+      "phoneNum": "15313195276"
+    }
+  }
+}

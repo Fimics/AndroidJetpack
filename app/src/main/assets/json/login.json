@@ -1,0 +1,16 @@
+{
+  "code": 0,
+  "result": "ok",
+  "data": {
+    "user": {
+      "name": "android",
+      "phoneNum": "15313195276",
+      "age": 30,
+      "address": "北京市朝阳区",
+      "sex": "男",
+      "avatarUrl": "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2Fa7%2F69%2Fe1%2Fa769e103cb378d2ea4c89ef24617104b.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1651160320&t=e5781b174e47ed3c55cd3bd425f0be31",
+      "nickName": "jetpack",
+      "job": "developer"
+    }
+  }
+}
