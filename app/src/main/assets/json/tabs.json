@@ -2,6 +2,234 @@
   "code": 0,
   "result": "ok",
   "data": {
-
+    "bottom_height": 1,
+    "tabs": [
+      {
+        "home": {
+          "textSize": 16,
+          "textColor": "ffffff",
+          "index": 1,
+          "isShow": 1,
+          "tab": [
+            {
+              "id": 1,
+              "title": "热点"
+            },
+            {
+              "id": 2,
+              "title": "问答"
+            },
+            {
+              "id": 3,
+              "title": "关注"
+            },
+            {
+              "id": 4,
+              "title": "推荐"
+            },
+            {
+              "id": 5,
+              "title": "热榜"
+            },
+            {
+              "id": 6,
+              "title": "北京"
+            },
+            {
+              "id": 7,
+              "title": "文学历史"
+            },
+            {
+              "id": 8,
+              "title": "职场技能"
+            },
+            {
+              "id": 9,
+              "title": "生活兴趣"
+            },
+            {
+              "id": 10,
+              "title": "亲子育儿"
+            },
+            {
+              "id": 11,
+              "title": "知识片库"
+            },
+            {
+              "id": 12,
+              "title": "运动健身"
+            }
+          ]
+        }
+      },
+      {
+        "local": {
+          "textSize": 16,
+          "textColor": "ffffff",
+          "index": 1,
+          "isShow": 1,
+          "tab": [
+            {
+              "id": 1,
+              "title": "图片"
+            },
+            {
+              "id": 2,
+              "title": "文档"
+            },
+            {
+              "id": 3,
+              "title": "视频"
+            },
+            {
+              "id": 4,
+              "title": "音乐"
+            },
+            {
+              "id": 5,
+              "title": "已删除"
+            }
+          ]
+        }
+      },
+      {
+        "online": {
+          "textSize": 16,
+          "textColor": "ffffff",
+          "index": 1,
+          "isShow": 1,
+          "tab": [
+            {
+              "id": 1,
+              "title": "家庭"
+            },
+            {
+              "id": 2,
+              "title": "爱情"
+            },
+            {
+              "id": 3,
+              "title": "青春"
+            },
+            {
+              "id": 4,
+              "title": "奇幻"
+            },
+            {
+              "id": 5,
+              "title": "华语"
+            },
+            {
+              "id": 6,
+              "title": "惊悚"
+            },
+            {
+              "id": 7,
+              "title": "动作"
+            },
+            {
+              "id": 8,
+              "title": "热血"
+            },
+            {
+              "id": 9,
+              "title": "现代"
+            },
+            {
+              "id": 10,
+              "title": "中国"
+            },
+            {
+              "id": 11,
+              "title": "美国"
+            },
+            {
+              "id": 12,
+              "title": "印度"
+            },
+            {
+              "id": 13,
+              "title": "欧洲"
+            },
+            {
+              "id": 14,
+              "title": "日本"
+            },
+            {
+              "id": 15,
+              "title": "韩国"
+            },
+            {
+              "id": 16,
+              "title": "其他"
+            }
+          ]
+        }
+      },
+      {
+        "music": {
+          "textSize": 16,
+          "textColor": "ffffff",
+          "index": 1,
+          "isShow": 1,
+          "tab": [
+            {
+              "id": 1,
+              "title": "测试"
+            },
+            {
+              "id": 2,
+              "title": "唱儿歌"
+            },
+            {
+              "id": 3,
+              "title": "懂国学"
+            },
+            {
+              "id": 4,
+              "title": "艺术家"
+            },
+            {
+              "id": 5,
+              "title": "知百科"
+            },
+            {
+              "id": 6,
+              "title": "学英语"
+            }
+          ]
+        }
+      },
+      {
+        "me": {
+          "textSize": 16,
+          "textColor": "ffffff",
+          "index": 1,
+          "isShow": 1,
+          "tab": [
+            {
+              "id": 1,
+              "title": "信息"
+            },
+            {
+              "id": 2,
+              "title": "下载"
+            },
+            {
+              "id": 3,
+              "title": "收藏"
+            },
+            {
+              "id": 4,
+              "title": "历史"
+            },
+            {
+              "id": 5,
+              "title": "设置"
+            }
+          ]
+        }
+      }
+    ]
   }
 }

@@ -36,7 +36,7 @@ class HotFragment : Fragment() {
 
         val webView = view.findViewById<WebView>(R.id.webview)
         view.findViewById<Button>(R.id.btn_webview).setOnClickListener {
-            webView.loadUrl(host+"/storage/emulated/0/Documents/json/test.json")
+            webView.loadUrl(host+"/storage/emulated/0/Documents/json/tabs.json")
         }
 
         view.findViewById<Button>(R.id.btn_okhttp).setOnClickListener {
@@ -50,7 +50,7 @@ class HotFragment : Fragment() {
             val json = "application/json; charset=utf-8".toMediaTypeOrNull()
             var requestBody = RequestBody.create(json,"json")
             val request = Request.Builder()
-                .url(host+"/storage/emulated/0/Documents/json/test.json")
+                .url(host+"/storage/emulated/0/Documents/json/tabs.json")
                 .post(requestBody)
                 .build()
 

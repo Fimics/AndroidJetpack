@@ -40,6 +40,9 @@ s
         </activity>
 
         <service android:name=".server.ServerService"/>
+        <provider
+            android:authorities="com.mic.provider"
+            android:name=".provider.InitializerProvider"/>
     </application>
 
 </manifest>

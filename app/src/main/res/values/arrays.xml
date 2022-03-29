@@ -22,8 +22,6 @@
         <item>文档</item>
         <item>视频</item>
         <item>音乐</item>
-        <item>安装包</item>
-        <item>手机信息</item>
         <item>已删除</item>
     </string-array>
 
@@ -60,7 +58,7 @@
 
 
     <string-array name="tab_me">
-        <item>个人信息</item>
+        <item>信息</item>
         <item>下载</item>
         <item>收藏</item>
         <item>历史</item>

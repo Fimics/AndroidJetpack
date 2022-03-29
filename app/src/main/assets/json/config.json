@@ -2,6 +2,7 @@
   "code": 0,
   "result": "ok",
   "data": {
-
+    "autoUpdate": 0,
+    "version": "1.0"
   }
 }
