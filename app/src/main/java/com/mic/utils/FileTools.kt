@@ -20,12 +20,17 @@ class FileTools {
         fun copyDir(dir: String, context: Context,callback:DataSourceCallBack) {
             var array: Array<String> = context.resources.assets.list(dir) as Array<String>
             array.forEach {
-                copyAssetsFile(dir, it, context)
-                Log.d(TAG,it+" onCompleted...")
+
                 val fileName = StringBuilder(dir).append("/").append(it).toString()
                 var data = File(context?.let { it1 -> getStorageDir() }, fileName)
-                Log.d(TAG, data.absolutePath)
-                Log.d(TAG, data.readText())
+                if(data!=null &&data.exists()){
+                    Log.d(TAG, data.absolutePath)
+                    Log.d(TAG, data.readText())
+                }else{
+                    copyAssetsFile(dir, it, context)
+                    Log.d(TAG,it+" onCompleted...")
+                }
+
             }
             callback.onCompleted();
             Log.d(TAG,"all data copy onCompleted...")

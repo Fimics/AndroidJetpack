@@ -19,6 +19,9 @@ import java.io.IOException
 class HotFragment : Fragment() {
 
     val TAG: String = "http"
+
+    private var _binding :FragmentTabHotBinding?=null
+    private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -27,7 +30,8 @@ class HotFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_tab_hot, container, false)
+        _binding = FragmentTabHotBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,12 +39,12 @@ class HotFragment : Fragment() {
         val host = AndroidServer.get(context).host
         Log.d(TAG,"host-->"+host)
 
-        val webView = view.findViewById<WebView>(R.id.webview)
-        view.findViewById<Button>(R.id.btn_webview).setOnClickListener {
+        val webView = binding.webview
+        binding.btnWebview.setOnClickListener {
             webView.loadUrl(host+"/storage/emulated/0/Documents/json/tabs.json")
         }
 
-        view.findViewById<Button>(R.id.btn_okhttp).setOnClickListener {
+        binding.btnOkhttp.setOnClickListener {
             val client = OkHttpClient()
 
 //            GET
@@ -70,6 +74,11 @@ class HotFragment : Fragment() {
                 }
             })
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding=null
     }
 
 }
