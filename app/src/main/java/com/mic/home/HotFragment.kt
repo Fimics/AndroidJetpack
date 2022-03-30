@@ -9,6 +9,7 @@ import android.webkit.WebView
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.mic.R
+import com.mic.databinding.FragmentTabHotBinding
 import com.mic.server.client.AndroidServer
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
