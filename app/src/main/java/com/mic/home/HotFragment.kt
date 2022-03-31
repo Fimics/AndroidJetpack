@@ -5,10 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebView
-import android.widget.Button
 import androidx.fragment.app.Fragment
-import com.mic.R
 import com.mic.databinding.FragmentTabHotBinding
 import com.mic.server.client.AndroidServer
 import okhttp3.*
@@ -20,6 +17,7 @@ class HotFragment : Fragment() {
 
     val TAG: String = "http"
 
+    //如果一个类有两个概念上相同的属性，但一个是公共API的一部分，另一个是实现细节，请使用下划线作为私有属性名称的前缀
     private var _binding :FragmentTabHotBinding?=null
     private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
