@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mic.databinding.FragmentTabHotBinding
+import com.mic.home.observer.TestObserver
 import com.mic.server.client.AndroidServer
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -36,6 +37,7 @@ class HotFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val host = AndroidServer.get(context).host
         Log.d(TAG,"host-->"+host)
+        lifecycle.addObserver(TestObserver())
 
         val webView = binding.webview
         binding.btnWebview.setOnClickListener {
