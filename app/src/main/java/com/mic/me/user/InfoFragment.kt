@@ -39,9 +39,13 @@ class InfoFragment : Fragment() {
 
         binding.tvName.text=liveData.value?.address
 
+
         liveData.observe(viewLifecycleOwner, object :Observer< User> {
             override fun onChanged(user: User?) {
-                user?.let { Log.d(tag_info, it?.nickName) }
+                user?.let {
+                    Log.d(tag_info, it?.nickName)
+                    binding.tvName.text=liveData.value?.address
+                }
             }
         })
     }

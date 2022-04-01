@@ -17,6 +17,7 @@ import java.io.IOException
 class HotFragment : Fragment() {
 
     val TAG: String = "http"
+    //https://blog.csdn.net/u013064109/article/details/78786646  let run with apply
 
     //如果一个类有两个概念上相同的属性，但一个是公共API的一部分，另一个是实现细节，请使用下划线作为私有属性名称的前缀
     private var _binding :FragmentTabHotBinding?=null
