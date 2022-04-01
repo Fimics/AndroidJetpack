@@ -2,6 +2,7 @@ package com.mic.me
 
 import androidx.fragment.app.Fragment
 import com.mic.indicator.TabBaseAdapter
+import com.mic.me.user.InfoFragment
 
 class AdapterTabMe(fragment: Fragment, arrays: Array<String>) :
     TabBaseAdapter(fragment, arrays) {
