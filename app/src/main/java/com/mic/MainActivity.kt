@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNavigationView = binding.bottomNav
         bottomNavigationView.setupWithNavController(navController)
+
     }
 
     override fun onRequestPermissionsResult(
