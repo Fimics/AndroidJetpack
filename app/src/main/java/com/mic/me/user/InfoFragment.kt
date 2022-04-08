@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.mic.databinding.FragmentMeBinding
 import com.mic.databinding.FragmentMeInfoBinding
+import okhttp3.internal.wait
 
 
 class InfoFragment : Fragment() {
@@ -42,10 +43,18 @@ class InfoFragment : Fragment() {
 
         liveData.observe(viewLifecycleOwner, object :Observer< User> {
             override fun onChanged(user: User?) {
-                user?.let {
-                    Log.d(tag_info, it?.nickName)
-                    binding.tvName.text=liveData.value?.address
-                }
+//                user?.let {
+//                    Log.d(tag_info, it?.nickName)
+//                    binding.tvName.text=liveData.value?.address
+//                }
+
+//                with(user){
+//                    binding.tvName.text=this?.address
+//                }
+//                user.apply {
+//                    binding.tvName.text=this?.address
+//                }
+
             }
         })
     }
