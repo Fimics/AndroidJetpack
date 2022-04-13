@@ -7,17 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mic.databinding.FragmentTabHotBinding
+import com.mic.di.User
 import com.mic.home.observer.TestObserver
 import com.mic.server.client.AndroidServer
+import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import java.io.IOException
+import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class HotFragment : Fragment() {
 
     val TAG: String = "http"
     //https://blog.csdn.net/u013064109/article/details/78786646  let run with apply
+
 
     //如果一个类有两个概念上相同的属性，但一个是公共API的一部分，另一个是实现细节，请使用下划线作为私有属性名称的前缀
     private var _binding :FragmentTabHotBinding?=null
