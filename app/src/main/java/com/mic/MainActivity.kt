@@ -3,7 +3,6 @@ package com.mic
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Environment
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -35,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView = binding.bottomNav
         bottomNavigationView.setupWithNavController(navController)
 
-//        user.name = "朱Bony"
+        user.name = "朱Bony"
 //        user.age = 30
 //        Log.d("di",user.toString())
 //
