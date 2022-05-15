@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.mic.databinding.FragmentTabHotBinding
 import com.mic.home.observer.TestObserver
 import com.mic.server.client.AndroidServer
+import com.mic.utils.isConnected
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import java.io.IOException
@@ -20,7 +21,7 @@ class HotFragment : Fragment() {
     //https://blog.csdn.net/u013064109/article/details/78786646  let run with apply
 
     //如果一个类有两个概念上相同的属性，但一个是公共API的一部分，另一个是实现细节，请使用下划线作为私有属性名称的前缀
-    private var _binding :FragmentTabHotBinding?=null
+    private var _binding: FragmentTabHotBinding? = null
     private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,16 +38,22 @@ class HotFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val host = AndroidServer.get(context).host
-        Log.d(TAG,"host-->"+host)
+        Log.d(TAG, "host-->" + host)
         lifecycle.addObserver(TestObserver())
 
         val webView = binding.webview
         binding.btnWebview.setOnClickListener {
-            webView.loadUrl(host+"/storage/emulated/0/Documents/json/tabs.json")
+            webView.loadUrl(host + "/storage/emulated/0/Documents/json/tabs.json")
         }
 
         binding.btnOkhttp.setOnClickListener {
+
+            //ext activity
             val client = OkHttpClient()
+//            activity?.start<MainActivity>()
+//            snackbar("我是HotFragment")
+             println(requireActivity().isConnected())
+
 
 //            GET
 //            val request = Request.Builder()
@@ -54,9 +61,9 @@ class HotFragment : Fragment() {
 //                .build()
 
             val json = "application/json; charset=gbk".toMediaTypeOrNull()
-            var requestBody = RequestBody.create(json,"json")
+            var requestBody = RequestBody.create(json, "json")
             val request = Request.Builder()
-                .url(host+"/storage/emulated/0/Documents/json/tabs.json")
+                .url(host + "/storage/emulated/0/Documents/json/tabs.json")
                 .post(requestBody)
                 .build()
 
@@ -66,8 +73,8 @@ class HotFragment : Fragment() {
                 }
 
                 override fun onResponse(call: Call, response: Response) {
-                    val url =call.request().url
-                    Log.d(TAG, "url ->"+url)
+                    val url = call.request().url
+                    Log.d(TAG, "url ->" + url)
                     Log.d(TAG, "onResponse")
                     val result = response.body?.string()
                     Log.d(TAG, "onResponse data->  " + result)
@@ -79,7 +86,7 @@ class HotFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding=null
+        _binding = null
     }
 
 }
