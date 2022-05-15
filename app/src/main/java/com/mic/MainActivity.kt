@@ -9,15 +9,23 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.mic.databinding.ActivityMainBinding
+import com.mic.di.AnalyticsAdapter
+import com.mic.di.User
 import com.mic.utils.PermissionUtils
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
+    @Inject lateinit var user: User
+    @Inject lateinit var analyticsAdapter: AnalyticsAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         PermissionUtils.isGrantExternalRW(this, 1)
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment
@@ -25,6 +33,11 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNavigationView = binding.bottomNav
         bottomNavigationView.setupWithNavController(navController)
+
+        user.name = "朱Bony"
+//        user.age = 30
+//        Log.d("di",user.toString())
+//
 
     }
 

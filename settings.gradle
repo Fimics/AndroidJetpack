@@ -12,6 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-apply from: 'versions.gradle'
+//apply from: 'versions.gradle'
 rootProject.name = "AndroidJetpack"
 include ':app'
