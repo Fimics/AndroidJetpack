@@ -55,7 +55,7 @@ class HotFragment : Fragment() {
             val client = OkHttpClient()
 //            activity?.start<MainActivity>()
 //            snackbar("我是HotFragment")
-             println(requireActivity().isConnected())
+//             println(requireActivity().isConnected())
 
 
 //            GET

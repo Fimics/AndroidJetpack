@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.mic">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -9,6 +10,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS"
+        tools:ignore="ProtectedPermissions" />
 
     <!-- 开启网络访问权限 -->
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -17,7 +20,7 @@
     <!-- 允许访问wifi状态的权限 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
-s
+
 
     <application
         android:name=".JetPackApp"

@@ -10,7 +10,7 @@ import android.os.Build;
  * 只需要在主界面申请一次即可
  * 在其他子activity，自动授权
  */
-public class PermissionUtils {
+public class PermissionRWUtil {
     //这是要申请的权限
     private static String[] PERMISSIONS_CAMERA_AND_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,

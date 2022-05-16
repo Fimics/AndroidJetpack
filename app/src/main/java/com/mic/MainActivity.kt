@@ -11,6 +11,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.mic.databinding.ActivityMainBinding
 import com.mic.di.AnalyticsAdapter
 import com.mic.di.User
+import com.mic.utils.FileServer
 import com.mic.utils.PermissionUtils
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -21,12 +22,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     @Inject lateinit var user: User
     @Inject lateinit var analyticsAdapter: AnalyticsAdapter
+    private val fileServer = FileServer();
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        PermissionUtils.isGrantExternalRW(this, 1)
+//        PermissionUtils.isGrantExternalRW(this, 1)
+        PermissionUtils.requestPermissions(this)
+
+
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment
         navController = navHostFragment.navController
@@ -61,5 +66,12 @@ class MainActivity : AppCompatActivity() {
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (PermissionUtils.isAllGranted()){
+            fileServer.start()
+        }else{
+            PermissionUtils.requestPermissions(this)
+        }
+
     }
 }

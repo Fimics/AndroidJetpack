@@ -1,6 +1,5 @@
 package com.mic.provider
 
-import android.app.Activity
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.database.Cursor
@@ -8,7 +7,6 @@ import android.net.Uri
 import android.util.Log
 import com.mic.server.ServerService
 import com.mic.utils.FileTools
-import com.mic.utils.PermissionUtils
 import kotlin.concurrent.thread
 
 class InitializerProvider : ContentProvider() {
@@ -17,9 +15,9 @@ class InitializerProvider : ContentProvider() {
     private val DIR = "json"
 
     override fun onCreate(): Boolean {
-        runServer()
-        initDataSource(DIR)
-        Log.d(tag, "ContentProvider onCreate...")
+//        runServer()
+//        initDataSource(DIR)
+//        Log.d(tag, "ContentProvider onCreate...")
         return true
     }
 
