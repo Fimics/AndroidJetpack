@@ -46,6 +46,7 @@ dependencies {
     def nav_version = "2.4.1"
     def lifecycle_version = "2.2.0"
     def arch_version = "2.1.0"
+    def gsonVersion = "2.8.7"
 
     // Java language implementation
     implementation "androidx.navigation:navigation-fragment:$nav_version"
@@ -97,9 +98,14 @@ dependencies {
     // optional - Test helpers for LiveData
     testImplementation "androidx.arch.core:core-testing:$arch_version"
 
+    //gson
+    implementation  "com.google.code.gson:gson:$gsonVersion"
+
 
     implementation "com.google.dagger:hilt-android:2.35.1"
     kapt "com.google.dagger:hilt-android-compiler:2.35.1"
+
+    implementation project(path: ':libs:imageloader')
 
 
 

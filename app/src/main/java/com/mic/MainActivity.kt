@@ -11,17 +11,18 @@ import androidx.navigation.ui.setupWithNavController
 import com.mic.databinding.ActivityMainBinding
 import com.mic.di.AnalyticsAdapter
 import com.mic.di.User
-import com.mic.utils.FileServer
-import com.mic.utils.PermissionUtils
+import com.mic.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 import javax.inject.Inject
 
 
-@AndroidEntryPoint
+//@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    private val tag = "main"
     private lateinit var navController: NavController
-    @Inject lateinit var user: User
-    @Inject lateinit var analyticsAdapter: AnalyticsAdapter
+//    lateinit var user: User
+//    lateinit var analyticsAdapter: AnalyticsAdapter
     private val fileServer = FileServer();
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,19 +39,30 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNavigationView = binding.bottomNav
         bottomNavigationView.setupWithNavController(navController)
+        startServer()
 
-        user.name = "朱Bony"
+//        user.name = "朱Bony"
 //        user.age = 30
 //        Log.d("di",user.toString())
 //
-
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+    private fun startServer(){
+        ExecutorsPoller.poll(object : TimerTask() {
+            override fun run() {
+                val isAllGranted = PermissionUtils.isAllGranted()
+                if (isAllGranted) {
+                    fileServer.start()
+                    KLog.d(tag,"文件已拷贝")
+                    ExecutorsPoller.shutdown()
+                }else{
+                    KLog.d(tag,"文件正在拷贝")
+                }
+            }
+        })
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when (requestCode) {
             1 -> if (grantResults[0] === PackageManager.PERMISSION_GRANTED) {
                 //检验是否获取权限，如果获取权限，外部存储会处于开放状态，会弹出一个toast提示获得授权
@@ -65,13 +77,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if (PermissionUtils.isAllGranted()){
-            fileServer.start()
-        }else{
-            PermissionUtils.requestPermissions(this)
-        }
+//        if (PermissionUtils.isAllGranted()){
+//            fileServer.start()
+//        }else{
+//            PermissionUtils.requestPermissions(this)
+//        }
 
     }
 }
