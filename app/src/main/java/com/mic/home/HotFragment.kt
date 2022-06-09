@@ -6,11 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.mic.databinding.FragmentTabHotBinding
+import com.mic.ex.asAutoDisposable
 import com.mic.home.observer.TestObserver
 import com.mic.server.client.AndroidServer
+import com.mic.utils.KLog
 //import com.mic.utils.isConnected
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import java.io.IOException
@@ -26,6 +30,11 @@ class HotFragment : Fragment() {
     //如果一个类有两个概念上相同的属性，但一个是公共API的一部分，另一个是实现细节，请使用下划线作为私有属性名称的前缀
     private var _binding: FragmentTabHotBinding? = null
     private val binding get() = _binding!!
+
+    //尽管我们有了作用域就可以实现协程与UI的关联，不过在每个Activity或者Fragment中手动创建一个MainScope似乎并不是什么好办法。
+    //使用AutoDispose
+    private val mainScope by lazy { MainScope() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -85,6 +94,24 @@ class HotFragment : Fragment() {
                 }
             })
         }
+
+        binding.btnMainScope.setOnClickListener {
+            //1.mainScope
+             mainScope.launch {
+                 KLog.d("调度到UI线程")
+             }
+
+            //2.autoDisposable
+            GlobalScope.launch(Dispatchers.Main) {
+                //调到UI线程上
+            }.asAutoDisposable(it)
+
+
+            //3.
+            lifecycleScope.launch {
+                //执行携程
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -92,4 +119,11 @@ class HotFragment : Fragment() {
         _binding = null
     }
 
+
+    override fun onDestroy() {
+        super.onDestroy()
+        //调用完销毁
+        //我们注意到，作用域的好处就是可以方便地绑定到UI组件的生命周期上，在Activity销毁的时候直接取消，所有该作用域启动的协程就会被取消。
+        mainScope.cancel()
+    }
 }
