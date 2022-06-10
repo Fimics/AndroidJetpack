@@ -9,11 +9,13 @@ import androidx.fragment.app.Fragment
 import com.mic.databinding.FragmentTabHotBinding
 import com.mic.home.observer.TestObserver
 import com.mic.server.client.AndroidServer
+import com.mic.utils.KLog
 //import com.mic.utils.isConnected
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import java.io.IOException
+import kotlin.concurrent.thread
 
 
 @AndroidEntryPoint
@@ -59,31 +61,40 @@ class HotFragment : Fragment() {
 
 
 //            GET
-//            val request = Request.Builder()
-//                .url("http://192.168.2.37:9999/storage/emulated/0/Documents/json/test.json")
+
+            thread {
+                val requestGet= Request.Builder()
+                    .url(host+"/storage/emulated/0/Documents/json/test.json")
+                    .build()
+                KLog.d(tag,"execute start")
+                val response =client.newCall(requestGet).execute();
+                KLog.d(tag,response.body?.string())
+                KLog.d(tag,"execute end")
+            }
+
+
+             //POST
+//            val json = "application/json; charset=gbk".toMediaTypeOrNull()
+//            var requestBody = RequestBody.create(json, "json")
+//            val requestPost = Request.Builder()
+//                .url(host + "/storage/emulated/0/Documents/json/tabs.json")
+//                .post(requestBody)
 //                .build()
-
-            val json = "application/json; charset=gbk".toMediaTypeOrNull()
-            var requestBody = RequestBody.create(json, "json")
-            val request = Request.Builder()
-                .url(host + "/storage/emulated/0/Documents/json/tabs.json")
-                .post(requestBody)
-                .build()
-
-            client.newCall(request).enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    Log.d(TAG, "onFailure")
-                }
-
-                override fun onResponse(call: Call, response: Response) {
-                    val url = call.request().url
-                    Log.d(TAG, "url ->" + url)
-                    Log.d(TAG, "onResponse")
-                    val result = response.body?.string()
-                    Log.d(TAG, "onResponse data->  " + result)
-                    Log.d(TAG, "onResponse code->  " + response.code)
-                }
-            })
+//
+//            client.newCall(requestPost).enqueue(object : Callback {
+//                override fun onFailure(call: Call, e: IOException) {
+//                    Log.d(TAG, "onFailure")
+//                }
+//
+//                override fun onResponse(call: Call, response: Response) {
+//                    val url = call.request().url
+//                    Log.d(TAG, "url ->" + url)
+//                    Log.d(TAG, "onResponse")
+//                    val result = response.body?.string()
+//                    Log.d(TAG, "onResponse data->  " + result)
+//                    Log.d(TAG, "onResponse code->  " + response.code)
+//                }
+////            })
         }
     }
 
