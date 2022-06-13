@@ -1,8 +1,8 @@
 package com.mic.di
 
-import javax.inject.Inject
+//import javax.inject.Inject
 
-class User @Inject constructor() {
+class User  constructor() {
     var name:String=""
     var age = 0
 //    override fun toString()="User(name=$name age$age)"

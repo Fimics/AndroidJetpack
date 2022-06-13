@@ -13,14 +13,14 @@ import com.mic.home.observer.TestObserver
 import com.mic.server.client.AndroidServer
 import com.mic.utils.KLog
 //import com.mic.utils.isConnected
-import dagger.hilt.android.AndroidEntryPoint
+//import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import java.io.IOException
 
 
-@AndroidEntryPoint
+//@AndroidEntryPoint
 class HotFragment : Fragment() {
 
     val TAG: String = "http"
