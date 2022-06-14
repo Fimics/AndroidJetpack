@@ -6,16 +6,15 @@ plugins {
 }
 
 android {
-    compileSdkVersion(androids.compileSdkVersion)
-    buildToolsVersion(androids.buildToolsVersion)
+    compileSdk=androids.compileSdkVersion
+    buildToolsVersion=androids.buildToolsVersion
 
     defaultConfig {
         applicationId = "com.mic"
-        minSdkVersion(androids.minSdkVersion)
-        targetSdkVersion(androids.targetSdkVersion)
+        minSdk=androids.minSdkVersion
+        targetSdk=androids.targetSdkVersion
         versionCode = androids.versionCode
         versionName = androids.versionName
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -51,7 +50,7 @@ android {
         outputs.all {
             //输出apk
             if (this is com.android.build.gradle.internal.api.ApkVariantOutputImpl) {
-                this.outputFileName = "AI_V${defaultConfig.versionName}_$buildType.apk"
+                this.outputFileName = "Jetpack${defaultConfig.versionName}_$buildType.apk"
             }
         }
     }
@@ -70,15 +69,12 @@ android {
 }
 val nav_version = "2.4.1"
 val lifecycle_version = "2.2.0"
-val arch_version = "2.1.0"
 val gsonVersion = "2.8.7"
 
 
 dependencies {
-    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
-    implementation("com.google.android.material:material:1.4.0")
-    implementation("androidx.appcompat:appcompat:1.3.0")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation (fileTree(mapOf("dir" to "libs","include" to listOf("*.jar"))))
+    Depends.impl(Depends.views,::implementation)//views
 
     // Java language implementation
     implementation("androidx.navigation:navigation-fragment:$nav_version")
@@ -138,6 +134,7 @@ dependencies {
 
     //kotlin
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3")
+
 
 
 }

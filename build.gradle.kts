@@ -1,10 +1,11 @@
+
 buildscript {
 //    ext {
 //        hilt_version = '1.6.10'
 //    }
 
     dependencies {
-        classpath ("com.android.tools.build:gradle:${BuildConst.gradle_version}")
+        classpath ("com.android.tools.build:gradle:${BuildVersions.gradle_version}")
         classpath("com.google.dagger:hilt-android-gradle-plugin:2.38")
     }
 }
