@@ -12,9 +12,9 @@ import com.mic.databinding.ActivityMainBinding
 import com.mic.di.AnalyticsAdapter
 import com.mic.di.User
 import com.mic.utils.*
-import dagger.hilt.android.AndroidEntryPoint
+//import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
-import javax.inject.Inject
+//import javax.inject.Inject
 
 
 //@AndroidEntryPoint
