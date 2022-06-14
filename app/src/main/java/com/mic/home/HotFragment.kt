@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.concurrent.futures.CallbackToFutureAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.mic.databinding.FragmentTabHotBinding
@@ -15,9 +16,11 @@ import com.mic.utils.KLog
 //import com.mic.utils.isConnected
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.asFlow
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import java.io.IOException
+import java.util.concurrent.Flow
 import kotlin.concurrent.thread
 
 
@@ -71,17 +74,17 @@ class HotFragment : Fragment() {
 //            GET
 
             thread {
-                val requestGet= Request.Builder()
-                    .url(host+"/storage/emulated/0/Documents/json/test.json")
+                val requestGet = Request.Builder()
+                    .url(host + "/storage/emulated/0/Documents/json/test.json")
                     .build()
-                KLog.d(tag,"execute start")
-                val response =client.newCall(requestGet).execute();
-                KLog.d(tag,response.body?.string())
-                KLog.d(tag,"execute end")
+                KLog.d(tag, "execute start")
+                val response = client.newCall(requestGet).execute();
+                KLog.d(tag, response.body?.string())
+                KLog.d(tag, "execute end")
             }
 
 
-             //POST
+            //POST
 //            val json = "application/json; charset=gbk".toMediaTypeOrNull()
 //            var requestBody = RequestBody.create(json, "json")
 //            val requestPost = Request.Builder()
@@ -107,9 +110,9 @@ class HotFragment : Fragment() {
 
         binding.btnMainScope.setOnClickListener {
             //1.mainScope
-             mainScope.launch {
-                 KLog.d("调度到UI线程")
-             }
+            mainScope.launch {
+                KLog.d("调度到UI线程")
+            }
 
             //2.autoDisposable
             GlobalScope.launch(Dispatchers.Main) {
@@ -121,8 +124,14 @@ class HotFragment : Fragment() {
             lifecycleScope.launch {
                 //执行携程
             }
+
+            //4.futures 将任意回调转换为ListenableFuture
+
         }
     }
+
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
