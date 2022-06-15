@@ -120,9 +120,8 @@ object Depends {
     //图片加载
     val glides = mapOf<String, String>(
         "glide" to "com.github.bumptech.glide:glide:4.9.0",
-        "glidetransformations" to "jp.wasabeef:glide-transformations:4.0.0",
-        "glidecompiler" to "com.github.bumptech.glide:compiler:4.9.0",
-        "photoView" to "com.github.chrisbanes:PhotoView:2.3.0@aar"
+//        "glidetransformations" to "jp.wasabeef:glide-transformations:4.0.0",
+//        "glidecompiler" to "com.github.bumptech.glide:compiler:4.9.0",
     )
 
     //datastore
