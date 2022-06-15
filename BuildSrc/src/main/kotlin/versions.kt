@@ -1,7 +1,22 @@
+import BuildVersions.datastore_version
+import BuildVersions.gson_version
+import BuildVersions.hilt_version
+import BuildVersions.kotlin_version
+import BuildVersions.lifecycle_version
+import BuildVersions.nav_version
+import BuildVersions.okhttp_version
+
 //全局常量
 object BuildVersions {
     const val gradle_version = "7.1.2"
     const val kotlin_version = "1.5.21"
+
+    const val nav_version = "2.4.1"
+    const val okhttp_version = "4.9.0"
+    const val gson_version = "2.8.7"
+    const val hilt_version = "2.35.1"
+    const val datastore_version = "1.0.0"
+    const val lifecycle_version = "2.2.0"
 }
 
 //应用配置
@@ -28,17 +43,28 @@ object Depends {
 
     const val multidex = "com.android.support:multidex:1.1.0"
     const val workmanager = "androidx.work:work-runtime:2.2.0"
-    const val kotlinstdlib = "org.jetbrains.kotlin:kotlin-stdlib:${BuildVersions.kotlin_version}"
-    const val corektx = "androidx.core:core-ktx:${BuildVersions.kotlin_version}"
+    const val kotlinstdlib = "org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}"
+    const val corektx = "androidx.core:core-ktx:${kotlin_version}"
+    const val kotlinxcoroutinesandroid =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_version"
+//    const val kotlinxcoroutinesandroid ="org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3"
+
+
+    //kotlins
+    val kotlins = mapOf<String, String>(
+        "kotlinstdlib" to "org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}",
+        "corektx" to "androidx.core:core-ktx:${kotlin_version}",
+        "kotlinxcoroutinesandroid" to "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_version"
+    )
 
     //rx
-//    val rxs = mapOf<String, String>(
-//        "rxjava" to "io.reactivex.rxjava2:rxjava:2.1.7",
-//        "rxandroid" to "io.reactivex.rxjava2:rxandroid:2.0.1",
-//        "adapterrxjava" to "com.squareup.retrofit2:adapter-rxjava2:2.5.0",
-//        "rxbinding2" to "com.jakewharton.rxbinding2:rxbinding:2.0.0",
-//        "rxpermissions2" to "com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar",
-//    )
+    val rxs = mapOf<String, String>(
+        "rxjava" to "io.reactivex.rxjava2:rxjava:2.1.7",
+        "rxandroid" to "io.reactivex.rxjava2:rxandroid:2.0.1",
+        "adapterrxjava" to "com.squareup.retrofit2:adapter-rxjava2:2.5.0",
+        "rxbinding2" to "com.jakewharton.rxbinding2:rxbinding:2.0.0",
+        "rxpermissions2" to "com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar",
+    )
 
     //view
     val views = mapOf<String, String>(
@@ -51,13 +77,6 @@ object Depends {
         "material" to "com.google.android.material:material:1.4.0",
     )
 
-    //retrofit
-    val retrofits = mapOf<String, String>(
-        "retrofit" to "com.squareup.retrofit2:retrofit:2.8.1",
-        "convertergson" to "com.squareup.retrofit2:converter-gson:2.8.1",
-        "gson" to "com.google.code.gson:gson:2.6.2",
-    )
-
     //test
     val tests = mapOf<String, String>(
         "testrunner" to "androidx.test.runner.AndroidJUnitRunner",
@@ -68,14 +87,21 @@ object Depends {
 
     //navigation
     val navigations = mapOf<String, String>(
-        "navigationfragment" to "androidx.navigation:navigation-fragment:2.0.0",
-        "navigation" to "androidx.navigation:navigation-ui:2.0.0",
+        "navigationfragment" to "androidx.navigation:navigation-fragment:$nav_version",
+        "navigation" to "androidx.navigation:navigation-ui:$nav_version",
     )
 
     //okhttp
     val okhttps = mapOf<String, String>(
-        "okhttp" to "com.squareup.okhttp3:okhttp:4.2.0",
+        "okhttp" to "com.squareup.okhttp3:okhttp:$okhttp_version",
         "logginginterceptor" to "com.squareup.okhttp3:logging-interceptor:+",
+        "gson" to "com.google.code.gson:gson:$gson_version",
+    )
+
+    //retrofit
+    val retrofits = mapOf<String, String>(
+        "retrofit" to "com.squareup.retrofit2:retrofit:2.8.1",
+        "convertergson" to "com.squareup.retrofit2:converter-gson:2.8.1",
     )
 
     //room数据库
@@ -95,7 +121,41 @@ object Depends {
         "photoView" to "com.github.chrisbanes:PhotoView:2.3.0@aar"
     )
 
+    //datastore
+    val datastores = mapOf<String, String>(
+        "datastore-core" to "androidx.datastore:datastore-core:$datastore_version",
+        "datastore-preferences-core" to "androidx.datastore:datastore-preferences-core:$datastore_version"
+    )
 
+    //hilt
+    val hilts = mapOf<String, String>(
+        "hilt" to "com.google.dagger:hilt-android:$hilt_version",
+        "htlt-compiler" to "com.google.dagger:hilt-android-compiler:$hilt_version"
+    )
+
+    //lifecycle
+    val lifecycles = mapOf<String, String>(
+        // ViewModel
+        "viewmodel" to "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version",
+        // LiveData
+        "livedata" to "androidx.lifecycle:lifecycle-livedata:$lifecycle_version",
+        // Lifecycles only (without ViewModel or LiveData)
+        "lifecycle-runtime" to "androidx.lifecycle:lifecycle-runtime:$lifecycle_version",
+        // Saved state module for ViewModel
+        "lifecycle-viewmodel-savedstate" to "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version",
+        // Annotation processor
+//        "lifecycle-compiler" to "androidx.lifecycle:lifecycle-compiler:$lifecycle_version",
+        // alternately - if using Java8, use the following instead of lifecycle-compiler
+        "lifecycle-common-java8" to "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version",
+        // optional - helpers for implementing LifecycleOwner in a Service
+        "lifecycle-service" to "androidx.lifecycle:lifecycle-service:$lifecycle_version",
+        // optional - ProcessLifecycleOwner provides a lifecycle for the whole application process
+        "lifecycle-process" to "androidx.lifecycle:lifecycle-process:$lifecycle_version"
+
+    )
+
+
+    //kapt TOOD
     fun impl(map: Map<String, String>, block: (String) -> Unit) {
         map.forEach { (key, value) ->
             println("key ->$key  value-> $value")
