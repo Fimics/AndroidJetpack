@@ -1,3 +1,4 @@
+import BuildVersions.coroutines
 import BuildVersions.datastore_version
 import BuildVersions.gson_version
 import BuildVersions.hilt_version
@@ -5,11 +6,13 @@ import BuildVersions.kotlin_version
 import BuildVersions.lifecycle_version
 import BuildVersions.nav_version
 import BuildVersions.okhttp_version
+import androids.corektxversion
 
 //全局常量
 object BuildVersions {
     const val gradle_version = "7.1.2"
-    const val kotlin_version = "1.5.21"
+//    const val kotlin_version = "1.5.21"
+    const val kotlin_version = "1.6.10"
 
     const val nav_version = "2.4.1"
     const val okhttp_version = "4.9.0"
@@ -17,6 +20,7 @@ object BuildVersions {
     const val hilt_version = "2.35.1"
     const val datastore_version = "1.0.0"
     const val lifecycle_version = "2.2.0"
+    const val coroutines = "1.6.0"
 }
 
 //应用配置
@@ -28,6 +32,7 @@ object androids {
     const val targetSdkVersion = 29
     const val versionCode = 1
     const val versionName = "1.0"
+    const val corektxversion="1.2.0"
 }
 
 
@@ -44,17 +49,16 @@ object Depends {
     const val multidex = "com.android.support:multidex:1.1.0"
     const val workmanager = "androidx.work:work-runtime:2.2.0"
     const val kotlinstdlib = "org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}"
-    const val corektx = "androidx.core:core-ktx:${kotlin_version}"
+    const val corektx = "androidx.core:core-ktx:${corektxversion}"
     const val kotlinxcoroutinesandroid =
         "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_version"
-//    const val kotlinxcoroutinesandroid ="org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3"
 
 
     //kotlins
     val kotlins = mapOf<String, String>(
         "kotlinstdlib" to "org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}",
-        "corektx" to "androidx.core:core-ktx:${kotlin_version}",
-        "kotlinxcoroutinesandroid" to "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_version"
+        "corektx" to "androidx.core:core-ktx:${corektxversion}",
+        "kotlinxcoroutinesandroid" to "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
     )
 
     //rx

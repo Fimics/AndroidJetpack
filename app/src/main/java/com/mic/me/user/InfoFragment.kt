@@ -1,16 +1,13 @@
 package com.mic.me.user
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.mic.databinding.FragmentMeBinding
 import com.mic.databinding.FragmentMeInfoBinding
-import okhttp3.internal.wait
 
 
 class InfoFragment : Fragment() {
