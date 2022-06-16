@@ -15,4 +15,6 @@ dependencyResolutionManagement {
 //apply from: 'versions.gradle'
 rootProject.name = "AndroidJetpack"
 include (":app")
-include (":libs:imageloader")
+//include (":libs:l")
+//include(":images")
+include(":imagemaster")
