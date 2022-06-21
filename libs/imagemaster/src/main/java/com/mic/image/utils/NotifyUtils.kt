@@ -1,12 +1,10 @@
-package com.lawaken.image.utils
+package com.mic.image.utils
 
 import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.provider.MediaStore
-import androidx.annotation.RequiresApi
 import java.io.*
 
 /**

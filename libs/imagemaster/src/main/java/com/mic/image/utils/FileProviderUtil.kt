@@ -1,4 +1,4 @@
-package com.lawaken.image.utils
+package com.mic.image.utils
 
 import android.content.Context
 import android.net.Uri

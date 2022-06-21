@@ -1,4 +1,4 @@
-package com.lawaken.image;
+package com.mic.image;
 
 /**
  * 底层图片加载策略枚举

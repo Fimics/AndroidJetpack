@@ -17,4 +17,4 @@ rootProject.name = "AndroidJetpack"
 include (":app")
 //include (":libs:l")
 //include(":images")
-include(":imagemaster")
+include(":libs:imagemaster")

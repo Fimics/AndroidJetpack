@@ -1,4 +1,4 @@
-package com.lawaken.image.strategy.glide;
+package com.mic.image.strategy.glide;
 
 /**
  * glide磁盘缓存枚举

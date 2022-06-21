@@ -1,4 +1,4 @@
-package com.lawaken.image;
+package com.mic.image;
 
 /**
  * 图片下载结果回调

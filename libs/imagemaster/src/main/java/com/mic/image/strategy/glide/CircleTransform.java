@@ -1,4 +1,4 @@
-package com.lawaken.image.strategy.glide;
+package com.mic.image.strategy.glide;
 
 import android.content.Context;
 import android.content.res.Resources;

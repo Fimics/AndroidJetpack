@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.api.ApkVariantOutputImpl
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -6,15 +8,15 @@ plugins {
 }
 
 android {
-    compileSdk=androids.compileSdkVersion
-    buildToolsVersion=androids.buildToolsVersion
+    compileSdk=androids.compileSdkV
+    buildToolsVersion=androids.buildToolsV
 
     defaultConfig {
         applicationId = "com.mic"
-        minSdk=androids.minSdkVersion
-        targetSdk=androids.targetSdkVersion
-        versionCode = androids.versionCode
-        versionName = androids.versionName
+        minSdk=androids.minSdkV
+        targetSdk=androids.targetSdkV
+        versionCode = androids.vCode
+        versionName = androids.vName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -49,7 +51,7 @@ android {
         val buildType = this.buildType.name
         outputs.all {
             //输出apk
-            if (this is com.android.build.gradle.internal.api.ApkVariantOutputImpl) {
+            if (this is ApkVariantOutputImpl) {
                 this.outputFileName = "Jetpack${defaultConfig.versionName}_$buildType.apk"
             }
         }

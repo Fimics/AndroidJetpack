@@ -1,4 +1,4 @@
-package com.lawaken.image;
+package com.mic.image;
 
 public class Builder {
     //设置图片是否展示占位图

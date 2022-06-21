@@ -1,4 +1,4 @@
-package com.lawaken.image;
+package com.mic.image;
 
 import android.content.Context;
 import android.net.Uri;

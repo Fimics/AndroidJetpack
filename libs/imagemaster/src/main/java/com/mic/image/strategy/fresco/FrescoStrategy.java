@@ -1,12 +1,12 @@
-package com.lawaken.image.strategy.fresco;
+package com.mic.image.strategy.fresco;
 
 import android.content.Context;
 import android.net.Uri;
 import android.widget.ImageView;
-import com.lawaken.image.Builder;
-import com.lawaken.image.DownloadListener;
-import com.lawaken.image.ImageLoader;
-import com.lawaken.image.ProgressLoadListener;
+import com.mic.image.Builder;
+import com.mic.image.DownloadListener;
+import com.mic.image.ImageLoader;
+import com.mic.image.ProgressLoadListener;
 import java.io.File;
 
 /**

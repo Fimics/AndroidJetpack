@@ -25,13 +25,13 @@ object BuildVersions {
 
 //应用配置
 object androids {
-    const val compileSdkVersion = 32
-    const val buildToolsVersion = "30.0.3"
+    const val compileSdkV = 32
+    const val buildToolsV = "30.0.3"
     const val applicationId = "com.mic"
-    const val minSdkVersion = 21
-    const val targetSdkVersion = 29
-    const val versionCode = 1
-    const val versionName = "1.0"
+    const val minSdkV = 21
+    const val targetSdkV = 29
+    const val vCode = 1
+    const val vName = "1.0"
     const val corektxversion="1.2.0"
 }
 

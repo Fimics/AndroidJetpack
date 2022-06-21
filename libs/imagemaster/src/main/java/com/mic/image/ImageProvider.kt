@@ -1,4 +1,4 @@
-package com.lawaken.image
+package com.mic.image
 
 import androidx.core.content.FileProvider
 

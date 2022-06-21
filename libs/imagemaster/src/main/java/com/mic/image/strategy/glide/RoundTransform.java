@@ -1,4 +1,4 @@
-package com.lawaken.image.strategy.glide;
+package com.mic.image.strategy.glide;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

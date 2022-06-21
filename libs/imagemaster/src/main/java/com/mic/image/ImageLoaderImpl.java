@@ -1,11 +1,11 @@
-package com.lawaken.image;
+package com.mic.image;
 
 import android.content.Context;
 import android.net.Uri;
 import android.widget.ImageView;
-import com.lawaken.image.strategy.fresco.FrescoStrategy;
-import com.lawaken.image.strategy.picasso.PicassoStrategy;
-import com.lawaken.image.strategy.glide.GlideStrategy;
+import com.mic.image.strategy.fresco.FrescoStrategy;
+import com.mic.image.strategy.picasso.PicassoStrategy;
+import com.mic.image.strategy.glide.GlideStrategy;
 import java.io.File;
 
 /**

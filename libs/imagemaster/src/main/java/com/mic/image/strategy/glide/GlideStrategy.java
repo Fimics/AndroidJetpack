@@ -1,4 +1,4 @@
-package com.lawaken.image.strategy.glide;
+package com.mic.image.strategy.glide;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -15,12 +15,12 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.lawaken.image.Builder;
-import com.lawaken.image.DownloadListener;
-import com.lawaken.image.ImageLoader;
-import com.lawaken.image.ProgressLoadListener;
+import com.mic.image.Builder;
+import com.mic.image.DownloadListener;
+import com.mic.image.ImageLoader;
+import com.mic.image.ProgressLoadListener;
 import com.lawaken.image.R;
-import com.lawaken.image.utils.FileUtils;
+import com.mic.image.utils.FileUtils;
 import java.io.File;
 
 

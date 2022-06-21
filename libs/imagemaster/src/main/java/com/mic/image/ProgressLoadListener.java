@@ -1,4 +1,4 @@
-package com.lawaken.image;
+package com.mic.image;
 
 /**
  * 通知图片加载进度

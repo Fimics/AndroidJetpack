@@ -1,10 +1,9 @@
-package com.lawaken.image.utils
+package com.mic.image.utils
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.os.Build
 import android.os.Environment
-import com.lawaken.image.utils.NotifyUtils.Companion.refreshSystemPic
+import com.mic.image.utils.NotifyUtils.Companion.refreshSystemPic
 import java.io.*
 import java.math.BigDecimal
 
