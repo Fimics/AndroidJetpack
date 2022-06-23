@@ -1,1 +1,0 @@
-/Users/mac/code/android/AndroidJetpack/BuildSrc/build/classes/kotlin/main/BuildVersions.class:/Users/mac/code/android/AndroidJetpack/BuildSrc/build/classes/kotlin/main/Config.class:/Users/mac/code/android/AndroidJetpack/BuildSrc/build/classes/kotlin/main/Depends.class:/Users/mac/code/android/AndroidJetpack/BuildSrc/build/classes/kotlin/main/androids.class
