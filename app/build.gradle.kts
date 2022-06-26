@@ -79,4 +79,10 @@ dependencies {
     Depends.impl(Depends.okhttps,::implementation)
     Depends.impl(Depends.lifecycles,::implementation)
     Depends.impl(Depends.kotlins,::implementation)
+
+    //异步组件 我们可以使用CallbackToFutureAdapter的getFuture函数将任意类型的回调转换成一个ListenableFuture实例，方便统一API的设计风格
+    implementation("androidx.concurrent:concurrent-futures:1.0.0")
+
+
+
 }
