@@ -6,7 +6,7 @@
 
     <application>
         <provider
-            android:name="com.lawaken.image.com.mic.image.ImageProvider"
+            android:name="com.mic.image.ImageProvider"
             android:authorities="${applicationId}.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true">

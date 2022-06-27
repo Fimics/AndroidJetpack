@@ -33,11 +33,10 @@ android {
 }
 
 dependencies {
-
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.3.0")
-    implementation("com.google.android.material:material:1.4.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    Depends.impl(Depends.okhttps,::implementation)
+    Depends.impl(Depends.lifecycles,::implementation)
+    Depends.impl(Depends.kotlins,::implementation)
+    implementation(project(mapOf("path" to ":libs:imagemaster")))
+    //异步组件 我们可以使用CallbackToFutureAdapter的getFuture函数将任意类型的回调转换成一个ListenableFuture实例，方便统一API的设计风格
+    api("androidx.concurrent:concurrent-futures:1.0.0")
 }
