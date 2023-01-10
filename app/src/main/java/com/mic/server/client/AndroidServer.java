@@ -96,13 +96,14 @@ public class AndroidServer {
     }
 
     public boolean isConnectedInWifi() {
-        WifiManager wifiManager = (WifiManager) context.getSystemService(WIFI_SERVICE);
-        NetworkInfo networkInfo = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected()
-                && wifiManager.isWifiEnabled() && networkInfo.getTypeName().equals("WIFI")) {
-            return true;
-        }
-        return false;
+//        WifiManager wifiManager = (WifiManager) context.getSystemService(WIFI_SERVICE);
+//        NetworkInfo networkInfo = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+//        if (networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected()
+//                && wifiManager.isWifiEnabled() && networkInfo.getTypeName().equals("WIFI")) {
+//            return true;
+//        }
+//        return false;
+        return true;
     }
     //endregion
 

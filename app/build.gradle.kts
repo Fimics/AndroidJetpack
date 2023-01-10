@@ -74,10 +74,17 @@ android {
 
 dependencies {
     implementation (fileTree(mapOf("dir" to "libs","include" to listOf("*.jar"))))
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("androidx.appcompat:appcompat:1.4.1")
+    implementation("com.google.android.material:material:1.4.+")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
     Depends.impl(Depends.views,::implementation)
     Depends.impl(Depends.navigations,::implementation)
+    Depends.impl(Depends.glides,::implementation)
     Depends.impl(Depends.okhttps,::implementation)
     Depends.impl(Depends.lifecycles,::implementation)
     Depends.impl(Depends.kotlins,::implementation)
+    Depends.impl(Depends.retrofits,::implementation)
+    Depends.impl(Depends.rxs,::implementation)
     api(project(mapOf("path" to ":libcore")))
 }

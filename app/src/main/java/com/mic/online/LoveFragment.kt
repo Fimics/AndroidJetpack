@@ -18,6 +18,6 @@ class LoveFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_picture, container, false)
+        return inflater.inflate(R.layout.fragment_rx, container, false)
     }
 }

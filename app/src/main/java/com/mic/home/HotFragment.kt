@@ -53,81 +53,81 @@ class HotFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val host = AndroidServer.get(context).host
-        Log.d(TAG, "host-->" + host)
-        lifecycle.addObserver(TestObserver())
-
-        val webView = binding.webview
-        binding.btnWebview.setOnClickListener {
-            webView.loadUrl(host + "/storage/emulated/0/Documents/json/tabs.json")
-        }
-
-        binding.btnOkhttp.setOnClickListener {
-
-            //ext activity
-            val client = OkHttpClient()
-//            activity?.start<MainActivity>()
-//            snackbar("我是HotFragment")
-//             println(requireActivity().isConnected())
-
-
-//            GET
-
-            thread {
-                val requestGet = Request.Builder()
-                    .url(host + "/storage/emulated/0/Documents/json/test.json")
-                    .build()
-                KLog.d(tag, "execute start")
-                val response = client.newCall(requestGet).execute();
-                KLog.d(tag, response.body?.string())
-                KLog.d(tag, "execute end")
-            }
-
-
-            //POST
-//            val json = "application/json; charset=gbk".toMediaTypeOrNull()
-//            var requestBody = RequestBody.create(json, "json")
-//            val requestPost = Request.Builder()
-//                .url(host + "/storage/emulated/0/Documents/json/tabs.json")
-//                .post(requestBody)
-//                .build()
+//        val host = AndroidServer.get(context).host
+//        Log.d(TAG, "host-->" + host)
+//        lifecycle.addObserver(TestObserver())
 //
-//            client.newCall(requestPost).enqueue(object : Callback {
-//                override fun onFailure(call: Call, e: IOException) {
-//                    Log.d(TAG, "onFailure")
-//                }
+//        val webView = binding.webview
+//        binding.btnWebview.setOnClickListener {
+//            webView.loadUrl(host + "/storage/emulated/0/Documents/json/tabs.json")
+//        }
 //
-//                override fun onResponse(call: Call, response: Response) {
-//                    val url = call.request().url
-//                    Log.d(TAG, "url ->" + url)
-//                    Log.d(TAG, "onResponse")
-//                    val result = response.body?.string()
-//                    Log.d(TAG, "onResponse data->  " + result)
-//                    Log.d(TAG, "onResponse code->  " + response.code)
-//                }
-////            })
-        }
-
-        binding.btnMainScope.setOnClickListener {
-            //1.mainScope
-            mainScope.launch {
-                KLog.d("调度到UI线程")
-            }
-
-            //2.autoDisposable
-            GlobalScope.launch(Dispatchers.Main) {
-                //调到UI线程上
-            }.asAutoDisposable(it)
-
-
-            //3.
-            lifecycleScope.launch {
-                //执行携程
-            }
+//        binding.btnOkhttp.setOnClickListener {
+//
+//            //ext activity
+//            val client = OkHttpClient()
+////            activity?.start<MainActivity>()
+////            snackbar("我是HotFragment")
+////             println(requireActivity().isConnected())
+//
+//
+////            GET
+//
+//            thread {
+//                val requestGet = Request.Builder()
+//                    .url(host + "/storage/emulated/0/Documents/json/test.json")
+//                    .build()
+//                KLog.d(tag, "execute start")
+//                val response = client.newCall(requestGet).execute();
+//                KLog.d(tag, response.body?.string())
+//                KLog.d(tag, "execute end")
+//            }
+//
+//
+//            //POST
+////            val json = "application/json; charset=gbk".toMediaTypeOrNull()
+////            var requestBody = RequestBody.create(json, "json")
+////            val requestPost = Request.Builder()
+////                .url(host + "/storage/emulated/0/Documents/json/tabs.json")
+////                .post(requestBody)
+////                .build()
+////
+////            client.newCall(requestPost).enqueue(object : Callback {
+////                override fun onFailure(call: Call, e: IOException) {
+////                    Log.d(TAG, "onFailure")
+////                }
+////
+////                override fun onResponse(call: Call, response: Response) {
+////                    val url = call.request().url
+////                    Log.d(TAG, "url ->" + url)
+////                    Log.d(TAG, "onResponse")
+////                    val result = response.body?.string()
+////                    Log.d(TAG, "onResponse data->  " + result)
+////                    Log.d(TAG, "onResponse code->  " + response.code)
+////                }
+//////            })
+//        }
+//
+//        binding.btnMainScope.setOnClickListener {
+//            //1.mainScope
+//            mainScope.launch {
+//                KLog.d("调度到UI线程")
+//            }
+//
+//            //2.autoDisposable
+//            GlobalScope.launch(Dispatchers.Main) {
+//                //调到UI线程上
+//            }.asAutoDisposable(it)
+//
+//
+//            //3.
+//            lifecycleScope.launch {
+//                //执行携程
+//            }
 
             //4.futures 将任意回调转换为ListenableFuture
 
-        }
+//        }
     }
 
 
