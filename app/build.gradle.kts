@@ -1,4 +1,3 @@
-import com.android.build.gradle.internal.api.ApkVariantOutputImpl
 
 plugins {
     id("com.android.application")
@@ -51,20 +50,20 @@ android {
         val buildType = this.buildType.name
         outputs.all {
             //输出apk
-            if (this is ApkVariantOutputImpl) {
+            if (this is com.android.build.gradle.internal.api.ApkVariantOutputImpl) {
                 this.outputFileName = "Jetpack${defaultConfig.versionName}_$buildType.apk"
             }
         }
     }
 
-    //依赖操作
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+//    //依赖操作
+//    compileOptions {
+//        sourceCompatibility = JavaVersion.VERSION_1_8
+//        targetCompatibility = JavaVersion.VERSION_1_8
+//    }
+//    kotlinOptions {
+//        jvmTarget = "1.8"
+//    }
     buildFeatures {
         viewBinding = true
     }
