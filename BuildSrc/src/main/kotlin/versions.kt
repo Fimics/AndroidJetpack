@@ -13,7 +13,7 @@ import androids.corektxversion
 
 //全局常量
 object BuildVersions {
-    const val gradle_version = "7.4.1"
+    const val gradle_version = "7.1.2"
     const val kotlin_version = "1.8.0"
 
     const val nav_version = "2.4.1"

@@ -6,7 +6,6 @@ buildscript {
 
     dependencies {
         classpath ("com.android.tools.build:gradle:${BuildVersions.gradle_version}")
-        classpath("com.google.dagger:hilt-android-gradle-plugin:2.40.1")
     }
 }
 
