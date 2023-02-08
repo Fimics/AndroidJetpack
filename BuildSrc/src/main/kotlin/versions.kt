@@ -26,7 +26,7 @@ object BuildVersions {
 
     const val nav_version = "2.4.1"
     const val okhttp_version = "4.9.0"
-    const val gson_version = "2.8.7"
+    const val gson_version = "2.8.5"
     const val hilt_version = "2.3.1"
     const val datastore_version = "1.0.0"
     const val lifecycle_version = "2.3.1"
@@ -45,7 +45,7 @@ object BuildVersions {
     const val vectordrawable_version="1.0.1"
     const val recyclerview_version="1.0.0"
     const val cardview_version="1.0.0"
-    const val material_version="1.4.0"
+    const val material_version="1.5.0"
 }
 
 //应用配置

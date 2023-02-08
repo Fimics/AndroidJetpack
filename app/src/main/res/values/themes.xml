@@ -8,16 +8,6 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.AndroidJetpack.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="AppTheme.FullScreen" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowFullscreen">true</item>
-    </style>
-
 
     <style name="TabLayoutTextStyle">
         <item name="android:textSize">@dimen/text_size_16sp</item>
@@ -26,7 +16,4 @@
     </style>
 
 
-    <style name="Theme.AndroidJetpack.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.AndroidJetpack.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

@@ -2,18 +2,12 @@
 <resources>
 
     <string-array name="tab_home">
+        <item>lifecycle</item>
         <item>SlideCard</item>
         <item>RecyclerView</item>
         <item>DispatchEvent</item>
         <item>FlowLayout</item>
         <item>rxandroid</item>
-        <item>北京</item>
-        <item>文学历史</item>
-        <item>职场技能</item>
-        <item>生活兴趣</item>
-        <item>运动健身</item>
-        <item>亲子育儿</item>
-        <item>知识片库</item>
     </string-array>
 
 

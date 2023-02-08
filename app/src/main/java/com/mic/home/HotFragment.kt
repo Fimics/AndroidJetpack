@@ -1,27 +1,15 @@
 package com.mic.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 //import androidx.concurrent.futures.CallbackToFutureAdapter
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import com.mic.databinding.FragmentTabHotBinding
-import com.mic.ex.asAutoDisposable
-import com.mic.home.observer.TestObserver
-import com.mic.server.client.AndroidServer
-import com.mic.utils.KLog
 //import com.mic.utils.isConnected
 //import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.asFlow
-import okhttp3.*
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import java.io.IOException
-import java.util.concurrent.Flow
-import kotlin.concurrent.thread
 
 
 //@AndroidEntryPoint

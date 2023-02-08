@@ -8,6 +8,7 @@ android {
 
     defaultConfig {
         minSdk = androids.minSdkV
+        targetSdk=androids.targetSdkV
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -45,7 +46,10 @@ dependencies {
     api(Depends.adapterrxjava)
 
     //glide
-    api(Depends.glide)
+    api(Depends.glide){
+        exclude("androidx.customview","customview")
+        exclude("androidx.fragment","fragment")
+    }
 
     //lifecycle
     api(Depends.viewmodel)

@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.plugin.extraProperties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -13,7 +15,6 @@ android {
         targetSdk=androids.targetSdkV
         versionCode = androids.vCode
         versionName = androids.vName
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     //签名
@@ -59,8 +60,7 @@ android {
     namespace = "com.mic"
 }
 
-
-
+//https://blog.csdn.net/lfq88/article/details/118222107
 dependencies {
     implementation (fileTree(mapOf("dir" to "libs","include" to listOf("*.jar"))))
     //views
@@ -69,11 +69,13 @@ dependencies {
     implementation(Depends.vectordrawable)
     implementation(Depends.recyclerview)
     implementation(Depends.cardview)
-    implementation(Depends.material)
 
     //navigation
     implementation(Depends.navigationfragment)
-    implementation(Depends.navigation)
+    implementation(Depends.navigation){
+//        exclude("androidx.transition","transition")
+        exclude(mapOf("group" to "androidx.transition","module" to "transition"))
+    }
 
     api(project(mapOf("path" to ":libcore")))
 }

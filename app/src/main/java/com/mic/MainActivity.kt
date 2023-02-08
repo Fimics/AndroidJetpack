@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNavigationView = binding.bottomNav
         bottomNavigationView.setupWithNavController(navController)
-        startServer()
+//        startServer()
 
 //        user.name = "朱Bony"
 //        user.age = 30

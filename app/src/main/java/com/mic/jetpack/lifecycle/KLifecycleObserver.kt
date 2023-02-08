@@ -1,10 +1,10 @@
-package com.mic.home.observer
+package com.mic.jetpack.lifecycle
 
 import android.util.Log
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 
-class TestObserver:DefaultLifecycleObserver {
+class KLifecycleObserver:DefaultLifecycleObserver {
 
     val tag :String = "observer"
     override fun onCreate(owner: LifecycleOwner) {
