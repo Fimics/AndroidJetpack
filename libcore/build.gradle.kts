@@ -4,12 +4,10 @@ plugins {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = androids.compileSdkV
 
     defaultConfig {
-        minSdk = 21
-        targetSdk = 32
-
+        minSdk = androids.minSdkV
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -23,20 +21,36 @@ android {
             )
         }
     }
-//    compileOptions {
-//        sourceCompatibility = JavaVersion.VERSION_1_8
-//        targetCompatibility = JavaVersion.VERSION_1_8
-//    }
-//    kotlinOptions {
-//        jvmTarget = "1.8"
-//    }
+    namespace = "com.mic.libcore"
 }
 
 dependencies {
-    Depends.impl(Depends.okhttps,::implementation)
-    Depends.impl(Depends.lifecycles,::implementation)
-    Depends.impl(Depends.kotlins,::implementation)
-    implementation(project(mapOf("path" to ":libs:imagemaster")))
-    //异步组件 我们可以使用CallbackToFutureAdapter的getFuture函数将任意类型的回调转换成一个ListenableFuture实例，方便统一API的设计风格
-    api("androidx.concurrent:concurrent-futures:1.0.0")
+    //kotlin
+    api(Depends.kotlinstdlib)
+    api(Depends.corektxo)
+    api(Depends.kotlinxcoroutinesandroid)
+    //okhttp
+    api(Depends.okhttp)
+    api(Depends.logginginterceptor)
+    api(Depends.gson)
+
+    //rxs
+    api(Depends.rxandroid)
+    api(Depends.rxjava)
+    api(Depends.rxbinding2)
+
+    //retrofit
+    api(Depends.retrofit)
+    api(Depends.convertergson)
+    api(Depends.adapterrxjava)
+
+    //glide
+    api(Depends.glide)
+
+    //lifecycle
+    api(Depends.viewmodel)
+    api(Depends.livedata)
+    api(Depends.lifecycle_runtime)
+    api(Depends.lifecycle_viewmodel_savedstate)
+    api(Depends.lifecycle_common_java8)
 }

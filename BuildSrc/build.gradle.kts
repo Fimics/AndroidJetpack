@@ -7,12 +7,12 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        classpath(kotlin("gradle-plugin", "1.5.21"))
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0")
     }
 }
 dependencies {
     gradleKotlinDsl()
-    kotlin("stdlib", "1.5.21")
+    kotlin("stdlib", "1.8.0")
 }
 repositories {
     gradlePluginPortal()

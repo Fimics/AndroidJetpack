@@ -1,9 +1,6 @@
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-//    id("kotlin-kapt")
-//    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -56,34 +53,27 @@ android {
         }
     }
 
-//    //依赖操作
-//    compileOptions {
-//        sourceCompatibility = JavaVersion.VERSION_1_8
-//        targetCompatibility = JavaVersion.VERSION_1_8
-//    }
-//    kotlinOptions {
-//        jvmTarget = "1.8"
-//    }
     buildFeatures {
         viewBinding = true
     }
+    namespace = "com.mic"
 }
 
 
 
 dependencies {
     implementation (fileTree(mapOf("dir" to "libs","include" to listOf("*.jar"))))
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("com.google.android.material:material:1.4.+")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
-    Depends.impl(Depends.views,::implementation)
-    Depends.impl(Depends.navigations,::implementation)
-    Depends.impl(Depends.glides,::implementation)
-    Depends.impl(Depends.okhttps,::implementation)
-    Depends.impl(Depends.lifecycles,::implementation)
-    Depends.impl(Depends.kotlins,::implementation)
-    Depends.impl(Depends.retrofits,::implementation)
-    Depends.impl(Depends.rxs,::implementation)
+    //views
+    implementation(Depends.appcompat)
+    implementation(Depends.constraint)
+    implementation(Depends.vectordrawable)
+    implementation(Depends.recyclerview)
+    implementation(Depends.cardview)
+    implementation(Depends.material)
+
+    //navigation
+    implementation(Depends.navigationfragment)
+    implementation(Depends.navigation)
+
     api(project(mapOf("path" to ":libcore")))
 }
