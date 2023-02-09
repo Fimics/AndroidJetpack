@@ -17,7 +17,7 @@ class LifecycleFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        lifecycle.addObserver(KLifecycleObserver())
+//        lifecycle.addObserver(BasePresenterObserver())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +30,11 @@ class LifecycleFragment : Fragment() {
     ): View? {
         _binding = FragmentFlowBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        lifecycle.addObserver(BasePresenterObserver())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

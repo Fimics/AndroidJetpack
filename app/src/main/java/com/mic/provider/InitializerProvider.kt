@@ -4,9 +4,8 @@ import android.content.ContentProvider
 import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
-import android.util.Log
 import com.mic.server.ServerService
-import com.mic.utils.FileTools
+import com.mic.libcore.utils.FileTools
 import kotlin.concurrent.thread
 
 class InitializerProvider : ContentProvider() {

@@ -1,4 +1,4 @@
-package com.mic.utils
+package com.mic.libcore.utils
 
 import android.app.Activity
 import android.content.Context

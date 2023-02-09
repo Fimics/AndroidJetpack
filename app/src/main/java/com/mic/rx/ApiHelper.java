@@ -7,7 +7,7 @@ import com.jakewharton.rxbinding2.view.RxView;
 import com.mic.rx.api.ProjectApi;
 import com.mic.rx.bean.ProjectBean;
 import com.mic.rx.bean.ProjectItem;
-import com.mic.utils.KLog;
+import com.mic.libcore.utils.KLog;
 
 import java.util.concurrent.TimeUnit;
 

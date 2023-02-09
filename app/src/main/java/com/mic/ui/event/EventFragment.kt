@@ -6,9 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.mic.R
 import com.mic.databinding.FragmentEventBinding
-import com.mic.utils.KLog
+import com.mic.libcore.utils.KLog
 
 
 class EventFragment : Fragment() {

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/onLineFragment"
-        android:name="com.mic.online.MainOnLineFragment"
+        android:name="com.mic.tab.online.MainOnLineFragment"
         android:label="fragment_on_line"
         tools:layout="@layout/fragment_on_line" />
 </navigation>

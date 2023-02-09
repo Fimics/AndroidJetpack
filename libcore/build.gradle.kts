@@ -57,4 +57,6 @@ dependencies {
     api(Depends.lifecycle_runtime)
     api(Depends.lifecycle_viewmodel_savedstate)
     api(Depends.lifecycle_common_java8)
+    api(Depends.lifecycle_process)
+    api(Depends.lifecycle_service)
 }

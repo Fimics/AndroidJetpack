@@ -9,9 +9,10 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.mic.databinding.ActivityMainBinding
-import com.mic.di.AnalyticsAdapter
-import com.mic.di.User
-import com.mic.utils.*
+import com.mic.libcore.utils.ExecutorsPoller
+import com.mic.libcore.utils.FileServer
+import com.mic.libcore.utils.KLog
+import com.mic.libcore.utils.PermissionUtils
 //import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 //import javax.inject.Inject
