@@ -2,6 +2,9 @@
 <resources>
 
     <string-array name="tab_home">
+        <item>dagger2</item>
+        <item>databinding</item>
+        <item>livedata</item>
         <item>lifecycle</item>
         <item>SlideCard</item>
         <item>RecyclerView</item>

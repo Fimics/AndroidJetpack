@@ -2,6 +2,7 @@ import BuildVersions.appcompat_version
 import BuildVersions.cardview_version
 import BuildVersions.constraintlayout_version
 import BuildVersions.coroutines
+import BuildVersions.dagger_version
 import BuildVersions.datastore_version
 import BuildVersions.glide_version
 import BuildVersions.gson_version
@@ -40,12 +41,16 @@ object BuildVersions {
     const val retrofit_version="2.9.0"
 
     //views
-    const val appcompat_version="1.3.0"
+    const val appcompat_version="1.4.1"
     const val constraintlayout_version="2.1.3"
     const val vectordrawable_version="1.0.1"
     const val recyclerview_version="1.0.0"
     const val cardview_version="1.0.0"
-    const val material_version="1.5.0"
+    const val material_version="1.4.+"
+
+    //dagger
+    const val dagger_version="2.4"
+
 }
 
 //应用配置
@@ -68,7 +73,7 @@ object Depends {
     const val  kotlinxcoroutinesandroid= "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
     //view
     const val  appcompat= "androidx.appcompat:appcompat:$appcompat_version"
-    const val  constraint="androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+    const val  constraintlayout="androidx.constraintlayout:constraintlayout:$constraintlayout_version"
     const val  vectordrawable="androidx.vectordrawable:vectordrawable:$vectordrawable_version"
     const val  recyclerview= "androidx.recyclerview:recyclerview:$recyclerview_version"
     const val  cardview= "androidx.cardview:cardview:$cardview_version"
@@ -100,6 +105,14 @@ object Depends {
     //datastore
     const val datastore_core="androidx.datastore:datastore-core:$datastore_version"
     const val datastore_preferences_core="androidx.datastore:datastore-preferences-core:$datastore_version"
+
+    //dagger
+    const val dagger="com.google.dagger:dagger:$dagger_version"
+    const val dagger_compiler="com.google.dagger:dagger-compiler:$dagger_version"
+    const val dagger_android="com.google.dagger:dagger-android:$dagger_version"
+    const val dagger_android_support="com.google.dagger:dagger-android-support:$dagger_version"
+    const val dagger_android_processor="com.google.dagger:dagger-android-processor:$dagger_version"
+
 
     //hilt
     const val hilt= "com.google.dagger:hilt-android:$hilt_version"

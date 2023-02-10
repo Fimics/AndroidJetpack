@@ -11,7 +11,6 @@ import com.mic.ui.indicator.TabBaseFragment
 
 class MainHomeFragment : TabBaseFragment() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }

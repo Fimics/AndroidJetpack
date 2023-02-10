@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.plugin.extraProperties
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -56,6 +57,8 @@ android {
 
     buildFeatures {
         viewBinding = true
+        dataBinding =true
+
     }
     namespace = "com.mic"
 }
@@ -65,7 +68,7 @@ dependencies {
     implementation (fileTree(mapOf("dir" to "libs","include" to listOf("*.jar"))))
     //views
     implementation(Depends.appcompat)
-    implementation(Depends.constraint)
+    implementation(Depends.constraintlayout)
     implementation(Depends.vectordrawable)
     implementation(Depends.recyclerview)
     implementation(Depends.cardview)
@@ -76,6 +79,9 @@ dependencies {
 //        exclude("androidx.transition","transition")
         exclude(mapOf("group" to "androidx.transition","module" to "transition"))
     }
+
+    //dagger2
+    implementation(Depends.dagger)
 
     api(project(mapOf("path" to ":libcore")))
 }

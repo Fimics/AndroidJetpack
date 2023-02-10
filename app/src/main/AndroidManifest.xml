@@ -24,7 +24,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidJetpack"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".jetpack.livedata.LivedataActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -35,8 +37,7 @@
             </intent-filter>
             <!-- This is added to handle a deep link -->
         </activity>
-
-        <activity android:name=".ui.event.EventActivity"/>
+        <activity android:name=".ui.event.EventActivity" />
 
         <service android:name=".server.ServerService" />
 

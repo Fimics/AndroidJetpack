@@ -1,17 +1,17 @@
-package com.mic
+package com.mic.jetpack.databinding
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.mic.databinding.FragmentFlowBinding
+import com.mic.databinding.FragmentDatabindingBinding
 
 
-class EmptyFragment : Fragment() {
+class DataBindingFragment : Fragment() {
 
     //如果一个类有两个概念上相同的属性，但一个是公共API的一部分，另一个是实现细节，请使用下划线作为私有属性名称的前缀
-    private var _binding: FragmentFlowBinding? = null
+    private var _binding: FragmentDatabindingBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,13 +22,14 @@ class EmptyFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentFlowBinding.inflate(inflater, container, false)
+        _binding = FragmentDatabindingBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val user = User("hello","android")
+        binding.user=user
     }
 
     override fun onDestroyView() {
