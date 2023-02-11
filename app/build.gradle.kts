@@ -85,6 +85,9 @@ dependencies {
     //dagger2
     implementation(Depends.dagger)
     kapt(Depends.dagger_compiler)
+//    implementation(Depends.dagger_android)
+//    implementation(Depends.dagger_android_support)
+//    kapt(Depends.dagger_android_processor)
 
     api(project(mapOf("path" to ":libcore")))
 }
