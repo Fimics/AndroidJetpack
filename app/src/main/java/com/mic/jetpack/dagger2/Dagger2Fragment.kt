@@ -7,8 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mic.databinding.FragmentDagger2Binding
 import com.mic.jetpack.dagger2.component.DaggerMyComponent
+import com.mic.jetpack.dagger2.component.DaggerPresenterComponent
+import com.mic.jetpack.dagger2.module.DatabaseModule
+import com.mic.jetpack.dagger2.module.HttpModule
 import com.mic.jetpack.dagger2.`object`.DatabaseObject
 import com.mic.jetpack.dagger2.`object`.HttpObject
+import com.mic.jetpack.dagger2.`object`.PresenterObject
 import com.mic.libcore.utils.KLog
 import javax.inject.Inject
 
@@ -33,9 +37,21 @@ class Dagger2Fragment : Fragment() {
     @JvmField
     var databaseObject: DatabaseObject?=null
 
+    @Inject
+    @JvmField
+    var presenterObject:PresenterObject?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DaggerMyComponent.create().injectDagger2Fragment(this)
+        //单个component写法
+//        DaggerMyComponent.create().injectDagger2Fragment(this)
+        //多个component写法 有依赖关系
+        DaggerMyComponent.builder()
+            .httpModule(HttpModule())
+            .databaseModule(DatabaseModule())
+            .presenterComponent(DaggerPresenterComponent.create())
+            .build()
+            .injectDagger2Fragment(this)
     }
 
     override fun onCreateView(
@@ -46,6 +62,7 @@ class Dagger2Fragment : Fragment() {
         binding.btnDagger2.setOnClickListener {
             KLog.d(tag, "http code ${httpObject.hashCode()}")
             KLog.d(tag, "database code ${databaseObject.hashCode()}")
+            KLog.d(tag, "presenter code ${presenterObject.hashCode()}")
         }
         return binding.root
     }
