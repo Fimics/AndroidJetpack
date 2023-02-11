@@ -49,7 +49,7 @@ object BuildVersions {
     const val material_version="1.4.+"
 
     //dagger
-    const val dagger_version="2.4"
+    const val dagger_version="2.45"
 
 }
 

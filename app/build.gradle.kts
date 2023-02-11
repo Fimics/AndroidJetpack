@@ -6,6 +6,7 @@ plugins {
     id("kotlin-kapt")
 }
 
+
 android {
     compileSdk=androids.compileSdkV
     buildToolsVersion=androids.buildToolsV
@@ -60,6 +61,7 @@ android {
         dataBinding =true
 
     }
+    kapt { generateStubs = true }
     namespace = "com.mic"
 }
 
@@ -82,6 +84,7 @@ dependencies {
 
     //dagger2
     implementation(Depends.dagger)
+    kapt(Depends.dagger_compiler)
 
     api(project(mapOf("path" to ":libcore")))
 }
