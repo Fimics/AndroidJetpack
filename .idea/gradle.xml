@@ -14,7 +14,7 @@
             <option value="$PROJECT_DIR$/BuildSrc" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/libcore" />
-            <option value="$PROJECT_DIR$/xdagger" />
+            <option value="$PROJECT_DIR$/xhilt" />
           </set>
         </option>
       </GradleProjectSettings>

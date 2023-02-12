@@ -1,8 +1,5 @@
 
 buildscript {
-//    ext {
-//        hilt_version = '1.6.10'
-//    }
 
     dependencies {
         classpath ("com.android.tools.build:gradle:${BuildVersions.gradle_version}")
@@ -20,7 +17,7 @@ plugins {
     id("com.google.dagger.hilt.android") version BuildVersions.hilt_version apply false
 }
 repositories {
-//    google()
+    //    google()
 }
 
 //groovy

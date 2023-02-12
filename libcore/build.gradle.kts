@@ -1,7 +1,6 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("com.google.dagger.hilt.android")
     id("kotlin-kapt")
 }
 
@@ -29,6 +28,7 @@ android {
     kapt {
         correctErrorTypes = true
     }
+
     namespace = "com.mic.libcore"
 
 }
@@ -68,7 +68,4 @@ dependencies {
     api(Depends.lifecycle_process)
     api(Depends.lifecycle_service)
 
-    //hilt
-    api(Depends.hilt)
-    kapt(Depends.htlt_compiler)
 }

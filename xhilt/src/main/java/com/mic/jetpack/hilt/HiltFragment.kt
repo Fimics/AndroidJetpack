@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.mic.KLog
 import com.mic.databinding.FragmentHiltBinding
+import com.mic.jetpack.hilt.di.IInterface
 import com.mic.jetpack.hilt.`object`.HttpObject
-import com.mic.libcore.utils.KLog
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.internal.lifecycle.HiltWrapper_HiltViewModelFactory_ViewModelModule
 import javax.inject.Inject
 
 
@@ -23,6 +23,10 @@ class HiltFragment : Fragment() {
     @Inject
     @JvmField
     var httpObject:HttpObject?=null
+
+    @Inject
+    @JvmField
+    var ii: IInterface?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +44,7 @@ class HiltFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.btnHilt.setOnClickListener {
             KLog.d("hilt","http object code ${httpObject.hashCode()}")
+            KLog.d("hilt","ii method ${ii?.method()}")
         }
     }
 
