@@ -1,11 +1,5 @@
 package com.mic.jetpack.dagger2.component
 
-import com.mic.jetpack.dagger2.Dagger2Fragment
-import com.mic.jetpack.dagger2.module.DatabaseModule
-import com.mic.jetpack.dagger2.module.HttpModule
-import com.mic.jetpack.dagger2.scope.AppScope
-import dagger.Component
-
 /**
  * 存放module的组件
  */

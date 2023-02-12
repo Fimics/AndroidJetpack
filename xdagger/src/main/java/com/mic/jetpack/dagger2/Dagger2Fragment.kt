@@ -10,11 +10,11 @@ import com.mic.jetpack.dagger2.subcomponent.component.DaggerMainComponent
 import com.mic.jetpack.dagger2.subcomponent.module.MainModule
 //import com.mic.jetpack.dagger2.component.DaggerMyComponent
 //import com.mic.jetpack.dagger2.component.DaggerPresenterComponent
-//import com.mic.jetpack.dagger2.module.DatabaseModule
-//import com.mic.jetpack.dagger2.module.HttpModule
-//import com.mic.jetpack.dagger2.`object`.DatabaseObject
-//import com.mic.jetpack.dagger2.`object`.HttpObject
-//import com.mic.jetpack.dagger2.`object`.PresenterObject
+//import com.mic.jetpack.DatabaseModule
+//import com.mic.jetpack.HttpModule
+//import com.mic.jetpack.DatabaseObject
+//import com.mic.jetpack.HttpObject
+//import com.mic.jetpack.PresenterObject
 import com.mic.jetpack.dagger2.subcomponent.`object`.MainObject
 import com.mic.jetpack.dagger2.subcomponent.`object`.SubObject
 import com.mic.jetpack.dagger2.subcomponent.`object`.XOkhttp

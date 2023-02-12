@@ -1,10 +1,5 @@
 package com.mic.jetpack.dagger2.component
 
-import com.mic.jetpack.dagger2.module.PresenterModule
-import com.mic.jetpack.dagger2.`object`.PresenterObject
-import com.mic.jetpack.dagger2.scope.UserScope
-import dagger.Component
-
 //@UserScope
 //@Component(modules = [PresenterModule::class])
 interface PresenterComponent {

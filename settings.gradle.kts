@@ -17,3 +17,4 @@ rootProject.name = "AndroidJetpack"
 include(":app")
 //include(":libs:imagemaster")
 include(":libcore")
+include(":xdagger")
