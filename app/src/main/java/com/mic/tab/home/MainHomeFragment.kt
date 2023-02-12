@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.mic.R
 import com.mic.ui.indicator.TabBaseAdapter
 import com.mic.ui.indicator.TabBaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
 
 class MainHomeFragment : TabBaseFragment() {

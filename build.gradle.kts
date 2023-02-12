@@ -17,6 +17,7 @@ plugins {
     id("com.android.application") version BuildVersions.gradle_version apply false
     id("com.android.library") version BuildVersions.gradle_version apply false
     id("org.jetbrains.kotlin.android") version BuildVersions.kotlin_version apply false
+    id("com.google.dagger.hilt.android") version BuildVersions.hilt_version apply false
 }
 repositories {
 //    google()

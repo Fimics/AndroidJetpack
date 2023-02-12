@@ -25,12 +25,12 @@ object BuildVersions {
     const val gradle_version = "7.1.2"
     const val kotlin_version = "1.8.0"
 
-    const val nav_version = "2.4.1"
+    const val nav_version = "2.5.1"
     const val okhttp_version = "4.9.0"
     const val gson_version = "2.8.5"
-    const val hilt_version = "2.3.1"
+    const val hilt_version = "2.45"
     const val datastore_version = "1.0.0"
-    const val lifecycle_version = "2.3.1"
+    const val lifecycle_version = "2.5.1"
     const val coroutines = "1.6.0"
 
     const val rxandroid_version="2.1.0"

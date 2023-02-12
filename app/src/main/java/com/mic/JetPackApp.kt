@@ -4,8 +4,9 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.mic.jetpack.lifecycle.ApplicationObserver
+import dagger.hilt.android.HiltAndroidApp
 
-//@HiltAndroidApp
+@HiltAndroidApp
 class JetPackApp : Application() {
     private val tag = "init";
     override fun onCreate() {

@@ -2,6 +2,7 @@
 <resources>
 
     <string-array name="tab_home">
+        <item>hilt</item>
         <item>viewmodel</item>
         <item>dagger2</item>
         <item>databinding</item>

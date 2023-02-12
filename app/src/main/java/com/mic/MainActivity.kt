@@ -13,12 +13,11 @@ import com.mic.libcore.utils.ExecutorsPoller
 import com.mic.libcore.utils.FileServer
 import com.mic.libcore.utils.KLog
 import com.mic.libcore.utils.PermissionUtils
-//import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
-//import javax.inject.Inject
 
 
-//@AndroidEntryPoint
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val tag = "main"
     private lateinit var navController: NavController
