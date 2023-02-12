@@ -72,7 +72,7 @@ dependencies {
     implementation (fileTree(mapOf("dir" to "libs","include" to listOf("*.jar"))))
     implementation(Depends.appcompat)
     implementation(Depends.gson)
-
+    api(Depends.okhttp)
     //hilt
     api(Depends.hilt)
     kapt(Depends.htlt_compiler)
