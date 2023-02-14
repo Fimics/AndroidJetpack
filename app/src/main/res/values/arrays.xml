@@ -2,9 +2,9 @@
 <resources>
 
     <string-array name="tab_home">
-        <item>hilt</item>
+        <item>room</item>
+        <item>paging</item>
         <item>viewmodel</item>
-        <item>dagger2</item>
         <item>databinding</item>
         <item>livedata</item>
         <item>lifecycle</item>

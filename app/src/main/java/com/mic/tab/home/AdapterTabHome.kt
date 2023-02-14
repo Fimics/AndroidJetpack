@@ -5,6 +5,7 @@ import com.mic.jetpack.databinding.DataBindingFragment
 import com.mic.ui.indicator.TabBaseAdapter
 import com.mic.jetpack.lifecycle.LifecycleFragment
 import com.mic.jetpack.livedata.LiveDataFragment
+import com.mic.jetpack.room.RoomFragment
 import com.mic.jetpack.viewmodel.ViewModelFragment
 import com.mic.rx.RxrFragment
 import com.mic.ui.event.EventFragment
@@ -16,9 +17,8 @@ class AdapterTabHome(fragment: Fragment, arrays: Array<String>) :
     TabBaseAdapter(fragment, arrays) {
     override fun newFragment(position: Int): Fragment {
         return when (arrays[position]) {
-//            "hilt"->HiltFragment()
+            "room"->RoomFragment()
             "viewmodel"->ViewModelFragment()
-//            "dagger2"->Dagger2Fragment()
             "databinding"->DataBindingFragment()
             "livedata"->LiveDataFragment()
             "lifecycle"->LifecycleFragment()

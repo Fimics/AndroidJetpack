@@ -14,6 +14,7 @@ import BuildVersions.nav_version
 import BuildVersions.okhttp_version
 import BuildVersions.recyclerview_version
 import BuildVersions.retrofit_version
+import BuildVersions.room_version
 import BuildVersions.rxandroid_version
 import BuildVersions.rxbinding_version
 import BuildVersions.rxjava_version
@@ -50,6 +51,9 @@ object BuildVersions {
 
     //dagger
     const val dagger_version="2.45"
+
+    //room
+    const val room_version="2.4.0"
 
 }
 
@@ -127,16 +131,20 @@ object Depends {
     const val lifecycle_service ="androidx.lifecycle:lifecycle-service:$lifecycle_version"
     const val lifecycle_process="androidx.lifecycle:lifecycle-process:$lifecycle_version"
 
+
+    //room数据库
+    const val  roomruntime= "androidx.room:room-runtime:$room_version"
+    const val  roomcompiler= "androidx.room:room-compiler:$room_version"
+    // optional - Kotlin Extensions and Coroutines support for Room
+    const val  roomktx= "androidx.room:room-ktx:$room_version"
+    const val  roomtesting= "androidx.room:room-testing:$room_version"
+
+
+
     //test
 //    const val  testrunner= "androidx.test.runner.AndroidJUnitRunner"
 //    const val  junit= "junit:junit:4.12"
 //    const val  junitandroidx= "androidx.test.ext:junit:1.1.2"
 //    const val  espresso= "androidx.test.espresso:espresso-core:3.3.0"
-
-    //room数据库
-//    const val  roomruntime= "android.arch.persistence.room:runtime:1.1.1"
-//    const val  lifecycleextensions= "android.arch.lifecycle:extensions:1.1.1"
-//    const val  roomcompiler= "android.arch.persistence.room:compiler:1.1.1"
-//    const val  lifecyclecompiler= "android.arch.lifecycle:compiler:1.1.1"
 }
 

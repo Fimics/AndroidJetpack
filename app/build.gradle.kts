@@ -82,12 +82,11 @@ dependencies {
         exclude(mapOf("group" to "androidx.transition","module" to "transition"))
     }
 
-    //dagger2
-    implementation(Depends.dagger)
-    kapt(Depends.dagger_compiler)
-//    implementation(Depends.dagger_android)
-//    implementation(Depends.dagger_android_support)
-//    kapt(Depends.dagger_android_processor)
+    //room
+    implementation(Depends.roomruntime)
+    kapt(Depends.roomcompiler)
+    implementation(Depends.roomktx)
+    testImplementation(Depends.roomtesting)
 
     api(project(mapOf("path" to ":libcore")))
 }

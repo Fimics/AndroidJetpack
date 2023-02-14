@@ -28,8 +28,9 @@
             android:name=".jetpack.livedata.LivedataActivity"
             android:exported="false" />
 
+
         <activity
-            android:name=".HiltActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,17 +39,6 @@
             </intent-filter>
             <!-- This is added to handle a deep link -->
         </activity>
-
-<!--        <activity-->
-<!--            android:name=".MainActivity"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--            &lt;!&ndash; This is added to handle a deep link &ndash;&gt;-->
-<!--        </activity>-->
         <activity android:name=".ui.event.EventActivity" />
 
         <service android:name=".server.ServerService" />
