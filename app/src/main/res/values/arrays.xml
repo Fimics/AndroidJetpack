@@ -2,8 +2,8 @@
 <resources>
 
     <string-array name="tab_home">
-        <item>room</item>
         <item>paging</item>
+        <item>room</item>
         <item>viewmodel</item>
         <item>databinding</item>
         <item>livedata</item>

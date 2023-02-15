@@ -88,5 +88,8 @@ dependencies {
     implementation(Depends.roomktx)
     testImplementation(Depends.roomtesting)
 
+    //paging
+    implementation(Depends.paging)
+
     api(project(mapOf("path" to ":libcore")))
 }

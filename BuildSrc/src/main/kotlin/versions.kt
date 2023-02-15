@@ -12,6 +12,7 @@ import BuildVersions.lifecycle_version
 import BuildVersions.material_version
 import BuildVersions.nav_version
 import BuildVersions.okhttp_version
+import BuildVersions.paging_version
 import BuildVersions.recyclerview_version
 import BuildVersions.retrofit_version
 import BuildVersions.room_version
@@ -54,6 +55,9 @@ object BuildVersions {
 
     //room
     const val room_version="2.4.0"
+
+    //paging
+    const val paging_version="3.0.0"
 
 }
 
@@ -138,6 +142,9 @@ object Depends {
     // optional - Kotlin Extensions and Coroutines support for Room
     const val  roomktx= "androidx.room:room-ktx:$room_version"
     const val  roomtesting= "androidx.room:room-testing:$room_version"
+
+    //paging
+    const val paging ="androidx.paging:paging-runtime:$paging_version"
 
 
 

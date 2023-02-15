@@ -9,7 +9,6 @@ import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.fragment.app.Fragment
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.mic.databinding.FragmentRoomBinding
 import com.mic.jetpack.room.bean.User
