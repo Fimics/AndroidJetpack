@@ -3,6 +3,7 @@ package com.mic.jetpack.paging.source
 import androidx.paging.ItemKeyedDataSource
 import com.mic.jetpack.paging.bean.Person
 import com.mic.jetpack.paging.repository.DataRepository
+import com.mic.libcore.utils.KLog
 
 /**
  * ItemKeyedDataSource<Key, Value>：适用于目标数据的加载依赖特定item的信息，
@@ -30,10 +31,10 @@ class XItemDataSource(dataRepository: DataRepository) : ItemKeyedDataSource<Int,
     // loadBefore 向前分页加载数据
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Person>) {
         val dataList:List<Person>? =mDataRepository.loadPageData(params.key,params.requestedLoadSize)
-        dataList.let {
-            callback.onResult(dataList!!)
+        if (dataList != null) {
+            KLog.d("paging->load before")
+            callback.onResult(dataList)
         }
-
     }
 
     // loadAfter 向后分页加载数据
@@ -44,6 +45,7 @@ class XItemDataSource(dataRepository: DataRepository) : ItemKeyedDataSource<Int,
         //pageindex
         val dataList: List<Person>? = mDataRepository.loadPageData(params.key, params.requestedLoadSize)
         if (dataList != null) {
+            KLog.d("paging->load after")
             callback.onResult(dataList)
         }
     }
