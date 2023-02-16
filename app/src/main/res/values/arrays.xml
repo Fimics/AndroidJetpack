@@ -2,6 +2,7 @@
 <resources>
 
     <string-array name="tab_home">
+        <item>work</item>
         <item>paging</item>
         <item>room</item>
         <item>viewmodel</item>

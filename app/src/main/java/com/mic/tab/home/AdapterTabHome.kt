@@ -8,6 +8,7 @@ import com.mic.jetpack.livedata.LiveDataFragment
 import com.mic.jetpack.paging.PagingFragment
 import com.mic.jetpack.room.RoomFragment
 import com.mic.jetpack.viewmodel.ViewModelFragment
+import com.mic.jetpack.workmanager.WorkFragment
 import com.mic.rx.RxrFragment
 import com.mic.ui.event.EventFragment
 import com.mic.ui.flow.FlowFragment
@@ -18,6 +19,7 @@ class AdapterTabHome(fragment: Fragment, arrays: Array<String>) :
     TabBaseAdapter(fragment, arrays) {
     override fun newFragment(position: Int): Fragment {
         return when (arrays[position]) {
+            "work"-> WorkFragment()
             "paging"->PagingFragment()
             "room"->RoomFragment()
             "viewmodel"->ViewModelFragment()

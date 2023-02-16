@@ -90,6 +90,9 @@ dependencies {
 
     //paging
     implementation(Depends.paging)
+    //workmanager
+    implementation(Depends.work_java)
+    implementation(Depends.work_ktx)
 
     api(project(mapOf("path" to ":libcore")))
 }

@@ -20,6 +20,7 @@ import BuildVersions.rxandroid_version
 import BuildVersions.rxbinding_version
 import BuildVersions.rxjava_version
 import BuildVersions.vectordrawable_version
+import BuildVersions.work_version
 import androids.corektxversion
 
 //全局常量
@@ -58,6 +59,9 @@ object BuildVersions {
 
     //paging
     const val paging_version="3.0.0"
+
+    //workmanager
+    const val work_version="2.7.1"
 
 }
 
@@ -146,7 +150,9 @@ object Depends {
     //paging
     const val paging ="androidx.paging:paging-runtime:$paging_version"
 
-
+    //work
+    const val work_java="androidx.work:work-runtime:$work_version"
+    const val work_ktx="androidx.work:work-runtime-ktx:$work_version"
 
     //test
 //    const val  testrunner= "androidx.test.runner.AndroidJUnitRunner"
