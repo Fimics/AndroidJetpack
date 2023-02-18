@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">Jetpack</string>
 
-    <string name="home">首页</string>
-    <string name="local">本地</string>
-    <string name="online">线上</string>
-    <string name="music">少儿</string>
-    <string name="me">我的</string>
+    <string name="video">Video</string>
+    <string name="flutter">flutter</string>
+    <string name="arch">arch</string>
+    <string name="view">view</string>
+    <string name="jetpack">jetpack</string>
 
 
 </resources>

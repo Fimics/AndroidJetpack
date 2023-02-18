@@ -2,34 +2,34 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/home"
+        android:id="@+id/video"
         android:icon="@drawable/ic_home"
-        android:contentDescription="@string/home"
-        android:title="@string/home"/>
+        android:contentDescription="@string/video"
+        android:title="@string/video"/>
 
     <item
-        android:id="@+id/local"
+        android:id="@+id/flutter"
         android:icon="@drawable/ic_folder"
-        android:contentDescription="@string/local"
-        android:title="@string/local" />
+        android:contentDescription="@string/flutter"
+        android:title="@string/flutter" />
 
     <item
-        android:id="@+id/online"
+        android:id="@+id/arch"
         android:icon="@drawable/ic_video"
-        android:contentDescription="@string/online"
-        android:title="@string/online" />
+        android:contentDescription="@string/arch"
+        android:title="@string/arch" />
 
 
     <item
-        android:id="@+id/music"
+        android:id="@+id/view"
         android:icon="@drawable/ic_music"
-        android:contentDescription="@string/music"
-        android:title="@string/music" />
+        android:contentDescription="@string/view"
+        android:title="@string/view" />
 
     <item
-        android:id="@+id/me"
+        android:id="@+id/jetpack"
         android:icon="@drawable/ic_me"
-        android:contentDescription="@string/me"
-        android:title="@string/me"/>
+        android:contentDescription="@string/jetpack"
+        android:title="@string/jetpack"/>
 
 </menu>

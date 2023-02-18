@@ -2,13 +2,13 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@+id/home">
+    app:startDestination="@+id/video">
 
 
-    <include app:graph="@navigation/home"/>
-    <include app:graph="@navigation/local"/>
-    <include app:graph="@navigation/online"/>
-    <include app:graph="@navigation/music"/>
-    <include app:graph="@navigation/me"/>
+    <include app:graph="@navigation/video"/>
+    <include app:graph="@navigation/view"/>
+    <include app:graph="@navigation/flutter"/>
+    <include app:graph="@navigation/arch"/>
+    <include app:graph="@navigation/jetpack"/>
 
 </navigation>
