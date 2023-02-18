@@ -2,12 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/me"
-    app:startDestination="@id/meFragment">
+    android:id="@+id/jetpack"
+    app:startDestination="@id/jetpackFragment">
 
     <fragment
-        android:id="@+id/meFragment"
+        android:id="@+id/jetpackFragment"
         android:name="com.mic.tab.jetpack.MeFragment"
-        android:label="fragment_me"
+        android:label="fragment_tab_jetpack"
         tools:layout="@layout/fragment_tab_jetpack" />
 </navigation>

@@ -8,6 +8,6 @@
     <fragment
         android:id="@+id/archFragment"
         android:name="com.mic.tab.arch.MainArchFragment"
-        android:label="fragment_arch"
+        android:label="fragment_tab_arch"
         tools:layout="@layout/fragment_tab_arch" />
 </navigation>

@@ -2,12 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/home"
-    app:startDestination="@id/homeFragment">
+    android:id="@+id/video"
+    app:startDestination="@id/videoFragment">
 
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/videoFragment"
         android:name="com.mic.tab.video.MainVideoFragment"
-        android:label="fragment_home"
+        android:label="fragment_tab_video"
         tools:layout="@layout/fragment_tab_video" />
 </navigation>

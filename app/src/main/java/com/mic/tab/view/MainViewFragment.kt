@@ -26,7 +26,7 @@ class MainViewFragment : TabBaseFragment() {
     }
 
     override fun getTabItemAdapter(): TabBaseAdapter {
-        val array = resources.getStringArray(R.array.tab_local)
+        val array = resources.getStringArray(R.array.tab_view)
         return AdapterTabView(this, array)
     }
 }

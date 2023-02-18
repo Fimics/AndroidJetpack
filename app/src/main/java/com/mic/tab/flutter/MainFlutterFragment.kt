@@ -26,7 +26,7 @@ class MainFlutterFragment : TabBaseFragment() {
     }
 
     override fun getTabItemAdapter(): TabBaseAdapter {
-        val array = resources.getStringArray(R.array.tab_online)
+        val array = resources.getStringArray(R.array.tab_flutter)
         return AdapterTabFlutter(this, array)
     }
 }

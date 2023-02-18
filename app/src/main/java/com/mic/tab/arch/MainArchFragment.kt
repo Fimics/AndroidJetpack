@@ -25,7 +25,7 @@ class MainArchFragment : TabBaseFragment() {
     }
 
     override fun getTabItemAdapter(): TabBaseAdapter {
-        val array = resources.getStringArray(R.array.tab_music)
+        val array = resources.getStringArray(R.array.tab_arch)
         return AdapterTabArch(this, array)
     }
 }

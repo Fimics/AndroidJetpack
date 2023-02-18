@@ -26,7 +26,7 @@ class MeFragment : TabBaseFragment() {
     }
 
     override fun getTabItemAdapter(): TabBaseAdapter {
-        val array = resources.getStringArray(R.array.tab_me)
+        val array = resources.getStringArray(R.array.tab_jetpack)
         return AdapterTabJetpack(this, array)
     }
 }

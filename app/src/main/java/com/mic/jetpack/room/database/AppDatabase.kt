@@ -9,7 +9,7 @@ import com.mic.jetpack.room.dao.UserDao
 // 比如下面定义的DateConvert里面就定义Date类型的字段，存储数据库的时候会被转换成Long,
 // 而该字段被读取的时候，会被转换成Date类型
 
-@Database(entities = [User::class], version = 1)
+@Database(entities = [User::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun userDao():UserDao

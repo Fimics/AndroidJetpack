@@ -2,12 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/online"
-    app:startDestination="@id/onLineFragment">
+    android:id="@+id/flutter"
+    app:startDestination="@id/flutterFragment">
 
     <fragment
-        android:id="@+id/onLineFragment"
+        android:id="@+id/flutterFragment"
         android:name="com.mic.tab.flutter.MainFlutterFragment"
-        android:label="fragment_on_line"
+        android:label="fragment_tab_flutter"
         tools:layout="@layout/fragment_tab_flutter" />
 </navigation>

@@ -27,7 +27,7 @@ class MainVideoFragment : TabBaseFragment() {
     }
 
     override fun getTabItemAdapter(): TabBaseAdapter {
-        val array = resources.getStringArray(R.array.tab_home)
-        return AdapterTabHome(this, array)
+        val array = resources.getStringArray(R.array.tab_video)
+        return AdapterTabVideo(this, array)
     }
 }

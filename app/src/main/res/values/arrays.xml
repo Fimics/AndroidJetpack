@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="tab_home">
-        <item>work</item>
-        <item>paging</item>
-        <item>room</item>
-        <item>viewmodel</item>
-        <item>databinding</item>
-        <item>livedata</item>
-        <item>lifecycle</item>
-        <item>SlideCard</item>
-        <item>RecyclerView</item>
-        <item>DispatchEvent</item>
-        <item>FlowLayout</item>
-        <item>rxandroid</item>
+    <string-array name="tab_video">
+        <item>hot</item>
     </string-array>
 
 
-    <string-array name="tab_local">
+    <string-array name="tab_flutter">
         <item>图片</item>
         <item>文档</item>
         <item>视频</item>
@@ -27,42 +16,34 @@
 
 
 
-    <string-array name="tab_online">
-        <item>家庭</item>
-        <item>爱情</item>
-        <item>青春</item>
-        <item>奇幻</item>
-        <item>华语</item>
-        <item>惊悚</item>
-        <item>动作</item>
-        <item>热血</item>
-        <item>现代</item>
-        <item>中国</item>
-        <item>美国</item>
-        <item>印度</item>
-        <item>欧洲</item>
-        <item>日本</item>
-        <item>韩国</item>
-        <item>其他</item>
+    <string-array name="tab_arch">
+        <item>rxandroid</item>
+        <item>mvc</item>
+        <item>mvp</item>
+        <item>mvvm</item>
+        <item>mvi</item>
+        <item>okhttp</item>
+        <item>retrofit</item>
+        <item>router</item>
     </string-array>
 
 
-    <string-array name="tab_music">
-        <item>听故事</item>
-        <item>唱儿歌</item>
-        <item>懂国学</item>
-        <item>艺术家</item>
-        <item>知百科</item>
-        <item>学英语</item>
+    <string-array name="tab_view">
+        <item>SlideCard</item>
+        <item>RecyclerView</item>
+        <item>DispatchEvent</item>
+        <item>FlowLayout</item>
     </string-array>
 
 
-    <string-array name="tab_me">
-        <item>信息</item>
-        <item>下载</item>
-        <item>收藏</item>
-        <item>历史</item>
-        <item>设置</item>
+    <string-array name="tab_jetpack">
+        <item>work</item>
+        <item>paging</item>
+        <item>room</item>
+        <item>viewmodel</item>
+        <item>databinding</item>
+        <item>livedata</item>
+        <item>lifecycle</item>
     </string-array>
     
 </resources>

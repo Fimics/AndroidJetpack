@@ -2,12 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/local"
-    app:startDestination="@id/localFragment">
+    android:id="@+id/view"
+    app:startDestination="@id/viewFragment">
 
     <fragment
-        android:id="@+id/localFragment"
+        android:id="@+id/viewFragment"
         android:name="com.mic.tab.view.MainViewFragment"
-        android:label="fragment_local"
+        android:label="fragment_tab_view"
         tools:layout="@layout/fragment_tab_view" />
 </navigation>
