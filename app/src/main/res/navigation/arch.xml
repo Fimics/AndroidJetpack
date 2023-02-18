@@ -2,12 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/music"
-    app:startDestination="@id/musicFragment">
+    android:id="@+id/arch"
+    app:startDestination="@id/archFragment">
 
     <fragment
-        android:id="@+id/musicFragment"
-        android:name="com.mic.tab.music.MainMusicFragment"
-        android:label="fragment_music"
-        tools:layout="@layout/fragment_music" />
+        android:id="@+id/archFragment"
+        android:name="com.mic.tab.arch.MainArchFragment"
+        android:label="fragment_arch"
+        tools:layout="@layout/fragment_tab_arch" />
 </navigation>

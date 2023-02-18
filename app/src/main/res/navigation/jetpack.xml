@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/meFragment"
-        android:name="com.mic.tab.me.MeFragment"
+        android:name="com.mic.tab.jetpack.MeFragment"
         android:label="fragment_me"
-        tools:layout="@layout/fragment_me" />
+        tools:layout="@layout/fragment_tab_jetpack" />
 </navigation>
