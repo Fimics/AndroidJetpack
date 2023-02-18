@@ -37,6 +37,7 @@
 
 
     <string-array name="tab_jetpack">
+        <item>store</item>
         <item>work</item>
         <item>paging</item>
         <item>room</item>

@@ -63,6 +63,9 @@ object BuildVersions {
     //workmanager
     const val work_version="2.7.1"
 
+    //dataStore
+    const val data_store_version="1.0.0"
+
 }
 
 //应用配置
@@ -115,8 +118,8 @@ object Depends {
     const val glide="com.github.bumptech.glide:glide:$glide_version"
 
     //datastore
-    const val datastore_core="androidx.datastore:datastore-core:$datastore_version"
-    const val datastore_preferences_core="androidx.datastore:datastore-preferences-core:$datastore_version"
+    const val datastore="androidx.datastore:datastore-preferences:$datastore_version"
+    const val datastore_core="androidx.datastore:datastore-preferences-core:$datastore_version"
 
     //dagger
     const val dagger="com.google.dagger:dagger:$dagger_version"
@@ -153,6 +156,7 @@ object Depends {
     //work
     const val work_java="androidx.work:work-runtime:$work_version"
     const val work_ktx="androidx.work:work-runtime-ktx:$work_version"
+
 
     //test
 //    const val  testrunner= "androidx.test.runner.AndroidJUnitRunner"

@@ -63,6 +63,10 @@ android {
     }
     kapt { generateStubs = true }
     namespace = "com.mic"
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_9
+        targetCompatibility = JavaVersion.VERSION_1_9
+    }
 }
 
 //https://blog.csdn.net/lfq88/article/details/118222107
@@ -93,6 +97,10 @@ dependencies {
     //workmanager
     implementation(Depends.work_java)
     implementation(Depends.work_ktx)
+
+    //datastore
+    implementation(Depends.datastore)
+    implementation(Depends.datastore_core)
 
     api(project(mapOf("path" to ":libcore")))
 }

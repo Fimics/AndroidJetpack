@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/put"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="存数据"
+        android:gravity="center"
+        />
+    <Button
+        android:id="@+id/get"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="取数据"
+        android:gravity="center"
+        />
+    <Button
+        android:id="@+id/clear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="清楚数据"
+        android:gravity="center"
+        />
+
+    <Button
+        android:id="@+id/save_boolean"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="存boolean"
+        android:gravity="center"
+        />
+    <Button
+        android:id="@+id/get_boolean"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="取boolean"
+        android:gravity="center"
+        />
+</LinearLayout>
