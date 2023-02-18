@@ -1,0 +1,46 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+android {
+    compileSdkVersion rootProject.ext.compile_sdk
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.min_sdk
+        targetSdkVersion rootProject.ext.compile_sdk
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        debug {
+            //开发环境地址
+            buildConfigField("String", "ApiUrl", "\"https://tftest-app-api.hnradio.vip:8080/\"")
+            buildConfigField("String", "LiveApiUrl", "\"http://tf-live.hnradio.vip:8081/\"")
+            buildConfigField("String", "ShareApiUrl", "\"http://tftest-share.hnradio.vip/\"")
+            buildConfigField("String", "AdminApiUrl", "\"http://tf-admin.hnradio.vip:8092/\"")
+
+        }
+        release {
+            //正式环境地址
+            buildConfigField("String", "ApiUrl", "\"https://tfapp-api.hnradio.vip:9060/\"")
+            buildConfigField("String", "LiveApiUrl", "\"http://tf-live.hnradio.vip:9061/\"")
+            buildConfigField("String", "ShareApiUrl", "\"https://tf-share.hnradio.vip/\"")
+            buildConfigField("String", "AdminApiUrl", "\"https://tf-admin.hnradio.vip:9062/\"")
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //网络、rxjava
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
+    api 'com.squareup.retrofit2:converter-gson:2.6.0'
+    api 'com.squareup.retrofit2:retrofit:2.6.0'
+    api 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    api 'com.squareup.retrofit2:retrofit-converters:2.6.0'
+    api 'com.squareup.retrofit2:retrofit-adapters:2.6.0'
+    api 'com.orhanobut:logger:2.2.0'
+}

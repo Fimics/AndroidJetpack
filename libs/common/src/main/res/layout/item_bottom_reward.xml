@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cl_reward"
+    android:layout_width="@dimen/dp_144"
+    android:layout_height="@dimen/dp_50"
+    android:background="@drawable/shape_solid_grayee_radius_10"
+    android:layout_marginStart="@dimen/dp_15"
+    android:layout_marginEnd="@dimen/dp_15"
+    android:layout_marginTop="@dimen/dp_6"
+    android:layout_marginBottom="@dimen/dp_6"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tv_hint"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        android:text="100"
+        android:textStyle="bold"
+        android:textSize="@dimen/sp_18"
+        android:textColor="@color/hui3"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@id/tv_num"
+        app:layout_constraintStart_toEndOf="@id/tv_num"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="铁豆"
+        android:textSize="@dimen/sp_12"
+        android:textColor="@color/hui3"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

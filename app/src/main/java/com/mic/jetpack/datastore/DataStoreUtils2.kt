@@ -24,7 +24,7 @@ object DataStoreUtils2 {
         putValue(AppGlobals.getApplication(), key, v)
     }
 
-    suspend fun <R> get(key: String, r: R): Flow<R>{
+    fun <R> get(key: String, r: R): Flow<R>{
         return getValue(AppGlobals.getApplication(), key, r)
     }
 
@@ -43,7 +43,7 @@ object DataStoreUtils2 {
         }
     }
 
-    private suspend fun <R> getValue(context: Context,key: String,default:R):Flow<R>{
+    private  fun <R> getValue(context: Context,key: String,default:R):Flow<R>{
         val data = when(default){
             is Int-> getInt(context,key,default)
             is Boolean-> getBoolean(context,key,default)
@@ -52,12 +52,12 @@ object DataStoreUtils2 {
         return data as Flow<R>
     }
 
-    private suspend fun<Int> getInt(context: Context, key: String, default:Int): Flow<Int> = context.dataStore.data.map {
+    private  fun<Int> getInt(context: Context, key: String, default:Int): Flow<Int> = context.dataStore.data.map {
        val v =it[intPreferencesKey(key)]?:default
         return@map v as Int
     }
 
-    private suspend fun<Boolean> getBoolean(context: Context, key: String, default:Boolean): Flow<Boolean> = context.dataStore.data.map {
+    private  fun<Boolean> getBoolean(context: Context, key: String, default:Boolean): Flow<Boolean> = context.dataStore.data.map {
         val v =it[intPreferencesKey(key)]?:default
         return@map v as Boolean
     }

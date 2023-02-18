@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hnradio.common">
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application>
+        <receiver
+            android:name=".util.mqtt.LoginStateChangedReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="${applicationId}.ACTION_LOGIN_STATE_CHANGED"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".receiver.NotificationBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="notification_click" />
+                <action android:name="notification_cancel" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".util.zxing.activity.CaptureActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".file.FilePickerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.hnradio.fans.wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" /> <!-- Mqtt Service -->
+        <service android:name="org.eclipse.paho.android.service.MqttService" /> <!-- 音乐后台播放 Service -->
+        <service android:name=".service.AudioPlayService" />
+    </application>
+
+</manifest>

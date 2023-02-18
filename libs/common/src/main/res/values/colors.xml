@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        百分比:10%  HEX: 1A
+        百分比:20%  HEX: 33
+        百分比:30%  HEX: 4D
+        百分比:40%  HEX: 66
+        百分比:50%  HEX: 80
+        百分比:60%  HEX: 99
+        百分比:70%  HEX: B3
+        百分比:80%  HEX: CC
+        百分比:90%  HEX: E6
+        百分比:100%  HEX: FF
+    -->
+    <color name="colorPrimary">#FFEB00</color>
+    <color name="colorPrimaryDark">#FECC00</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorBuyText">#FE8A00</color>
+
+    <color name="colorPrimaryGreen">#35D4A2</color>
+    <color name="colorPrimaryDarkGreen">#42D7A2</color>
+    <color name="colorBuyTextGreen">#35D4A2</color>
+
+    <color name="trans">#00000000</color>
+    <color name="trans_light">#4D000000</color>
+    <color name="trans_dark">#99000000</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="white_light">#f3f6f8</color>
+    <color name="black">#000000</color>
+    <color name="black_light">#292929</color>
+    <color name="gray">#666666</color>
+    <color name="gray_light">#999999</color>
+    <color name="gray_A49CBE">#A49CBE</color>
+    <color name="line">#D8D8D8</color>
+    <color name="line_light">#CCCCCC</color>
+    <color name="line_gray">#AAAAAA</color>
+    <color name="red">#FF3636</color>
+    <color name="red_light">#F45858</color>
+    <color name="blue">#3F82FF</color>
+    <color name="blue_light">#7B95FD</color>
+
+    <color name="text_level_2">#F6706F</color>
+    <color name="text_level_1">#FFA019</color>
+    <color name="text_level_0">#1D1D1D</color>
+
+    <color name="text_black">#000000</color>
+    <color name="text_dark">#363A41</color>
+    <color name="text_normal">#6f6f6f</color>
+    <color name="text_light">#999999</color>
+
+    <color name="gray_FAFAF7">#FAFAF7</color>
+    <color name="gray_EFEFE9">#EFEFE9</color>
+    <color name="gray_999999">#999999</color>
+    <color name="black_323232">#323232</color>
+    <color name="black_373737">#373737</color>
+
+    <color name="immerse_color">#F29A3C</color>
+    <color name="main_title">#323232</color>
+    <color name="transparent">#00000000</color>
+    <color name="lan">#3BA3FE</color>
+    <color name="lan1">#3AA2FE</color>
+    <color name="huang">#FDDC02</color>
+    <color name="huang1">#FFEB00</color>
+    <color name="huang2">#FECC00</color>
+    <color name="huang_warn">#F2A102</color>
+    <color name="huang_9C6C38">#9C6C38</color>
+    <color name="huang_F29A3C">#F29A3C</color>
+    <color name="huang_EF7409">#EF7409</color>
+    <color name="red_F33026">#F33026</color>
+    <color name="red_960000">#960000</color>
+    <color name="pink_FFD3A3">#FFD3A3</color>
+    <color name="huang_4E443D">#4E443D</color>
+    <color name="bg">#f3f6f8</color>
+    <color name="bg1">#F9FAFB</color>
+    <color name="bg2">#FAFAF7</color>
+    <color name="bg3">#FBFAF5</color>
+    <color name="bgFD">#FDFDFE</color>
+    <color name="bgF1">#F1F1F1</color>
+    <color name="hui1">#1d1d1d</color>
+    <color name="hui3">#333333</color>
+    <color name="hui5">#565656</color>
+    <color name="hui6">#666666</color>
+    <color name="hui9">#999999</color>
+    <color name="hui10">#EBEBEB</color>
+    <color name="hui11">#888888</color>
+    <color name="huiEE">#EEEEEE</color>
+    <color name="hui12">#1E1E1E</color>
+    <color name="hui13">#FFB400</color>
+    <color name="hui_c">#CCCCCC</color>
+    <color name="line1">#dddddd</color>
+    <color name="line2">#4d4d4d</color>
+    <color name="line3">#FFD164</color>
+    <color name="gray_bc">#BCBCBC</color>
+    <color name="bg_a40">#88000000</color>
+    <color name="bg_a80">#CC000000</color>
+    <color name="pic_bg">#EFF0F2</color>
+    <color name="color_E7E1B7">#E7E1B7</color>//首页日期
+
+    <color name="C30D3A1">#30D3A1</color>
+    <color name="C35D4A2">#35D4A2</color>
+    <color name="C3DD6A2">#3DD6A2</color>
+    <color name="C42D7A2">#42D7A2</color>
+    <color name="F75D58">#F75D58</color>
+    <color name="C550701">#550701</color>
+    <color name="C250300">#250300</color>
+
+    <color name="color_f9f9f9">#F9F9F9</color>//学情报告 表头
+    <color name="color_efefef">#EFEFEF</color>//学情报告 边框线
+    <color name="color_faf9f4">#FAF9F4</color>//过时教材
+    <color name="color_5356E2">#5356E2</color>//学情测试记录 封面
+
+
+
+    <color name="comm_cl_white_alpha_3">#08ffffff</color>
+    <color name="comm_cl_white_alpha_4">#0Affffff</color>
+    <color name="comm_cl_white_alpha_5">#0Dffffff</color>
+    <color name="comm_cl_white_alpha_6">#0Fffffff</color>
+    <color name="comm_cl_white_alpha_7">#12ffffff</color>
+    <color name="comm_cl_white_alpha_8">#14ffffff</color>
+    <color name="comm_cl_white_alpha_10">#1affffff</color>
+    <color name="comm_cl_white_alpha_15">#21ffffff</color>
+    <color name="comm_cl_white_alpha_20">#33ffffff</color>
+    <color name="comm_cl_white_alpha_21">#36FFFFFF</color>
+    <color name="comm_cl_white_alpha_25">#40ffffff</color>
+    <color name="comm_cl_white_alpha_30">#4cffffff</color>
+    <color name="comm_cl_white_alpha_35">#59ffffff</color>
+    <color name="comm_cl_white_alpha_40">#66ffffff</color>
+    <color name="comm_cl_white_alpha_45">#72ffffff</color>
+    <color name="comm_cl_white_alpha_50">#7fffffff</color>
+    <color name="comm_cl_white_alpha_55">#8cffffff</color>
+    <color name="comm_cl_white_alpha_60">#99ffffff</color>
+    <color name="comm_cl_white_alpha_65">#a5ffffff</color>
+    <color name="comm_cl_white_alpha_70">#b2ffffff</color>
+    <color name="comm_cl_white_alpha_75">#bfffffff</color>
+    <color name="comm_cl_white_alpha_80">#ccffffff</color>
+    <color name="comm_cl_white_alpha_85">#d8ffffff</color>
+    <color name="comm_cl_white_alpha_90">#e5ffffff</color>
+    <color name="comm_cl_white_alpha_95">#f2ffffff</color>
+    <color name="comm_cl_white_alpha_100">#00ffffff</color>
+
+    <color name="comm_cl_black_alpha_1">#04000000</color>
+    <color name="comm_cl_black_alpha_3">#09000000</color>
+    <color name="comm_cl_black_alpha_5">#0D000000</color>
+    <color name="comm_cl_black_alpha_7">#12000000</color>
+    <color name="comm_cl_black_alpha_8">#14000000</color>
+    <color name="comm_cl_black_alpha_10">#1a000000</color>
+    <color name="comm_cl_black_alpha_15">#21000000</color>
+    <color name="comm_cl_black_alpha_20">#33000000</color>
+    <color name="comm_cl_black_alpha_25">#40000000</color>
+    <color name="comm_cl_black_alpha_30">#4c000000</color>
+    <color name="comm_cl_black_alpha_33">#54000000</color>
+    <color name="comm_cl_black_alpha_35">#59000000</color>
+    <color name="comm_cl_black_alpha_38">#60000000</color>
+    <color name="comm_cl_black_alpha_40">#66000000</color>
+    <color name="comm_cl_black_alpha_45">#72000000</color>
+    <color name="comm_cl_black_alpha_50">#7f000000</color>
+    <color name="comm_cl_black_alpha_56">#90000000</color>
+    <color name="comm_cl_black_alpha_60">#99000000</color>
+    <color name="comm_cl_black_alpha_69">#B0000000</color>
+    <color name="comm_cl_black_alpha_65">#a5000000</color>
+    <color name="comm_cl_black_alpha_70">#b2000000</color>
+    <color name="comm_cl_black_alpha_75">#b0000000</color>
+    <color name="comm_cl_black_alpha_80">#bf000000</color>
+    <color name="comm_cl_black_alpha_85">#d8000000</color>
+    <color name="comm_cl_black_alpha_90">#e5000000</color>
+    <color name="comm_cl_black_alpha_95">#f2000000</color>
+
+     <!--我的-->
+    <color name="color_DF7E1F">#DF7E1F</color>
+    <color name="color_E9AA47">#E9AA47</color>
+    <color name="color_000000">#000000</color>
+    <color name="color_FF000000">#ff000000</color>
+    <color name="color_733F00">#733F00</color>
+    <color name="color_925200">#925200</color>
+    <color name="color_F29A3C">#F29A3C</color>
+    <color name="color_F1F1F1">#F1F1F1</color>
+    <color name="color_EF7409">#EF7409</color>
+    <color name="color_FF6753">#FF6753</color>
+    <color name="color_F23C3C">#F23C3C</color>
+    <color name="color_4A70FF">#4A70FF</color>
+    <color name="color_FF4A64">#FF4A64</color>
+    <color name="color_00DC72">#00DC72</color>
+    <color name="color_eeeeee">#eeeeee</color>
+
+    <color name="card_bg">#E0E5EB</color>
+
+    <!-- 扫描 -->
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="result_view">#b0000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+
+    <color name="colorLine">#dfdfdf</color>
+
+
+    <color name="lfile_colorPrimary">#92B4F4</color>
+    <color name="lfile_colorPrimaryDark">#92B4F4</color>
+    <color name="lfile_colorAccent">#92B4F4</color>
+    <color name="lfile_gray">#cccccc</color>
+    <color name="lfile_lightgray">#dddddd</color>
+    <color name="lfile_white">#fff</color>
+    <color name="lfile_defaultColor">#FF5722</color>
+</resources>

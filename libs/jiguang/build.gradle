@@ -1,0 +1,76 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdkVersion rootProject.ext.compile_sdk
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.min_sdk
+        targetSdkVersion rootProject.ext.compile_sdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+        //极光配置
+        ndk {
+//            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a'
+            abiFilters 'armeabi-v7a'
+        }
+
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
+dependencies {
+    implementation fileTree(include: ['*.jar', "*.aar"], dir: 'libs')
+    implementation project(':lib:common')
+    implementation project(':lib:net')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    //极光
+    //api 'cn.jiguang.sdk:jcore:3.0.0'
+    api 'cn.jiguang.sdk:jcore:3.0.0-release'
+    //极光-认证
+    implementation 'cn.jiguang.sdk:jverification:2.7.4'
+    //极光-推送
+    api 'cn.jiguang.sdk:jpush:4.5.0'
+    implementation 'cn.jiguang.sdk.plugin:xiaomi:4.3.0'
+    implementation 'com.huawei.hms:push:5.3.0.304'
+    implementation 'cn.jiguang.sdk.plugin:huawei:4.3.0'
+    implementation 'cn.jiguang.sdk.plugin:oppo:4.3.0'
+    implementation 'cn.jiguang.sdk.plugin:vivo:4.3.0'
+    //极光-分析
+    implementation 'cn.jiguang.sdk:jshare:2.0.0'
+    implementation 'cn.jiguang.sdk:jshare-wechatmodel:2.0.0'
+    implementation 'cn.jiguang.sdk:jshare-sinamodel:2.0.0'
+    kapt "com.alibaba:arouter-compiler:$arouter_version"
+
+}
+apply plugin: 'com.huawei.agconnect'

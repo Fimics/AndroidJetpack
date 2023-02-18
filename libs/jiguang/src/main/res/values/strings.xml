@@ -1,0 +1,4 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
+    <string name="jiguang_login_welcome_tips">满哥，妹坨 \n绑定手机，账号更安全哦！</string>
+
+</resources>

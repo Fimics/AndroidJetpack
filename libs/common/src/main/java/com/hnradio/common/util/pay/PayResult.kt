@@ -1,0 +1,1 @@
+package com.hnradio.common.util.payclass PayResult(rawResult: Map<String, String>) {    /**     * @return the resultStatus     */    var resultStatus: String? = rawResult["resultStatus"]    /**     * @return the result     */    var result: String? = rawResult["result"]    /**     * @return the memo     */    var memo: String? = rawResult["memo"]}

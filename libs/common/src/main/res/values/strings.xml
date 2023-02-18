@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_home">首页</string>
+    <string name="main_live">直播</string>
+    <string name="main_fans">福利</string>
+    <string name="main_mine">我的</string>
+    <string name="skip">跳过</string>
+    <string name="launcher_privacy_policy">1,请您务必审慎阅读、充分理解用户协议与隐私政策各条款。 \n\n
+        2,个人隐私政策包括但不限于为了内容推荐、内容分享等服务，我们需要收集您的设备信息，城市及相关信息。\n\n
+        3,您可以查看完整版《用户服务协议》与《安全隐私条款》以便了解我们收集、使用、共享、存储信息的情况，以及对信息的保护措施。\n</string>
+
+    <string name="icon_main_home">&#xe618;</string>
+    <string name="icon_main_fans">&#xf1cd;</string>
+    <string name="icon_main_live">&#xe60a;</string>
+    <string name="icon_main_mine">&#xeba7;</string>
+
+    <string name="icon_search">&#xe62b;</string>
+    <string name="icon_image">&#xe659;</string>
+    <string name="icon_play">&#xe63a;</string>
+    <string name="icon_living">&#xe620;</string>
+    <string name="icon_prize">&#xe6ab;</string>
+    <string name="icon_menu">&#xe652;</string>
+    <string name="icon_like">&#xe612;</string>
+    <string name="icon_like_solid">&#xeb53;</string>
+    <string name="icon_alarm_clock">&#xe60d;</string>
+
+    <string name="icon_back">&#xe837;</string>
+    <string name="icon_right_arrow">&#xe60e;</string>
+    <string name="icon_right_arrow_small">&#xe64c;</string>
+
+
+    <string name="lfile_NotFoundBooks">请选择导入的图书</string>
+    <string name="lfile_NotFoundPath">SD 存储卡状态不可用</string>
+    <string name="lfile_UpOneLevel">上一级</string>
+    <string name="lfile_Selected">选中</string>
+    <string name="lfile_LItem">项</string>
+    <string name="lfile_Detail">详情</string>
+    <string name="lfile_FileSize">文件大小 : </string>
+    <string name="lfile_OutSize">已经达到最大选择数量</string>
+    <string name="lfile_SelectAll">全选</string>
+    <string name="lfile_Cancel">取消全选</string>
+    <string name="lfile_OK">确定</string>
+    <string name="lfile_ChooseTip">请选择文件夹</string>
+
+    <string name="real_name">&#160;&#160;&#160;&#160;姓名</string>
+</resources>

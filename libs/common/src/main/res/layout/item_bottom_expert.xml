@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_58"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.hnradio.common.widget.roundedimageview.RoundedImageView
+        android:id="@+id/riv_portrait"
+        android:layout_width="@dimen/dp_35"
+        android:layout_height="@dimen/dp_35"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/dp_15"
+        app:riv_corner_radius="@dimen/dp_70"
+        android:scaleType="fitXY"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/riv_portrait"
+        app:layout_constraintLeft_toRightOf="@id/riv_portrait"
+        android:layout_marginStart="@dimen/dp_10"
+        android:textSize="@dimen/sp_12"
+        android:textColor="@color/black"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_tag_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/riv_portrait"
+        app:layout_constraintLeft_toRightOf="@id/riv_portrait"
+        android:layout_marginStart="@dimen/dp_10"
+        android:background="@drawable/shape_stroke_orange_radius_5"
+        android:paddingTop="@dimen/dp_1"
+        android:paddingBottom="@dimen/dp_1"
+        android:paddingStart="@dimen/dp_6"
+        android:paddingEnd="@dimen/dp_6"
+        android:text=""
+        android:textSize="@dimen/sp_10"
+        android:textColor="@color/huang_F29A3C"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_describe"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/riv_portrait"
+        app:layout_constraintStart_toEndOf="@id/tv_tag_name"
+        app:layout_constraintEnd_toStartOf="@id/iv_radio"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="@dimen/sp_12"
+        android:textColor="@color/hui9"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_radio"
+        android:layout_width="@dimen/dp_15"
+        android:layout_height="@dimen/dp_15"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/icon_circle_white"
+        android:scaleType="fitXY"
+        android:layout_marginEnd="@dimen/dp_10"/>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

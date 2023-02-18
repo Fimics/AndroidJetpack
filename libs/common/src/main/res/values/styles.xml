@@ -1,0 +1,142 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="CustomDialog">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="Bottom_Dialog_Anim_Style">
+        <item name="android:windowEnterAnimation">@anim/translate_bottom_to_top</item>
+        <item name="android:windowExitAnimation">@anim/translate_top_to_bottom</item>
+    </style>
+
+    <style name="Comment_Dialog_Anim_Style">
+        <item name="android:windowEnterAnimation">@anim/translate_bottom_to_top</item>
+    </style>
+
+    <!-- popupwindow -->
+    <style name="BottomDialogWindowAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/dialog_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/dialog_exit_anim</item>
+    </style>
+
+    <!-- popupwindow -->
+    <style name="CenterDialogWindowAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
+
+    <!-- popupwindow -->
+    <style name="RightDialogWindowAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/in_from_right</item>
+        <item name="android:windowExitAnimation">@anim/out_to_right</item>
+    </style>
+
+    <declare-styleable name="MaxHeightRecyclerView">
+        <attr name="maxHeight" format="dimension" />
+    </declare-styleable>
+
+    <!-- CustomDialog 的样式 ，有模糊效果 -->
+    <style name="DialogStyle" parent="@android:style/Theme.Dialog">
+
+        <!-- 背景透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 浮于Activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- Dialog以外的区域模糊效果 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- Dialog进入及退出动画 -->
+        <!--<item name="android:windowAnimationStyle">@style/DialogAnimation</item>-->
+    </style>
+
+    <!--    底部弹出dialog样式-->
+    <style name="DialogBottomStyle" parent="DialogStyle">
+        <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
+    </style>
+
+    <!--    底部弹出dialog样式，并且弹出键盘-->
+    <style name="DialogBottomStyleSoft" parent="DialogBottomStyle">
+        <item name="android:windowSoftInputMode">stateAlwaysVisible</item><!--显示软件盘-->
+        <item name="android:padding">0dp</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <!-- CustomDialog 进出动画 -->
+    <style name="DialogAnimation" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/in_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/out_to_bottom</item>
+    </style>
+
+    <style name="TabLayoutTextStyle" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textSize">@dimen/sp_15</item>
+    </style>
+
+
+    <style name="LFileTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/lfile_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/lfile_colorPrimaryDark</item>
+        <item name="colorAccent">@color/lfile_colorAccent</item>
+        <item name="homeAsUpIndicator">@drawable/lfile_back1</item>
+        <item name="actionBarSize">36dp</item>
+        <item name="navigationIcon">@drawable/lfile_back1</item><!--返回icon-->
+        <!-- 溢出菜单图标颜色-->
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
+    </style>
+
+    <!--toolbar 上title的样式-->
+    <style name="LFileToolbarTextStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColor">@color/lfile_white</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="LFileToolbarTheme" parent="LFileTheme">
+
+    </style>
+
+    <style name="LFileCheckBoxTheme" parent="LFileTheme">
+        <!-- 溢出菜单图标颜色-->
+        <item name="colorControlNormal">@color/lfile_gray</item>
+    </style>
+
+    <style name="LFile_item_text_name">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">#101010</item>
+        <item name="android:gravity">left</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="LFile_item_text_detail">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:textColor">#999999</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">left</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="MyCustomText" >
+        <item name="textAllCaps">true</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/sp_18</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>
