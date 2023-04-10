@@ -4,13 +4,18 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.mic.jnibase.NativeLib.*
+import org.fmod.FMOD
 
 class MainActivity : AppCompatActivity() {
 
     private val TAG="jni_base";
+    private var path:String?=null;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        FMOD.init(this)
+        path =  "file:///android_asset/audio.mp3";
         //111111111111111111111111111111111111111
         findViewById<Button>(R.id.change_name).setOnClickListener {
             NativeLib.getInstance().changeName()
@@ -53,11 +58,33 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.create_java_object).setOnClickListener {
             NativeLib.getInstance().delQuote()
         }
+        //3333333333333333333333333333333333333333333333333333
+        findViewById<Button>(R.id.yuansheng).setOnClickListener {
+            NativeLib.getInstance().voiceChangeNative(MODE_NORMAL, path) // 真实开发中，必须子线程  JNI线程（很多坑）
+        }
+        findViewById<Button>(R.id.luoli).setOnClickListener {
+            NativeLib.getInstance().voiceChangeNative(MODE_LUOLI, path)
+        }
+        findViewById<Button>(R.id.dashu).setOnClickListener {
+            NativeLib.getInstance().voiceChangeNative(MODE_DASHU, path)
+        }
+        findViewById<Button>(R.id.jingsong).setOnClickListener {
+            NativeLib.getInstance().voiceChangeNative(MODE_JINGSONG, path)
+        }
+
+        findViewById<Button>(R.id.gaoguai).setOnClickListener {
+            NativeLib.getInstance().voiceChangeNative(MODE_GAOGUAI, path)
+        }
+        findViewById<Button>(R.id.kongling).setOnClickListener {
+            NativeLib.getInstance().voiceChangeNative(MODE_KONGLING, path)
+        }
+        //44444444444444444444444444444444444444444444444444444444444
     }
 
     override fun onDestroy() {
         super.onDestroy()
         NativeLib.getInstance().delQuote()
+        FMOD.close()
     }
 
 }

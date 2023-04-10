@@ -14,9 +14,9 @@ dependencyResolutionManagement {
 }
 //apply from: 'versions.gradle'
 rootProject.name = "AndroidJetpack"
-include(":app")
+//include(":app")
 //include(":libs:imagemaster")
-include(":libcore")
+//include(":libcore")
 //include(":xdagger")
 //include(":xhilt")
 //include("libs:aliyunplayerres")

@@ -153,4 +153,84 @@
         android:background="@android:color/holo_green_light"
         android:layout_marginBottom="10dp"
         />
+
+    <Button
+        android:id="@+id/yuansheng"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="原生"
+        app:layout_constraintTop_toBottomOf="@id/fmod_change_voice"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@color/purple_200"
+        />
+
+    <Button
+        android:id="@+id/luoli"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="萝莉"
+        app:layout_constraintTop_toBottomOf="@id/fmod_change_voice"
+        app:layout_constraintLeft_toRightOf="@id/yuansheng"
+        android:background="@color/purple_200"
+        android:layout_marginLeft="10dp"
+        />
+
+    <Button
+        android:id="@+id/dashu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="大叔"
+        app:layout_constraintTop_toBottomOf="@id/fmod_change_voice"
+        app:layout_constraintLeft_toRightOf="@id/luoli"
+        android:background="@color/purple_200"
+        android:layout_marginLeft="10dp"
+        />
+
+    <Button
+        android:id="@+id/jingsong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="惊悚"
+        app:layout_constraintTop_toBottomOf="@id/yuansheng"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@color/purple_200"
+        android:layout_marginTop="10dp"
+        />
+
+    <Button
+        android:id="@+id/gaoguai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="搞怪"
+        app:layout_constraintTop_toBottomOf="@id/yuansheng"
+        app:layout_constraintLeft_toRightOf="@id/jingsong"
+        android:background="@color/purple_200"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        />
+
+    <Button
+        android:id="@+id/kongling"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="空灵"
+        app:layout_constraintTop_toBottomOf="@id/yuansheng"
+        app:layout_constraintLeft_toRightOf="@id/gaoguai"
+        android:background="@color/purple_200"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/thread"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        app:layout_constraintTop_toBottomOf="@id/kongling"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="NI技术之动态注册与JNI线程实战"
+        android:gravity="center"
+        android:textColor="@color/purple_500"
+        android:background="@android:color/holo_green_light"
+        android:layout_marginBottom="10dp"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

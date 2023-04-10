@@ -9,6 +9,19 @@ extern "C" {
 #endif
 #undef com_mic_jnibase_NativeLib_A
 #define com_mic_jnibase_NativeLib_A 100L
+
+#undef com_mic_jnibase_NativeLib_MODE_NORMAL
+#define com_mic_jnibase_NativeLib_MODE_NORMAL 0L
+#undef com_mic_jnibase_NativeLib_MODE_LUOLI
+#define com_mic_jnibase_NativeLib_MODE_LUOLI 1L
+#undef com_mic_jnibase_NativeLib_MODE_DASHU
+#define com_mic_jnibase_NativeLib_MODE_DASHU 2L
+#undef com_mic_jnibase_NativeLib_MODE_JINGSONG
+#define com_mic_jnibase_NativeLib_MODE_JINGSONG 3L
+#undef com_mic_jnibase_NativeLib_MODE_GAOGUAI
+#define com_mic_jnibase_NativeLib_MODE_GAOGUAI 4L
+#undef com_mic_jnibase_NativeLib_MODE_KONGLING
+#define com_mic_jnibase_NativeLib_MODE_KONGLING 5L
 /*
  * Class:     com_mic_jnibase_NativeLib
  * Method:    changeName
@@ -72,6 +85,14 @@ JNIEXPORT void JNICALL Java_com_mic_jnibase_NativeLib_testQuote
  */
 JNIEXPORT void JNICALL Java_com_mic_jnibase_NativeLib_delQuote
   (JNIEnv *, jobject);
+
+/*
+ * Class:     com_mic_jnibase_NativeLib
+ * Method:    voiceChangeNative
+ * Signature: (ILjava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_com_mic_jnibase_NativeLib_voiceChangeNative
+  (JNIEnv *, jobject, jint, jstring);
 
 #ifdef __cplusplus
 }

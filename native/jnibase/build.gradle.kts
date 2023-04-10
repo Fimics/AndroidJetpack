@@ -24,8 +24,15 @@ android {
 
         externalNativeBuild {
             cmake {
-                cppFlags("")
+                // cppFlags "" // 默认五大平台
+                // 指定CPU架构，Cmake的本地库， 例如：native-lib ---> armeabi-v7a
+                abiFilters("arm64-v8a","armeabi-v7a")
             }
+        }
+        // 指定CPU架构，打入APK lib/CPU平台
+        ndk {
+            abiFilters.add("arm64-v8a")
+            abiFilters.add("armeabi-v7a")
         }
     }
 
@@ -50,6 +57,13 @@ android {
     }
     buildToolsVersion = "33.0.2"
     ndkVersion = "25.2.9519653"
+    sourceSets {
+        getByName("main") {
+            assets {
+                srcDirs("src/main/assets")
+            }
+        }
+    }
 }
 
 dependencies {
@@ -65,4 +79,5 @@ dependencies {
 //        exclude("androidx.transition","transition")
         exclude(mapOf("group" to "androidx.transition","module" to "transition"))
     }
+
 }

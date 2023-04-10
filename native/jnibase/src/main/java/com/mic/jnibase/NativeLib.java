@@ -35,4 +35,14 @@ public class NativeLib {
     public native void testQuote(); // 测试引用
     public native void delQuote(); // 释放全局引用
 
+    //3.fmod 变声
+    //Android NDK 导入 C库，开发流程，一劳永逸，任何C库 都是一样的
+    public static final int MODE_NORMAL = 0; // 正常
+    public static final int MODE_LUOLI = 1; //
+    public static final int MODE_DASHU = 2; //
+    public static final int MODE_JINGSONG = 3; //
+    public static final int MODE_GAOGUAI = 4; //
+    public static final int MODE_KONGLING = 5; //
+    public native void voiceChangeNative(int modeNormal, String path);
+
 }
