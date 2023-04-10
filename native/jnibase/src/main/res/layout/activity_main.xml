@@ -6,23 +6,39 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/jni_base"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginBottom="10dp"
+        android:text="jnibase"
+        android:gravity="center"
+        android:textColor="@color/purple_500"
+        android:background="@android:color/holo_green_light"
+        />
 
     <Button
         android:id="@+id/text_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/jni_base"
         app:layout_constraintLeft_toLeftOf="parent"
         android:text="android"
+        android:background="@color/purple_200"
         />
 
     <Button
         android:id="@+id/text_age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/jni_base"
         app:layout_constraintLeft_toRightOf="@id/text_name"
+        app:layout_constraintBaseline_toBaselineOf="@id/text_name"
         android:text="20"
+        android:layout_marginLeft="10dp"
+        android:background="@color/purple_200"
         />
 
     <Button
@@ -32,6 +48,7 @@
         android:text="changeName"
         app:layout_constraintTop_toBottomOf="@id/text_name"
         app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@color/purple_200"
         />
 
     <Button
@@ -42,6 +59,7 @@
         app:layout_constraintTop_toBottomOf="@id/text_name"
         app:layout_constraintLeft_toRightOf="@id/change_name"
         android:layout_marginLeft="10dp"
+        android:background="@color/purple_200"
         />
 
     <Button
@@ -52,5 +70,87 @@
         app:layout_constraintTop_toBottomOf="@id/text_name"
         app:layout_constraintLeft_toRightOf="@id/change_age"
         android:layout_marginLeft="10dp"
+        android:background="@color/purple_200"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/cpp_call_java"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        app:layout_constraintTop_toBottomOf="@id/add_call"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="cpp调用java层对象"
+        android:gravity="center"
+        android:textColor="@color/purple_500"
+        android:background="@android:color/holo_green_light"
+        android:layout_marginBottom="10dp"
+        />
+
+    <Button
+        android:id="@+id/array"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="string-数组"
+        app:layout_constraintTop_toBottomOf="@id/cpp_call_java"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@color/purple_200"
+        />
+
+    <Button
+        android:id="@+id/pass_object"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="传递对象"
+        app:layout_constraintTop_toBottomOf="@id/cpp_call_java"
+        app:layout_constraintLeft_toRightOf="@id/array"
+        android:layout_marginLeft="10dp"
+        android:background="@color/purple_200"
+        />
+
+    <Button
+        android:id="@+id/create_java_object"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="凭空创建Java对象"
+        app:layout_constraintTop_toBottomOf="@id/cpp_call_java"
+        app:layout_constraintLeft_toRightOf="@id/pass_object"
+        android:layout_marginLeft="10dp"
+        android:background="@color/purple_200"
+        />
+
+    <Button
+        android:id="@+id/test_ref"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="测试引用"
+        app:layout_constraintTop_toBottomOf="@id/array"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="10dp"
+        android:background="@color/purple_200"
+        />
+
+    <Button
+        android:id="@+id/release_ref"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="释放全局引用"
+        app:layout_constraintTop_toBottomOf="@id/array"
+        app:layout_constraintLeft_toRightOf="@id/test_ref"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/purple_200"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/fmod_change_voice"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        app:layout_constraintTop_toBottomOf="@id/test_ref"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="fmod 语音变声"
+        android:gravity="center"
+        android:textColor="@color/purple_500"
+        android:background="@android:color/holo_green_light"
+        android:layout_marginBottom="10dp"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
