@@ -48,13 +48,21 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildToolsVersion = "33.0.2"
+    ndkVersion = "25.2.9519653"
 }
 
 dependencies {
-
+    implementation (fileTree(mapOf("dir" to "libs","include" to listOf("*.jar"))))
     implementation(Depends.appcompat)
-    implementation(Depends.material)
-    implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("com.google.android.material:material:1.4.+")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
+    implementation(Depends.constraintlayout)
+    implementation(Depends.vectordrawable)
+    implementation(Depends.recyclerview)
+    implementation(Depends.cardview)
+    //navigation
+    implementation(Depends.navigationfragment)
+    implementation(Depends.navigation){
+//        exclude("androidx.transition","transition")
+        exclude(mapOf("group" to "androidx.transition","module" to "transition"))
+    }
 }

@@ -1,12 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/root"
-   >
+    tools:context=".MainActivity">
 
-</LinearLayout>
+
+    <Button
+        android:id="@+id/text_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="android"
+        />
+
+    <Button
+        android:id="@+id/text_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/text_name"
+        android:text="20"
+        />
+
+    <Button
+        android:id="@+id/change_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="changeName"
+        app:layout_constraintTop_toBottomOf="@id/text_name"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <Button
+        android:id="@+id/change_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="changeAge"
+        app:layout_constraintTop_toBottomOf="@id/text_name"
+        app:layout_constraintLeft_toRightOf="@id/change_name"
+        android:layout_marginLeft="10dp"
+        />
+
+    <Button
+        android:id="@+id/add_call"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="addCall"
+        app:layout_constraintTop_toBottomOf="@id/text_name"
+        app:layout_constraintLeft_toRightOf="@id/change_age"
+        android:layout_marginLeft="10dp"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

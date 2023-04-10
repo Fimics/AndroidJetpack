@@ -16,7 +16,6 @@
             <option value="$PROJECT_DIR$/libcore" />
             <option value="$PROJECT_DIR$/native" />
             <option value="$PROJECT_DIR$/native/jnibase" />
-            <option value="$PROJECT_DIR$/native/jniempty" />
           </set>
         </option>
       </GradleProjectSettings>

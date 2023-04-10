@@ -63,10 +63,7 @@ android {
     }
     kapt { generateStubs = true }
     namespace = "com.mic"
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_9
-        targetCompatibility = JavaVersion.VERSION_1_9
-    }
+    ndkVersion = "25.2.9519653"
 }
 
 //https://blog.csdn.net/lfq88/article/details/118222107

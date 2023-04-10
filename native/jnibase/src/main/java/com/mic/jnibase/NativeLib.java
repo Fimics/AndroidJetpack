@@ -2,14 +2,27 @@ package com.mic.jnibase;
 
 public class NativeLib {
 
-    // Used to load the 'jnibase' library on application startup.
     static {
         System.loadLibrary("jnibase");
     }
 
-    /**
-     * A native method that is implemented by the 'jnibase' native library,
-     * which is packaged with this application.
-     */
-    public native String stringFromJNI();
+    private static NativeLib instance = null;
+    public static NativeLib getInstance(){
+        if (instance==null){
+            instance=new NativeLib();
+        }
+        return instance;
+    }
+
+    public static final int A=100;
+    public String name="android";
+    public native void changeName();
+    public static native void changeAge();
+    public native void callAddMethod();
+
+    // 专门写一个函数，给native成调用
+    public int add(int number1, int number2) {
+        return number1 + number2 + 8;
+    }
+
 }
