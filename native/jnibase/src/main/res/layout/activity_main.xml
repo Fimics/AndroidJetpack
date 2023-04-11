@@ -227,7 +227,7 @@
         android:layout_height="25dp"
         app:layout_constraintTop_toBottomOf="@id/kongling"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:text="NI技术之动态注册与JNI线程实战"
+        android:text="JNI技术之动态注册与JNI线程实战"
         android:gravity="center"
         android:textColor="@color/purple_500"
         android:background="@android:color/holo_green_light"

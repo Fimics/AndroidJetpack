@@ -3,11 +3,12 @@ package com.mic.jnibase
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mic.jnibase.NativeLib.*
 import org.fmod.FMOD
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),FmodCallback {
 
     private val TAG="jni_base";
     private var path:String?=null;
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         FMOD.init(this)
+        NativeLib.getInstance().setFmodCallback(this)
         path =  "file:///android_asset/audio.mp3";
         //111111111111111111111111111111111111111
         findViewById<Button>(R.id.change_name).setOnClickListener {
@@ -85,6 +87,12 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         NativeLib.getInstance().delQuote()
         FMOD.close()
+    }
+
+    // 给C++调用的函数
+    // JNI 调用 Java函数的时候，忽略掉 私有、公开 等
+    override fun onPlalyerEnd(msg: String?) {
+        Toast.makeText(this, "" +msg, Toast.LENGTH_SHORT).show();
     }
 
 }

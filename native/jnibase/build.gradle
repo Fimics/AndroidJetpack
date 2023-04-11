@@ -1,85 +1,60 @@
-import org.jetbrains.kotlin.gradle.plugin.extraProperties
-
-plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
-}
+apply plugin: 'com.android.application'
+apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
-    namespace = "com.mic.jnibase"
-    compileSdk = androids.compileSdkV
-
+    compileSdkVersion 33
+    buildToolsVersion "30.0.3"
+    namespace 'com.mic.jnibase'
     defaultConfig {
-        compileSdk=androids.compileSdkV
-        buildToolsVersion=androids.buildToolsV
+        applicationId "com.mic.jnibase"
+        minSdkVersion 26
+        targetSdkVersion 32
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        defaultConfig {
-            applicationId = "com.mic.jnibase"
-            minSdk=androids.minSdkV
-            targetSdk=androids.targetSdkV
-            versionCode = androids.vCode
-            versionName = androids.vName
-        }
-
+        // TODO 第四步
         externalNativeBuild {
             cmake {
                 // cppFlags "" // 默认五大平台
+
                 // 指定CPU架构，Cmake的本地库， 例如：native-lib ---> armeabi-v7a
-                abiFilters("arm64-v8a")
+                abiFilters "arm64-v8a"
             }
         }
+
+        // TODO 第五步
         // 指定CPU架构，打入APK lib/CPU平台
         ndk {
-            abiFilters.addAll(listOf("arm64-v8a"))
+            abiFilters "arm64-v8a"
         }
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     externalNativeBuild {
         cmake {
-            path("src/main/cpp/CMakeLists.txt")
-            version = "3.22.1"
+            path "src/main/cpp/CMakeLists.txt"
+            version "3.22.1"
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    buildToolsVersion = "33.0.2"
-    ndkVersion = "25.2.9519653"
-    sourceSets {
-        getByName("main") {
-            jniLibs {
-                srcDir("src/main/jniLibs")
-            }
-            assets {
-                srcDirs("src/main/assets")
-            }
-        }
-    }
+
+    // sourceSet 可以修改 jniLibs 目录  修改成 aaa
 }
 
 dependencies {
-    implementation (fileTree(mapOf("dir" to "libs","include" to listOf("*.jar"))))
-    implementation(Depends.appcompat)
-    implementation(Depends.constraintlayout)
-    implementation(Depends.vectordrawable)
-    implementation(Depends.recyclerview)
-    implementation(Depends.cardview)
-    //navigation
-    implementation(Depends.navigationfragment)
-    implementation(Depends.navigation){
-//        exclude("androidx.transition","transition")
-        exclude(mapOf("group" to "androidx.transition","module" to "transition"))
-    }
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    implementation 'androidx.core:core-ktx:+'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    // TODO 第六步：主要是 有没有提供 java的 jar包
+//    implementation files("libs\\fmod.jar");
 }
