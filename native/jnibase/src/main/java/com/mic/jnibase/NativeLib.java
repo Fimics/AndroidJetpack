@@ -71,4 +71,35 @@ public class NativeLib {
         }
     }
 
+    //----------------------------------------4444444444444-----------------------------------------
+    // 第一部分 动态注册 动态注册报红没关系，不用生成接口 区域 =======================================================
+    public native void staticRegister(); // 静态注册 - 偷懒
+    public native void dynamicJavaMethod01(); // 动态注册1
+    public native int dynamicJavaMethod02(String valueStr); // 动态注册2
+
+    // 第二部分 JNI线程 区域 =====================================================
+    public native void nativeThread(); // Java层 调用 Native层 的函数，完成JNI线程
+    public native void closeThread(); // 释放全局引用
+
+    // 第三部分 纠结纠结细节 区域 ==================================================
+    public native void nativeFun1();
+    public native void nativeFun2(); // 2
+    public static native void staticFun3(); // 3
+    public static native void staticFun4();
+
+    interface UpdateUiCallback{
+        void onUpdateUi();
+    }
+    UpdateUiCallback updateUiCallback;
+
+    public void setUpdateUiCallback(UpdateUiCallback updateUiCallback) {
+        this.updateUiCallback = updateUiCallback;
+    }
+
+    public void updateActivityUI(){
+        if (updateUiCallback!=null){
+            updateUiCallback.onUpdateUi();
+        }
+    }
+
 }

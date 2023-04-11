@@ -9,7 +9,6 @@ extern "C" {
 #endif
 #undef com_mic_jnibase_NativeLib_A
 #define com_mic_jnibase_NativeLib_A 100L
-
 #undef com_mic_jnibase_NativeLib_MODE_NORMAL
 #define com_mic_jnibase_NativeLib_MODE_NORMAL 0L
 #undef com_mic_jnibase_NativeLib_MODE_LUOLI
@@ -93,6 +92,78 @@ JNIEXPORT void JNICALL Java_com_mic_jnibase_NativeLib_delQuote
  */
 JNIEXPORT void JNICALL Java_com_mic_jnibase_NativeLib_voiceChangeNative
   (JNIEnv *, jobject, jint, jstring);
+
+/*
+ * Class:     com_mic_jnibase_NativeLib
+ * Method:    staticRegister
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_mic_jnibase_NativeLib_staticRegister
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_mic_jnibase_NativeLib
+ * Method:    dynamicJavaMethod01
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_mic_jnibase_NativeLib_dynamicJavaMethod01
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_mic_jnibase_NativeLib
+ * Method:    dynamicJavaMethod02
+ * Signature: (Ljava/lang/String;)I
+ */
+JNIEXPORT jint JNICALL Java_com_mic_jnibase_NativeLib_dynamicJavaMethod02
+  (JNIEnv *, jobject, jstring);
+
+/*
+ * Class:     com_mic_jnibase_NativeLib
+ * Method:    nativeThread
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_mic_jnibase_NativeLib_nativeThread
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_mic_jnibase_NativeLib
+ * Method:    closeThread
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_mic_jnibase_NativeLib_closeThread
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_mic_jnibase_NativeLib
+ * Method:    nativeFun1
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_mic_jnibase_NativeLib_nativeFun1
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_mic_jnibase_NativeLib
+ * Method:    nativeFun2
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_mic_jnibase_NativeLib_nativeFun2
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_mic_jnibase_NativeLib
+ * Method:    staticFun3
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_mic_jnibase_NativeLib_staticFun3
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_mic_jnibase_NativeLib
+ * Method:    staticFun4
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_mic_jnibase_NativeLib_staticFun4
+  (JNIEnv *, jclass);
 
 #ifdef __cplusplus
 }

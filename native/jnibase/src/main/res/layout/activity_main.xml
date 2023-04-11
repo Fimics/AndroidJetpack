@@ -233,4 +233,61 @@
         android:background="@android:color/holo_green_light"
         android:layout_marginBottom="10dp"
         />
+
+    <Button
+        android:id="@+id/static_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="静态注册/动态注册1"
+        app:layout_constraintTop_toBottomOf="@id/thread"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@color/purple_200"
+        />
+
+    <Button
+        android:id="@+id/dynamic_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="动态注册2"
+        app:layout_constraintTop_toBottomOf="@id/thread"
+        app:layout_constraintLeft_toRightOf="@id/static_register"
+        android:background="@color/purple_200"
+        android:layout_marginLeft="10dp"
+        />
+
+    <Button
+        android:id="@+id/jni_thread"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="JNI线程"
+        app:layout_constraintTop_toBottomOf="@id/thread"
+        app:layout_constraintLeft_toRightOf="@id/dynamic_register"
+        android:background="@color/purple_200"
+        android:layout_marginLeft="10dp"
+        />
+
+    <Button
+        android:id="@+id/jvm_env"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="JVM_ENV"
+        app:layout_constraintTop_toBottomOf="@id/static_register"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@color/purple_200"
+        android:layout_marginTop="10dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/cache_except"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        app:layout_constraintTop_toBottomOf="@id/jvm_env"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="JNIEnv与静态缓存与native异常"
+        android:gravity="center"
+        android:textColor="@color/purple_500"
+        android:background="@android:color/holo_green_light"
+        android:layout_marginBottom="10dp"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
