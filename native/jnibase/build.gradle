@@ -7,7 +7,7 @@ android {
     namespace 'com.mic.jnibase'
     defaultConfig {
         applicationId "com.mic.jnibase"
-        minSdkVersion 26
+        minSdkVersion 30
         targetSdkVersion 32
         versionCode 1
         versionName "1.0"

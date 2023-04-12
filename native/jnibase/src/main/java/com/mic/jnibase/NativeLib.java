@@ -1,5 +1,7 @@
 package com.mic.jnibase;
 
+import android.util.Log;
+
 public class NativeLib {
 
     static {
@@ -100,6 +102,33 @@ public class NativeLib {
         if (updateUiCallback!=null){
             updateUiCallback.onUpdateUi();
         }
+    }
+
+    //----------------------------------------555555555555555-----------------------------------------
+    public native  void sort(int [] array);
+    public static native void localCache(String name); // 普通的局部缓存，弊端演示
+    // 下面 静态缓存
+    public static native void initStaticCache(); // 初始化静态缓存
+    public static native void staticCache(String name);
+    public static native void clearStaticCache(); // 清除化静态缓存
+    // 下面是异常处理
+    public static native void exceptionNative();
+    public static native void exception2Native2() throws NoSuchFieldException; // NoSuchFieldException接收C++层抛上来的异常
+    public static native void exceptionJava();
+    public static native String thisAction();
+    // 假设这里定义了一堆变量
+    static String name1  ="T1";
+    static String name2  ="T2";
+    static String name3  ="T3";
+    static String name4  ="T4";
+    static String name5  ="T5";
+    static String name6  ="T6";
+    // 专门给 C++（native层） 层调用的 函数
+    public static void show() throws Exception {
+        Log.d("jnibase", "show: 1111");
+        Log.d("jnibase", "show: 1111");
+        Log.d("jnibase", "show: 1111");
+        throw new NullPointerException("我是Java中抛出的异常，我的show方法里面发送了Java逻辑错误");
     }
 
 }

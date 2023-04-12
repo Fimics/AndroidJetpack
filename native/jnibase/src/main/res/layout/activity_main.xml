@@ -9,285 +9,331 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/jni_base"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginBottom="10dp"
-        android:text="jnibase"
-        android:gravity="center"
-        android:textColor="@color/purple_500"
+        android:layout_height="20dp"
+        android:layout_marginBottom="3dp"
         android:background="@android:color/holo_green_light"
-        />
+        android:gravity="center"
+        android:text="jnibase"
+        android:textColor="@color/purple_500"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/text_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/jni_base"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:text="android"
+        android:layout_height="35dp"
         android:background="@color/purple_200"
-        />
+        android:text="android"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/jni_base" />
 
     <Button
         android:id="@+id/text_age"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/jni_base"
-        app:layout_constraintLeft_toRightOf="@id/text_name"
-        app:layout_constraintBaseline_toBaselineOf="@id/text_name"
-        android:text="20"
-        android:layout_marginLeft="10dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="3dp"
         android:background="@color/purple_200"
-        />
+        android:text="20"
+        app:layout_constraintBaseline_toBaselineOf="@id/text_name"
+        app:layout_constraintLeft_toRightOf="@id/text_name"
+        app:layout_constraintTop_toBottomOf="@id/jni_base" />
 
     <Button
         android:id="@+id/change_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="changeName"
-        app:layout_constraintTop_toBottomOf="@id/text_name"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_height="35dp"
         android:background="@color/purple_200"
-        />
+        android:text="changeName"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_name" />
 
     <Button
         android:id="@+id/change_age"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="changeAge"
-        app:layout_constraintTop_toBottomOf="@id/text_name"
-        app:layout_constraintLeft_toRightOf="@id/change_name"
-        android:layout_marginLeft="10dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="3dp"
         android:background="@color/purple_200"
-        />
+        android:text="changeAge"
+        app:layout_constraintLeft_toRightOf="@id/change_name"
+        app:layout_constraintTop_toBottomOf="@id/text_name" />
 
     <Button
         android:id="@+id/add_call"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="addCall"
-        app:layout_constraintTop_toBottomOf="@id/text_name"
-        app:layout_constraintLeft_toRightOf="@id/change_age"
-        android:layout_marginLeft="10dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="3dp"
         android:background="@color/purple_200"
-        />
+        android:text="addCall"
+        app:layout_constraintLeft_toRightOf="@id/change_age"
+        app:layout_constraintTop_toBottomOf="@id/text_name" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/cpp_call_java"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
-        app:layout_constraintTop_toBottomOf="@id/add_call"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:text="cpp调用java层对象"
-        android:gravity="center"
-        android:textColor="@color/purple_500"
+        android:layout_height="20dp"
+        android:layout_marginBottom="3dp"
         android:background="@android:color/holo_green_light"
-        android:layout_marginBottom="10dp"
-        />
+        android:gravity="center"
+        android:text="cpp调用java层对象"
+        android:textColor="@color/purple_500"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/add_call" />
 
     <Button
         android:id="@+id/array"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="string-数组"
-        app:layout_constraintTop_toBottomOf="@id/cpp_call_java"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_height="35dp"
         android:background="@color/purple_200"
-        />
+        android:text="string-数组"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cpp_call_java" />
 
     <Button
         android:id="@+id/pass_object"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="传递对象"
-        app:layout_constraintTop_toBottomOf="@id/cpp_call_java"
-        app:layout_constraintLeft_toRightOf="@id/array"
-        android:layout_marginLeft="10dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="3dp"
         android:background="@color/purple_200"
-        />
+        android:text="传递对象"
+        app:layout_constraintLeft_toRightOf="@id/array"
+        app:layout_constraintTop_toBottomOf="@id/cpp_call_java" />
 
     <Button
         android:id="@+id/create_java_object"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="凭空创建Java对象"
-        app:layout_constraintTop_toBottomOf="@id/cpp_call_java"
-        app:layout_constraintLeft_toRightOf="@id/pass_object"
-        android:layout_marginLeft="10dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="3dp"
         android:background="@color/purple_200"
-        />
+        android:text="凭空创建Java对象"
+        app:layout_constraintLeft_toRightOf="@id/pass_object"
+        app:layout_constraintTop_toBottomOf="@id/cpp_call_java" />
 
     <Button
         android:id="@+id/test_ref"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="测试引用"
-        app:layout_constraintTop_toBottomOf="@id/array"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="10dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="3dp"
         android:background="@color/purple_200"
-        />
+        android:text="测试引用"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/array" />
 
     <Button
         android:id="@+id/release_ref"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="释放全局引用"
-        app:layout_constraintTop_toBottomOf="@id/array"
-        app:layout_constraintLeft_toRightOf="@id/test_ref"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="3dp"
         android:background="@color/purple_200"
-        />
+        android:text="释放全局引用"
+        app:layout_constraintLeft_toRightOf="@id/test_ref"
+        app:layout_constraintTop_toBottomOf="@id/array" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/fmod_change_voice"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
-        app:layout_constraintTop_toBottomOf="@id/test_ref"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:text="fmod 语音变声"
-        android:gravity="center"
-        android:textColor="@color/purple_500"
+        android:layout_height="20dp"
+        android:layout_marginBottom="3dp"
         android:background="@android:color/holo_green_light"
-        android:layout_marginBottom="10dp"
-        />
+        android:gravity="center"
+        android:text="fmod 语音变声"
+        android:textColor="@color/purple_500"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/test_ref" />
 
     <Button
         android:id="@+id/yuansheng"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="原生"
-        app:layout_constraintTop_toBottomOf="@id/fmod_change_voice"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_height="35dp"
         android:background="@color/purple_200"
-        />
+        android:text="原生"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fmod_change_voice" />
 
     <Button
         android:id="@+id/luoli"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="萝莉"
-        app:layout_constraintTop_toBottomOf="@id/fmod_change_voice"
-        app:layout_constraintLeft_toRightOf="@id/yuansheng"
+        android:layout_height="35dp"
+        android:layout_marginLeft="3dp"
         android:background="@color/purple_200"
-        android:layout_marginLeft="10dp"
-        />
+        android:text="萝莉"
+        app:layout_constraintLeft_toRightOf="@id/yuansheng"
+        app:layout_constraintTop_toBottomOf="@id/fmod_change_voice" />
 
     <Button
         android:id="@+id/dashu"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="大叔"
-        app:layout_constraintTop_toBottomOf="@id/fmod_change_voice"
-        app:layout_constraintLeft_toRightOf="@id/luoli"
+        android:layout_height="35dp"
+        android:layout_marginLeft="3dp"
         android:background="@color/purple_200"
-        android:layout_marginLeft="10dp"
-        />
+        android:text="大叔"
+        app:layout_constraintLeft_toRightOf="@id/luoli"
+        app:layout_constraintTop_toBottomOf="@id/fmod_change_voice" />
 
     <Button
         android:id="@+id/jingsong"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="惊悚"
-        app:layout_constraintTop_toBottomOf="@id/yuansheng"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="3dp"
         android:background="@color/purple_200"
-        android:layout_marginTop="10dp"
-        />
+        android:text="惊悚"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/yuansheng" />
 
     <Button
         android:id="@+id/gaoguai"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="搞怪"
-        app:layout_constraintTop_toBottomOf="@id/yuansheng"
-        app:layout_constraintLeft_toRightOf="@id/jingsong"
+        android:layout_height="35dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="3dp"
         android:background="@color/purple_200"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        />
+        android:text="搞怪"
+        app:layout_constraintLeft_toRightOf="@id/jingsong"
+        app:layout_constraintTop_toBottomOf="@id/yuansheng" />
 
     <Button
         android:id="@+id/kongling"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="空灵"
-        app:layout_constraintTop_toBottomOf="@id/yuansheng"
-        app:layout_constraintLeft_toRightOf="@id/gaoguai"
+        android:layout_height="35dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="3dp"
         android:background="@color/purple_200"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        />
+        android:text="空灵"
+        app:layout_constraintLeft_toRightOf="@id/gaoguai"
+        app:layout_constraintTop_toBottomOf="@id/yuansheng" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/thread"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
-        app:layout_constraintTop_toBottomOf="@id/kongling"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:text="JNI技术之动态注册与JNI线程实战"
-        android:gravity="center"
-        android:textColor="@color/purple_500"
+        android:layout_height="20dp"
+        android:layout_marginBottom="3dp"
         android:background="@android:color/holo_green_light"
-        android:layout_marginBottom="10dp"
-        />
+        android:gravity="center"
+        android:text="JNI技术之动态注册与JNI线程实战"
+        android:textColor="@color/purple_500"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/kongling" />
 
     <Button
         android:id="@+id/static_register"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="静态注册/动态注册1"
-        app:layout_constraintTop_toBottomOf="@id/thread"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_height="35dp"
         android:background="@color/purple_200"
-        />
+        android:text="静态注册/动态注册1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/thread" />
 
     <Button
         android:id="@+id/dynamic_register"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="动态注册2"
-        app:layout_constraintTop_toBottomOf="@id/thread"
-        app:layout_constraintLeft_toRightOf="@id/static_register"
+        android:layout_height="35dp"
+        android:layout_marginLeft="3dp"
         android:background="@color/purple_200"
-        android:layout_marginLeft="10dp"
-        />
+        android:text="动态注册2"
+        app:layout_constraintLeft_toRightOf="@id/static_register"
+        app:layout_constraintTop_toBottomOf="@id/thread" />
 
     <Button
         android:id="@+id/jni_thread"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="JNI线程"
-        app:layout_constraintTop_toBottomOf="@id/thread"
-        app:layout_constraintLeft_toRightOf="@id/dynamic_register"
+        android:layout_height="35dp"
+        android:layout_marginLeft="3dp"
         android:background="@color/purple_200"
-        android:layout_marginLeft="10dp"
-        />
+        android:text="JNI线程"
+        app:layout_constraintLeft_toRightOf="@id/dynamic_register"
+        app:layout_constraintTop_toBottomOf="@id/thread" />
 
     <Button
         android:id="@+id/jvm_env"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="JVM_ENV"
-        app:layout_constraintTop_toBottomOf="@id/static_register"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="3dp"
         android:background="@color/purple_200"
-        android:layout_marginTop="10dp"
-        />
+        android:text="JVM_ENV"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/static_register" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/cache_except"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
-        app:layout_constraintTop_toBottomOf="@id/jvm_env"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:text="JNIEnv与静态缓存与native异常"
-        android:gravity="center"
-        android:textColor="@color/purple_500"
+        android:layout_height="20dp"
+        android:layout_marginBottom="3dp"
         android:background="@android:color/holo_green_light"
-        android:layout_marginBottom="10dp"
-        />
+        android:gravity="center"
+        android:text="JNIEnv与静态缓存与native异常"
+        android:textColor="@color/purple_500"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/jvm_env" />
 
+    <Button
+        android:id="@+id/sort_ndk"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:background="@color/purple_200"
+        android:text="SORT"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cache_except" />
+
+    <Button
+        android:id="@+id/load_cache"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginLeft="3dp"
+        android:background="@color/purple_200"
+        android:text="普通缓存"
+        app:layout_constraintLeft_toRightOf="@id/sort_ndk"
+        app:layout_constraintTop_toBottomOf="@id/cache_except" />
+
+    <Button
+        android:id="@+id/init_static_cache"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginLeft="3dp"
+        android:background="@color/purple_200"
+        android:text="init静态缓存"
+        app:layout_constraintLeft_toRightOf="@id/load_cache"
+        app:layout_constraintTop_toBottomOf="@id/cache_except" />
+
+    <Button
+        android:id="@+id/static_cache"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginLeft="3dp"
+        android:background="@color/purple_200"
+        android:text="缓存"
+        app:layout_constraintLeft_toRightOf="@id/init_static_cache"
+        app:layout_constraintTop_toBottomOf="@id/cache_except" />
+
+    <Button
+        android:id="@+id/clean_cache"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:background="@color/purple_200"
+        android:text="清理缓存"
+        android:layout_marginTop="3dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sort_ndk" />
+
+    <Button
+        android:id="@+id/except"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:background="@color/purple_200"
+        android:text="Native_except"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="3dp"
+        app:layout_constraintLeft_toRightOf="@id/clean_cache"
+        app:layout_constraintTop_toBottomOf="@id/sort_ndk"/>
+    
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/parcel"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginBottom="3dp"
+        android:background="@android:color/holo_green_light"
+        android:gravity="center"
+        android:text="Parcel的C++层与原理(koltin版)"
+        android:textColor="@color/purple_500"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clean_cache" />
 </androidx.constraintlayout.widget.ConstraintLayout>

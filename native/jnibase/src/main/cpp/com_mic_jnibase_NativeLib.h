@@ -165,6 +165,78 @@ JNIEXPORT void JNICALL Java_com_mic_jnibase_NativeLib_staticFun3
 JNIEXPORT void JNICALL Java_com_mic_jnibase_NativeLib_staticFun4
   (JNIEnv *, jclass);
 
+/*
+ * Class:     com_mic_jnibase_NativeLib
+ * Method:    sort
+ * Signature: ([I)V
+ */
+JNIEXPORT void JNICALL Java_com_mic_jnibase_NativeLib_sort
+  (JNIEnv *, jobject, jintArray);
+
+/*
+ * Class:     com_mic_jnibase_NativeLib
+ * Method:    localCache
+ * Signature: (Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_com_mic_jnibase_NativeLib_localCache
+  (JNIEnv *, jclass, jstring);
+
+/*
+ * Class:     com_mic_jnibase_NativeLib
+ * Method:    initStaticCache
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_mic_jnibase_NativeLib_initStaticCache
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_mic_jnibase_NativeLib
+ * Method:    staticCache
+ * Signature: (Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_com_mic_jnibase_NativeLib_staticCache
+  (JNIEnv *, jclass, jstring);
+
+/*
+ * Class:     com_mic_jnibase_NativeLib
+ * Method:    clearStaticCache
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_mic_jnibase_NativeLib_clearStaticCache
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_mic_jnibase_NativeLib
+ * Method:    exception
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_mic_jnibase_NativeLib_exception
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_mic_jnibase_NativeLib
+ * Method:    exception2
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_mic_jnibase_NativeLib_exception2
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_mic_jnibase_NativeLib
+ * Method:    exception3
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_mic_jnibase_NativeLib_exception3
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_mic_jnibase_NativeLib
+ * Method:    thisAction
+ * Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_mic_jnibase_NativeLib_thisAction
+  (JNIEnv *, jclass);
+
 #ifdef __cplusplus
 }
 #endif
