@@ -24,5 +24,6 @@ rootProject.name = "AndroidJetpack"
 //include("libs:jiguang")
 //include("libs:net")
 //include("libs:silicompressor")
-include(":native:jnibase")
+//include(":native:n1_jnibase")
+include(":native:n2_cmake")
 //include(":native:jniempty")
