@@ -13,7 +13,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/BuildSrc" />
             <option value="$PROJECT_DIR$/native" />
-            <option value="$PROJECT_DIR$/native/n3_ffmpeg" />
+            <option value="$PROJECT_DIR$/native/n4_ffmpeg_player" />
           </set>
         </option>
       </GradleProjectSettings>
