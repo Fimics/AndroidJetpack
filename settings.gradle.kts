@@ -1,14 +1,16 @@
 pluginManagement {
     repositories {
-        gradlePluginPortal()
         google()
         mavenCentral()
+        jcenter()
+        gradlePluginPortal()
     }
 }
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
+        jcenter()
         mavenCentral()
     }
 }
@@ -27,4 +29,6 @@ rootProject.name = "AndroidJetpack"
 //include(":native:n1_jnibase")
 //include(":native:n2_cmake")
 //include(":native:n3_ffmpeg")
-include(":native:n4_ffmpeg_bad")
+//include(":native:n4_ffmpeg_bad")
+//include(":native:n5_rtmp")
+include(":native:n6_opengl")

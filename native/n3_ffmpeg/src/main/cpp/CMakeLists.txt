@@ -18,16 +18,15 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -L${CMAKE_SOURCE_DIR}/${CMAKE_ANDROID_ARCH_ABI}")
 
 target_link_libraries(
-        native-lib
+        native-lib # 总库libnative-lib.so
 
-        # 具体的库文件，链接到总库
-        # 这样写会报错，有坑
-        # avcodec avfilter avformat avutil swresample swscale
+        # 忽略顺序的方式，导入
+        -Wl,--start-group
+        avcodec avfilter avformat avutil swresample swscale
+        -Wl,--end-group
 
-        # 先把有依赖的库，先依赖进来
-        avcodec
-        avformat
-        avutil
-        swscale
-
-        ${log-lib})
+        log # 日志库，打印日志用的
+        z # libz.so库，是FFmpeg需要用ndk的z库，FFMpeg需要额外支持  libz.so
+        android # android 后面会专门介绍，目前先要明白的是 ANativeWindow 用来渲染画面的 == Surface对象
+        OpenSLES # OpenSLES 后面会专门介绍，目前先要明白的是 OpenSLES 用来播放声音的-特别是在native层播放（最快的）
+)
