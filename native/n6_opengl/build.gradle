@@ -1,0 +1,62 @@
+apply plugin: 'com.android.application'
+apply plugin: 'org.jetbrains.kotlin.android'
+
+android {
+    compileSdkVersion 33
+    buildToolsVersion "30.0.3"
+    defaultConfig {
+        applicationId "com.mic.opengl"
+        minSdkVersion 29
+        targetSdkVersion 32
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        externalNativeBuild {
+            cmake {
+                // TODO 下面是OpenCV集成时，环境的问题
+                cppFlags "-std=c++11" // OpenCV新版本用这个C++11的特效，由于我们用的是较新的OpenCV
+                //NDK从r16开始就切换到了llvm的libC++，所以opencv4从libstdC++切换到了libc++。
+                //导致链接错误的根本原因是设置了-DANDRID_STL=gnustl_shared，
+                //因为opencv利用的libc++编的，而非gnustl
+                //arguments "-DANDROID_STL=gnustl_static" // OpenCV旧版本用这个
+                arguments "-DANDROID_STL=c++_shared" // OpenCV新版本用这个，由于我们用的是较新的OpenCV
+                abiFilters 'armeabi-v7a'
+            }
+        }
+
+        // TODO 第五步
+        // 指定CPU架构，打入APK lib/CPU平台
+        ndk {
+            abiFilters "armeabi-v7a"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
+            version "3.22.1"
+        }
+    }
+
+    // sourceSet 可以修改 jniLibs 目录  修改成 aaa
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    implementation 'androidx.core:core-ktx:+'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'pub.devrel:easypermissions:2.0.1'
+    // TODO 第六步：主要是 有没有提供 java的 jar包
+//    implementation files("libs\\fmod.jar");
+}
