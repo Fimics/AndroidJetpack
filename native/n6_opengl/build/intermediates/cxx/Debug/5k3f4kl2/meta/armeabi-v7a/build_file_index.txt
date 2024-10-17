@@ -1,0 +1,2 @@
+/Users/mac/code/android/AndroidJetpack/native/n6_opengl/src/main/cpp/CMakeLists.txt
+/Users/mac/code/android/AndroidJetpack/native/n6_opengl/src/main/cpp/FaceAlignment/CMakeLists.txt

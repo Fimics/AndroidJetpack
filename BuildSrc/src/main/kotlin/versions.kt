@@ -1,7 +1,7 @@
 import BuildVersions.appcompat_version
 import BuildVersions.cardview_version
 import BuildVersions.constraintlayout_version
-import BuildVersions.coroutines
+import BuildVersions.kcoroutines_version
 import BuildVersions.dagger_version
 import BuildVersions.datastore_version
 import BuildVersions.glide_version
@@ -25,23 +25,36 @@ import androids.corektxversion
 
 //全局常量
 object BuildVersions {
-    const val gradle_version = "7.1.2"
+    const val gradle_version ="7.4.2"
     const val kotlin_version = "1.8.0"
 
-    const val nav_version = "2.5.1"
+    //kotlin
+    const val ktlib_version = "1.9.0"
+    const val ktxcore_version = "1.10.1"
+    const val kcoroutines_version = "1.6.0"
+
+    //okhttp 相关
     const val okhttp_version = "4.9.0"
     const val gson_version = "2.8.5"
-    const val hilt_version = "2.45"
+    const val retrofit_version="2.9.0"
+
+    //jetpack
+    const val nav_version = "2.5.1"
     const val datastore_version = "1.0.0"
     const val lifecycle_version = "2.5.1"
-    const val coroutines = "1.6.0"
+    const val paging_version="3.0.0"
 
+    //di-> dagger,hilt
+    const val hilt_version = "2.45"
+    const val dagger_version="2.45"
+
+    //rx
     const val rxandroid_version="2.1.0"
     const val rxjava_version="2.1.0"
     const val rxbinding_version="2.1.0"
-    //操作功能防抖
+
+    //图片
     const val glide_version="4.14.2"
-    const val retrofit_version="2.9.0"
 
     //views
     const val appcompat_version="1.4.1"
@@ -51,21 +64,16 @@ object BuildVersions {
     const val cardview_version="1.0.0"
     const val material_version="1.4.+"
 
-    //dagger
-    const val dagger_version="2.45"
-
-    //room
+    //room,dataStore
     const val room_version="2.4.0"
-
-    //paging
-    const val paging_version="3.0.0"
+    const val data_store_version="1.0.0"
 
     //workmanager
     const val work_version="2.7.1"
 
-    //dataStore
-    const val data_store_version="1.0.0"
+    //camera
 
+    //buletouth
 }
 
 //应用配置
@@ -85,7 +93,7 @@ object Depends {
     //kotlins
     const val kotlinstdlib ="org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}"
     const val corektxo= "androidx.core:core-ktx:${corektxversion}"
-    const val  kotlinxcoroutinesandroid= "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
+    const val  kotlinxcoroutinesandroid= "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kcoroutines_version"
     //view
     const val  appcompat= "androidx.appcompat:appcompat:$appcompat_version"
     const val  constraintlayout="androidx.constraintlayout:constraintlayout:$constraintlayout_version"

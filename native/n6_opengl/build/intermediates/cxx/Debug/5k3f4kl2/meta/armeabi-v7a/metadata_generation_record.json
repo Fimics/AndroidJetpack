@@ -1,0 +1,44 @@
+[
+  {
+    "level_": 0,
+    "message_": "Start JSON generation. Platform version: 29 min SDK version: armeabi-v7a",
+    "file_": "/Users/mac/code/android/AndroidJetpack/native/n6_opengl/src/main/cpp/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -849573572
+  },
+  {
+    "level_": 0,
+    "message_": "JSON \u0027/Users/mac/code/android/AndroidJetpack/native/n6_opengl/.cxx/Debug/5k3f4kl2/armeabi-v7a/android_gradle_build.json\u0027 was up-to-date",
+    "file_": "/Users/mac/code/android/AndroidJetpack/native/n6_opengl/src/main/cpp/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -858114202
+  },
+  {
+    "level_": 0,
+    "message_": "JSON generation completed without problems",
+    "file_": "/Users/mac/code/android/AndroidJetpack/native/n6_opengl/src/main/cpp/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 1194625221
+  }
+]

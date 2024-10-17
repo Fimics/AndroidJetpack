@@ -1,0 +1,171 @@
+{
+  "abi": "ARMEABI_V7A",
+  "info": {
+    "abi": "ARMEABI_V7A",
+    "bitness": 32,
+    "deprecated": false,
+    "default": true
+  },
+  "cxxBuildFolder": "/Users/mac/code/android/AndroidJetpack/native/n6_opengl/.cxx/Debug/5k3f4kl2/armeabi-v7a",
+  "soFolder": "/Users/mac/code/android/AndroidJetpack/native/n6_opengl/build/intermediates/cxx/Debug/5k3f4kl2/obj/armeabi-v7a",
+  "soRepublishFolder": "/Users/mac/code/android/AndroidJetpack/native/n6_opengl/build/intermediates/cmake/debug/obj/armeabi-v7a",
+  "abiPlatformVersion": 29,
+  "cmake": {
+    "effectiveConfiguration": {
+      "inheritEnvironments": [],
+      "variables": []
+    }
+  },
+  "variant": {
+    "buildSystemArgumentList": [
+      "-DANDROID_STL\u003dc++_shared"
+    ],
+    "cFlagsList": [],
+    "cppFlagsList": [
+      "-std\u003dc++11"
+    ],
+    "variantName": "debug",
+    "soFolder": "/Users/mac/code/android/AndroidJetpack/native/n6_opengl/build/intermediates/cxx/Debug/5k3f4kl2/obj",
+    "soRepublishFolder": "/Users/mac/code/android/AndroidJetpack/native/n6_opengl/build/intermediates/cmake/debug/obj",
+    "cxxBuildFolder": "/Users/mac/code/android/AndroidJetpack/native/n6_opengl/.cxx/Debug/5k3f4kl2",
+    "intermediatesFolder": "/Users/mac/code/android/AndroidJetpack/native/n6_opengl/build/intermediates/cxx/Debug/5k3f4kl2",
+    "isDebuggableEnabled": true,
+    "validAbiList": [
+      "ARMEABI_V7A"
+    ],
+    "buildTargetSet": [],
+    "implicitBuildTargetSet": [],
+    "cmakeSettingsConfiguration": "android-gradle-plugin-predetermined-name",
+    "module": {
+      "cxxFolder": "/Users/mac/code/android/AndroidJetpack/native/n6_opengl/.cxx",
+      "intermediatesBaseFolder": "/Users/mac/code/android/AndroidJetpack/native/n6_opengl/build/intermediates",
+      "intermediatesFolder": "/Users/mac/code/android/AndroidJetpack/native/n6_opengl/build/intermediates/cxx",
+      "gradleModulePathName": ":native:n6_opengl",
+      "moduleRootFolder": "/Users/mac/code/android/AndroidJetpack/native/n6_opengl",
+      "moduleBuildFile": "/Users/mac/code/android/AndroidJetpack/native/n6_opengl/build.gradle",
+      "makeFile": "/Users/mac/code/android/AndroidJetpack/native/n6_opengl/src/main/cpp/CMakeLists.txt",
+      "buildSystem": "CMAKE",
+      "ndkFolder": "/Users/mac/Library/Android/sdk/ndk/21.4.7075529",
+      "ndkVersion": "21.4.7075529",
+      "ndkSupportedAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "ndkDefaultAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "ndkDefaultStl": "LIBCXX_STATIC",
+      "ndkMetaPlatforms": {
+        "min": 16,
+        "max": 30,
+        "aliases": {
+          "20": 19,
+          "25": 24,
+          "J": 16,
+          "J-MR1": 17,
+          "J-MR2": 18,
+          "K": 19,
+          "L": 21,
+          "L-MR1": 22,
+          "M": 23,
+          "N": 24,
+          "N-MR1": 24,
+          "O": 26,
+          "O-MR1": 27,
+          "P": 28,
+          "Q": 29,
+          "R": 30
+        }
+      },
+      "ndkMetaAbiList": [
+        {
+          "abi": "ARMEABI_V7A",
+          "bitness": 32,
+          "deprecated": false,
+          "default": true
+        },
+        {
+          "abi": "ARM64_V8A",
+          "bitness": 64,
+          "deprecated": false,
+          "default": true
+        },
+        {
+          "abi": "X86",
+          "bitness": 32,
+          "deprecated": false,
+          "default": true
+        },
+        {
+          "abi": "X86_64",
+          "bitness": 64,
+          "deprecated": false,
+          "default": true
+        }
+      ],
+      "cmakeToolchainFile": "/Users/mac/Library/Android/sdk/ndk/21.4.7075529/build/cmake/android.toolchain.cmake",
+      "cmake": {
+        "isValidCmakeAvailable": true,
+        "cmakeExe": "/Users/mac/Library/Android/sdk/cmake/3.22.1/bin/cmake",
+        "minimumCmakeVersion": "3.22.1",
+        "ninjaExe": "/Users/mac/Library/Android/sdk/cmake/3.22.1/bin/ninja"
+      },
+      "stlSharedObjectMap": {
+        "LIBCXX_SHARED": {
+          "ARMEABI_V7A": "/Users/mac/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/arm-linux-androideabi/libc++_shared.so",
+          "ARM64_V8A": "/Users/mac/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/libc++_shared.so",
+          "X86": "/Users/mac/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/i686-linux-android/libc++_shared.so",
+          "X86_64": "/Users/mac/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/x86_64-linux-android/libc++_shared.so"
+        },
+        "LIBCXX_STATIC": {},
+        "NONE": {},
+        "SYSTEM": {}
+      },
+      "project": {
+        "rootBuildGradleFolder": "/Users/mac/code/android/AndroidJetpack",
+        "sdkFolder": "/Users/mac/Library/Android/sdk",
+        "isBuildOnlyTargetAbiEnabled": true,
+        "ideBuildTargetAbi": "arm64-v8a,armeabi-v7a,armeabi",
+        "isCmakeBuildCohabitationEnabled": false,
+        "isPrefabEnabled": false
+      },
+      "outputOptions": []
+    },
+    "prefabClassPathFileCollection": [],
+    "prefabPackageDirectoryListFileCollection": [],
+    "stlType": "c++_shared",
+    "optimizationTag": "Debug"
+  },
+  "buildSettings": {
+    "environmentVariables": []
+  },
+  "prefabFolder": "/Users/mac/code/android/AndroidJetpack/native/n6_opengl/.cxx/Debug/5k3f4kl2/prefab/armeabi-v7a",
+  "isActiveAbi": true,
+  "fullConfigurationHash": "5k3f4kl2i6z262m5q2o2i61j3o1a3j4r4e412a64e3l4cm5t6o231z5v2dx",
+  "configurationArguments": [
+    "-H/Users/mac/code/android/AndroidJetpack/native/n6_opengl/src/main/cpp",
+    "-DCMAKE_SYSTEM_NAME\u003dAndroid",
+    "-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON",
+    "-DCMAKE_SYSTEM_VERSION\u003d29",
+    "-DANDROID_PLATFORM\u003dandroid-29",
+    "-DANDROID_ABI\u003darmeabi-v7a",
+    "-DCMAKE_ANDROID_ARCH_ABI\u003darmeabi-v7a",
+    "-DANDROID_NDK\u003d/Users/mac/Library/Android/sdk/ndk/21.4.7075529",
+    "-DCMAKE_ANDROID_NDK\u003d/Users/mac/Library/Android/sdk/ndk/21.4.7075529",
+    "-DCMAKE_TOOLCHAIN_FILE\u003d/Users/mac/Library/Android/sdk/ndk/21.4.7075529/build/cmake/android.toolchain.cmake",
+    "-DCMAKE_MAKE_PROGRAM\u003d/Users/mac/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-DCMAKE_CXX_FLAGS\u003d-std\u003dc++11",
+    "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/Users/mac/code/android/AndroidJetpack/native/n6_opengl/build/intermediates/cxx/Debug/5k3f4kl2/obj/armeabi-v7a",
+    "-DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003d/Users/mac/code/android/AndroidJetpack/native/n6_opengl/build/intermediates/cxx/Debug/5k3f4kl2/obj/armeabi-v7a",
+    "-DCMAKE_BUILD_TYPE\u003dDebug",
+    "-B/Users/mac/code/android/AndroidJetpack/native/n6_opengl/.cxx/Debug/5k3f4kl2/armeabi-v7a",
+    "-GNinja",
+    "-DANDROID_STL\u003dc++_shared"
+  ],
+  "stlLibraryFile": "/Users/mac/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/arm-linux-androideabi/libc++_shared.so"
+}

@@ -4,6 +4,7 @@ pluginManagement {
         mavenCentral()
         jcenter()
         gradlePluginPortal()
+        maven { url = uri("https://www.jitpack.io") }
     }
 }
 dependencyResolutionManagement {
@@ -16,9 +17,9 @@ dependencyResolutionManagement {
 }
 //apply from: 'versions.gradle'
 rootProject.name = "AndroidJetpack"
-//include(":app")
+include(":app")
+include(":libcore")
 //include(":libs:imagemaster")
-//include(":libcore")
 //include(":xdagger")
 //include(":xhilt")
 //include("libs:aliyunplayerres")
@@ -31,4 +32,4 @@ rootProject.name = "AndroidJetpack"
 //include(":native:n3_ffmpeg")
 //include(":native:n4_ffmpeg_bad")
 //include(":native:n5_rtmp")
-include(":native:n6_opengl")
+//include(":native:n6_opengl")
