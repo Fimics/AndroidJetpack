@@ -13,11 +13,12 @@ import com.mic.libcore.utils.ExecutorsPoller
 import com.mic.libcore.utils.FileServer
 import com.mic.libcore.utils.KLog
 import com.mic.libcore.utils.PermissionUtils
+import com.mic.libcore.utils.RootShell
 import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
-    private val tag = "main"
+    private val tag = "MainActivity"
     private lateinit var navController: NavController
 //    lateinit var user: User
 //    lateinit var analyticsAdapter: AnalyticsAdapter
@@ -37,12 +38,18 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNavigationView = binding.bottomNav
         bottomNavigationView.setupWithNavController(navController)
+        testRootShell()
 //        startServer()
 
 //        user.name = "朱Bony"
 //        user.age = 30
 //        Log.d("di",user.toString())
 //
+    }
+
+    private fun testRootShell(){
+       val isRooted =  RootShell.isRooted()
+        KLog.d(tag,"isRooted ->$isRooted")
     }
 
     private fun startServer(){
