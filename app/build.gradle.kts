@@ -1,103 +1,123 @@
-import org.jetbrains.kotlin.gradle.plugin.extraProperties
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.10"  // 修正版本号
+    id("com.google.protobuf")
 }
 
-
 android {
-    compileSdk=androids.compileSdkV
-    buildToolsVersion=androids.buildToolsV
-
+    compileSdk = libs.versions.compileSdk.get().toInt()
+    namespace = "com.grpc.pb"
     defaultConfig {
-        applicationId = "com.mic"
-        minSdk=androids.minSdkV
-        targetSdk=androids.targetSdkV
-        versionCode = androids.vCode
-        versionName = androids.vName
+        applicationId = "com.grpc.pb"
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+        versionCode = libs.versions.versionCode.get().toInt()
+        versionName = libs.versions.versionName.get()
+        multiDexEnabled = true
+        ndk {
+            abiFilters.addAll(arrayOf("arm64-v8a"))
+        }
     }
 
-    //签名
-    signingConfigs{
-        register("release"){
-            keyAlias = "fimics"
-            keyPassword ="123456"
-            storeFile =file("../sign.jks")
-            storePassword ="123456"
+    signingConfigs {
+        create("keyStore") {
+            storeFile = file("../app/platform.jks")
+            keyPassword = "android"
+            keyAlias = "androidplatformkey"
+            storePassword = "android"
         }
     }
 
     buildTypes {
+        val signConfig = signingConfigs.getByName("keyStore")
+
         getByName("debug") {
             isMinifyEnabled = false
-        }
-
-        getByName("release") {
-            isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
+                getDefaultProguardFile("proguard-android.txt"),
                 "proguard-rules.pro"
             )
-        }
-    }
-
-    //输出类型
-    android.applicationVariants.all {
-        //编译类型
-        val buildType = this.buildType.name
-        outputs.all {
-            //输出apk
-            if (this is com.android.build.gradle.internal.api.ApkVariantOutputImpl) {
-                this.outputFileName = "Jetpack${defaultConfig.versionName}_$buildType.apk"
-            }
+            signingConfig = signConfig
         }
     }
 
     buildFeatures {
+        buildConfig = true
         viewBinding = true
-        dataBinding =true
-
     }
-    kapt { generateStubs = true }
-    namespace = "com.mic"
-    ndkVersion = "25.2.9519653"
+
+    // 正确的 sourceSets 配置 - 使用 Kotlin DSL 语法
+    sourceSets {
+        getByName("main") {
+            jniLibs.srcDirs("libs")
+            assets.srcDirs("src/main/assets")
+        }
+    }
 }
 
-//https://blog.csdn.net/lfq88/article/details/118222107
 dependencies {
-    implementation (fileTree(mapOf("dir" to "libs","include" to listOf("*.jar"))))
-    //views
-    implementation(Depends.appcompat)
-    implementation(Depends.constraintlayout)
-    implementation(Depends.vectordrawable)
-    implementation(Depends.recyclerview)
-    implementation(Depends.cardview)
+    implementation(fileTree(mapOf("includes" to listOf("*.aar", "*.jar"), "dir" to "libs")))
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
+    implementation("androidx.multidex:multidex:2.0.1")
 
-    //navigation
-    implementation(Depends.navigationfragment)
-    implementation(Depends.navigation){
-//        exclude("androidx.transition","transition")
-        exclude(mapOf("group" to "androidx.transition","module" to "transition"))
+    implementation("com.google.code.gson:gson:2.10.1")
+    implementation("org.apache.commons:commons-csv:1.9.0")
+    api("io.github.jeremyliao:live-event-bus-x:1.8.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+    implementation("com.github.tonyofrancis.Fetch:fetch2:3.4.1")
+    api(libs.okhttp)
+    api(libs.logginginterceptor)
+
+    // gRPC 依赖 - 使用正确的 Kotlin DSL 语法
+    implementation("io.grpc:grpc-okhttp:1.61.0")
+    implementation("io.grpc:grpc-protobuf-lite:1.61.0")
+    implementation("io.grpc:grpc-stub:1.61.0")
+    implementation("com.google.protobuf:protobuf-javalite:3.25.1")
+    compileOnly("org.apache.tomcat:annotations-api:6.0.53")
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.25.1"
     }
 
-    //room
-    implementation(Depends.roomruntime)
-    kapt(Depends.roomcompiler)
-    implementation(Depends.roomktx)
-    testImplementation(Depends.roomtesting)
+    plugins {
+        create("grpc") {
+            artifact = "io.grpc:protoc-gen-grpc-java:1.61.0"
+        }
+    }
 
-    //paging
-    implementation(Depends.paging)
-    //workmanager
-    implementation(Depends.work_java)
-    implementation(Depends.work_ktx)
-
-    //datastore
-    implementation(Depends.datastore)
-    implementation(Depends.datastore_core)
-
-    api(project(mapOf("path" to ":libcore")))
+    generateProtoTasks {
+        all().forEach { task ->
+            task.builtins {
+                create("java") {
+                    option("lite")
+                }
+            }
+            task.plugins {
+                create("grpc") {
+                    option("lite")
+                }
+            }
+        }
+    }
 }
