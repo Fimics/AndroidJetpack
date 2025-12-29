@@ -1,4 +1,4 @@
-package com.wp.app.system.ui.theme
+package com.mic.compose.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

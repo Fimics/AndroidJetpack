@@ -19,6 +19,7 @@ dependencyResolutionManagement {
 rootProject.name = "AndroidJetpack"
 include(":app")
 include(":libcore")
+include(":app-compose")
 //include(":libs:imagemaster")
 //include(":xdagger")
 //include(":xhilt")
@@ -33,4 +34,4 @@ include(":libcore")
 //include(":native:n4_ffmpeg_bad")
 //include(":native:n5_rtmp")
 //include(":native:n6_opengl")
-//include(":app-system")
+

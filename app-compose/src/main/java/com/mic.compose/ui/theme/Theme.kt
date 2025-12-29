@@ -1,4 +1,4 @@
-package com.wp.app.system.ui.theme
+package com.mic.compose.ui.theme
 
 import android.app.Activity
 import android.os.Build
