@@ -1,4 +1,4 @@
-package com.mic.jetpack.http.client
+package com.mic.hilt.http.client
 
 /**
  * 顶层的回调接口   string---->json,xml,protobuff

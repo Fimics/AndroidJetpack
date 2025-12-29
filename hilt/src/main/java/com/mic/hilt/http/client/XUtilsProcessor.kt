@@ -1,7 +1,7 @@
-package com.mic.jetpack.http.client
+package com.mic.hilt.http.client
 
 import android.app.Application
-import com.mic.KLog
+import com.mic.hilt.KLog
 import javax.inject.Inject
 
 class XUtilsProcessor @Inject constructor(app: Application?) : IHttpProcessor {

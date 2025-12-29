@@ -1,7 +1,7 @@
-package com.mic.jetpack.http.client
+package com.mic.hilt.http.client
 
 import android.os.Handler
-import com.mic.KLog
+import com.mic.hilt.KLog
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.FormBody

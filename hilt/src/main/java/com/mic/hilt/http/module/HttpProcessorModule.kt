@@ -1,17 +1,16 @@
-package com.mic.jetpack.http.module
+package com.mic.hilt.http.module
 
-import com.mic.jetpack.http.annoation.BindOkhttp
-import com.mic.jetpack.http.annoation.BindVolley
-import com.mic.jetpack.http.annoation.BindXUtils
-import com.mic.jetpack.http.client.IHttpProcessor
-import com.mic.jetpack.http.client.OkHttpProcessor
-import com.mic.jetpack.http.client.VolleyProcessor
-import com.mic.jetpack.http.client.XUtilsProcessor
+import com.mic.hilt.http.annoation.BindOkhttp
+import com.mic.hilt.http.annoation.BindVolley
+import com.mic.hilt.http.annoation.BindXUtils
+import com.mic.hilt.http.client.IHttpProcessor
+import com.mic.hilt.http.client.OkHttpProcessor
+import com.mic.hilt.http.client.VolleyProcessor
+import com.mic.hilt.http.client.XUtilsProcessor
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
-import javax.inject.Singleton
 
 @Module
 @InstallIn(ActivityComponent::class)

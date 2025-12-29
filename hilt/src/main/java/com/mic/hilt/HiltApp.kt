@@ -1,4 +1,4 @@
-package com.mic
+package com.mic.hilt
 
 import android.app.Application
 import android.util.Log

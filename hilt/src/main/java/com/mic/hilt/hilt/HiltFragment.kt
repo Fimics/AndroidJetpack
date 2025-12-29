@@ -1,14 +1,14 @@
-package com.mic.jetpack.hilt
+package com.mic.hilt.hilt
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.mic.KLog
-import com.mic.databinding.FragmentHiltBinding
-import com.mic.jetpack.hilt.di.IInterface
-import com.mic.jetpack.hilt.`object`.HttpObject
+import com.mic.hilt.KLog
+import com.mic.hilt.databinding.FragmentHiltBinding
+import com.mic.hilt.hilt.di.IInterface
+import com.mic.hilt.hilt.`object`.HttpObject
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -22,7 +22,7 @@ class HiltFragment : Fragment() {
 
     @Inject
     @JvmField
-    var httpObject:HttpObject?=null
+    var httpObject: HttpObject?=null
 
     @Inject
     @JvmField

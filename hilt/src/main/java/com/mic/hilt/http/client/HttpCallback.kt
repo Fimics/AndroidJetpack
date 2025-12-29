@@ -1,4 +1,4 @@
-package com.mic.jetpack.http.client
+package com.mic.hilt.http.client
 
 import com.google.gson.Gson
 import java.lang.reflect.ParameterizedType

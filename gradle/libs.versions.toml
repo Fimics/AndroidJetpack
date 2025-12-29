@@ -20,7 +20,6 @@ ktcoroutines = "1.8.0"
 junit = "4.13.2"
 junit-ext = "1.1.5"
 espressoCore = "3.5.1"
-lifecycleRuntimeKtx = "2.6.1"
 databinding="8.1.0"
 
 #compose
@@ -65,7 +64,7 @@ room="2.4.0"
 
 #dagger
 dagger="2.57.2"
-hilt = "2.45"
+hilt = "2.57.2"
 
 #work
 work="2.7.1"
@@ -163,7 +162,7 @@ dagger-android-processor= { group = "com.google.dagger", name = "dagger-android-
 
 #hilt
 dagger-hilt-android= { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
-dagger-hilt-android-compiler= { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+dagger-hilt-compiler= { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
 
 #work
 androidx-work-runtime= { group = "androidx.work", name = "work-runtime", version.ref = "work" }

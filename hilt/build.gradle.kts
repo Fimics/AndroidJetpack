@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.extraProperties
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -9,26 +7,17 @@ plugins {
 
 
 android {
-    compileSdk=androids.compileSdkV
-    buildToolsVersion=androids.buildToolsV
+    compileSdk = libs.versions.compileSdk.get().toInt()
+    namespace = "com.mic.hilt"
 
     defaultConfig {
-        applicationId = "com.mic"
-        minSdk=androids.minSdkV
-        targetSdk=androids.targetSdkV
-        versionCode = androids.vCode
-        versionName = androids.vName
+        applicationId = "com.mic.hilt"
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+        versionCode = libs.versions.versionCode.get().toInt()
+        versionName = libs.versions.versionName.get()
     }
 
-    //签名
-    signingConfigs{
-        register("release"){
-            keyAlias = "fimics"
-            keyPassword ="123456"
-            storeFile =file("../sign.jks")
-            storePassword ="123456"
-        }
-    }
 
     buildTypes {
         getByName("debug") {
@@ -37,7 +26,6 @@ android {
 
         getByName("release") {
             isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -62,20 +50,17 @@ android {
         dataBinding =true
 
     }
-    kapt { generateStubs = true }
-    // Allow references to generated code
-    namespace = "com.mic"
 }
 
 //https://blog.csdn.net/lfq88/article/details/118222107
 dependencies {
     implementation (fileTree(mapOf("dir" to "libs","include" to listOf("*.jar"))))
-    implementation(Depends.appcompat)
-    implementation(Depends.gson)
-    api(Depends.okhttp)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.gson)
+    api(libs.okhttp)
     //hilt
-    api(Depends.hilt)
-    kapt(Depends.htlt_compiler)
-
-//    api(project(mapOf("path" to ":libcore")))
+    api(libs.dagger.hilt.android)
+    kapt(libs.dagger.hilt.compiler)
+    implementation(libs.androidx.databinding.runtime)
+    api(project(mapOf("path" to ":libcore")))
 }

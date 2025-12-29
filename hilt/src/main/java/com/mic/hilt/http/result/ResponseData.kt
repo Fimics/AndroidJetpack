@@ -1,4 +1,4 @@
-package com.mic.jetpack.http.result
+package com.mic.hilt.http.result
 
 class ResponseData {
     /**

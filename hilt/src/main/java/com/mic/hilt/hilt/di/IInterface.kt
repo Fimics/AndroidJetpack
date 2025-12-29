@@ -1,4 +1,4 @@
-package com.mic.jetpack.hilt.di
+package com.mic.hilt.hilt.di
 
 interface IInterface {
 
