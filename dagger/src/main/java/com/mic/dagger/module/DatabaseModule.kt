@@ -1,7 +1,7 @@
-package com.mic.jetpack.dagger2.module
+package com.mic.dagger.module
 
-import com.mic.jetpack.dagger2.`object`.DatabaseObject
-import com.mic.jetpack.dagger2.scope.AppScope
+import com.mic.dagger.`object`.DatabaseObject
+import com.mic.dagger.scope.AppScope
 import dagger.Module
 import dagger.Provides
 
@@ -14,7 +14,7 @@ class DatabaseModule {
 
     @AppScope
     @Provides //对象提供注解
-    fun providerDatabaseObject():DatabaseObject{
+    fun providerDatabaseObject(): DatabaseObject {
         return DatabaseObject()
     }
 }

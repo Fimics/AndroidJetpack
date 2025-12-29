@@ -1,4 +1,4 @@
-package com.mic.jetpack.dagger2.component
+package com.mic.dagger.component
 
 //@UserScope
 //@Component(modules = [PresenterModule::class])

@@ -1,6 +1,6 @@
-package com.mic.jetpack.dagger2.subcomponent.module
+package com.mic.dagger.subcomponent.module
 
-import com.mic.jetpack.dagger2.subcomponent.`object`.SubObject
+import com.mic.dagger.subcomponent.`object`.SubObject
 import dagger.Module
 import dagger.Provides
 

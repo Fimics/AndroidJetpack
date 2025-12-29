@@ -52,7 +52,6 @@ android {
 
     }
     kapt { generateStubs = true }
-    namespace = "com.mic"
 }
 
 //https://blog.csdn.net/lfq88/article/details/118222107
@@ -63,8 +62,8 @@ dependencies {
     implementation(libs.dagger)
     implementation(libs.dagger.android)
     implementation(libs.dagger.android.support)
-    implementation(libs.dagger.android.processor)
+    kapt(libs.dagger.android.processor)
     kapt(libs.dagger.compiler)
-
+    implementation(libs.androidx.databinding.runtime)
     api(project(mapOf("path" to ":libcore")))
 }

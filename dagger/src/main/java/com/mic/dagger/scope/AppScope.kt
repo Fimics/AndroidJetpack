@@ -1,4 +1,4 @@
-package com.mic.jetpack.dagger2.scope
+package com.mic.dagger.scope
 
 import java.lang.annotation.Documented
 import java.lang.annotation.Retention
@@ -8,4 +8,4 @@ import javax.inject.Scope
 @Scope
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-public annotation class UserScope()
+public annotation class AppScope()

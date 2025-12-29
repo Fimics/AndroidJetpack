@@ -1,13 +1,13 @@
-package com.mic.jetpack.dagger2
+package com.mic.dagger
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.mic.databinding.FragmentDagger2Binding
-import com.mic.jetpack.dagger2.subcomponent.component.DaggerMainComponent
-import com.mic.jetpack.dagger2.subcomponent.module.MainModule
+import com.mic.dagger.databinding.FragmentDagger2Binding
+import com.mic.dagger.subcomponent.component.DaggerMainComponent
+import com.mic.dagger.subcomponent.module.MainModule
 //import com.mic.jetpack.dagger2.component.DaggerMyComponent
 //import com.mic.jetpack.dagger2.component.DaggerPresenterComponent
 //import com.mic.jetpack.DatabaseModule
@@ -15,11 +15,11 @@ import com.mic.jetpack.dagger2.subcomponent.module.MainModule
 //import com.mic.jetpack.DatabaseObject
 //import com.mic.jetpack.HttpObject
 //import com.mic.jetpack.PresenterObject
-import com.mic.jetpack.dagger2.subcomponent.`object`.MainObject
-import com.mic.jetpack.dagger2.subcomponent.`object`.SubObject
-import com.mic.jetpack.dagger2.subcomponent.`object`.XOkhttp
-import com.mic.jetpack.dagger2.subcomponent.`object`.XRetrofit
-import com.mic.jetpack.dagger2.subcomponent.`object`.XUser
+import com.mic.dagger.subcomponent.`object`.MainObject
+import com.mic.dagger.subcomponent.`object`.SubObject
+import com.mic.dagger.subcomponent.`object`.XOkhttp
+import com.mic.dagger.subcomponent.`object`.XRetrofit
+import com.mic.dagger.subcomponent.`object`.XUser
 import com.mic.libcore.utils.KLog
 import javax.inject.Inject
 import javax.inject.Named
@@ -54,30 +54,30 @@ class Dagger2Fragment : Fragment() {
     //以下为subComponent内容
     @Inject
     @JvmField
-    var mainObject:MainObject?=null
+    var mainObject: MainObject?=null
 
     @Inject
     @JvmField
-    var subObject:SubObject?=null
+    var subObject: SubObject?=null
 
     @Named("key1")
     @Inject
     @JvmField
-    var user1:XUser?=null
+    var user1: XUser?=null
 
     @Named("key2")
     @Inject
     @JvmField
-    var user2:XUser?=null
+    var user2: XUser?=null
 
 
     @Inject
     @JvmField
-    var xOkhttp:XOkhttp?=null
+    var xOkhttp: XOkhttp?=null
 
     @Inject
     @JvmField
-    var xRetrofit:XRetrofit?=null
+    var xRetrofit: XRetrofit?=null
 
     //懒加载使用
     @Inject

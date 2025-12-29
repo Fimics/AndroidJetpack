@@ -64,7 +64,7 @@ datastore = "1.0.0"
 room="2.4.0"
 
 #dagger
-dagger="2.45"
+dagger="2.57.2"
 hilt = "2.45"
 
 #work

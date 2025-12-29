@@ -89,7 +89,7 @@ dependencies {
     api(libs.logging.interceptor)
     api(libs.androidx.paging.runtime)
     api(libs.androidx.work.runtime)
-    api(libs.androidx.databinding.runtime)
+    implementation(libs.androidx.databinding.runtime)
 //    api(libs.androidx.databinding.common)
 
     api(project(":libcore"))

@@ -1,5 +1,0 @@
-package com.mic.jetpack.dagger2.subcomponent.`object`
-
-class XRetrofit(xOkhttp: XOkhttp) {
-
-}
