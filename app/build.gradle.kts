@@ -1,9 +1,9 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.10"  // 修正版本号
-    id("org.jetbrains.kotlin.plugin.compose")
-    id("kotlin-kapt")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.jetbrains.kotlin.serialization)
+    alias(libs.plugins.jetbrains.kotlin.compose)
+    alias(libs.plugins.jetbrains.kotlin.kapt)
 }
 
 android {
@@ -33,10 +33,6 @@ android {
         }
     }
 
-    // 对于 Kotlin 项目，还需要添加
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
 
     buildFeatures {
         buildConfig = true
@@ -46,7 +42,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3" // 根据你的 Compose 版本调整
+        kotlinCompilerExtensionVersion = libs.versions.kotlin.compiler.extension.get()
     }
 
     // 正确的 sourceSets 配置 - 使用 Kotlin DSL 语法
@@ -79,19 +75,17 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
-    implementation("androidx.multidex:multidex:2.0.1")
 
-    implementation("com.google.code.gson:gson:2.10.1")
-    implementation("org.apache.commons:commons-csv:1.9.0")
-    api("io.github.jeremyliao:live-event-bus-x:1.8.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+    implementation(libs.androidx.multidex)
+    implementation(libs.gson)
+    implementation(libs.gson)
+    implementation(libs.commons.csv)
+    implementation(libs.live.event.bus)
+    implementation(libs.kotlinx.serialization.json)
     api(libs.okhttp)
     api(libs.logging.interceptor)
     api(libs.androidx.paging.runtime)
     api(libs.androidx.work.runtime)
     implementation(libs.androidx.databinding.runtime)
-//    api(libs.androidx.databinding.common)
-
     api(project(":libcore"))
-
 }

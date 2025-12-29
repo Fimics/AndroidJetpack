@@ -1,7 +1,6 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.jetbrains.kotlin.android)
 }
 
 android {
@@ -22,11 +21,6 @@ android {
                 "proguard-rules.pro"
             )
         }
-    }
-
-    // Allow references to generated code
-    kapt {
-        correctErrorTypes = true
     }
 
     namespace = "com.mic.libcore"
