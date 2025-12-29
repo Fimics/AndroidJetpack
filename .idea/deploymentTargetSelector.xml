@@ -8,7 +8,7 @@
       <SelectionState runConfigName="app-compose">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="native.n1_jnibase">
+      <SelectionState runConfigName="dagger">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
