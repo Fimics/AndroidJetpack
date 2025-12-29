@@ -39,6 +39,6 @@ Java_com_mic_jnibase_DParcel_nativeSetDataPosition(JNIEnv *env, jobject thiz, jl
 extern "C"
 JNIEXPORT jint JNICALL
 Java_com_mic_jnibase_DParcel_nativeReadInt(JNIEnv *env, jobject thiz, jlong m_native_ptr) {
-    /    DParcel * dParcel = reinterpret_cast<DParcel *>(m_native_ptr);
+       DParcel * dParcel = reinterpret_cast<DParcel *>(m_native_ptr);
     return dParcel->readInt();
 }

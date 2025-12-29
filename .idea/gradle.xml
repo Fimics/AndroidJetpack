@@ -13,6 +13,8 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/app-compose" />
             <option value="$PROJECT_DIR$/libcore" />
+            <option value="$PROJECT_DIR$/libs" />
+            <option value="$PROJECT_DIR$/libs/imagemaster" />
           </set>
         </option>
       </GradleProjectSettings>

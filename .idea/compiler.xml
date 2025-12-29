@@ -3,6 +3,7 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="17">
       <module name="AndroidJetpack.app-system" target="21" />
+      <module name="AndroidJetpack.native.n1_jnibase" target="21" />
     </bytecodeTargetLevel>
   </component>
 </project>

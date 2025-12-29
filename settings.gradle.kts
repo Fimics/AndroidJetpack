@@ -20,7 +20,7 @@ rootProject.name = "AndroidJetpack"
 include(":app")
 include(":libcore")
 include(":app-compose")
-//include(":libs:imagemaster")
+include(":libs:imagemaster")
 //include(":xdagger")
 //include(":xhilt")
 //include("libs:aliyunplayerres")

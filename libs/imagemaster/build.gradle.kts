@@ -1,16 +1,14 @@
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
 }
 
 android {
-    compileSdk=androids.compileSdkV
-    buildToolsVersion=androids.buildToolsV
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk=androids.minSdkV
-        targetSdk=androids.targetSdkV
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
