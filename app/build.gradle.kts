@@ -2,14 +2,15 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.10"  // 修正版本号
-    id("com.google.protobuf")
+    id("org.jetbrains.kotlin.plugin.compose")
+    id("kotlin-kapt")
 }
 
 android {
     compileSdk = libs.versions.compileSdk.get().toInt()
-    namespace = "com.grpc.pb"
+    namespace = "com.mic"
     defaultConfig {
-        applicationId = "com.grpc.pb"
+        applicationId = "com.mic"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = libs.versions.versionCode.get().toInt()
@@ -20,17 +21,8 @@ android {
         }
     }
 
-    signingConfigs {
-        create("keyStore") {
-            storeFile = file("../app/platform.jks")
-            keyPassword = "android"
-            keyAlias = "androidplatformkey"
-            storePassword = "android"
-        }
-    }
 
     buildTypes {
-        val signConfig = signingConfigs.getByName("keyStore")
 
         getByName("debug") {
             isMinifyEnabled = false
@@ -38,13 +30,23 @@ android {
                 getDefaultProguardFile("proguard-android.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signConfig
         }
+    }
+
+    // 对于 Kotlin 项目，还需要添加
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 
     buildFeatures {
         buildConfig = true
+        dataBinding = true
         viewBinding = true
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.3" // 根据你的 Compose 版本调整
     }
 
     // 正确的 sourceSets 配置 - 使用 Kotlin DSL 语法
@@ -67,11 +69,11 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
+    implementation(libs.androidx.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.junit.ext)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
@@ -83,41 +85,13 @@ dependencies {
     implementation("org.apache.commons:commons-csv:1.9.0")
     api("io.github.jeremyliao:live-event-bus-x:1.8.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
-    implementation("com.github.tonyofrancis.Fetch:fetch2:3.4.1")
     api(libs.okhttp)
-    api(libs.logginginterceptor)
+    api(libs.logging.interceptor)
+    api(libs.androidx.paging.runtime)
+    api(libs.androidx.work.runtime)
+    api(libs.androidx.databinding.runtime)
+//    api(libs.androidx.databinding.common)
 
-    // gRPC 依赖 - 使用正确的 Kotlin DSL 语法
-    implementation("io.grpc:grpc-okhttp:1.61.0")
-    implementation("io.grpc:grpc-protobuf-lite:1.61.0")
-    implementation("io.grpc:grpc-stub:1.61.0")
-    implementation("com.google.protobuf:protobuf-javalite:3.25.1")
-    compileOnly("org.apache.tomcat:annotations-api:6.0.53")
-}
+    api(project(":libcore"))
 
-protobuf {
-    protoc {
-        artifact = "com.google.protobuf:protoc:3.25.1"
-    }
-
-    plugins {
-        create("grpc") {
-            artifact = "io.grpc:protoc-gen-grpc-java:1.61.0"
-        }
-    }
-
-    generateProtoTasks {
-        all().forEach { task ->
-            task.builtins {
-                create("java") {
-                    option("lite")
-                }
-            }
-            task.plugins {
-                create("grpc") {
-                    option("lite")
-                }
-            }
-        }
-    }
 }

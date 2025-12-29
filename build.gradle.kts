@@ -2,6 +2,7 @@ plugins {
     id("com.android.application") version "8.9.0" apply false
     id("com.android.library") version "8.9.0" apply false
     id("org.jetbrains.kotlin.android") version "2.1.0" apply false
+    id("org.jetbrains.kotlin.plugin.compose") version "2.1.0" apply false
 //    id("com.google.dagger.hilt.android") version BuildVersions.hilt_version apply false
 }
 
@@ -13,7 +14,6 @@ buildscript {
     dependencies {
         classpath("com.android.tools.build:gradle:8.9.0")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.0")
-        classpath("com.google.protobuf:protobuf-gradle-plugin:0.9.4")
     }
 }
 

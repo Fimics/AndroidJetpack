@@ -35,37 +35,49 @@ android {
 
 dependencies {
     //kotlin
-//    api(Depends.kotlinstdlib)
-//    api(Depends.corektxo)
-//    api(Depends.kotlinxcoroutinesandroid)
-//    //okhttp
-//    api(Depends.okhttp)
-//    api(Depends.logginginterceptor)
-//    api(Depends.gson)
-//
-//    //rxs
-//    api(Depends.rxandroid)
-//    api(Depends.rxjava)
-//    api(Depends.rxbinding2)
-//
-//    //retrofit
-//    api(Depends.retrofit)
-//    api(Depends.convertergson)
-//    api(Depends.adapterrxjava)
-//
-//    //glide
-//    api(Depends.glide){
-//        exclude("androidx.customview","customview")
-//        exclude("androidx.fragment","fragment")
-//    }
-//
-//    //lifecycle
-//    api(Depends.viewmodel)
-//    api(Depends.livedata)
-//    api(Depends.lifecycle_runtime)
-//    api(Depends.lifecycle_viewmodel_savedstate)
-//    api(Depends.lifecycle_common_java8)
-//    api(Depends.lifecycle_process)
-//    api(Depends.lifecycle_service)
+    api(libs.androidx.core.ktx)
+    api(libs.kotlinx.coroutines.android)
+
+    //kotlin
+    api(libs.androidx.core.ktx)
+    api(libs.kotlinx.coroutines.android)
+
+    //navigation
+    api(libs.androidx.navigation.fragment)
+    api(libs.androidx.navigation.ui)
+    //okhttp
+    api(libs.okhttp)
+    api(libs.logging.interceptor)
+    api(libs.gson)
+    //rxs
+    api(libs.rx3.android)
+    api(libs.rx3.java)
+    api(libs.rx2.binding)
+
+    //retrofit
+    api(libs.retrofit2.retrofit)
+    api(libs.retrofit2.converter.gson)
+    api(libs.retrofit2.adapter.rxjava3)
+
+    //datastore
+    api(libs.androidx.datastore.preferences)
+    api(libs.androidx.datastore.preferences.core)
+
+    //room
+    api(libs.androidx.room.runtime)
+
+    //glide
+    api(libs.glide){
+        exclude("androidx.customview","customview")
+        exclude("androidx.fragment","fragment")
+    }
+    //lifecycle
+    api(libs.androidx.lifecycle.viewmodel)
+    api(libs.androidx.lifecycle.livedata)
+    api(libs.androidx.lifecycle.runtime)
+    api(libs.androidx.lifecycle.viewmodel.savedstate)
+    api(libs.androidx.lifecycle.common.java8)
+    api(libs.androidx.lifecycle.process )
+    api(libs.androidx.lifecycle.service)
 
 }

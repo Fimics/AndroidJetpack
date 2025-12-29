@@ -4,24 +4,27 @@ import android.os.Build
 import android.view.View
 import kotlinx.coroutines.Job
 
-
-fun Job.asAutoDisposable(view: View) = AutoDisposableJob(view,this)
-
+fun Job.asAutoDisposable(view: View) = AutoDisposableJob(view, this)
 
 class AutoDisposableJob(private val view: View, private val wrapped: Job) : Job by wrapped,
     View.OnAttachStateChangeListener {
 
-    override fun onViewAttachedToWindow(v: View?) = Unit
+    // 修复方法签名 - 添加参数名
+    override fun onViewAttachedToWindow(v: View) = Unit
 
-    override fun onViewDetachedFromWindow(v: View?) {
+    // 修复方法签名 - 添加参数名
+    override fun onViewDetachedFromWindow(v: View) {
         cancel()
         view.removeOnAttachStateChangeListener(this)
     }
 
-    private fun isViewAttached() =
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
-                view.isAttachedToWindow ||
-                view.windowToken != null
+    private fun isViewAttached(): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            view.isAttachedToWindow
+        } else {
+            view.windowToken != null
+        }
+    }
 
     init {
         if (isViewAttached()) {

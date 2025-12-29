@@ -2,13 +2,10 @@
 <project version="4">
   <component name="deploymentTargetSelector">
     <selectionStates>
-      <SelectionState runConfigName="native.n6_opengl">
+      <SelectionState runConfigName="app-system">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
       <SelectionState runConfigName="app">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="app-system">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
