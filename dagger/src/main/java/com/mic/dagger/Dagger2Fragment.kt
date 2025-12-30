@@ -8,13 +8,6 @@ import androidx.fragment.app.Fragment
 import com.mic.dagger.databinding.FragmentDagger2Binding
 import com.mic.dagger.subcomponent.component.DaggerMainComponent
 import com.mic.dagger.subcomponent.module.MainModule
-//import com.mic.jetpack.dagger2.component.DaggerMyComponent
-//import com.mic.jetpack.dagger2.component.DaggerPresenterComponent
-//import com.mic.jetpack.DatabaseModule
-//import com.mic.jetpack.HttpModule
-//import com.mic.jetpack.DatabaseObject
-//import com.mic.jetpack.HttpObject
-//import com.mic.jetpack.PresenterObject
 import com.mic.dagger.subcomponent.`object`.MainObject
 import com.mic.dagger.subcomponent.`object`.SubObject
 import com.mic.dagger.subcomponent.`object`.XOkhttp

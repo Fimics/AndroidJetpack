@@ -58,6 +58,7 @@ android {
 dependencies {
     implementation (fileTree(mapOf("dir" to "libs","include" to listOf("*.jar"))))
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.activity.ktx)
     //dagger2
     implementation(libs.dagger)
     implementation(libs.dagger.android)

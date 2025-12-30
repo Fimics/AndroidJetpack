@@ -43,6 +43,7 @@ databinding = "8.1.0"
 
 # ====== Compose 版本 ======
 activityCompose = "1.8.1"
+activity-ktx = "1.8.0"
 composeBom = "2024.04.01"
 composeMaterial3 = "1.2.0"
 
@@ -89,6 +90,7 @@ hilt-gradle-plugin = { group = "com.google.dagger", name = "hilt-android-gradle-
 
 # ====== Kotlin 相关 ======
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-activity-ktx ={ group = "androidx.activity", name = "activity-ktx", version.ref = "activity-ktx"}
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "ktcoroutines" }
 
 # ====== 测试相关 ======
