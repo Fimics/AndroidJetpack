@@ -6,11 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mic.dagger.databinding.FragmentDemoBinding
-import com.mic.dagger.demo.d07_component_dependencies.CPUProvider
-import com.mic.dagger.demo.d07_component_dependencies.DaggerUPSExpress
-import com.mic.dagger.demo.d07_component_dependencies.DaggerZTOExpress
-import com.mic.dagger.demo.d07_component_dependencies.Person
-import com.mic.dagger.demo.d07_component_dependencies.TaoBao
+import com.mic.dagger.demo.d08_sub_component.CPUProvider
+import com.mic.dagger.demo.d08_sub_component.DaggerUPSExpress
+import com.mic.dagger.demo.d08_sub_component.DaggerZTOExpress
+import com.mic.dagger.demo.d08_sub_component.Person
+import com.mic.dagger.demo.d08_sub_component.TaoBao
+
+//import com.mic.dagger.demo.d07_component_dependencies.CPUProvider
+//import com.mic.dagger.demo.d07_component_dependencies.DaggerUPSExpress
+//import com.mic.dagger.demo.d07_component_dependencies.DaggerZTOExpress
+//import com.mic.dagger.demo.d07_component_dependencies.Person
+//import com.mic.dagger.demo.d07_component_dependencies.TaoBao
 
 
 //import com.mic.dagger.demo.d06_scope.DaggerZTOExpress
@@ -64,7 +70,8 @@ class DemoFragment : Fragment() {
 //             test_d04_named_qulifier();
 //               test_d05_singleton();
 //                test_d06_scope();
-             test_d07_component_dependencies();
+//             test_d07_component_dependencies();
+             test_d08_sub_component();
          }
         return binding.root
     }
@@ -135,9 +142,25 @@ class DemoFragment : Fragment() {
 //        person.playGame("赛博朋克2077");
 //    }
 
-    fun test_d07_component_dependencies(){
+//    fun test_d07_component_dependencies(){
+//        val person = Person("张三")
+//        // 创建依赖注入器
+//        val upsExpress = DaggerUPSExpress.builder()
+//            .cPUProvider(CPUProvider())
+//            .build()
+//        val ztoExpress = DaggerZTOExpress.builder()
+//            .taoBao(TaoBao())
+//            .uPSExpress(upsExpress)
+//            .build()
+//        // 通过依赖注入器为Person注入依赖
+//        ztoExpress.inject(person)
+//        // 现在张三可以玩游戏了
+//        person.playGame("赛博朋克2077")
+//    }
+
+
+    fun test_d08_sub_component(){
         val person = Person("张三")
-        // 创建依赖注入器
         val upsExpress = DaggerUPSExpress.builder()
             .cPUProvider(CPUProvider())
             .build()
@@ -145,9 +168,8 @@ class DemoFragment : Fragment() {
             .taoBao(TaoBao())
             .uPSExpress(upsExpress)
             .build()
-        // 通过依赖注入器为Person注入依赖
-        ztoExpress.inject(person)
-        // 现在张三可以玩游戏了
+        val ztoShanghaiExpress = ztoExpress.getShanghaiDepartment()  // 重点
+        ztoShanghaiExpress.inject(person)
         person.playGame("赛博朋克2077")
     }
 
