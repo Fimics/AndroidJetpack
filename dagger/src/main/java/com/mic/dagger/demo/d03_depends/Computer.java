@@ -1,22 +1,12 @@
-package com.mic.dagger.demo;
+package com.mic.dagger.demo.d03_depends;
 
 import javax.inject.Inject;
 
-/**
- * 依赖对象
- */
 public class Computer {
 
     private String name;
     private CPU cpu;
 
-    /**
-     * 如果被 @Inject 标识的构造函数要是依赖于其他的对象， Dagger 也会自动注入。也就是说，Dagger 提供了两种方式创建依赖对象：
-     *
-     * 调用被 @Inject 注解标识的构造方法
-     * 调用被 @Module 注解的类中提供相应的 @Provides 方法
-     * @param cpu
-     */
     @Inject
     public Computer(CPU cpu) {
         this.name = "自我构造的电脑";

@@ -1,4 +1,4 @@
-package com.mic.dagger.demo;
+package com.mic.dagger.demo.d06_scope;
 
 public class CPU {
 

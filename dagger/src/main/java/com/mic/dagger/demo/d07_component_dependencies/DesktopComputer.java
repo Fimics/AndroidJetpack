@@ -1,4 +1,4 @@
-package com.mic.dagger.demo;
+package com.mic.dagger.demo.d07_component_dependencies;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
