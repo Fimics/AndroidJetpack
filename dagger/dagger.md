@@ -2,12 +2,11 @@
 
 markdown语法:https://blog.csdn.net/CyrusCJA/article/details/156235995
 
-dagger 文档:https://zhuanlan.zhihu.com/p/709431082
+> dagger文档     :https://zhuanlan.zhihu.com/p/709431082
+>
+> dagger视频讲解: https://www.bilibili.com/video/BV1Ki4y1A7hA?spm_id_from=333.788.player.switch&vd_source=980e2e83751098334afa972781a5d387&p=4
 
-* [X]  s
-* [X]
-
-### Dagger 基本概念
+### 1. Dagger 基本概念
 
 ###### 依赖需求方： 就是需要依赖对象的那些类。 例如一个人想要玩电脑，那么他就必须得有一台电脑，电脑是依赖对象，这个人依赖于这台电脑，因此这个人就是依赖需求方；
 
@@ -15,7 +14,7 @@ dagger 文档:https://zhuanlan.zhihu.com/p/709431082
 
 ###### 依赖注入器：负责将依赖对象注入到依赖需求方，在实际代码中是一个接口，编译时 Dagger2 会自动生成这个接口的实现类。 接着上面的说，这个人是依赖需求方，他需要一台电脑，依赖供应方能够提供一台电脑，可是这两者没有打通，电脑没有给到这个人，他还是玩不了游戏啊，因此这个时候就需要依赖注入器将这台电脑注入给这个人
 
-### Dagger 导入
+### 2. Dagger 导入
 
 ` dependencies { implementation 'com.google.dagger:dagger:2.57.2' annotationProcessor 'com.google.dagger:dagger-compiler:2.57.2' }`
 
@@ -87,12 +86,12 @@ public class Person {
     }
 ```
 
-### Dagger 提供了两种方式创建依赖对象：
+### 3. Dagger 提供了两种方式创建依赖对象：
 
 * 调用被 @Inject 注解标识的构造方法
 * 调用被 @Module 注解的类中提供相应的 @Provides 方法
 
-### Dagger 提供依赖流程可以概括为如下：
+### 4. Dagger 提供依赖流程可以概括为如下：
 
 1. 查找 @Module 类中是否存在创建该类的方法
 2. 如果存在，查看该方法是否存在参数
@@ -108,7 +107,22 @@ public class Person {
 
 > 如果是通过依赖对象的构造函数创建依赖时，需要在类名上添加范围注解，不能在构造函数上添加，否则无效。 - 范围内单例的前提是使用了相同的依赖注入器。
 
-## 注解
+
+**Dagger作用域限定**
+1. 使用作用域注解，可以将某个对象的生命周期限定为其组件的生命周期。这样也就意味着，在作用域范围内，使用到的是同一实例。
+2. @Singleton是Dagger提供的一种默认的作用域注解，其意义表示一个单例对象。也就是实例的生命周期和程序运行的生命周期保持一致。
+3. 使用@Scope实现自定义作用域注解。
+4. 作用域注解使用在@Inject、@Provides、@Binds、@Module、@Component注解上，表示其产生作用的范围。
+
+## 5. 关键注解：
+
+1. @Inject: 标记需要注入的依赖
+2. @Module: 提供依赖的模块
+3. @Provides: 在模块中标记提供依赖的方法
+4. @Component: 连接模块和注入目标的桥梁
+5. @Scope: 定义依赖的作用域（如@Singleton）
+
+## 6. 注解
 
 1. @Module 用于告知 Dagger 这个类是一个依赖提供商，这样 Dagger 才能够识别
 2. @Provides 用于告知 Dagger 这个依赖提供商里面哪些方法是用于提供依赖对象的。当 Dagger 需要创建一个依赖对象时，它会查找被 @Module 标识的类中被 @Provides 标识的方法，并根据所需依赖对象的类型，
@@ -121,7 +135,13 @@ public class Person {
 9. @Scope @Singleton 注解的作用。在这里就表示，通过中通从淘宝上拿到的硬盘都是这一块。但是这样也不太对，中通肯定不止为张三配送，那它为李四配送的时候，岂不是也送的张三的硬盘？ 所以这时候就别用自带的 @Singleton 范围，而是自定义一个范围，也就是使用 @Scope 注解。现在我们就为张三创建一个专属的范围，通过这个例子咱们也会明白 @Scope 的使用
 10. @SubComponent 定义子组件、即子依赖注入器 ,如果这个依赖注入器太复杂，那就应该划分为若干个子的依赖注入器，这就要用到 @SubComponent 这个注解了
 11. 延迟加载 Lazy 和 强制重新加载 Provider
-12.@Component.Builder  在我们不往 Component 接口中添加 Builder 或 Factory 时，Dagger 模式使用的就是这种构造器模式，但是咱们仍然可以使用这个注解
-13. Dagger 还支持 Factory 工厂模式，其使用方式也跟上面的 Builder 类似。但是有一点需要注意的是，同一个 Component 是不能即添加 Builder 也添加 Factory 的
-14. Subcomponent.Builder 和 @Subcomponent.Factory 不仅仅是依赖注入器可以添加构造器模式或工厂模式，子组件也可以使用构造器模式或工厂模式。只不是使用的是 @Subcomponent.Builder 和 @Subcomponent.Factory
-15. x
+    12.@Component.Builder  在我们不往 Component 接口中添加 Builder 或 Factory 时，Dagger 模式使用的就是这种构造器模式，但是咱们仍然可以使用这个注解
+12. Dagger 还支持 Factory 工厂模式，其使用方式也跟上面的 Builder 类似。但是有一点需要注意的是，同一个 Component 是不能即添加 Builder 也添加 Factory 的
+13. Subcomponent.Builder 和 @Subcomponent.Factory 不仅仅是依赖注入器可以添加构造器模式或工厂模式，子组件也可以使用构造器模式或工厂模式。只不是使用的是 @Subcomponent.Builder 和 @Subcomponent.Factory
+14. x
+
+## 7. 对象注入的两种方式
+1. 构造函数加 @Inject
+2. 类上加 @Module , 类内方法上加Providers 适合不能直接new 对象的情况， 然后要在Component 上装载module
+
+## 8.

@@ -67,4 +67,18 @@ dependencies {
     kapt(libs.dagger.compiler)
     implementation(libs.androidx.databinding.runtime)
     api(project(mapOf("path" to ":libcore")))
+
+//    //okhttp
+//    api(libs.okhttp)
+//    api(libs.logging.interceptor)
+//    api(libs.gson)
+//    //rxs
+//    api(libs.rx3.android)
+//    api(libs.rx3.java)
+//    api(libs.rx2.binding)
+//
+//    //retrofit
+//    api(libs.retrofit2.retrofit)
+//    api(libs.retrofit2.converter.gson)
+//    api(libs.retrofit2.adapter.rxjava3)
 }
