@@ -6,11 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mic.dagger.databinding.FragmentDemoBinding
-import com.mic.dagger.demo.d08_sub_component.CPUProvider
-import com.mic.dagger.demo.d08_sub_component.DaggerUPSExpress
-import com.mic.dagger.demo.d08_sub_component.DaggerZTOExpress
-import com.mic.dagger.demo.d08_sub_component.Person
-import com.mic.dagger.demo.d08_sub_component.TaoBao
+import com.mic.dagger.demo.d11_component_factory.CPUProvider
+import com.mic.dagger.demo.d11_component_factory.DaggerUPSExpress
+import com.mic.dagger.demo.d11_component_factory.DaggerZTOExpress
+import com.mic.dagger.demo.d11_component_factory.Person
+import com.mic.dagger.demo.d11_component_factory.TaoBao
+
+//import com.mic.dagger.demo.d09_lazy_provider.DaggerZTOExpress
+//import com.mic.dagger.demo.d09_lazy_provider.Person
+//import com.mic.dagger.demo.d09_lazy_provider.TaoBao
+
+//import com.mic.dagger.demo.d08_sub_component.CPUProvider
+//import com.mic.dagger.demo.d08_sub_component.DaggerUPSExpress
+//import com.mic.dagger.demo.d08_sub_component.DaggerZTOExpress
+//import com.mic.dagger.demo.d08_sub_component.Person
+//import com.mic.dagger.demo.d08_sub_component.TaoBao
 
 //import com.mic.dagger.demo.d07_component_dependencies.CPUProvider
 //import com.mic.dagger.demo.d07_component_dependencies.DaggerUPSExpress
@@ -63,7 +73,7 @@ class DemoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentDemoBinding.inflate(inflater, container, false)
-         binding.btnDagger2.setOnClickListener {
+        binding.btnDagger2.setOnClickListener {
 //             test_d01_module_provides_component()
 //             test_d02_inject();
 //             test_d03_depends();
@@ -71,8 +81,10 @@ class DemoFragment : Fragment() {
 //               test_d05_singleton();
 //                test_d06_scope();
 //             test_d07_component_dependencies();
-             test_d08_sub_component();
-         }
+//             test_d08_sub_component();
+//             test_d09_lazy_provider();
+            test_d11_component_factory();
+        }
         return binding.root
     }
 
@@ -159,18 +171,41 @@ class DemoFragment : Fragment() {
 //    }
 
 
-    fun test_d08_sub_component(){
+//    fun test_d08_sub_component(){
+//        val person = Person("张三")
+//        val upsExpress = DaggerUPSExpress.builder()
+//            .cPUProvider(CPUProvider())
+//            .build()
+//        val ztoExpress = DaggerZTOExpress.builder()
+//            .taoBao(TaoBao())
+//            .uPSExpress(upsExpress)
+//            .build()
+//        val ztoShanghaiExpress = ztoExpress.getShanghaiDepartment()  // 重点
+//        ztoShanghaiExpress.inject(person)
+//        person.playGame("赛博朋克2077")
+//    }
+
+//        fun test_d09_lazy_provider(){
+//        val person =  Person("张三");
+//        //创建依赖注入器
+//        val ztoExpress = DaggerZTOExpress.builder().taoBao(TaoBao()).build()
+////       //通过中通这个依赖注入器，为张三提供一台电脑
+//        ztoExpress.deliverTo(person);
+////        //现在张三可以玩游戏了
+//        person.playGame("赛博朋克2077");
+//      }
+
+    fun test_d11_component_factory() {
         val person = Person("张三")
-        val upsExpress = DaggerUPSExpress.builder()
-            .cPUProvider(CPUProvider())
-            .build()
+        // 创建依赖注入器
+        val upsExpress = DaggerUPSExpress.factory().create(CPUProvider())
         val ztoExpress = DaggerZTOExpress.builder()
             .taoBao(TaoBao())
             .uPSExpress(upsExpress)
             .build()
         val ztoShanghaiExpress = ztoExpress.getShanghaiDepartment()  // 重点
         ztoShanghaiExpress.inject(person)
-        person.playGame("赛博朋克2077")
+        person.playGame("赛博朋克2077");
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
