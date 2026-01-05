@@ -1,5 +1,9 @@
-package com.mic.dagger.demo2.d01_inject_component;
+package com.mic.dagger.demo2;
 
+
+import com.mic.dagger.demo2.d01_inject_component.InjectFragment;
+import com.mic.dagger.demo2.d01_inject_component.InjectFragmentTest;
+import com.mic.dagger.demo2.d01_inject_component.NetModule;
 
 import javax.inject.Singleton;
 
