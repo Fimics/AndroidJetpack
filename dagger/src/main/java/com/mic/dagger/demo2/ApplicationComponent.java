@@ -4,6 +4,7 @@ package com.mic.dagger.demo2;
 import android.content.Context;
 
 import com.mic.dagger.demo2.d01_inject_component.ApiService;
+import com.mic.dagger.demo2.d01_inject_component.BindsModule;
 import com.mic.dagger.demo2.d01_inject_component.InjectFragment;
 import com.mic.dagger.demo2.d01_inject_component.MyScope;
 import com.mic.dagger.demo2.d01_inject_component.NetModule;
@@ -17,7 +18,7 @@ import retrofit2.Retrofit;
 
 @MyScope
 //@Singleton
-@Component(modules = {NetModule.class, SubComponentModule.class})
+@Component(modules = {NetModule.class, SubComponentModule.class, BindsModule.class})
 public interface ApplicationComponent {
 
     //注入到目标类

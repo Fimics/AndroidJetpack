@@ -27,6 +27,9 @@ class SubComponentFragment : Fragment() {
     @Inject
     lateinit var retrofit: Retrofit
 
+    @Inject
+    lateinit var iBinds: IBinds
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -48,6 +51,7 @@ class SubComponentFragment : Fragment() {
     fun test_d01_inject() {
         KLog.d(tag, "student -> $student")
         KLog.d(tag, "retrofit -> $retrofit")
+        KLog.d(tag, "iBinds -> $iBinds")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
