@@ -13,7 +13,7 @@ public class MyApplication extends Application {
     }
     static ApplicationComponent applicationComponent = DaggerApplicationComponent.create();
 
-    public ApplicationComponent getApplicationComponent(){
+    public static ApplicationComponent getApplicationComponent(){
         return  applicationComponent;
     }
 }

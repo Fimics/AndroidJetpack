@@ -1,24 +1,21 @@
-package com.mic.dagger.demo2
+package com.mic.dagger.demo2.d01_inject_component
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.mic.dagger.databinding.FragmentDemo2Binding
-import com.mic.dagger.databinding.FragmentDemo2TestBinding
-import com.mic.dagger.demo2.d01_inject_component.ApiService
-import com.mic.dagger.demo2.d01_inject_component.DaggerApplicationComponent
-import com.mic.dagger.demo2.d01_inject_component.User
+import com.mic.dagger.databinding.FragmentInjectTestBinding
+import com.mic.dagger.demo2.MyApplication
 import com.mic.libcore.utils.KLog
 import retrofit2.Retrofit
 import javax.inject.Inject
 
 
-class Demo2FragmentTest : Fragment() {
+class InjectFragmentTest : Fragment() {
 
     //如果一个类有两个概念上相同的属性，但一个是公共API的一部分，另一个是实现细节，请使用下划线作为私有属性名称的前缀
-    private var _binding: FragmentDemo2TestBinding? = null
+    private var _binding: FragmentInjectTestBinding? = null
     private val tag = "Demo2FragmentTest"
     private val binding get() = _binding!!
 
@@ -44,9 +41,9 @@ class Demo2FragmentTest : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentDemo2TestBinding.inflate(inflater, container, false)
+        _binding = FragmentInjectTestBinding.inflate(inflater, container, false)
 //        DaggerApplicationComponent.create().inject(this)
-        MyApplication.applicationComponent.inject(this)
+        MyApplication.getApplicationComponent().inject(this)
         test_d01_inject();
         binding.btnDagger2.setOnClickListener {
 
