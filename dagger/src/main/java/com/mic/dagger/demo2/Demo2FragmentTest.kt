@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mic.dagger.databinding.FragmentDemo2Binding
+import com.mic.dagger.databinding.FragmentDemo2TestBinding
 import com.mic.dagger.demo2.d01_inject_component.ApiService
 import com.mic.dagger.demo2.d01_inject_component.DaggerApplicationComponent
 import com.mic.dagger.demo2.d01_inject_component.User
@@ -14,11 +15,11 @@ import retrofit2.Retrofit
 import javax.inject.Inject
 
 
-class Demo2Fragment : Fragment() {
+class Demo2FragmentTest : Fragment() {
 
     //如果一个类有两个概念上相同的属性，但一个是公共API的一部分，另一个是实现细节，请使用下划线作为私有属性名称的前缀
-    private var _binding: FragmentDemo2Binding? = null
-    private val tag = "DemoFragment"
+    private var _binding: FragmentDemo2TestBinding? = null
+    private val tag = "Demo2FragmentTest"
     private val binding get() = _binding!!
 
     @Inject
@@ -43,7 +44,7 @@ class Demo2Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentDemo2Binding.inflate(inflater, container, false)
+        _binding = FragmentDemo2TestBinding.inflate(inflater, container, false)
 //        DaggerApplicationComponent.create().inject(this)
         MyApplication.applicationComponent.inject(this)
         test_d01_inject();

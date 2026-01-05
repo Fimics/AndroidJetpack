@@ -23,6 +23,10 @@ public class NetModule {
     }
 
     // 方法参数：Retrofit retrofit，dagger 会在当前module 查找retrofit实例 然后传到 providerApiService
+
+    /**
+     * @Singleton 是Dagger提供的一种作用域实现，作用域就是来管理Component获取对象的生命周期的
+     */
     @Singleton
     @Provides
     public ApiService providerApiService(Retrofit retrofit){
