@@ -6,4 +6,7 @@
   - ##### 3.1 [SoftAP配网](./netconfig/SoftAp.md)
   - ##### 3.2 [BLE配网](./netconfig/ble.md)
   - #### 3.3 [SmartConfig/AirKiss配网](./netconfig/SmartConfig_AirKiss.md)
-#### 20. 参考资料 
+#### 20. 参考资料
+#### 21. android studio 插件
+> 1. 通义lingma
+    

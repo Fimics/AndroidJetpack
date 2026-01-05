@@ -1,5 +1,6 @@
 package com.mic.dagger.demo2.d01_inject_component
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +33,11 @@ class InjectFragment : Fragment() {
     @Inject
     lateinit var apiService2: ApiService
 
+    @Inject
+    lateinit var applicationContext: Context
+
+    lateinit var usrComponent : UserComponent
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -43,10 +49,13 @@ class InjectFragment : Fragment() {
     ): View? {
         _binding = FragmentInjectBinding.inflate(inflater, container, false)
 //        DaggerApplicationComponent.create().inject(this)
-        MyApplication.getApplicationComponent().inject(this)
-        test_d01_inject();
-        binding.btnDagger2.setOnClickListener {
+        //全局单例
+//        MyApplication.getApplicationComponent().inject(this)
+        usrComponent =DaggerUserComponent.builder().applicationComponent(MyApplication.getApplicationComponent()).build();
+        usrComponent.inject(this)
 
+        binding.btnDagger2.setOnClickListener {
+            test_d01_inject();
         }
         return binding.root
     }
@@ -57,6 +66,7 @@ class InjectFragment : Fragment() {
         KLog.d(tag, "retrofit hashcode -> $retrofit")
         KLog.d(tag, "apiService hashcode -> $apiService")
         KLog.d(tag, "apiService2 hashcode -> $apiService2")
+        KLog.d(tag, "applicationContext hashcode -> $applicationContext")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

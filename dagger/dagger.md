@@ -123,6 +123,18 @@ public class Person {
 4. 作用域的指定，必须是上层对下层兼并的关系。这里把上下级分为三层：@Inject/@Provides/@Binds为一层，@Module为第二层，@Component为第三层。如果在上层指定了作用域，那么下层的作用域要么不指定，一旦指定只能保持和上层一致。
 5. 开发设计时，一定要有清晰的依赖图，不然很容易产生依赖死循环。
 
+**Dagger组件依赖与子组件**
+
+- 组件依赖与子组件主要解决了不同作用域时组件之间复用问题：
+
+- 在一个组件指定作用域后，就已经确定了该组件创建对象的生命周期。但是有些对象例可能生命周期更短，这个时候就需要定义新的组件。
+- 新组件需要使用原组件的部分资源。
+
+**两种方式的实现：**
+
+- 为@Component添加dependencies参数，指定该组件依赖于新的组件。
+- 直接使用@Subcomponent注解创建新的组件，并装载到父组件中
+
 ## 5. 关键注解：
 
 1. @Inject: 标记需要注入的依赖
@@ -153,4 +165,11 @@ public class Person {
 1. 构造函数加 @Inject
 2. 类上加 @Module , 类内方法上加Providers 适合不能直接new 对象的情况， 然后要在Component 上装载module
 
-## 8.
+## 8.QA
+1. module 是怎么绑定 到component的？
+      >@Component(modules = NetModule.class)
+2. 对象是怎么绑定到component的？
+      >DaggerApplicationComponent.create().inject(this)
+3. 可以在不同的compoent中注入同一个对象吗？void inject(InjectFragment injectFragment);
+   > 不可以。  怎么解决？ 组件依赖
+4. x
