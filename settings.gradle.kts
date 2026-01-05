@@ -23,6 +23,8 @@ include(":app-compose")
 include(":libs:imagemaster")
 include(":dagger")
 include(":hilt")
+include(":netconfig")
+
 //include("libs:aliyunplayerres")
 //include("libs:common")
 //include("libs:jiguang")

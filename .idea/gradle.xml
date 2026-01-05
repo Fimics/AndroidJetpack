@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/libcore" />
             <option value="$PROJECT_DIR$/libs" />
             <option value="$PROJECT_DIR$/libs/imagemaster" />
+            <option value="$PROJECT_DIR$/netconfig" />
           </set>
         </option>
       </GradleProjectSettings>
