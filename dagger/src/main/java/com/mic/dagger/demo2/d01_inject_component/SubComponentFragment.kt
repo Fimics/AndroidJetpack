@@ -11,6 +11,7 @@ import com.mic.dagger.demo2.MyApplication
 import com.mic.libcore.utils.KLog
 import retrofit2.Retrofit
 import javax.inject.Inject
+import javax.inject.Named
 
 
 class SubComponentFragment : Fragment() {
@@ -21,6 +22,7 @@ class SubComponentFragment : Fragment() {
     private val binding get() = _binding!!
 
 
+    @Stu2Qualifier
     @Inject
     lateinit var student: Student
 
@@ -49,7 +51,7 @@ class SubComponentFragment : Fragment() {
     }
 
     fun test_d01_inject() {
-        KLog.d(tag, "student -> $student")
+        KLog.d(tag, "student -> ${student.name}")
         KLog.d(tag, "retrofit -> $retrofit")
         KLog.d(tag, "iBinds -> $iBinds")
     }
