@@ -56,6 +56,6 @@ dependencies {
     implementation (fileTree(mapOf("dir" to "libs","include" to listOf("*.jar"))))
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.databinding.runtime)
-    api(project(mapOf("path" to ":libcore")))
-    api(project(mapOf("path" to ":apt:apt-compiler")))
+    kapt(project(":apt:apt-compiler"))
+    implementation(project(":apt:apt-annotation"))
 }

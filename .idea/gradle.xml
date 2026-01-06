@@ -22,8 +22,6 @@
             <option value="$PROJECT_DIR$/kotlin/kotlin-core" />
             <option value="$PROJECT_DIR$/kotlin/kotlin-coroutine" />
             <option value="$PROJECT_DIR$/libcore" />
-            <option value="$PROJECT_DIR$/libs" />
-            <option value="$PROJECT_DIR$/libs/imagemaster" />
             <option value="$PROJECT_DIR$/netconfig" />
             <option value="$PROJECT_DIR$/template" />
           </set>

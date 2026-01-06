@@ -1,7 +1,7 @@
 plugins {
     id("java-library")
     alias(libs.plugins.kotlin.jvm)   // 如果需要 Kotlin
-    id("kotlin-kapt")  // 如果需要 Kotlin 注解处理
+//    id("kotlin-kapt")
 }
 
 val javaVersion = libs.versions.jvm.version.get().toInt()
@@ -28,4 +28,5 @@ dependencies {
 
     // 或者使用 kapt（如果是 Kotlin 项目）
     // kapt("com.google.auto.service:auto-service:1.0.1")
+    implementation(project(":apt:apt-annotation"))
 }
