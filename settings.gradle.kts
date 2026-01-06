@@ -17,6 +17,7 @@ dependencyResolutionManagement {
 }
 //apply from: 'versions.gradle'
 rootProject.name = "AndroidJetpack"
+include(":template")
 include(":app")
 include(":libcore")
 include(":app-compose")
@@ -24,6 +25,9 @@ include(":libs:imagemaster")
 include(":dagger")
 include(":hilt")
 include(":netconfig")
+include(":apt:apt-main")
+include(":apt:apt-compiler")
+include(":apt:apt-annotation")
 
 //include("libs:aliyunplayerres")
 //include("libs:common")

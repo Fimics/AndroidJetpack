@@ -12,12 +12,17 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/app-compose" />
+            <option value="$PROJECT_DIR$/apt" />
+            <option value="$PROJECT_DIR$/apt/apt-annotation" />
+            <option value="$PROJECT_DIR$/apt/apt-compiler" />
+            <option value="$PROJECT_DIR$/apt/apt-main" />
             <option value="$PROJECT_DIR$/dagger" />
             <option value="$PROJECT_DIR$/hilt" />
             <option value="$PROJECT_DIR$/libcore" />
             <option value="$PROJECT_DIR$/libs" />
             <option value="$PROJECT_DIR$/libs/imagemaster" />
             <option value="$PROJECT_DIR$/netconfig" />
+            <option value="$PROJECT_DIR$/template" />
           </set>
         </option>
       </GradleProjectSettings>
