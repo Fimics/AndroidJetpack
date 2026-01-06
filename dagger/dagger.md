@@ -103,13 +103,14 @@ public class Person {
 
 **也就是说，Dagger 提供创建依赖对象的过程是递归的。**
 
-### 4. 作用域
- @Scope 范围注解时，一定要注意两点：
+### 5. 作用域
+
+@Scope 范围注解时，一定要注意两点：
 
 > 如果是通过依赖对象的构造函数创建依赖时，需要在类名上添加范围注解，不能在构造函数上添加，否则无效。 - 范围内单例的前提是使用了相同的依赖注入器。
 
-
 **Dagger作用域限定**
+
 1. 使用作用域注解，可以将某个对象的生命周期限定为其组件的生命周期。这样也就意味着，在作用域范围内，使用到的是同一实例。
 2. @Singleton是Dagger提供的一种默认的作用域注解，其意义表示一个单例对象。也就是实例的生命周期和程序运行的生命周期保持一致。
 3. 使用@Scope实现自定义作用域注解。
@@ -126,7 +127,6 @@ public class Person {
 **Dagger组件依赖与子组件**
 
 - 组件依赖与子组件主要解决了不同作用域时组件之间复用问题：
-
 - 在一个组件指定作用域后，就已经确定了该组件创建对象的生命周期。但是有些对象例可能生命周期更短，这个时候就需要定义新的组件。
 - 新组件需要使用原组件的部分资源。
 
@@ -135,7 +135,7 @@ public class Person {
 - 为@Component添加dependencies参数，指定该组件依赖于新的组件。
 - 直接使用@Subcomponent注解创建新的组件，并装载到父组件中
 
-## 5. 关键注解：
+## 6. 关键注解：
 
 1. @Inject: 标记需要注入的依赖
 2. @Module: 提供依赖的模块
@@ -143,7 +143,7 @@ public class Person {
 4. @Component: 连接模块和注入目标的桥梁
 5. @Scope: 定义依赖的作用域（如@Singleton）
 
-## 6. 注解
+## 7. 注解
 
 1. @Module 用于告知 Dagger 这个类是一个依赖提供商，这样 Dagger 才能够识别
 2. @Provides 用于告知 Dagger 这个依赖提供商里面哪些方法是用于提供依赖对象的。当 Dagger 需要创建一个依赖对象时，它会查找被 @Module 标识的类中被 @Provides 标识的方法，并根据所需依赖对象的类型，
@@ -162,15 +162,77 @@ public class Person {
 14. Binds 主要返回接口实例的
 15. x
 
-## 7. 对象注入的两种方式
+## 8. 对象注入的两种方式
+
 1. 构造函数加 @Inject
 2. 类上加 @Module , 类内方法上加Providers 适合不能直接new 对象的情况， 然后要在Component 上装载module
 
-## 8.QA
+## 9.Dagger 三种核心类分析
+
+1. DaggerXXXComponent：是定义的组件接口实现类，建立依赖关系的桥梁。
+2. XXX_MembersInjector：实现了向目标对象执行注入操作。
+3. XXX_Factory：创建或者提供注入对象实例的工厂。
+
+## 10.作用域实现原理(DoubleCheck)
+
+1. 编译时验证（编译期） 使用注解处理器（APT）在编译时验证作用域规则 确保相同作用域的组件之间不会发生作用域冲突 检查作用域的生命周期是否合理
+2. 运行时缓存（运行期） 通过 DoubleCheck类实现线程安全的单例缓存 使用双重检查锁定（Double-Checked Locking）模式 确保同一作用域内的对象只被创建一次
+
+## 11.module 作用,处理流程与原理
+
+**作用**
+
+1. 将对象的创建逻辑集中管理
+2. 提供接口的实现绑定
+3. 管理第三方库对象的创建
+4. 配置依赖的创建方式
+
+**处理流程**
+
+1. 扫描所有 @Module 注解的类
+2. 解析 @Provides 方法
+3. 解析 @Binds 方法
+4. 生成对应的 Factory 类
+5. 在 Component 中集成这些 Factory
+
+**原理**
+
+1. 声明式依赖定义：通过注解声明如何创建对象
+2. 编译时代码生成：为每个 @Provides 方法生成 Factory
+3. 依赖图构建：自动解析和连接依赖关系
+4. 作用域管理：与 Component 协同管理对象生命周期
+5. 灵活的模块化：支持 includes、subcomponents 等组织方式
+
+## 12.component 原理和注入流程
+![img.png](img.png)
+![img_1.png](img_1.png)
+
+## 13.APT
+
+## 18.QA
+
 1. module 是怎么绑定 到component的？
-      >@Component(modules = NetModule.class)
+   > @Component(modules = NetModule.class)
+   >
 2. 对象是怎么绑定到component的？
-      >DaggerApplicationComponent.create().inject(this)
+   > DaggerApplicationComponent.create().inject(this)
+   >
 3. 可以在不同的compoent中注入同一个对象吗？void inject(InjectFragment injectFragment);
    > 不可以。  怎么解决？ 组件依赖
-4. x
+   >
+4. dagger 在编译期间自动生成了哪些代码，而这些代码之间的运行逻辑又是什么 ？
+5. dagger 是如何在编译期间生成这些代码的？
+6. xx
+7. xx
+8. xx
+9. xx
+10. xx
+11. xx
+12. xx
+13. xx
+14. xxx
+15. xxx
+16. xxx
+17. xxx
+18. xxxx
+19. x
