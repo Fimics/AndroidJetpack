@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android) apply false
     alias(libs.plugins.jetbrains.kotlin.compose) apply false
     alias(libs.plugins.dagger.hilt) apply false
+    id("org.jetbrains.kotlin.jvm") version "2.1.0" apply false
 }
 
 buildscript {

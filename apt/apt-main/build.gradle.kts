@@ -57,4 +57,5 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.databinding.runtime)
     api(project(mapOf("path" to ":libcore")))
+    api(project(mapOf("path" to ":apt:apt-compiler")))
 }
