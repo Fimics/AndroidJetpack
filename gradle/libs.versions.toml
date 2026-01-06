@@ -31,6 +31,7 @@ hilt-plugin = "2.57.2"
 
 # ====== AndroidX 和 Kotlin 版本 ======
 kotlin = "2.1.0"
+jvm-version = "21"
 coreKtx = "1.10.1"
 ktcoroutines = "1.8.0"
 multidex = "2.0.1"
@@ -84,8 +85,10 @@ rx-2binding = "2.1.0"
 
 # ====== auto-service,javapoet ,guava版本 ======
 auto-service="1.1.1"
+annotation-api="1.3.2"
 javapoet="1.13.0"
 guava="32.1.3-android"
+jetbrainsKotlinJvm = "2.1.0"
 
 
 [libraries]
@@ -98,6 +101,7 @@ hilt-gradle-plugin = { group = "com.google.dagger", name = "hilt-android-gradle-
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-activity-ktx ={ group = "androidx.activity", name = "activity-ktx", version.ref = "activity-ktx"}
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "ktcoroutines" }
+kotlin-stdlib= { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
 
 # ====== 测试相关 ======
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -195,10 +199,10 @@ androidx-work-runtime = { group = "androidx.work", name = "work-runtime", versio
 androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "work" }
 
 # ====== auto-service======
-auto-service-annotations= { group = "com.google.auto.service", name = "auto-service-annotations", version.ref = "auto-service" }
-auto-service-processor = { group = "com.google.auto.service", name = "auto-service", version.ref = "auto-service" }
+auto-service = { group = "com.google.auto.service", name = "auto-service", version.ref = "auto-service" }
 javapoet = { group = "com.squareup", name = "javapoet", version.ref = "javapoet" }
 guava = { group = "com.google.guava", name = "guava", version.ref = "guava" }
+javax-annotation-api= { group = "javax.annotation", name = "javax.annotation-api", version.ref = "annotation-api" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -208,3 +212,4 @@ jetbrains-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt" }  # 添加这行
 jetbrains-kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin-gradle-plugin" }
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt-plugin" }
 jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-serialization" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

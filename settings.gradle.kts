@@ -28,6 +28,11 @@ include(":netconfig")
 include(":apt:apt-main")
 include(":apt:apt-compiler")
 include(":apt:apt-annotation")
+include(":kotlin:kotlin-core")
+include(":kotlin:kotlin-coroutine")
+
+//include(":apt:apt-compiler")
+//include(":apt:apt-annotation")
 
 //include("libs:aliyunplayerres")
 //include("libs:common")
@@ -40,4 +45,6 @@ include(":apt:apt-annotation")
 //include(":native:n4_ffmpeg_bad")
 //include(":native:n5_rtmp")
 //include(":native:n6_opengl")
+
+
 

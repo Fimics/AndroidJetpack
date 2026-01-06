@@ -1,45 +1,31 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.jetbrains.kotlin.android)
-    id("kotlin-kapt")
+    id("java-library")
+    alias(libs.plugins.kotlin.jvm)   // 如果需要 Kotlin
+    id("kotlin-kapt")  // 如果需要 Kotlin 注解处理
 }
 
+val javaVersion = libs.versions.jvm.version.get().toInt()
 
-android {
-    compileSdk = libs.versions.compileSdk.get().toInt()
-    namespace = "com.mic.aptannotation"
-
-    defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
-    }
-
-
-    buildTypes {
-        getByName("debug") {
-            isMinifyEnabled = false
-        }
-
-        getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-
-    buildFeatures {
-        viewBinding = true
-        dataBinding =true
-
-    }
+java {
+    sourceCompatibility = JavaVersion.toVersion(javaVersion)
+    targetCompatibility = JavaVersion.toVersion(javaVersion)
 }
 
-//https://blog.csdn.net/lfq88/article/details/118222107
+kotlin {
+    jvmToolchain(javaVersion)
+}
+
 dependencies {
-    implementation (fileTree(mapOf("dir" to "libs","include" to listOf("*.jar"))))
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.databinding.runtime)
-    api(project(mapOf("path" to ":libcore")))
+    // Kotlin
+    implementation(libs.kotlin.stdlib)
+
+    // 注解处理 API
+    implementation(libs.javax.annotation.api)
+
+    // AutoService
+    compileOnly(libs.auto.service)
+    annotationProcessor(libs.auto.service)
+
+    // 或者使用 kapt（如果是 Kotlin 项目）
+    // kapt("com.google.auto.service:auto-service:1.0.1")
 }
