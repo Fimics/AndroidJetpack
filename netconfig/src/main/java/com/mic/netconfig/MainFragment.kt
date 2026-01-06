@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.mic.dagger.databinding.FragmentInjectBinding
+import com.mic.netconfig.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
 
     //如果一个类有两个概念上相同的属性，但一个是公共API的一部分，另一个是实现细节，请使用下划线作为私有属性名称的前缀
-    private var _binding: FragmentInjectBinding? = null
+    private var _binding: FragmentMainBinding? = null
     private val tag = "MainFragment"
     private val binding get() = _binding!!
 
@@ -23,7 +23,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentInjectBinding.inflate(inflater, container, false)
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
 
         test_d01_inject();
         binding.btnDagger2.setOnClickListener {
