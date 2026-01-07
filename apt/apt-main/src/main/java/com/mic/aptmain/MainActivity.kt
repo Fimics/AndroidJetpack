@@ -7,7 +7,7 @@ import com.mic.annotation.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    @Inject
+    @Inject("zhang shan")
     lateinit var user: User
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
