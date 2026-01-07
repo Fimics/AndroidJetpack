@@ -12,10 +12,14 @@ class MainActivity : AppCompatActivity() {
 
     @Inject("zhang shan")
     lateinit var user: User
+//
+    @Inject("li shi")
+    lateinit var student: Student
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        DaggerApplicationComponent.create().inject(this)
+        DaggerTestComponent.builder().build().inject(this)
         Log.d(tag, "user:${user}")
+        Log.d(tag, "student:${student}")
     }
 }

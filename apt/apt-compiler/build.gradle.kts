@@ -25,7 +25,7 @@ dependencies {
     // AutoService
     compileOnly(libs.auto.service)
     annotationProcessor(libs.auto.service)
-
+    implementation(libs.javapoet)
     // 或者使用 kapt（如果是 Kotlin 项目）
     // kapt("com.google.auto.service:auto-service:1.0.1")
     implementation(project(":apt:apt-annotation"))
