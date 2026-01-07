@@ -36,7 +36,7 @@ public class CustomProcessor extends AbstractProcessor {
         super.init(processingEnvironment);
         messager = processingEnvironment.getMessager();
         typeUtils = processingEnvironment.getTypeUtils();
-        messager.printMessage(Diagnostic.Kind.NOTE, "CustomProcessor init");
+        messager.printMessage(Diagnostic.Kind.NOTE, "CustomProcessor init------------------------------------------------");
     }
 
     /**
@@ -47,7 +47,7 @@ public class CustomProcessor extends AbstractProcessor {
      */
     @Override
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment) {
-        messager.printMessage(Diagnostic.Kind.NOTE, "CustomProcessor process");
+        messager.printMessage(Diagnostic.Kind.NOTE, "CustomProcessor process-----------------------------------------");
         //哪些地方用到了Inject注解
         Set<? extends Element> elements =roundEnvironment.getElementsAnnotatedWith(Inject.class);
         for (Element element : elements) {
