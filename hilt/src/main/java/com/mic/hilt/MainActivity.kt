@@ -3,11 +3,11 @@ package com.mic.hilt
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.mic.hilt.hilt.HiltFragment
-import com.mic.hilt.http.annoation.BindXUtils
-import com.mic.hilt.http.client.HttpCallback
-import com.mic.hilt.http.client.IHttpProcessor
-import com.mic.hilt.http.result.ResponseData
+import com.mic.hilt.demo.hilt.HiltFragment
+import com.mic.hilt.demo.http.annoation.BindXUtils
+import com.mic.hilt.demo.http.client.HttpCallback
+import com.mic.hilt.demo.http.client.IHttpProcessor
+import com.mic.hilt.demo.http.result.ResponseData
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

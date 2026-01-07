@@ -1,4 +1,4 @@
-package com.mic.hilt.hilt
+package com.mic.hilt.demo.hilt
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mic.hilt.KLog
 import com.mic.hilt.databinding.FragmentHiltBinding
-import com.mic.hilt.hilt.di.IInterface
-import com.mic.hilt.hilt.`object`.HttpObject
+import com.mic.hilt.demo.hilt.di.IInterface
+import com.mic.hilt.demo.hilt.`object`.HttpObject
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

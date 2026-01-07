@@ -1,4 +1,4 @@
-package com.mic.hilt.hilt.di
+package com.mic.hilt.demo.hilt.di
 
 import com.mic.hilt.KLog
 import javax.inject.Inject

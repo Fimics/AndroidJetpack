@@ -1,6 +1,6 @@
-package com.mic.hilt.hilt.module
+package com.mic.hilt.demo.hilt.module
 
-import com.mic.hilt.hilt.`object`.HttpObject
+import com.mic.hilt.demo.hilt.`object`.HttpObject
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
