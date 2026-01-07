@@ -7,7 +7,7 @@
 - 2.11 [dagger2](./dagger/dagger.md)
 - 2.12 [dagger2官方文档](https://dagger.dev/dev-guide/multibindings)
 
-#### 3. dagger
+#### 3. hilt
 - 3.11 [hilt](./hilt/hilt.md)
 - 3.11 [hilt官方文档](https://dagger.dev/dev-guide/multibindings)
 
