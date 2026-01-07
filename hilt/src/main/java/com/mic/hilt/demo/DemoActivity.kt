@@ -1,8 +1,10 @@
-package com.mic.hilt
+package com.mic.hilt.demo
 
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.mic.hilt.KLog
+import com.mic.hilt.R
 import com.mic.hilt.demo.hilt.HiltFragment
 import com.mic.hilt.demo.http.annoation.BindXUtils
 import com.mic.hilt.demo.http.client.HttpCallback
@@ -13,7 +15,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class DemoActivity : AppCompatActivity() {
 
     @BindXUtils
     @Inject

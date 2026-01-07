@@ -59,8 +59,12 @@ dependencies {
     implementation(libs.gson)
     api(libs.okhttp)
     //hilt
-    api(libs.dagger.hilt.android)
+    implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.compiler)
+    // 添加源码依赖（用于查看源码）
+    compileOnly(libs.dagger.hilt.compiler)
+//    implementation(libs.dagger.hilt.compiler)
+//    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0")
     implementation(libs.androidx.databinding.runtime)
     api(project(mapOf("path" to ":libcore")))
 }

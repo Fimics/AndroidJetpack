@@ -23,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidJetpack">
         <activity
-            android:name=".MainActivity"
+            android:name=".demo2.Demo2Activity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat">
