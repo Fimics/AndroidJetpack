@@ -42,11 +42,12 @@ public class AppModule {
 ```
 
 #### 4.组件与作用域的关系
-![socpe.png](scope.png)
+![socpe.png](img/scope.png)
 #### 5.组件层次结构
-![cj.png](cj.png)
+![cj.png](img/cj.png)
 
 #### 6.预定义绑定与限定符
+![default.png](img/default_bind.png)
 
 #### 7.Hilt对ViewModel的支持
 

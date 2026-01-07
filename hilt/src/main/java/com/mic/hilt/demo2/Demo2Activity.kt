@@ -24,10 +24,14 @@ class Demo2Activity : AppCompatActivity() {
     @Inject
     lateinit var student: Student
 
+    @Inject
+    lateinit var viewModel: ViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         KLog.d(TAG," user -> $user")
         KLog.d(TAG," student -> $student")
+        viewModel.test()
     }
 }
