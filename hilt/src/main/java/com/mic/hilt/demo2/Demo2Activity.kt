@@ -3,6 +3,7 @@ package com.mic.hilt.demo2
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.mic.hilt.KLog
 import com.mic.hilt.R
 import com.mic.hilt.demo.hilt.HiltFragment
@@ -27,11 +28,17 @@ class Demo2Activity : AppCompatActivity() {
     @Inject
     lateinit var viewModel: ViewModel
 
+//    @Inject
+//    lateinit var mainViewModel: MainViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         KLog.d(TAG," user -> $user")
         KLog.d(TAG," student -> $student")
         viewModel.test()
+
+        val mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        mainViewModel.test()
     }
 }

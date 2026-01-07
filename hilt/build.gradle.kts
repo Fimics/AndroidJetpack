@@ -63,8 +63,10 @@ dependencies {
     kapt(libs.dagger.hilt.compiler)
     // 添加源码依赖（用于查看源码）
     compileOnly(libs.dagger.hilt.compiler)
-//    implementation(libs.dagger.hilt.compiler)
-//    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0")
+    //hilt jetpack 支持
+    implementation(libs.androidx.hilt.lifecycle.viewmodel)
+    kapt(libs.androidx.hilt.compiler)
+    implementation(libs.guava.android)
     implementation(libs.androidx.databinding.runtime)
     api(project(mapOf("path" to ":libcore")))
 }

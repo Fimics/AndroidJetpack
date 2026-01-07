@@ -49,7 +49,38 @@ public class AppModule {
 #### 6.预定义绑定与限定符
 ![default.png](img/default_bind.png)
 
+```java
+ //hilt 提供的限定符 @ApplicationContext  @ActivityContext
+@Provides
+ViewModel provideViewModel(Student student, Application application, Activity activity,@ApplicationContext Context context){
+    return new ViewModel(student,application,activity,context);
+}
+```
+
 #### 7.Hilt对ViewModel的支持
+```java
+@HiltViewModel
+public class MainViewModel extends ViewModel {
+    private static final String TAG = "ViewModel";
+
+    private final Student student;
+    private final Application application;
+    private final Context context;
+
+    @Inject
+    public MainViewModel(Student student, Application application, @ApplicationContext Context context) {
+        this.student = student;
+        this.application = application;
+        this.context = context;
+    }
+
+    public void test() {
+        KLog.d(TAG, "ViewModel test student -> " + student);
+        KLog.d(TAG, "ViewModel test application -> " + application);
+        KLog.d(TAG, "ViewModel test context -> " + context);
+    }
+}
+```
 
 #### 8.自动生成组件解析
 
