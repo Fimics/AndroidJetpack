@@ -63,3 +63,41 @@ subprojects {
         }
     }
 }
+
+// 版本冲突处理控制
+subprojects {
+    configurations.all {
+        resolutionStrategy {
+            // 1. 强制统一图中显示的所有冲突版本
+            force(
+                // ====== Activity 系列（你的主要冲突） ======
+                "androidx.activity:activity:1.9.3",
+                "androidx.annotation:annotation:1.7.1",
+                "androidx.appcompat:appcompat:1.6.1",
+                "androidx.arch.core:core-runtime:2.2.0",
+                "androidx.collection:collection-ktx:1.4.0",
+                "androidx.compose.animation:animation:1.6.6",
+                "androidx.compose.material3:material3-android:1.2.0",
+                "androidx.compose.material:material-icons-core-android:1.6.6",
+                "androidx.constraintlayout:constraintlayout:2.0.1",
+                "androidx.core:core-ktx:1.13.1",
+                "androidx.customview:customview:1.1.0",
+                "androidx.drawerlayout:drawerlayout:1.1.1",
+                "androidx.fragment:fragment:1.5.1",
+                "androidx.recyclerview:recyclerview:1.2.0",
+                "androidx.transition:transition:1.4.1",
+                "com.google.code.findbugs:jsr305:3.0.2",
+                "com.google.errorprone:error_prone_annotations:2.18.0",
+                "com.google.j2objc:j2objc-annotations:2.8",
+                "io.reactivex.rxjava2:rxjava:2.2.0",
+                "io.reactivex.rxjava2:rxandroid:2.1.0",
+                "org.checkerframework:checker-qual:3.33.0",
+                "org.jetbrains.kotlin:kotlin-stdlib:2.1.0",
+                "org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.0",
+                "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0",
+                "org.jetbrains:annotations:23.0.0",
+                "org.reactivestreams:reactive-streams:1.0.4"
+            )
+        }
+    }
+}
