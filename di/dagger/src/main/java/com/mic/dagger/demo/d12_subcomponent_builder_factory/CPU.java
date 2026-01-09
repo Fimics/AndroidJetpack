@@ -1,0 +1,17 @@
+package com.mic.dagger.demo.d12_subcomponent_builder_factory;
+
+public class CPU {
+
+    private String producer;
+
+
+
+    public CPU(String producer) {
+        this.producer = producer;
+    }
+
+    @Override
+    public String toString() {
+        return producer + " CPU";
+    }
+}
