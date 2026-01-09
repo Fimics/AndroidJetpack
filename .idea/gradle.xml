@@ -24,6 +24,9 @@
             <option value="$PROJECT_DIR$/kotlin/kotlin-java" />
             <option value="$PROJECT_DIR$/libcore" />
             <option value="$PROJECT_DIR$/netconfig" />
+            <option value="$PROJECT_DIR$/rx" />
+            <option value="$PROJECT_DIR$/rx/rx2" />
+            <option value="$PROJECT_DIR$/rx/rx3" />
             <option value="$PROJECT_DIR$/template" />
           </set>
         </option>
