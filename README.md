@@ -27,8 +27,17 @@
   - 6.3 [一款开源的蓝牙ble配网blufi乐鑫芯片esp32的开源微信小程序（持续维护)](https://github.com/Fimics/BlufiEsp32WeChat)
   - 6.4 [WeChatAirkisss](https://github.com/Fimics/WeChatAirkiss)
 
-#### 99 AI编程工具
-     Trae，qoder,GitHub Copilot,Cursor,Codeium,Tabnine
+#### 7.语言
+- 7.1 [kotlin-core](./kotlin/kotlin-core/kotlin.md)
+- 7.2 [kotlin-coroutine](./kotlin/kotlin-coroutine/kotlin-coroutine.md)
+- 7.3 [kotlin-java](./kotlin/kotlin-java/java.md)
+
+#### 98.AppUpdate
+  [AppUpdate](./netconfig/netconfig.md)
+
+#### 99. AI编程工具
+>Trae，qoder,GitHub Copilot,Cursor,Codeium,Tabnine
+
 #### 100. 参考资料
 
 #### 101. android studio 插件

@@ -28,6 +28,7 @@ include(":netconfig")
 include(":apt:apt-main")
 include(":apt:apt-compiler")
 include(":apt:apt-annotation")
+include(":kotlin:kotlin-java")
 include(":kotlin:kotlin-core")
 include(":kotlin:kotlin-coroutine")
 
