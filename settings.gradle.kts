@@ -15,7 +15,7 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-//apply from: 'versions.gradle'
+
 rootProject.name = "AndroidJetpack"
 include(":template")
 include(":app")
@@ -33,10 +33,6 @@ include(":kotlin:kotlin-core")
 include(":kotlin:kotlin-coroutine")
 include(":rx:rx2")
 include(":rx:rx3")
-
-
-//include(":apt:apt-compiler")
-//include(":apt:apt-annotation")
 
 //include("libs:aliyunplayerres")
 //include("libs:common")
