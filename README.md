@@ -4,11 +4,11 @@
 - 1.1 [三方库](./三方库.md)
 
 #### 2. dagger2
-- 2.11 [dagger2](./dagger/dagger.md)
+- 2.11 [dagger2](./di/dagger/dagger.md)
 - 2.12 [dagger2官方文档](https://dagger.dev/dev-guide/multibindings)
 
 #### 3. hilt
-- 3.11 [hilt](./hilt/hilt.md)
+- 3.11 [hilt](./di/hilt/hilt.md)
 - 3.11 [hilt官方文档](https://dagger.dev/dev-guide/multibindings)
 
 #### 4. 注解处理器
@@ -35,6 +35,9 @@
 #### 8. Rx Java android
 - 8.1 [RxJava2](./rx/rx2/rxjava2.md)
 - 8.2 [RxJava3](./rx/rx3/rxjava3.md)
+
+#### 9. 字节码技术
+- 9.1 [Javassist](./di/Javassist.md)
 
 #### 98.AppUpdate
 - 98.1  [AppUpdate](./netconfig/netconfig.md)
