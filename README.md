@@ -37,19 +37,19 @@
 - 8.2 [RxJava3](./rx/rx3/rxjava3.md)
 
 #### 98.AppUpdate
-  [AppUpdate](./netconfig/netconfig.md)
+- 98.1  [AppUpdate](./netconfig/netconfig.md)
 
 #### 99. AI编程工具
->Trae，qoder,GitHub Copilot,Cursor,Codeium,Tabnine
+- 99.1 Trae，qoder,GitHub Copilot,Cursor,Codeium,Tabnine
 
 #### 100. 参考资料
 
 #### 101. android studio 插件
-> 1. 通义lingma
+- 101.1 通义lingma
 
 
 #### 102. TODO
-- 22.1 自动发现机制 通常配合 SPI 机制自动发现实现类： 使用 ServiceLoader
-- 22.2 AutoDispose 库来绑定 RxJava 与 Android 生命周期 的工具类
-- 22.3 RxJava2
+- 102.1 自动发现机制 通常配合 SPI 机制自动发现实现类： 使用 ServiceLoader
+- 102.2 AutoDispose 库来绑定 RxJava 与 Android 生命周期 的工具类
+- 102.3 RxJava2
     
