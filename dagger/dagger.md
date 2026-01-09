@@ -160,7 +160,8 @@ public class Person {
 12. Dagger 还支持 Factory 工厂模式，其使用方式也跟上面的 Builder 类似。但是有一点需要注意的是，同一个 Component 是不能即添加 Builder 也添加 Factory 的
 13. Subcomponent.Builder 和 @Subcomponent.Factory 不仅仅是依赖注入器可以添加构造器模式或工厂模式，子组件也可以使用构造器模式或工厂模式。只不是使用的是 @Subcomponent.Builder 和 @Subcomponent.Factory
 14. Binds 主要返回接口实例的
-15. x
+15. @BindsInstance：将外部创建的实例（Application）绑定到组件中
+16. x
 
 ## 8. 对象注入的两种方式
 
