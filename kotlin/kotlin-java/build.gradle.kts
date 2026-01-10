@@ -17,5 +17,10 @@ kotlin {
 dependencies {
     // Kotlin
     implementation(libs.kotlin.stdlib)
-
+    implementation(libs.kotlin.reflect)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.gson)
+    implementation(libs.okhttp)
+    implementation(libs.retrofit2.retrofit)
+    implementation(libs.junit)
 }

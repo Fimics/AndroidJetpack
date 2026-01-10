@@ -108,6 +108,7 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-activity-ktx ={ group = "androidx.activity", name = "activity-ktx", version.ref = "activity-ktx"}
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "ktcoroutines" }
 kotlin-stdlib= { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
+kotlin-reflect= { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlin" }
 
 # ====== 字节码技术 ======
 javassist= { group = "org.javassist", name = "javassist", version.ref = "javassist" }

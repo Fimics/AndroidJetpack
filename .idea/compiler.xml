@@ -19,7 +19,7 @@
         <module name="AndroidJetpack.apt.apt-compiler.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="1.8">
+    <bytecodeTargetLevel target="21">
       <module name="AndroidJetpack.app-system" target="21" />
       <module name="AndroidJetpack.apt.lib.main" target="21" />
       <module name="AndroidJetpack.apt.lib.test" target="21" />
