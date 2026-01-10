@@ -3,6 +3,7 @@ package com.mic.hilt.demo2
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.ViewModelProvider
 import com.mic.hilt.KLog
 import com.mic.hilt.R
@@ -11,6 +12,7 @@ import com.mic.hilt.demo.http.annoation.BindXUtils
 import com.mic.hilt.demo.http.client.HttpCallback
 import com.mic.hilt.demo.http.client.IHttpProcessor
 import com.mic.hilt.demo.http.result.ResponseData
+import com.mic.hilt.javassist.JavassistUtils
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -40,5 +42,16 @@ class Demo2Activity : AppCompatActivity() {
 
         val mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
         mainViewModel.test()
+
+        val button = findViewById<AppCompatButton>(R.id.btn_http)
+        button.setOnClickListener {
+            // 方式1：直接调用
+//            basicJavassistTest()
+
+
+        }
+
     }
+
+
 }

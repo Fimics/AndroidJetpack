@@ -38,6 +38,7 @@
 
 #### 9. 字节码技术
 - 9.1 [Javassist](./di/Javassist.md)
+- 9.2 [Javassit ASM,bytecode](https://github.com/fuzhengwei/itstack-demo-bytecode)
 
 #### 98.AppUpdate
 - 98.1  [AppUpdate](./netconfig/netconfig.md)
