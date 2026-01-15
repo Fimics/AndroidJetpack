@@ -40,6 +40,9 @@
 - 9.1 [Javassist](./di/Javassist.md)
 - 9.2 [Javassit ASM,bytecode](https://github.com/fuzhengwei/itstack-demo-bytecode)
 
+#### 10. 蓝牙模块
+- 10.1 [蓝牙模块](./ble/ble.md)
+
 #### 98.AppUpdate
 - 98.1  [AppUpdate](./netconfig/netconfig.md)
 

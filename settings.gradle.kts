@@ -32,6 +32,7 @@ include(":kotlin:kotlin-java")
 include(":kotlin:kotlin-coroutine")
 include(":rx:rx2")
 include(":rx:rx3")
+include(":ble")
 
 //include("libs:aliyunplayerres")
 //include("libs:common")

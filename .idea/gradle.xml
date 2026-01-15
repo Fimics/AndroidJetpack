@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/apt/apt-annotation" />
             <option value="$PROJECT_DIR$/apt/apt-compiler" />
             <option value="$PROJECT_DIR$/apt/apt-main" />
+            <option value="$PROJECT_DIR$/ble" />
             <option value="$PROJECT_DIR$/di" />
             <option value="$PROJECT_DIR$/di/dagger" />
             <option value="$PROJECT_DIR$/di/hilt" />
