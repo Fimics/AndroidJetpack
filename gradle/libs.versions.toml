@@ -95,6 +95,9 @@ annotation-api="1.3.2"
 javapoet="1.13.0"
 guava="32.1.3-android"
 
+#xlog
+xlog = "1.11.0"
+
 
 
 [libraries]
@@ -216,6 +219,9 @@ auto-service = { group = "com.google.auto.service", name = "auto-service", versi
 javapoet = { group = "com.squareup", name = "javapoet", version.ref = "javapoet" }
 guava-android = { group = "com.google.guava", name = "guava", version.ref = "guava" }
 javax-annotation-api= { group = "javax.annotation", name = "javax.annotation-api", version.ref = "annotation-api" }
+
+#xlog
+xlog = { group = "com.elvishew", name = "xlog", version.ref = "xlog" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

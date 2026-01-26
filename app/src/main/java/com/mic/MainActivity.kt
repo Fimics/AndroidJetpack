@@ -11,7 +11,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.mic.databinding.ActivityMainBinding
 import com.mic.libcore.utils.ExecutorsPoller
 import com.mic.libcore.utils.FileServer
-import com.mic.libcore.utils.KLog
+import com.mic.libcore.utils.KLog2
 import com.mic.libcore.utils.PermissionUtils
 import com.mic.libcore.utils.RootShell
 import java.util.*
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun testRootShell(){
        val isRooted =  RootShell.isRooted()
-        KLog.d(tag,"isRooted ->$isRooted")
+        KLog2.d(tag,"isRooted ->$isRooted")
     }
 
     private fun startServer(){
@@ -58,10 +58,10 @@ class MainActivity : AppCompatActivity() {
                 val isAllGranted = PermissionUtils.isAllGranted()
                 if (isAllGranted) {
                     fileServer.start()
-                    KLog.d(tag,"文件已拷贝")
+                    KLog2.d(tag,"文件已拷贝")
                     ExecutorsPoller.shutdown()
                 }else{
-                    KLog.d(tag,"文件正在拷贝")
+                    KLog2.d(tag,"文件正在拷贝")
                 }
             }
         })

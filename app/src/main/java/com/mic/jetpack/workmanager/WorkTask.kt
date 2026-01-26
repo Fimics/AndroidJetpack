@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.work.Data
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.mic.libcore.utils.KLog
+import com.mic.libcore.utils.KLog2
 
 class WorkTask(context: Context, var workerParams: WorkerParameters) : Worker(context, workerParams) {
 
@@ -13,11 +13,11 @@ class WorkTask(context: Context, var workerParams: WorkerParameters) : Worker(co
 
     @SuppressLint("RestrictedApi")
     override fun doWork(): Result {
-        KLog.d(tag,"do work")
+        KLog2.d(tag,"do work")
 
         // 接收Activity传递过来的数据
         val dataString = workerParams.inputData.getString("data")
-        KLog.d(tag,"data string ->$dataString")
+        KLog2.d(tag,"data string ->$dataString")
 
         // 反馈数据 给 Activity
         // 把任务中的数据回传到activity中,数据限制10K

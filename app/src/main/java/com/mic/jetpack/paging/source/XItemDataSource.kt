@@ -3,7 +3,7 @@ package com.mic.jetpack.paging.source
 import androidx.paging.ItemKeyedDataSource
 import com.mic.jetpack.paging.bean.Person
 import com.mic.jetpack.paging.repository.DataRepository
-import com.mic.libcore.utils.KLog
+import com.mic.libcore.utils.KLog2
 
 /**
  * ItemKeyedDataSource<Key, Value>：适用于目标数据的加载依赖特定item的信息，
@@ -32,7 +32,7 @@ class XItemDataSource(dataRepository: DataRepository) : ItemKeyedDataSource<Int,
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Person>) {
         val dataList:List<Person>? =mDataRepository.loadPageData(params.key,params.requestedLoadSize)
         if (dataList != null) {
-            KLog.d("paging->load before")
+            KLog2.d("paging->load before")
             callback.onResult(dataList)
         }
     }
@@ -45,7 +45,7 @@ class XItemDataSource(dataRepository: DataRepository) : ItemKeyedDataSource<Int,
         //pageindex
         val dataList: List<Person>? = mDataRepository.loadPageData(params.key, params.requestedLoadSize)
         if (dataList != null) {
-            KLog.d("paging->load after")
+            KLog2.d("paging->load after")
             callback.onResult(dataList)
         }
     }

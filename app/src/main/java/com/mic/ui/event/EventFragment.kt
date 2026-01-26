@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mic.databinding.FragmentEventBinding
-import com.mic.libcore.utils.KLog
+import com.mic.libcore.utils.KLog2
 
 
 class EventFragment : Fragment() {
@@ -32,14 +32,14 @@ class EventFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnClick.setOnClickListener {
-            KLog.d(TAG, "setOnClickListener")
+            KLog2.d(TAG, "setOnClickListener")
         }
         binding.btnClick.setOnLongClickListener {
-            KLog.d(TAG, "setOnLongClickListener")
+            KLog2.d(TAG, "setOnLongClickListener")
             false
         }
         binding.btnClick.setOnTouchListener { v, event ->
-            KLog.d(TAG, "setOnTouchListener")
+            KLog2.d(TAG, "setOnTouchListener")
             false
         }
 

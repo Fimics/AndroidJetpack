@@ -7,7 +7,7 @@ import com.jakewharton.rxbinding2.view.RxView;
 import com.mic.rx.api.ProjectApi;
 import com.mic.rx.bean.ProjectBean;
 import com.mic.rx.bean.ProjectItem;
-import com.mic.libcore.utils.KLog;
+import com.mic.libcore.utils.KLog2;
 
 import java.util.concurrent.TimeUnit;
 
@@ -54,7 +54,7 @@ public class ApiHelper {
                 .subscribe(new Consumer<ProjectItem>() {
                     @Override
                     public void accept(ProjectItem projectItem) throws Exception {
-                        KLog.d("accept item data"+projectItem);
+                        KLog2.d("accept item data"+projectItem);
                     }
                 })
         ;

@@ -74,4 +74,6 @@ dependencies {
     api(libs.androidx.lifecycle.process )
     api(libs.androidx.lifecycle.service)
 
+    api(libs.xlog)
+
 }

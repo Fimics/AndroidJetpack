@@ -25,7 +25,7 @@ public final class RootShell {
                 return false;
             }
         } catch (Throwable t) {
-            KLog.d(TAG,t.getMessage());
+            KLog2.d(TAG,t.getMessage());
             return false;
         }
     }
@@ -34,7 +34,7 @@ public final class RootShell {
      * 执行命令但不关注结果输出
      */
     public  static int execCommand(String cmd) {
-        KLog.d(TAG, "run " + cmd);
+        KLog2.d(TAG, "run " + cmd);
         int result = -1;
         DataOutputStream dos = null;
 
@@ -42,14 +42,14 @@ public final class RootShell {
             Process p = Runtime.getRuntime().exec("su");
             dos = new DataOutputStream(p.getOutputStream());
 
-            KLog.d(TAG, cmd);
+            KLog2.d(TAG, cmd);
             dos.writeBytes(cmd + "\n");
             dos.flush();
             dos.writeBytes("exit\n");
             dos.flush();
             p.waitFor();
             result = p.exitValue();
-            KLog.d(TAG, "run " + cmd + " result: " + result);
+            KLog2.d(TAG, "run " + cmd + " result: " + result);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -65,7 +65,7 @@ public final class RootShell {
     }
 
     public static String execCommand2(String cmd) {
-        KLog.d(TAG, "run " + cmd);
+        KLog2.d(TAG, "run " + cmd);
         DataOutputStream dos = null;
         BufferedReader input = null;
         String result = null;
@@ -75,7 +75,7 @@ public final class RootShell {
             dos = new DataOutputStream(p.getOutputStream());
             input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
-            KLog.d(TAG, cmd);
+            KLog2.d(TAG, cmd);
             dos.writeBytes(cmd + "\n");
             dos.flush();
             dos.writeBytes("exit\n");
@@ -89,23 +89,23 @@ public final class RootShell {
                 output.append(line).append("\n");
             }
             result = output.toString();
-            KLog.d(TAG, "run " + cmd + " result: " + result);
+            KLog2.d(TAG, "run " + cmd + " result: " + result);
         } catch (Exception e) {
-            KLog.d(TAG,e.getMessage());
-            KLog.d(TAG,"执行命令失败");
+            KLog2.d(TAG,e.getMessage());
+            KLog2.d(TAG,"执行命令失败");
         } finally {
             if (dos != null) {
                 try {
                     dos.close();
                 } catch (IOException e) {
-                    KLog.d(TAG,e.getMessage());
+                    KLog2.d(TAG,e.getMessage());
                 }
             }
             if (input != null) {
                 try {
                     input.close();
                 } catch (IOException e) {
-                    KLog.d(TAG,e.getMessage());
+                    KLog2.d(TAG,e.getMessage());
                 }
             }
         }

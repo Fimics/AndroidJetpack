@@ -13,7 +13,7 @@ import androidx.work.OneTimeWorkRequest
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import com.mic.databinding.FragmentWorkBinding
-import com.mic.libcore.utils.KLog
+import com.mic.libcore.utils.KLog2
 import java.util.concurrent.TimeUnit
 
 
@@ -80,10 +80,10 @@ class WorkFragment : Fragment() {
         //id != 编号  =  状态概念
         WorkManager.getInstance(requireContext()).getWorkInfoByIdLiveData(request.id)
             .observe(viewLifecycleOwner){
-                KLog.d(tag,"return result data->${it.outputData.getString("data")}")
-                KLog.d(tag,"workinfo state->${it.state.name}")
+                KLog2.d(tag,"return result data->${it.outputData.getString("data")}")
+                KLog2.d(tag,"workinfo state->${it.state.name}")
                 if (it.state.isFinished){
-                    KLog.d(tag,"finished")
+                    KLog2.d(tag,"finished")
                 }
             }
 
@@ -114,9 +114,9 @@ class WorkFragment : Fragment() {
         //但是重复任务，你可以看作为一次任务不会完结
         WorkManager.getInstance(requireContext()).getWorkInfoByIdLiveData(periodRequest.id)
             .observe(requireActivity()){
-                KLog.d(tag,"workinfo state->${it.state.name}")
+                KLog2.d(tag,"workinfo state->${it.state.name}")
                 if (it.state.isFinished){
-                    KLog.d(tag,"finished")
+                    KLog2.d(tag,"finished")
                 }
             }
 
@@ -147,10 +147,10 @@ class WorkFragment : Fragment() {
 
         WorkManager.getInstance(requireContext()).getWorkInfoByIdLiveData(request.id)
             .observe(viewLifecycleOwner){
-                KLog.d(tag,"return result data->${it.outputData.getString("data")}")
-                KLog.d(tag,"workinfo state->${it.state.name}")
+                KLog2.d(tag,"return result data->${it.outputData.getString("data")}")
+                KLog2.d(tag,"workinfo state->${it.state.name}")
                 if (it.state.isFinished){
-                    KLog.d(tag,"finished")
+                    KLog2.d(tag,"finished")
                 }
             }
 

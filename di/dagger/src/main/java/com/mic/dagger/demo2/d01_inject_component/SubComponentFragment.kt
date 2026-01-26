@@ -1,6 +1,5 @@
 package com.mic.dagger.demo2.d01_inject_component
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mic.dagger.databinding.FragmentInjectBinding
 import com.mic.dagger.demo2.MyApplication
-import com.mic.libcore.utils.KLog
+import com.mic.libcore.utils.KLog2
 import retrofit2.Retrofit
 import javax.inject.Inject
-import javax.inject.Named
 
 
 class SubComponentFragment : Fragment() {
@@ -51,9 +49,9 @@ class SubComponentFragment : Fragment() {
     }
 
     fun test_d01_inject() {
-        KLog.d(tag, "student -> ${student.name}")
-        KLog.d(tag, "retrofit -> $retrofit")
-        KLog.d(tag, "iBinds -> $iBinds")
+        KLog2.d(tag, "student -> ${student.name}")
+        KLog2.d(tag, "retrofit -> $retrofit")
+        KLog2.d(tag, "iBinds -> $iBinds")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
