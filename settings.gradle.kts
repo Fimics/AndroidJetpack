@@ -19,6 +19,8 @@ dependencyResolutionManagement {
 rootProject.name = "AndroidJetpack"
 include(":template")
 include(":app")
+include(":app-c++")
+include(":app-py")
 include(":libcore")
 include(":app-compose")
 //include(":libs:imagemaster")
@@ -33,6 +35,8 @@ include(":kotlin:kotlin-coroutine")
 include(":rx:rx2")
 include(":rx:rx3")
 include(":ble")
+include(":extras:libc++")
+include(":extras:libpy")
 
 //include("libs:aliyunplayerres")
 //include("libs:common")

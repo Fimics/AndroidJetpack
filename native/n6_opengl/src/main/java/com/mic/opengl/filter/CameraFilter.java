@@ -8,7 +8,7 @@ import static android.opengl.GLES20.*;
 /**
  * 不需要渲染到屏幕（而是写入到 FBO 缓冲中）
  */
-public class CameraFilter /* extends BaseFilter*/
+public class CameraFilter /* extras BaseFilter*/
 
         extends BaseFrameFilter {
 

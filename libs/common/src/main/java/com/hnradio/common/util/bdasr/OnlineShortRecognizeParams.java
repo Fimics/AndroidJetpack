@@ -9,7 +9,7 @@
 // * Created by ytf on 2020/10/21 021.
 // * Description:
 // */
-//public class OnlineShortRecognizeParams extends HashMap<String, Object>
+//public class OnlineShortRecognizeParams extras HashMap<String, Object>
 //{
 //    public OnlineShortRecognizeParams()
 //    {
