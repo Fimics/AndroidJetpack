@@ -44,10 +44,10 @@
 - 10.1 [蓝牙模块](./ble/ble.md)
 
 #### 11. android-python(Chaquopy)
-- 11.1 [android-python(Chaquopy)](./ble/ble.md)
+- 11.1 [android-python(Chaquopy)](./extras/libpy/android-python.md)
 
 #### 98.AppUpdate
-- 98.1  [AppUpdate](./extras/libpy/android-python.md)
+- 98.1  [AppUpdate]()
 
 #### 99. AI编程工具
 - 99.1 Trae，qoder,GitHub Copilot,Cursor,Codeium,Tabnine
