@@ -4,6 +4,17 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$PROJECT_DIR$/build-logic" name="build-logic">
+                <projects>
+                  <project path="$PROJECT_DIR$/build-logic" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
         <option name="testRunner" value="CHOOSE_PER_TEST" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
@@ -19,6 +30,7 @@
             <option value="$PROJECT_DIR$/apt/apt-compiler" />
             <option value="$PROJECT_DIR$/apt/apt-main" />
             <option value="$PROJECT_DIR$/ble" />
+            <option value="$PROJECT_DIR$/build-logic" />
             <option value="$PROJECT_DIR$/di" />
             <option value="$PROJECT_DIR$/di/dagger" />
             <option value="$PROJECT_DIR$/di/hilt" />
@@ -29,6 +41,7 @@
             <option value="$PROJECT_DIR$/kotlin/kotlin-coroutine" />
             <option value="$PROJECT_DIR$/kotlin/kotlin-java" />
             <option value="$PROJECT_DIR$/libcore" />
+            <option value="$PROJECT_DIR$/log-runtime" />
             <option value="$PROJECT_DIR$/netconfig" />
             <option value="$PROJECT_DIR$/rx" />
             <option value="$PROJECT_DIR$/rx/rx2" />

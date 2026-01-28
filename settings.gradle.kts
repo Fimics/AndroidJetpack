@@ -37,6 +37,17 @@ include(":rx:rx3")
 include(":ble")
 include(":extras:libc++")
 include(":extras:libpy")
+include(":log-runtime")
+
+/**
+ * >>>>>>把 build-logic 这个目录声明成一个「独立的 Gradle Build」，让它能：
+ * 1.自己管理 插件仓库 / 依赖仓库
+ * 2.正常编译 自定义 Gradle 插件
+ * 3.被主工程通过 includeBuild("build-logic") 引入
+ * 4.没有这个文件，build-logic 不是一个合法的 build，Gradle 会直接报错或行为异常
+ * 5.“这里是一个新的 build，不是主工程的子模块”
+ */
+includeBuild("build-logic")
 
 //include("libs:aliyunplayerres")
 //include("libs:common")
