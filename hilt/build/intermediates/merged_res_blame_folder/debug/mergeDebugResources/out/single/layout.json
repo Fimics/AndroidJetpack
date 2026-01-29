@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/home/mac/.gradle/daemon/8.11.1/com.mic.hilt-mergeDebugResources-51:/layout/activity_main.xml",
+        "source": "/home/mac/.gradle/daemon/8.11.1/com.mic.hilt-main-54:/layout/activity_main.xml"
+    },
+    {
+        "merged": "/home/mac/.gradle/daemon/8.11.1/com.mic.hilt-mergeDebugResources-51:/layout/fragment_hilt.xml",
+        "source": "/home/mac/.gradle/daemon/8.11.1/com.mic.hilt-main-54:/layout/fragment_hilt.xml"
+    },
+    {
+        "merged": "com.mic.hilt-mergeDebugResources-51:/layout/fragment_hilt.xml",
+        "source": "com.mic.hilt-main-54:/layout/fragment_hilt.xml"
+    }
+]
