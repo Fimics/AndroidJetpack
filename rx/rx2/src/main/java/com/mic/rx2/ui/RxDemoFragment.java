@@ -54,9 +54,19 @@ public class RxDemoFragment extends Fragment {
         tvOutput = view.findViewById(R.id.tvOutput);
         tvOutput.setMovementMethod(new ScrollingMovementMethod());
 
-        rvGrid.setLayoutManager(new GridLayoutManager(requireContext(), 3));
-
         DemoAdapter adapter = new DemoAdapter(this::runDemo);
+
+        GridLayoutManager glm = new GridLayoutManager(requireContext(), 3);
+        glm.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                // Header：占满一行（3列），Normal：占1列
+                int vt = adapter.getItemViewType(position);
+                return vt == 1 ? 3 : 1;
+            }
+        });
+
+        rvGrid.setLayoutManager(glm);
         rvGrid.setAdapter(adapter);
 
         viewModel = new ViewModelProvider(this).get(RxDemoViewModel.class);
@@ -64,6 +74,9 @@ public class RxDemoFragment extends Fragment {
     }
 
     private void runDemo(DemoItem item) {
+        // Header 行（action==null）不执行
+        if (item == null || item.action == null) return;
+
         output.clear();
         output.print("Category: " + item.category);
         output.print("Operator: " + item.title);
