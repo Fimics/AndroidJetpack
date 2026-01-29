@@ -29,19 +29,13 @@
       <SelectionState runConfigName="di.hilt">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="ble">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
       <SelectionState runConfigName="app-c++">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
       <SelectionState runConfigName="app-py">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="build-logic">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="hilt">
+      <SelectionState runConfigName="ble">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
