@@ -55,7 +55,11 @@ android {
 dependencies {
     implementation (fileTree(mapOf("dir" to "libs","include" to listOf("*.jar"))))
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.fragment)
     implementation(libs.androidx.databinding.runtime)
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.lifecycle.livedata)
+    implementation(libs.androidx.recyclerview)
     implementation(libs.rx2.android)
     implementation(libs.rx2.java)
 //    api(project(mapOf("path" to ":libcore")))
