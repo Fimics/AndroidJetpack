@@ -38,6 +38,7 @@ public class RxDemoViewModel extends ViewModel {
         // ===============================
         O1_Create create = new O1_Create();
         list.add(header("Create"));
+        list.add(new DemoItem("Create", "DemoSubscribe", create::demoSubscribe));
         list.add(new DemoItem("Create", "just()", create::demoJust));
         list.add(new DemoItem("Create", "fromIterable()", create::demoFrom));
         list.add(new DemoItem("Create", "create()", create::demoCreate));

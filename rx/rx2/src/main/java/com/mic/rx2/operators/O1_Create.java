@@ -6,6 +6,10 @@ import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 /**
  * ===============================
@@ -21,6 +25,51 @@ import io.reactivex.Observable;
  * ===============================
  */
 public class O1_Create {
+
+    public void demoSubscribe(Output out) {
+        // 创建被观察者
+        Observable  observable = Observable.create(new ObservableOnSubscribe<String>() {
+
+            @Override
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+
+                emitter.onNext("你好呀");
+                emitter.onNext("我爱中国");
+                emitter.onNext("祝愿祖国繁荣富强");
+                emitter.onComplete();
+            }
+        });
+
+        // 创建观察者
+        Observer observer = new Observer<String>(){
+
+            @Override
+            public void onSubscribe(Disposable d) {
+
+                out.print( "准备监听");
+            }
+
+            @Override
+            public void onNext(String s) {
+
+                out.print(s);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+                out.print( "error");
+            }
+
+            @Override
+            public void onComplete() {
+
+                out.print("监听完毕");
+            }
+        };
+
+        observable.subscribe(observer);
+    }
 
     /**
      * 1) just
