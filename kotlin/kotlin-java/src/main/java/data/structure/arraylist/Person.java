@@ -13,13 +13,7 @@ public class Person {
 	public String toString() {
 		return "Person [age=" + age + ", name=" + name + "]";
 	}
-	
-	@Override
-	protected void finalize() throws Throwable {
-		super.finalize();
-		
-		System.out.println("Person - finalize");
-	}
+
 	
 	@Override
 	public boolean equals(Object obj) {
