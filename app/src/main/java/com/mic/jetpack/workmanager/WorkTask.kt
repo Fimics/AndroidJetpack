@@ -5,7 +5,6 @@ import android.content.Context
 import androidx.work.Data
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.mic.libcore.utils.KLog2
 
 class WorkTask(context: Context, var workerParams: WorkerParameters) : Worker(context, workerParams) {
 

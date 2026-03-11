@@ -37,6 +37,8 @@ include(":rx:rx3")
 include(":extras:libc++")
 include(":extras:libpy")
 include(":log-runtime")
+include(":ble:ble-client")
+include(":ble:ble-server")
 
 /**
  * >>>>>>把 build-logic 这个目录声明成一个「独立的 Gradle Build」，让它能：

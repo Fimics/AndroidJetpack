@@ -14,7 +14,6 @@ import com.mic.databinding.FragmentRoomBinding
 import com.mic.jetpack.room.bean.User
 import com.mic.jetpack.room.dao.UserDao
 import com.mic.jetpack.room.database.AppDatabase
-import com.mic.libcore.utils.KLog2
 import kotlin.concurrent.thread
 
 

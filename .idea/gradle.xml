@@ -30,6 +30,8 @@
             <option value="$PROJECT_DIR$/apt/apt-compiler" />
             <option value="$PROJECT_DIR$/apt/apt-main" />
             <option value="$PROJECT_DIR$/ble" />
+            <option value="$PROJECT_DIR$/ble/ble-client" />
+            <option value="$PROJECT_DIR$/ble/ble-server" />
             <option value="$PROJECT_DIR$/build-logic" />
             <option value="$PROJECT_DIR$/di" />
             <option value="$PROJECT_DIR$/di/dagger" />

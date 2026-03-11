@@ -13,7 +13,6 @@ import androidx.work.OneTimeWorkRequest
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import com.mic.databinding.FragmentWorkBinding
-import com.mic.libcore.utils.KLog2
 import java.util.concurrent.TimeUnit
 
 

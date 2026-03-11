@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mic.dagger.databinding.FragmentInjectBinding
 import com.mic.dagger.demo2.MyApplication
-import com.mic.libcore.utils.KLog2
 import retrofit2.Retrofit
 import javax.inject.Inject
 

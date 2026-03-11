@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.mic.databinding.FragmentViewmodelBinding
-import com.mic.libcore.utils.KLog2
 
 
 class ViewModelFragment : Fragment() {

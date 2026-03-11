@@ -11,7 +11,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.mic.databinding.ActivityMainBinding
 import com.mic.libcore.utils.ExecutorsPoller
 import com.mic.libcore.utils.FileServer
-import com.mic.libcore.utils.KLog2
 import com.mic.libcore.utils.PermissionUtils
 import com.mic.libcore.utils.RootShell
 import java.util.*

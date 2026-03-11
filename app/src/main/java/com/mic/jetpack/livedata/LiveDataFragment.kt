@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import com.mic.databinding.FragmentLivedataBinding
-import com.mic.libcore.utils.KLog2
 import kotlin.concurrent.thread
 
 

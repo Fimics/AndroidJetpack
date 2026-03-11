@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mic.databinding.FragmentEventBinding
-import com.mic.libcore.utils.KLog2
 
 
 class EventFragment : Fragment() {

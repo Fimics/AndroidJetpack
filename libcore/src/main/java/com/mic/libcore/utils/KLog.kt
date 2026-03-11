@@ -11,6 +11,7 @@ import com.elvishew.xlog.printer.file.backup.NeverBackupStrategy
 import com.elvishew.xlog.printer.file.clean.FileLastModifiedCleanStrategy
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
+import com.mic.libcore.utils.AppGlobals
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
