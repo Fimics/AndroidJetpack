@@ -31,9 +31,7 @@ package com.mic.p3_oop
     这些方法返回的就是对应字段的值，componentN方法是用来实现解构声明的
 
  */
-data class Person(val name: String, var age: Int, var address: String) {
-
-}
+data class Person(val name: String, var age: Int, var address: String)
 
 /*
     在jvm平台上，如果生成的类需要拥有无参构造方法，那么就需要为所有属性指定默认值。

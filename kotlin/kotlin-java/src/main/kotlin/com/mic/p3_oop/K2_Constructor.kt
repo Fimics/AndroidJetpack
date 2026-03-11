@@ -8,7 +8,7 @@ class EmptyClass1{}
 
 // 如果primary构造方法没有任何注解或是可见性关键字修饰，那么constructor关键字可省略
 //constructor(userName: String) 这个就是主构造方法
-class MyClass constructor(var userName: String){
+class MyClass constructor(private var userName: String){
     private  var age:Int = 0;
     private  var address:String
 
