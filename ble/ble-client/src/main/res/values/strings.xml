@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BLE Client</string>
+    <string name="scan_devices">Scan Devices</string>
+    <string name="stop_scan">Stop Scan</string>
+    <string name="connect">Connect</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="provision">Provision</string>
+    <string name="provisioning">Provisioning...</string>
+    <string name="wifi_ssid">WiFi SSID</string>
+    <string name="wifi_password">WiFi Password</string>
+    <string name="status">Status</string>
+    <string name="searching">Searching...</string>
+    <string name="connecting">Connecting...</string>
+    <string name="connected">Connected</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="provisioning_success">Provisioning Success</string>
+    <string name="provisioning_failed">Provisioning Failed</string>
+</resources>
