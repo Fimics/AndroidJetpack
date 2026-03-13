@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.launch
 import com.mic.ble.client.databinding.ActivityBleClientBinding
+import com.kk.core.utils.KLog
 import com.mic.ble.client.model.WiFiCredentials
 import com.mic.ble.client.model.ProvisioningStatus
 
@@ -156,7 +157,7 @@ class BleClientActivity : AppCompatActivity() {
      * 使用 Flow 的 collect 方法订阅状态变化
      * 当 ViewModel 中的状态更新时，UI 会自动刷新
      */
-完    private fun observeViewModel() {
+    private fun observeViewModel() {
         KLog.d(TAG, "observeViewModel() - 订阅 ViewModel 状态变化")
         // 观察扫描到的设备列表
         lifecycleScope.launch {

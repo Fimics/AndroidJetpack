@@ -2,6 +2,7 @@ package com.mic.ble.client.manager
 
 import android.content.Context
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import no.nordicsemi.android.ble.BleManager
 import no.nordicsemi.android.ble.WriteRequest
 import no.nordicsemi.android.ble.data.Data
@@ -221,10 +222,12 @@ class ProvisioningBleManager(context: Context) : BleManager(context) {
             ?.getCharacteristic(GattUUID.STATUS_CHARACTERISTIC)
 
         return statusChar?.let {
-            // 将特征转换为 Flow
+            // 将特征转换为 Flow<Data>，然后映射为 Flow<String>
             // asFlow 是 Nordic ble-ktx 提供的扩展函数
             KLog.d(TAG, "getStatusFlow() - 状态特征已找到，转换为Flow")
-            it.asFlow(this)
+            it.asFlow(this).map { data ->
+                data.getStringValue(0, StandardCharsets.UTF_8) ?: ""
+            }
         } ?: run {
             KLog.e(TAG, "getStatusFlow() - 状态特征未找到，serviceUuid=${GattUUID.PROVISIONING_SERVICE}")
             throw IllegalStateException("状态特征未找到")

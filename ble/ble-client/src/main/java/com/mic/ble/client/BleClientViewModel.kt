@@ -318,7 +318,7 @@ class BleClientViewModel(application: Application) : AndroidViewModel(applicatio
      */
     override fun onCleared() {
         super.onCleared()
-        Log.d(TAG, "ViewModel 已清理")
+        KLog.d(TAG, "ViewModel 已清理")
         disconnect()
     }
 }

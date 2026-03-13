@@ -103,7 +103,7 @@ fragment = "1.6.2"
 
 # ====== Nordic BLE 版本 ======
 nordic-ble = "2.11.0"
-nordic-scanner = "1.7.1"
+nordic-scanner = "1.6.0"
 
 
 
