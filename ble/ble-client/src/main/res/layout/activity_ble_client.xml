@@ -1,61 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- 状态显示区域 -->
     <TextView
         android:id="@+id/textConnectionStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Connection: Disconnected"
+        android:text="连接状态：未连接"
         android:textSize="14sp"
         android:textColor="@android:color/darker_gray"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="4dp" />
 
     <TextView
         android:id="@+id/textProvisioningStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Provisioning: Idle"
+        android:text="配网状态：IDLE"
         android:textSize="14sp"
         android:textColor="@android:color/darker_gray"
         android:layout_marginBottom="16dp" />
 
+    <!-- 扫描按钮 -->
     <Button
         android:id="@+id/buttonScan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Scan Devices"
-        android:layout_marginBottom="16dp" />
+        android:text="@string/scan_devices"
+        android:layout_marginBottom="12dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Available Devices:"
+        android:text="@string/available_devices"
         android:textStyle="bold"
         android:layout_marginBottom="8dp" />
 
+    <!-- 设备列表 -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/deviceList"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="12dp" />
 
+    <!-- 连接按钮 -->
     <Button
         android:id="@+id/buttonConnect"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Connect"
+        android:text="@string/connect"
         android:layout_marginBottom="16dp" />
 
+    <!-- WiFi 凭证输入区域 -->
     <EditText
         android:id="@+id/editSSID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="WiFi SSID"
+        android:hint="@string/wifi_ssid"
         android:layout_marginBottom="8dp"
         android:inputType="text" />
 
@@ -63,21 +67,23 @@
         android:id="@+id/editPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="WiFi Password"
+        android:hint="@string/wifi_password"
         android:layout_marginBottom="16dp"
         android:inputType="textPassword" />
 
+    <!-- 配网按钮 -->
     <Button
         android:id="@+id/buttonProvision"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Provision"
-        android:layout_marginBottom="16dp" />
+        android:text="@string/provision"
+        android:layout_marginBottom="12dp" />
 
+    <!-- 断开连接按钮 -->
     <Button
         android:id="@+id/buttonDisconnect"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Disconnect" />
+        android:text="@string/disconnect" />
 
 </LinearLayout>

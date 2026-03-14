@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">BLE Server</string>
-    <string name="start_advertising">Start Advertising</string>
-    <string name="stop_advertising">Stop Advertising</string>
-    <string name="provisioning">Provisioning...</string>
-    <string name="waiting">Waiting for provisioning...</string>
-    <string name="status">Status</string>
-    <string name="advertiser_status">Advertiser Status</string>
-    <string name="connection_status">Connection Status</string>
-    <string name="provisioning_success">Provisioning Success</string>
-    <string name="provisioning_failed">Provisioning Failed</string>
-    <string name="waiting_for_client">Waiting for client connection...</string>
-    <string name="client_connected">Client connected</string>
-    <string name="received_credentials">Received WiFi credentials</string>
-    <string name="connecting_to_wifi">Connecting to WiFi...</string>
+    <string name="app_name">BLE 配网服务端</string>
+    <string name="start_advertising">开始广播</string>
+    <string name="stop_advertising">停止广播</string>
+    <string name="provisioning">配网中...</string>
+    <string name="waiting">等待配网...</string>
+    <string name="status">状态</string>
+    <string name="advertiser_status">广播状态</string>
+    <string name="connection_status">连接状态</string>
+    <string name="provisioning_success">配网成功</string>
+    <string name="provisioning_failed">配网失败</string>
+    <string name="waiting_for_client">等待客户端连接...</string>
+    <string name="client_connected">客户端已连接</string>
+    <string name="received_credentials">已接收 WiFi 凭证</string>
+    <string name="connecting_to_wifi">正在连接 WiFi...</string>
 </resources>

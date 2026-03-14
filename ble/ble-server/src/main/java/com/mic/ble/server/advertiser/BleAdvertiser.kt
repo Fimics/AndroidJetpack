@@ -73,13 +73,23 @@ class BleAdvertiser(private val bluetoothAdapter: BluetoothAdapter?) {
      * }
      * ```
      */
+    companion object {
+        /** 配网设备名称前缀，客户端通过此前缀过滤设备 */
+        const val DEVICE_NAME_PREFIX = "BLE配网"
+    }
+
     fun startAdvertising(): Flow<AdvertiseState> = callbackFlow {
+        // 设置蓝牙设备名称为中文，客户端通过此名称识别配网设备
+        val deviceName = "${DEVICE_NAME_PREFIX}-${android.os.Build.MODEL}"
+        bluetoothAdapter?.name = deviceName
+        KLog.d(TAG, "startAdvertising() - 设备名称设置为: $deviceName")
+
         KLog.d(TAG, "startAdvertising() - 启动 BLE 广告广播，serviceUuid=${GattUUID.PROVISIONING_SERVICE}")
         // 步骤 1：配置广告设置
         KLog.d(TAG, "startAdvertising() - 配置广告参数，模式=LOW_LATENCY, 功率=HIGH, 可连接=true")
         val settings = AdvertiseSettings.Builder()
             .setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY)  // 快速广告
-            .setTxPowerLevel(AdvertiseSettings.TX_POWER_HIGH)                // 最大功率
+            .setTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_HIGH)                // 最大功率
             .setConnectable(true)                                             // 允许连接
             .setTimeout(0)                                                    // 无超时
             .build()
@@ -110,7 +120,7 @@ class BleAdvertiser(private val bluetoothAdapter: BluetoothAdapter?) {
              */
             override fun onStartSuccess(settingsInEffect: AdvertiseSettings) {
                 super.onStartSuccess(settingsInEffect)
-                KLog.i(TAG, "startAdvertising() - 广告启动成功，模式=${settingsInEffect.advertiseMode}, 功率=${settingsInEffect.txPowerLevel}")
+                KLog.i(TAG, "startAdvertising() - 广告启动成功，模式=${settingsInEffect.mode}, 功率=${settingsInEffect.txPowerLevel}")
                 // 通过 Flow 发送成功状态
                 trySendBlocking(AdvertiseState.Started)
             }
