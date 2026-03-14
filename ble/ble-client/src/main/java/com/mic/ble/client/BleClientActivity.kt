@@ -8,9 +8,12 @@ import android.location.LocationManager
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Bundle
+import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
@@ -127,29 +130,70 @@ class BleClientActivity : AppCompatActivity() {
     }
 
     /**
-     * 点击蓝牙设备后的处理：
-     * 1. 选中设备
-     * 2. 自动连接
-     * 3. 自动获取手机当前 WiFi 名称填入输入框
+     * 点击蓝牙设备后弹出对话框：
+     * 1. 自动填入当前手机 WiFi 名称
+     * 2. 用户输入 WiFi 密码
+     * 3. 点确认后自动连接设备 + 发送凭证配网
      */
     private fun onDeviceSelected(item: DeviceAdapter.DeviceItem) {
         selectedDevice = item
         val deviceName = item.displayName
         KLog.d(TAG, "选中设备：$deviceName (${item.device.address})")
-        Toast.makeText(this, "已选中：$deviceName", Toast.LENGTH_SHORT).show()
 
-        // 自动连接
-        viewModel.connectToDevice(item.device)
-
-        // 自动填入当前手机连接的 WiFi 名称
-        val currentSsid = getCurrentWifiSsid()
-        if (!currentSsid.isNullOrBlank()) {
-            binding.editSSID.setText(currentSsid)
-            KLog.d(TAG, "自动填入 WiFi 名称：$currentSsid")
+        // 构建对话框布局
+        val layout = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            val dp16 = (16 * resources.displayMetrics.density).toInt()
+            setPadding(dp16 * 2, dp16, dp16 * 2, 0)
         }
 
-        // 让密码框获取焦点，方便用户直接输入密码
-        binding.editPassword.requestFocus()
+        val ssidInput = EditText(this).apply {
+            hint = "WiFi 名称"
+            inputType = android.text.InputType.TYPE_CLASS_TEXT
+            // 自动填入当前手机连接的 WiFi 名称
+            val currentSsid = getCurrentWifiSsid()
+            if (!currentSsid.isNullOrBlank()) {
+                setText(currentSsid)
+                setSelection(currentSsid.length)
+            }
+        }
+
+        val passwordInput = EditText(this).apply {
+            hint = "WiFi 密码"
+            inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+        }
+
+        layout.addView(ssidInput)
+        layout.addView(passwordInput)
+
+        AlertDialog.Builder(this)
+            .setTitle("配网 - $deviceName")
+            .setMessage("请输入要配置的 WiFi 信息")
+            .setView(layout)
+            .setPositiveButton("开始配网") { _, _ ->
+                val ssid = ssidInput.text.toString()
+                val password = passwordInput.text.toString()
+
+                if (ssid.isBlank() || password.isBlank()) {
+                    Toast.makeText(this, "WiFi 名称和密码不能为空", Toast.LENGTH_SHORT).show()
+                    return@setPositiveButton
+                }
+
+                // 填入底部输入框（同步显示）
+                binding.editSSID.setText(ssid)
+                binding.editPassword.setText(password)
+
+                KLog.d(TAG, "开始配网：设备=$deviceName, ssid=$ssid")
+
+                // 自动连接设备 + 发送凭证
+                viewModel.connectToDevice(item.device)
+                viewModel.provision(WiFiCredentials(ssid, password))
+            }
+            .setNegativeButton("取消", null)
+            .show()
+
+        // 自动弹出键盘到密码框
+        passwordInput.requestFocus()
     }
 
     /**
