@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.platform.AndroidUiDispatcher
 import androidx.fragment.app.Fragment
 import com.mic.databinding.FragmentHotBinding
 import kotlinx.coroutines.*
