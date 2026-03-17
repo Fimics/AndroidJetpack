@@ -12,6 +12,7 @@ import android.bluetooth.BluetoothGattService
 import android.bluetooth.BluetoothManager
 import android.content.Context
 import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.channels.trySendBlocking
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -490,9 +490,9 @@ val connectionCount: StateFlow<Int>
 
 ## 延伸阅读
 
-- [BLE 基础与分析](ANALYSIS.md) - 完整的协议分析
-- [Nordic BLE 库深度探讨](NORDIC_BLE_DEEP_DIVE.md) - 源码架构
-- [BLE 技术生态](BLE_TECHNOLOGY_ECOSYSTEM.md) - 相关技术
+- [BLE 配网技术分析](BLE配网技术分析.md) - 完整的协议分析
+- [Nordic BLE 库深度分析](Nordic_BLE库深度分析.md) - 源码架构
+- [BLE 技术生态](BLE技术生态.md) - 相关技术
 
 ## 许可证
 

@@ -38,6 +38,9 @@ android {
 }
 
 dependencies {
+    // Project modules
+    implementation(project(":libcore"))
+
     // Nordic BLE
     implementation(libs.nordic.ble)
     implementation(libs.nordic.ble.ktx)

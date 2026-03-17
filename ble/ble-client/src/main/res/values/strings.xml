@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">BLE Client</string>
-    <string name="scan_devices">Scan Devices</string>
-    <string name="stop_scan">Stop Scan</string>
-    <string name="connect">Connect</string>
-    <string name="disconnect">Disconnect</string>
-    <string name="provision">Provision</string>
-    <string name="provisioning">Provisioning...</string>
-    <string name="wifi_ssid">WiFi SSID</string>
-    <string name="wifi_password">WiFi Password</string>
-    <string name="status">Status</string>
-    <string name="searching">Searching...</string>
-    <string name="connecting">Connecting...</string>
-    <string name="connected">Connected</string>
-    <string name="disconnected">Disconnected</string>
-    <string name="provisioning_success">Provisioning Success</string>
-    <string name="provisioning_failed">Provisioning Failed</string>
+    <string name="app_name">BLE 配网客户端</string>
+    <string name="scan_devices">扫描设备</string>
+    <string name="stop_scan">停止扫描</string>
+    <string name="connect">连接设备</string>
+    <string name="disconnect">断开连接</string>
+    <string name="provision">开始配网</string>
+    <string name="provisioning">配网中...</string>
+    <string name="wifi_ssid">WiFi 名称</string>
+    <string name="wifi_password">WiFi 密码</string>
+    <string name="status">状态</string>
+    <string name="searching">搜索中...</string>
+    <string name="connecting">连接中...</string>
+    <string name="connected">已连接</string>
+    <string name="disconnected">未连接</string>
+    <string name="provisioning_success">配网成功</string>
+    <string name="provisioning_failed">配网失败</string>
+    <string name="available_devices">发现的设备：</string>
+    <string name="connection_status">连接状态：</string>
+    <string name="provisioning_status">配网状态：</string>
 </resources>
