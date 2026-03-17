@@ -50,11 +50,6 @@ include(":ble:ble-server")
  */
 includeBuild("build-logic")
 
-//include("libs:aliyunplayerres")
-//include("libs:common")
-//include("libs:jiguang")
-//include("libs:net")
-//include("libs:silicompressor")
 //include(":native:n1_jnibase")
 //include(":native:n2_cmake")
 //include(":native:n3_ffmpeg")
