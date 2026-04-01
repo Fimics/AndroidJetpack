@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 文件 -->
+    <files-path name="my_images" path="/"/>
+    <!-- 外部文件 -->
+    <external-files-path name="external_files" path="."/>
+    <!-- 外部缓存文件 -->
+    <external-cache-path name="external_cache" path="."/>
+    <!-- 私有目录 -->
+    <files-path name="private_dir" path="/"/>
+    <!-- 共享存储目录 -->
+    <root-path name="external_storage" path="."/>
+    <external-path
+        name="ext_root"
+        path="/"/>
+</paths>

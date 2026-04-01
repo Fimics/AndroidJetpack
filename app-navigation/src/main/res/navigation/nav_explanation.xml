@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_explanation"
+    app:startDestination="@id/explanationHomeFragment">
+
+    <fragment
+        android:id="@+id/explanationHomeFragment"
+        android:name="com.noetix.robotics.demo.explanation.fragments.ExplanationHomeFragment"
+        android:label="讲解 - 首页"
+        tools:layout="@layout/fragment_explain_home">
+        <action
+            android:id="@+id/action_home_to_singlePoint"
+            app:destination="@id/singlePointFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/singlePointFragment"
+        android:name="com.noetix.robotics.demo.explanation.fragments.SinglePointFragment"
+        android:label="单点讲解"
+        tools:layout="@layout/fragment_single_point" />
+</navigation>

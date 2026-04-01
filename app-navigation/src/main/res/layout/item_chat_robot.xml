@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:chat="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="left"
+    android:paddingLeft="40px"
+    android:paddingRight="100px"
+    android:orientation="horizontal">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView android:id="@+id/chat_item_header"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/robot" />
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="4"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:text=""
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/border_white"
+            android:textColor="#ffffff"
+            android:visibility="gone"
+            />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <com.noetix.robotics.view.ChatView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingTop="0dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginTop="15dp"
+        chat:arrow_direction="left"
+        chat:arrow_height="12dp"
+        chat:arrow_up_distance="10dp"
+        chat:arrow_width="5dp"
+        chat:conner_radius="6dp"
+        chat:fill_color="#FFFFFF"
+        chat:is_arrow_center="false"
+        chat:press_fill_color="#50111111"
+        chat:press_stroke_color="#50111111"
+        chat:stroke_color="#FFFFFF"
+        chat:stroke_width="1px">
+
+        <TextView
+            android:id="@+id/questionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:ellipsize="end"
+            android:maxLines="16"
+            android:text=""
+            android:textColor="#4a4a4a"
+            android:textSize="20dp" />
+    </com.noetix.robotics.view.ChatView>
+</LinearLayout>

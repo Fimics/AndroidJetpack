@@ -24,6 +24,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/app-c++" />
             <option value="$PROJECT_DIR$/app-compose" />
+            <option value="$PROJECT_DIR$/app-navigation" />
             <option value="$PROJECT_DIR$/app-py" />
             <option value="$PROJECT_DIR$/apt" />
             <option value="$PROJECT_DIR$/apt/apt-annotation" />

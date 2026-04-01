@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_camera"
+    app:startDestination="@id/cameraHomeFragment">
+
+    <fragment
+        android:id="@+id/cameraHomeFragment"
+        android:name="com.noetix.robotics.demo.camera.fragments.CameraHomeFragment"
+        android:label="相机 - 首页"
+        tools:layout="@layout/fragment_camera_home">
+        <action
+            android:id="@+id/action_home_to_preview"
+            app:destination="@id/cameraPreviewFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/cameraPreviewFragment"
+        android:name="com.noetix.robotics.demo.camera.fragments.CameraPreviewFragment"
+        android:label="相机 - 预览页"
+        tools:layout="@layout/fragment_camera_preview" />
+
+</navigation>
