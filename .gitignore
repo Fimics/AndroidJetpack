@@ -16,6 +16,6 @@
 .cxx
 local.properties
 /BuildSrc/build
-.claude/
+#.claude/
 .vscode/
 **/bin/
