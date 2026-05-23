@@ -1,0 +1,44 @@
+<resources>
+    <!-- 已有颜色 -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#3B1919</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="bigColor">#0BD1EC</color>
+    <color name="geziColor">#5F00E4</color>
+    <color name="smallColor">#F84A37</color>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="defaultTextColor">#FFFFFF</color>
+    <color name="errorColor">#D50000</color>
+    <color name="infoColor">#3F51B5</color>
+    <color name="successColor">#388E3C</color>
+    <color name="warningColor">#FFA900</color>
+    <color name="normalColor">#353A3E</color>
+
+    <!-- 新增颜色 -->
+    <color name="gray_light">#999999</color>
+    <color name="gray_dark">#A9A9A9</color>
+    <color name="blue_light">#ADD8E6</color>
+    <color name="blue_dark">#00008B</color>
+    <color name="red_light">#FFA07A</color>
+    <color name="red_dark">#8B0000</color>
+    <color name="green_light">#90EE90</color>
+    <color name="green_dark">#006400</color>
+    <color name="yellow_light">#FFFFE0</color>
+    <color name="yellow_dark">#FFD700</color>
+    <color name="pink">#FFC0CB</color>
+    <color name="orange">#FFA500</color>
+    <color name="gold">#FFD700</color>
+    <color name="silver">#C0C0C0</color>
+    <color name="bronze">#CD7F32</color>
+    <color name="violet">#EE82EE</color>
+    <color name="mint">#98FF98</color>
+    <color name="sky_blue">#87CEEB</color>
+    <color name="chocolate">#D2691E</color>
+    <color name="olive">#808000</color>
+</resources>
