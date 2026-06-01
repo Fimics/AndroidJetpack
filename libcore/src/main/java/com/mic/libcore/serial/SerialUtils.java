@@ -1,11 +1,11 @@
 package com.mic.libcore.serial;
 
 import android.serialport.SerialPort;
+
+import com.kk.core.utils.KLog;
 import com.mic.libcore.serial.callback.ISerialCallBack;
 import com.mic.libcore.serial.constant.Baudrate;
 import com.mic.libcore.serial.constant.DataType;
-import com.mic.libcore.utils.KLog;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;

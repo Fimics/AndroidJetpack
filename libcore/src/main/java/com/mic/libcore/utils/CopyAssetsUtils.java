@@ -2,7 +2,6 @@ package com.mic.libcore.utils;
 
 import android.content.Context;
 
-import com.mic.libcore.utils.KLog;
 
 import java.io.File;
 import java.io.FileOutputStream;

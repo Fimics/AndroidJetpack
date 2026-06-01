@@ -106,6 +106,9 @@ nordic-ble = "2.11.0"
 nordic-scanner = "1.6.0"
 
 
+#serialport
+serialport = "2.1.5"
+
 
 [libraries]
 # ====== Gradle 插件类路径 ======
@@ -165,6 +168,7 @@ kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 # ====== 其他库 ======
 commons-csv = { group = "org.apache.commons", name = "commons-csv", version.ref = "commons-csv" }
 live-event-bus = { group = "io.github.jeremyliao", name = "live-event-bus-x", version.ref = "live-event-bus" }
+leb-processor-gson= { group = "io.github.jeremyliao", name = "leb-processor-gson", version.ref = "live-event-bus" }
 
 # ====== Retrofit 相关 ======
 retrofit2-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit2" }
@@ -235,6 +239,9 @@ xlog = { group = "com.elvishew", name = "xlog", version.ref = "xlog" }
 nordic-ble = { group = "no.nordicsemi.android", name = "ble", version.ref = "nordic-ble" }
 nordic-ble-ktx = { group = "no.nordicsemi.android", name = "ble-ktx", version.ref = "nordic-ble" }
 nordic-scanner = { group = "no.nordicsemi.android.support.v18", name = "scanner", version.ref = "nordic-scanner" }
+
+#serialport
+serialport = { group = "com.licheedev", name = "android-serialport", version.ref = "serialport" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

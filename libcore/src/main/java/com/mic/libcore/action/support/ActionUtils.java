@@ -4,13 +4,12 @@ import android.annotation.SuppressLint;
 import android.text.TextUtils;
 
 
+import com.kk.core.utils.KLog;
 import com.mic.libcore.serial.SerialUtils;
 import com.mic.libcore.serial.callback.ISerialCallBack;
 import com.mic.libcore.serial.constant.Baudrate;
 import com.mic.libcore.serial.constant.DataType;
 import com.mic.libcore.utils.ByteUtils;
-import com.mic.libcore.utils.KLog;
-
 import org.json.JSONArray;
 
 /**

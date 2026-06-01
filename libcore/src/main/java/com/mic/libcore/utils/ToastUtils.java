@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kk.core.utils.KLog;
+
 import java.lang.ref.WeakReference;
 
 import io.reactivex.annotations.NonNull;

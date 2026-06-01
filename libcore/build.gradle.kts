@@ -73,7 +73,11 @@ dependencies {
     api(libs.androidx.lifecycle.common.java8)
     api(libs.androidx.lifecycle.process )
     api(libs.androidx.lifecycle.service)
-
+    api(libs.serialport)
     api(libs.xlog)
+
+    //live-event-bus
+    api(libs.live.event.bus)
+    api(libs.leb.processor.gson)
 
 }

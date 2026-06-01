@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
+import com.kk.core.utils.KLog;
+
 public class DisplayUtil {
 
     private static final String TAG ="DisplayUtil";

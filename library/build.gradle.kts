@@ -55,8 +55,4 @@ dependencies {
     api(libs.serialport)
     api(libs.rxjava2)
     api(libs.rxandroid2)
-
-    api("io.github.jeremyliao:live-event-bus-x:1.8.0")
-    api("io.github.jeremyliao:leb-processor-gson:1.8.0")
-
 }

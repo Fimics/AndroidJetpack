@@ -59,6 +59,7 @@ dependencies {
     implementation (fileTree(mapOf("dir" to "libs","include" to listOf("*.jar"))))
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.material)
     implementation(libs.androidx.databinding.runtime)
     api(project(":extras:libpy"))
     api(project(":log-runtime"))

@@ -1,5 +1,7 @@
 package com.mic.libcore.utils;
 
+import com.kk.core.utils.KLog;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;

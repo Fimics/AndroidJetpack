@@ -5,6 +5,7 @@ import android.graphics.ImageFormat
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
 import android.util.Size
+import com.kk.core.utils.KLog
 
 class CameraHelper {
     private val tag="nx_app"
