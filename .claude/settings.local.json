@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -r \"static.*Context\\\\|static.*Activity\\\\|static.*Application\" /Users/mac/code/android/AndroidJetpack --include=\"*.kt\" --include=\"*.java\" 2>/dev/null | grep -v \"test\" | head -10)",
+      "Bash(./gradlew :ble:ble-client:compileDebugKotlin :ble:ble-server:compileDebugKotlin 2>&1 | tail -50)",
+      "Bash(./gradlew :ble:ble-client:compileDebugKotlin :ble:ble-server:compileDebugKotlin :ble:ble-client:processDebugResources :ble:ble-server:processDebugResources 2>&1 | tail -30)",
+      "Bash(./gradlew :ble:ble-server:compileDebugKotlin 2>&1 | grep -E \"error:|Error\" | head -20)",
+      "Bash(./gradlew :ble:ble-server:compileDebugKotlin 2>&1 | grep -E \"\\\\.kt:\" | head -20)",
+      "Bash(./gradlew :ble:ble-client:compileDebugKotlin :ble:ble-server:compileDebugKotlin 2>&1 | grep -E \"\\\\.kt:|BUILD|error:\" | head -30)",
+      "Bash(./gradlew :libcore:compileDebugJavaWithJavac 2>&1 | grep \"error:\" | head -10)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
+    ]
+  }
+}
