@@ -14,9 +14,6 @@
       <SelectionState runConfigName="apt.apt-main">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="template">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
       <SelectionState runConfigName="rx.rx2">
         <option name="selectionMode" value="DROPDOWN" />
         <DropdownSelection timestamp="2026-02-06T12:09:46.028335790Z">
@@ -58,6 +55,9 @@
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
       <SelectionState runConfigName="app-navigation">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="dagger">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

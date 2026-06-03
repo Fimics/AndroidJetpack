@@ -13,12 +13,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import no.nordicsemi.android.ble.ktx.suspend
-import no.nordicsemi.android.support.v18.scanner.ScanResult
-import com.kk.core.utils.KLog
 import com.mic.ble.client.manager.ProvisioningBleManager
 import com.mic.ble.client.model.WiFiCredentials
 import com.mic.ble.client.model.ProvisioningStatus
 import com.mic.ble.client.scanner.BleScanner
+import com.mic.libcore.utils.KLog
 
 private const val TAG = "BleClientViewModel"
 

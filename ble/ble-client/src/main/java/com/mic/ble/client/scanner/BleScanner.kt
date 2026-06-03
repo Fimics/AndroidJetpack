@@ -1,11 +1,11 @@
 package com.mic.ble.client.scanner
 
 import android.annotation.SuppressLint
+import com.mic.libcore.utils.KLog
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.channels.trySendBlocking
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import com.kk.core.utils.KLog
 import no.nordicsemi.android.support.v18.scanner.BluetoothLeScannerCompat
 import no.nordicsemi.android.support.v18.scanner.ScanCallback
 import no.nordicsemi.android.support.v18.scanner.ScanResult

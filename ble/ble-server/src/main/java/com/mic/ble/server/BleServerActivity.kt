@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-import com.kk.core.utils.KLog
 import com.mic.ble.server.databinding.ActivityBleServerBinding
+import com.mic.libcore.utils.KLog
 
 private const val TAG = "BleServerActivity"
 

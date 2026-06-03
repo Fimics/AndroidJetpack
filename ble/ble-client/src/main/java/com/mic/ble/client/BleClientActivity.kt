@@ -20,9 +20,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.launch
 import com.mic.ble.client.databinding.ActivityBleClientBinding
-import com.kk.core.utils.KLog
 import com.mic.ble.client.model.WiFiCredentials
 import com.mic.ble.client.model.ProvisioningStatus
+import com.mic.libcore.utils.KLog
 
 private const val TAG = "BleClientActivity"
 

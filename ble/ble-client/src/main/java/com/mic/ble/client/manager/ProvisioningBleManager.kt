@@ -9,9 +9,8 @@ import no.nordicsemi.android.ble.WriteRequest
 import no.nordicsemi.android.ble.data.Data
 import no.nordicsemi.android.ble.ktx.asFlow
 import no.nordicsemi.android.ble.ktx.stateAsFlow
-import no.nordicsemi.android.ble.ktx.suspend
-import com.kk.core.utils.KLog
 import com.mic.ble.client.protocol.GattUUID
+import com.mic.libcore.utils.KLog
 import java.nio.charset.StandardCharsets
 
 private const val TAG = "ProvisioningBleManager"

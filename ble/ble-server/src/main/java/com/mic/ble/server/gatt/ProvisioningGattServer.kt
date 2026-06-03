@@ -18,8 +18,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.callbackFlow
-import com.kk.core.utils.KLog
 import com.mic.ble.server.protocol.GattUUID
+import com.mic.libcore.utils.KLog
 import java.nio.charset.StandardCharsets
 
 private const val TAG = "ProvisioningGattServer"

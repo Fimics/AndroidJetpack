@@ -11,8 +11,8 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.channels.trySendBlocking
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import com.kk.core.utils.KLog
 import com.mic.ble.server.protocol.GattUUID
+import com.mic.libcore.utils.KLog
 
 private const val TAG = "BleAdvertiser"
 

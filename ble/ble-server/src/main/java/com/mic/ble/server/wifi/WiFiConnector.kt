@@ -7,10 +7,10 @@ import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiManager
 import android.net.wifi.WifiNetworkSpecifier
 import android.os.Build
+import com.mic.libcore.utils.KLog
 import java.util.concurrent.CompletableFuture
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import com.kk.core.utils.KLog
 
 private const val TAG = "WiFiConnector"
 
