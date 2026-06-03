@@ -48,9 +48,9 @@ class SubComponentFragment : Fragment() {
     }
 
     fun test_d01_inject() {
-        KLog2.d(tag, "student -> ${student.name}")
-        KLog2.d(tag, "retrofit -> $retrofit")
-        KLog2.d(tag, "iBinds -> $iBinds")
+        KLog.d(tag, "student -> ${student.name}")
+        KLog.d(tag, "retrofit -> $retrofit")
+        KLog.d(tag, "iBinds -> $iBinds")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

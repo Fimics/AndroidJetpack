@@ -14,6 +14,7 @@ import com.mic.databinding.FragmentRoomBinding
 import com.mic.jetpack.room.bean.User
 import com.mic.jetpack.room.dao.UserDao
 import com.mic.jetpack.room.database.AppDatabase
+import com.mic.libcore.utils.KLog
 import kotlin.concurrent.thread
 
 
@@ -46,16 +47,16 @@ class RoomFragment : Fragment() {
         }
         binding.btnLoadIds.setOnClickListener {
             userDao!!.loadAllByIds(intArrayOf(1)).forEach {
-                KLog2.d(tag,it.toString())
+                KLog.d(tag,it.toString())
             }
         }
         binding.btnFindName.setOnClickListener {
             val user =userDao!!.findByName("li","pengju")
-            KLog2.d(tag,user.toString())
+            KLog.d(tag,user.toString())
         }
         binding.btnGetAll.setOnClickListener {
             userDao!!.getAll().forEach {
-                KLog2.d(tag,it.toString())
+                KLog.d(tag,it.toString())
             }
         }
         binding.btnDelete.setOnClickListener {
@@ -64,7 +65,7 @@ class RoomFragment : Fragment() {
         binding.btnUpdate.setOnClickListener {
             userDao!!.update(User(1,"li","pengju1"))
             userDao!!.getAll().forEach {
-                KLog2.d(tag,it.toString())
+                KLog.d(tag,it.toString())
             }
         }
     }
@@ -108,17 +109,17 @@ class RoomFragment : Fragment() {
     private inner class CallBack :RoomDatabase.Callback(){
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
-            KLog2.d(tag,"onCreate")
+            KLog.d(tag,"onCreate")
         }
 
         override fun onOpen(db: SupportSQLiteDatabase) {
             super.onOpen(db)
-            KLog2.d(tag,"onOpen")
+            KLog.d(tag,"onOpen")
         }
 
         override fun onDestructiveMigration(db: SupportSQLiteDatabase) {
             super.onDestructiveMigration(db)
-            KLog2.d(tag,"onDestructiveMigration")
+            KLog.d(tag,"onDestructiveMigration")
         }
     }
 }

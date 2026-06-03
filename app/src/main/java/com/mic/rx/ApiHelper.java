@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.view.View;
 
 import com.jakewharton.rxbinding2.view.RxView;
+import com.mic.libcore.utils.KLog;
 import com.mic.rx.api.ProjectApi;
 import com.mic.rx.bean.ProjectBean;
 import com.mic.rx.bean.ProjectItem;
@@ -53,7 +54,7 @@ public class ApiHelper {
                 .subscribe(new Consumer<ProjectItem>() {
                     @Override
                     public void accept(ProjectItem projectItem) throws Exception {
-                        KLog2.d("accept item data"+projectItem);
+                        KLog.d("accept item data"+projectItem);
                     }
                 })
         ;

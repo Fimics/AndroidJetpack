@@ -2,9 +2,6 @@ package com.mic.libcore.utils;
 
 
 import android.text.TextUtils;
-
-import com.kk.core.utils.KLog;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 

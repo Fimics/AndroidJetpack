@@ -7,10 +7,10 @@ plugins {
 
 android {
     compileSdk = libs.versions.compileSdk.get().toInt()
-    namespace = "com.mic.appc"
+    namespace = "com.mic.cpp"
 
     defaultConfig {
-        applicationId = "com.mic.appc"
+        applicationId = "com.mic.cpp"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = libs.versions.versionCode.get().toInt()

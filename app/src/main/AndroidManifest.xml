@@ -41,8 +41,6 @@
         </activity>
         <activity android:name=".ui.event.EventActivity" />
 
-        <service android:name=".server.ServerService" />
-
         <provider
             android:name=".provider.InitializerProvider"
             android:authorities="com.mic.provider" />

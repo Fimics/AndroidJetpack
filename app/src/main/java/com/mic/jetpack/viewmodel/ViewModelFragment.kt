@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.mic.databinding.FragmentViewmodelBinding
+import com.mic.libcore.utils.KLog
 
 
 class ViewModelFragment : Fragment() {
@@ -38,8 +39,8 @@ class ViewModelFragment : Fragment() {
             mViewModel.getNumber().value=mViewModel.getNumber().value+1
         }
 
-        mViewModel.getNumber().observe(this){
-            KLog2.d("viewmodel","number->$it")
+        mViewModel.getNumber().observe(viewLifecycleOwner){
+            KLog.d("viewmodel","number->$it")
         }
 
         return binding.root

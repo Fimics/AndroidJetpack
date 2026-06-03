@@ -17,7 +17,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "AndroidJetpack"
-include(":template")
 include(":app")
 include(":app-c++")
 include(":app-py")

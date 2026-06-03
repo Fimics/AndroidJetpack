@@ -1,4 +1,4 @@
-package com.kk.core.utils
+package com.mic.libcore.utils
 
 import android.content.Context
 import com.elvishew.xlog.LogConfiguration

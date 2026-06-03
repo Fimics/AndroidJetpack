@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Jetpack</string>
+    <string name="app_name">app</string>
 
     <string name="video">Video</string>
     <string name="flutter">flutter</string>

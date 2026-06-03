@@ -2,11 +2,11 @@ package com.mic.libcore.serial;
 
 import android.text.TextUtils;
 
-
-import com.kk.core.utils.KLog;
 import com.mic.libcore.serial.callback.ISerialCallBack;
 import com.mic.libcore.serial.constant.DataType;
 import com.mic.libcore.utils.ByteUtils;
+import com.mic.libcore.utils.KLog;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import com.mic.databinding.FragmentLivedataBinding
+import com.mic.libcore.utils.KLog
 import kotlin.concurrent.thread
 
 
@@ -25,7 +26,7 @@ class LiveDataFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mLiveData.observe(this){
-            KLog2.d("livedata ",it)
+            KLog.d("livedata ",it)
         }
     }
 

@@ -4,7 +4,6 @@ import android.content.ContentProvider
 import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
-import com.mic.server.ServerService
 import com.mic.libcore.utils.FileTools
 import kotlin.concurrent.thread
 
@@ -21,7 +20,7 @@ class InitializerProvider : ContentProvider() {
     }
 
     private fun runServer() {
-        ServerService.start(this.context)
+
     }
 
     private fun initDataSource(dir: String) {
