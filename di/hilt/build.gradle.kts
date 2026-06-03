@@ -68,5 +68,6 @@ dependencies {
     kapt(libs.androidx.hilt.compiler)
     implementation(libs.guava.android)
     implementation(libs.androidx.databinding.runtime)
+    implementation(libs.javassist)
     api(project(mapOf("path" to ":libcore")))
 }
