@@ -20,7 +20,7 @@ rootProject.name = "AndroidJetpack"
 include(":app")
 include(":app-c++")
 include(":app-py")
-include(":app-navigation")
+include(":app-nav")
 include(":libcore")
 include(":app-compose")
 //include(":libs:imagemaster")

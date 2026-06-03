@@ -8,10 +8,10 @@ plugins {
 
 android {
     compileSdk = libs.versions.compileSdk.get().toInt()
-    namespace = "com.mic.apppy"
+    namespace = "com.mic.nav"
 
     defaultConfig {
-        applicationId = "com.mic.apppy"
+        applicationId = "com.mic.nav"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = libs.versions.versionCode.get().toInt()
@@ -61,6 +61,10 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.material)
     implementation(libs.androidx.databinding.runtime)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.camera.view)
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.androidx.camera.lifecycle)
     api(project(":extras:libpy"))
     api(project(":log-runtime"))
 }
