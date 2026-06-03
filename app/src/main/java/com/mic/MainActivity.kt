@@ -57,10 +57,10 @@ class MainActivity : AppCompatActivity() {
                 val isAllGranted = PermissionUtils.isAllGranted()
                 if (isAllGranted) {
                     fileServer.start()
-                    KLog2.d(tag,"文件已拷贝")
+                    KLog.d(tag,"文件已拷贝")
                     ExecutorsPoller.shutdown()
                 }else{
-                    KLog2.d(tag,"文件正在拷贝")
+                    KLog.d(tag,"文件正在拷贝")
                 }
             }
         })
