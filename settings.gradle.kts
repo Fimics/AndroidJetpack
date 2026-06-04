@@ -18,25 +18,31 @@ dependencyResolutionManagement {
 
 rootProject.name = "AndroidJetpack"
 include(":app")
-include(":app-c++")
-include(":app-py")
-include(":app-nav")
+include(":samples:app-c++")
+
+include(":samples:app-nav")
 include(":libcore")
-include(":app-compose")
-include("di:dagger")
-include("di:hilt")
-include(":netconfig")
-include(":apt:apt-main")
-include(":apt:apt-compiler")
-include(":apt:apt-annotation")
-include(":kotlin:kotlin-java")
-include(":kotlin:kotlin-coroutine")
-include(":rx:rx2")
-include(":rx:rx3")
-include(":extras:libpy")
-include(":log-runtime")
-include(":ble:ble-client")
-include(":ble:ble-server")
+include(":samples:app-compose")
+include(":samplesdi:dagger")
+include(":samplesdi:hilt")
+
+include(":samples:apt:apt-main")
+include(":samples:apt:apt-compiler")
+include(":samples:apt:apt-annotation")
+include("::sampleskotlin:kotlin-java")
+include(":samples:kotlin:kotlin-coroutine")
+
+
+include(":samples:log-runtime")
+include(":samples:ble:ble-client")
+include(":samples:ble:ble-server")
+
+//samples
+include(":samples:python:app-py")
+include(":samples:python:libpy")
+include(":samples:rx:rx2")
+include(":samples:rx:rx3")
+include(":samples:netconfig")
 
 /**
  * >>>>>>把 build-logic 这个目录声明成一个「独立的 Gradle Build」，让它能：
