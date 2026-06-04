@@ -165,11 +165,7 @@ log-runtime ──> libcore    ├── XLog（日志）
 
 - **app-c++** — NDK C++ 集成示例
 - **app-py** — Chaquopy Python 集成示例（Python 版本 3.10，Chaquopy 17.0.0）
-- **extras/libc++** — C++ 原生库
 - **extras/libpy** — Python 库封装
-- **library** — 通用工具库
-- **libspeech** — 语音相关库
-- **template** — 模块模板
 - **native/** — NDK 相关模块（JNI、CMake、FFmpeg、RTMP、OpenGL），当前已注释掉未启用
 
 ## 关键开发规范
