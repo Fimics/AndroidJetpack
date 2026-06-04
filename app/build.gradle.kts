@@ -8,9 +8,9 @@ plugins {
 
 android {
     compileSdk = libs.versions.compileSdk.get().toInt()
-    namespace = "com.mic"
+    namespace = "com.mic.guide"
     defaultConfig {
-        applicationId = "com.mic"
+        applicationId = "com.mic.guide"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = libs.versions.versionCode.get().toInt()
