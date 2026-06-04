@@ -21,6 +21,9 @@ buildscript {
 }
 
 subprojects {
+    // 通过 toolchain 让 Gradle 自动选用已安装的 JDK 21 进行编译，
+    // 从而与启动构建的 JVM（可能是 JDK 17）解耦，避免 “无效的源发行版：21”。
+
     // 配置 Android Application 模块
     plugins.withId("com.android.application") {
         configure<com.android.build.gradle.AppExtension> {
@@ -29,10 +32,10 @@ subprojects {
                 targetCompatibility = JavaVersion.valueOf("VERSION_${libs.versions.java.target.compatibility.get()}")
             }
         }
-        // 配置 Kotlin 编译选项
+        // 配置 Kotlin 编译选项（toolchain 同时作用于 Kotlin 与 Java 编译）
         plugins.withId("org.jetbrains.kotlin.android") {
-            tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-                kotlinOptions.jvmTarget = libs.versions.kotlin.jvm.target.get()
+            configure<org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension> {
+                jvmToolchain(libs.versions.java.version.get().toInt())
             }
         }
     }
@@ -45,22 +48,18 @@ subprojects {
                 targetCompatibility = JavaVersion.valueOf("VERSION_${libs.versions.java.target.compatibility.get()}")
             }
         }
-        // 配置 Kotlin 编译选项
+        // 配置 Kotlin 编译选项（toolchain 同时作用于 Kotlin 与 Java 编译）
         plugins.withId("org.jetbrains.kotlin.android") {
-            tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-                kotlinOptions.jvmTarget = libs.versions.kotlin.jvm.target.get()
+            configure<org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension> {
+                jvmToolchain(libs.versions.java.version.get().toInt())
             }
         }
     }
 
     // 配置纯 Kotlin/JVM 模块
     plugins.withId("org.jetbrains.kotlin.jvm") {
-        tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-            kotlinOptions.jvmTarget = libs.versions.kotlin.jvm.target.get()
-        }
-        tasks.withType<JavaCompile> {
-            sourceCompatibility = libs.versions.java.source.compatibility.get()
-            targetCompatibility = libs.versions.java.target.compatibility.get()
+        configure<org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension> {
+            jvmToolchain(libs.versions.java.version.get().toInt())
         }
     }
 }

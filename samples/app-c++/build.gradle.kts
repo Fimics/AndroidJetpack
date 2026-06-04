@@ -15,6 +15,8 @@ android {
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = libs.versions.versionCode.get().toInt()
         versionName = libs.versions.versionName.get()
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
 
@@ -58,4 +60,8 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.databinding.runtime)
     api(project(mapOf("path" to ":libcore")))
+
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit.ext)
+    androidTestImplementation(libs.androidx.espresso.core)
 }
