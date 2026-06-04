@@ -87,5 +87,5 @@ dependencies {
     api(libs.androidx.paging.runtime)
     api(libs.androidx.work.runtime)
     implementation(libs.androidx.databinding.runtime)
-    api(project(":libcore"))
+
 }
