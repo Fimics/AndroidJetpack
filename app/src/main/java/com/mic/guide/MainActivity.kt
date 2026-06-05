@@ -2,8 +2,7 @@ package com.mic.guide
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.mic.databinding.ActivityMainBinding
-
+import com.mic.guide.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
