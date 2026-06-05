@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 首页业务子图：由 app 的 nav_graph_main 通过 <include> 汇总（见 §5.3 / §5.10）。 -->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/home_nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.mic.guide.module.home.ui.HomeFragment"
+        android:label="Home">
+        <action
+            android:id="@+id/action_home_to_detail"
+            app:destination="@id/homeDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeDetailFragment"
+        android:name="com.mic.guide.module.home.ui.HomeDetailFragment"
+        android:label="Detail">
+        <argument
+            android:name="title"
+            app:argType="string"
+            android:defaultValue="" />
+        <argument
+            android:name="subtitle"
+            app:argType="string"
+            android:defaultValue="" />
+    </fragment>
+
+</navigation>

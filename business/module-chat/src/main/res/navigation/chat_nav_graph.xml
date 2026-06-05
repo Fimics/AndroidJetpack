@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 聊天业务子图：声明隐式 deepLink，供任意模块以 URI 跳入（零编译依赖，见 §15.1 支柱②）。 -->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/chat_nav_graph"
+    app:startDestination="@id/chatDetailFragment">
+
+    <fragment
+        android:id="@+id/chatDetailFragment"
+        android:name="com.mic.guide.module.chat.ui.ChatDetailFragment"
+        android:label="Chat">
+        <argument
+            android:name="conversationId"
+            app:argType="string"
+            android:defaultValue="" />
+        <!-- aiguide://chat/detail/123 → 跳到本页，{conversationId} 自动注入 arguments -->
+        <deepLink app:uri="aiguide://chat/detail/{conversationId}" />
+    </fragment>
+
+</navigation>

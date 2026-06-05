@@ -56,6 +56,17 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("includes" to listOf("*.aar", "*.jar"), "dir" to "libs")))
+
+    // 架构层 + 业务模块（组件化：集成模式下作为 library 被壳工程集成，见 §15）
+    implementation(project(":arch"))
+    implementation(project(":support:support-router"))      // 注册 AppNavigator 门面
+    implementation(libs.androidx.navigation.fragment.ktx)   // 壳工程承载 NavHost + 汇总子图
+    implementation(project(":business:module-home"))
+    implementation(project(":business:module-chat"))
+    implementation(project(":business:module-music"))
+    implementation(project(":business:module-video"))
+    implementation(project(":business:module-settings"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

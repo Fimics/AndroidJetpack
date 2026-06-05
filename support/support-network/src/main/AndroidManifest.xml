@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 网络基础设施模块自带 INTERNET 权限，合并进任何集成它的壳工程 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+</manifest>

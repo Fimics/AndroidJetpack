@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 主导航图：壳工程汇总各业务模块子图。新增业务线只需 <include> 其子图（见 §5.5 / §5.10）。 -->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_main"
+    app:startDestination="@id/home_nav_graph">
+
+    <!-- home_nav_graph 来自 :business:module-home（资源合并后可引用） -->
+    <include app:graph="@navigation/home_nav_graph" />
+
+    <!-- chat_nav_graph 来自 :business:module-chat，含隐式 deepLink；汇总进来后 home 才能跨模块跳入 -->
+    <include app:graph="@navigation/chat_nav_graph" />
+
+</navigation>

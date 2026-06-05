@@ -17,11 +17,11 @@
 | 壳工程 | `app` | ✅ | `MainActivity` / `GuideApp` / BottomNavigation 菜单 / 基础资源已就绪 |
 | 架构层 | `arch` | 🟡 | Base 类 + MVC/MVP/MVVM/MVI 四套模板已实现（Activity+Fragment 已对称）；全面 **协程 + Flow**（`StateFlow`/`SharedFlow`/`collectIn`）；**无 `di/`、`config/`、`BaseDialog`**，也**未引入 Hilt** |
 | 接口层 | `api/*` | ⬜ | `api-player` / `api-chat` / `api-music` / `api-settings` 均未建目录 |
-| 业务层 | `business/*` | ⬜ | `module-home/chat/music/video/settings` 均未建目录 |
-| 支撑层 | `support/*` | ⬜ | `support-network/websocket/router/storage/database/permission` 均未建目录 |
+| 业务层 | `business/*` | 🟡 | `module-home/chat/music/video/settings` 五个**组件化骨架已建**（双模式 + `ComponentApplication`/SPI 自注册，见 §15，已过 `:app:assembleDebug`）；业务 UI/data 待填 |
+| 支撑层 | `support/*` | 🟡 | `support-router` 已建（`AppNavigator` 门面 + `Routes` + `NavigatorProvider`，deepLink 跳转 + 失败降级，已真机验证）；`network/websocket/storage/database/permission` 待建 |
 | 工具层 | `libs/*` | ⬜ | `lib-common/ui/log/image/extension` 均未建目录 |
 
-> ⚠️ **当前无法直接 sync**：`settings.gradle.kts` 已 `include` 全部 23 个模块，但其中 21 个在磁盘上**不存在目录**。Gradle 同步会报 `Project 'xxx' could not be found` / `does not exist`。修复办法见 **§14 落地修复步骤**——要么为每个模块补最小骨架，要么临时注释掉未建模块。
+> ⚠️ **构建现状**：`settings.gradle.kts` `include` 了 22 个子模块，磁盘上已建 `:app` `:arch` 与 5 个 `:business:module-*`（共 **7 个**），`:app:assembleDebug` **已通过**。其余 **15 个 `api`/`support`/`libs` 模块**仍无目录、无 `build.gradle.kts`——它们被当作「空项目」容忍，因当前无人依赖故不报错；但**在被 `implementation(project(...))` 依赖前必须补骨架或注释掉其 `include`**，否则报 `does not exist`。修复办法见 **§14 落地修复步骤**。
 
 ---
 
@@ -99,7 +99,7 @@ AiGuide/ (根目录)
 │
 ├── arch/                           🟡 架构基础库（核心，已部分落地）
 │
-├── business/                       ⬜ 业务模块
+├── business/                       🟡 业务模块（5 个组件化骨架已建，见 §15）
 │   ├── module-home/
 │   ├── module-chat/
 │   ├── module-music/
@@ -485,7 +485,7 @@ dependencies {
 
 | 模块 | 导航相关职责 |
 | --- | --- |
-| `support-router` | `Routes` 常量、`AppNavigator` 门面、Safe Args 扩展、跨模块跳转 API |
+| `support-router` | `Routes` 常量、`AppNavigator` 门面、`navigateSafe` 降级扩展、跨模块 deepLink 跳转 API |
 | `business/module-xxx` | 提供 Fragment 实现；可选提供 `xxx_nav_graph.xml` |
 | `app` | `MainActivity` + 主 `NavHostFragment`；**include 各业务子图**；注册 Deep Link |
 
@@ -500,47 +500,68 @@ app/MainActivity
     └── include settings_nav_graph
 ```
 
-### 5.4 support-router 模块结构（规划 ⬜）
+### 5.4 support-router 模块结构（🟡 已落地）
+
+> 已建并真机验证：`AppNavigator` 经 **deepLink + 安全降级** 跨模块跳转，业务层只依赖 `support-router`、不依赖目标业务模块（印证 §15.1 支柱②）。下面是**磁盘上的真实代码**，照抄即可。
 
 ```
 support/support-router/
 └── src/main/java/com/mic/guide/support/router/
-    ├── Routes.kt                   # 全局路由 ID / URI 常量
-    ├── AppNavigator.kt             # 统一跳转入口（持有 NavController）
-    ├── NavigatorProvider.kt        # 在 Activity 中注册 NavController
+    ├── Routes.kt                   # 全局路由 URI 常量 / 构造器（单一事实源）
+    ├── AppNavigator.kt             # 统一跳转门面（持有 NavController + 降级 + 防抖）
+    ├── NavigatorProvider.kt        # 全局持有当前 AppNavigator（app 注册 / 置空）
     └── ext/
-        └── NavControllerExt.kt     # navigateSafe、防重复点击等
+        └── NavControllerExt.kt     # navigateSafe：deepLink 无目标时降级而非崩溃
 ```
 
 ```kotlin
-// support-router/.../Routes.kt
+// support-router/.../Routes.kt —— URI 必须与各业务 nav_graph 的 <deepLink> 一致
 object Routes {
-    const val HOME = "home"
-    const val CHAT_LIST = "chat/list"
-    const val CHAT_DETAIL = "chat/detail/{conversationId}"
-    const val MUSIC_PLAYER = "music/player"
-    const val SETTINGS = "settings"
-
-    fun chatDetail(conversationId: String) = "chat/detail/$conversationId"
+    const val SCHEME = "aiguide"
+    fun chatDetail(conversationId: String) = "$SCHEME://chat/detail/$conversationId"
 }
 
-// support-router/.../AppNavigator.kt
-class AppNavigator(private val navController: NavController) {
+// support-router/.../ext/NavControllerExt.kt —— 可插拔兜底：目标模块被拔掉时不崩
+inline fun NavController.navigateSafe(
+    uri: Uri,
+    onFail: (Uri, Throwable) -> Unit = { _, _ -> },
+) {
+    try {
+        navigate(uri)                       // 无匹配 deepLink 时抛 IllegalArgumentException
+    } catch (e: IllegalArgumentException) {
+        onFail(uri, e)
+    }
+}
 
-    fun toChatDetail(conversationId: String) {
-        navController.navigate(Routes.chatDetail(conversationId))
+// support-router/.../AppNavigator.kt —— 业务层只依赖本类，不依赖目标业务模块
+class AppNavigator(
+    private val navController: NavController,
+    private val onUnavailable: (Uri) -> Unit = {},   // 目标不可用时降级（Toast / 打点 / 跳默认页）
+) {
+    private var lastNavMillis = 0L
+
+    fun toChatDetail(conversationId: String) = navigate(Routes.chatDetail(conversationId))
+
+    fun navigate(uriString: String) {
+        val now = System.currentTimeMillis()
+        if (now - lastNavMillis < 500) return        // 防重复点击
+        lastNavMillis = now
+        navController.navigateSafe(Uri.parse(uriString)) { uri, _ -> onUnavailable(uri) }
     }
 
-    fun toMusicPlayer(songId: String) {
-        val action = HomeFragmentDirections.actionHomeToMusicPlayer(songId)
-        navController.navigate(action)
-    }
+    fun back(): Boolean = navController.navigateUp()
+}
 
-    fun back() {
-        navController.navigateUp()
-    }
+// support-router/.../NavigatorProvider.kt —— app 在 Activity onCreate 注册、onDestroy 置空
+object NavigatorProvider {
+    @JvmStatic
+    var navigator: AppNavigator? = null
 }
 ```
+
+> **依赖**：`support-router/build.gradle.kts` 只需 `api(libs.androidx.navigation.runtime.ktx)`（拿 `NavController`）。`app` 在 `MainActivity` 注册：`NavigatorProvider.navigator = AppNavigator(navHost.navController) { uri -> toast("目标暂不可用：$uri") }`，业务侧调用见 §5.7。
+>
+> **降级即可插拔**：拔掉 `module-chat`（删依赖或注释其子图 `<include>`）后，`toChatDetail` 的 deepLink 解析不到目标 → `navigateSafe` 捕获并走 `onUnavailable`（Toast），App 不崩——已真机验证（见 §15）。
 
 ### 5.5 app 模块：主 NavGraph 汇总
 
@@ -577,21 +598,26 @@ class AppNavigator(private val navController: NavController) {
 ```
 
 ```kotlin
-// app/.../MainActivity.kt
+// app/.../MainActivity.kt —— 磁盘真实代码
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var navigator: AppNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
+        // 注册全局路由门面：业务层经 NavigatorProvider.navigator 跳转
         val navHost = supportFragmentManager
             .findFragmentById(R.id.nav_host) as NavHostFragment
-        val navController = navHost.navController
+        NavigatorProvider.navigator = AppNavigator(navHost.navController) { uri ->
+            // 目标模块被拔掉 / 未集成时降级（§15 可插拔兜底）
+            Toast.makeText(this, "目标暂不可用：$uri", Toast.LENGTH_SHORT).show()
+        }
+    }
 
-        navigator = AppNavigator(navController)
-        NavigatorProvider.navigator = navigator   // 供业务层获取（或用 Hilt 注入）
+    override fun onDestroy() {
+        super.onDestroy()
+        NavigatorProvider.navigator = null // 防止静态持有 NavController/Activity 泄漏
     }
 }
 ```
@@ -666,8 +692,10 @@ class ChatListFragment : MvvmFragment<FragmentChatListBinding, ChatListViewModel
 
 业务模块 A 需要打开模块 B 的页面，**不依赖 B 的 Fragment 类**：
 
+> 方式 1 已在 `module-home` 落地并真机验证：`HomeFragment` 的「去聊天(跨模块)」按钮即此调用，`module-home` 零依赖 `module-chat`（详见 §5.4 / §15）。
+
 ```kotlin
-// 方式 1：通过 support-router 的 AppNavigator（推荐）
+// 方式 1：通过 support-router 的 AppNavigator（推荐）—— 内部走 deepLink + 降级
 NavigatorProvider.navigator?.toChatDetail(conversationId)
 
 // 方式 2：通过 api 能力接口 + 路由实现（与 api 层配合）
@@ -1049,7 +1077,7 @@ business/module-home/
 | --- | --- | --- |
 | `support-network` | HTTP **基础设施** | Retrofit 2.9.0 + OkHttp 4.11.0 + 拦截器 |
 | `support-websocket` | WebSocket 长连接 | OkHttp WebSocket |
-| `support-router` | **Navigation 门面**、Route 常量 | Jetpack Navigation 2.5.1 + Safe Args |
+| `support-router` 🟡 | **Navigation 门面**（已落地）、Route 常量、deepLink 降级 | Jetpack Navigation 2.5.1 |
 | `support-storage` | 轻量 KV | DataStore 1.0.0 |
 | `support-database` | 结构化持久化 | Room 2.4.0 |
 | `support-permission` | 运行时权限 | ActivityResult API |
@@ -1144,13 +1172,14 @@ dependencies {
 - [ ] 按工程性质补充扩展模块（§2 树中 ➕ 项，依赖与约束见 §2.2）：优先 `support-ai`，再按 ★ 推进 `support-media/ble/serial/camera/python`、`lib-widget/lib-test`、`common`、`baseline-profile`
 - [ ] 版本目录补声明 **Safe Args 插件**；根脚本启用
 - [ ] 搭建 `support-network` 骨架（NetworkClient / ApiResponse / 拦截器）
-- [ ] 搭建 `support-router` 骨架（Routes / AppNavigator / NavigatorProvider）
+- [x] 搭建 `support-router`（`Routes` / `AppNavigator` 门面 / `NavigatorProvider` / `navigateSafe` 降级），`app` 注册门面、`module-home` 经门面跨模块跳 chat，**已真机验证（含降级）**
 - [ ] `app` 改造：`MainActivity` + NavHost + 主 NavGraph + BottomNavigation 绑定
 - [ ] 在 business/support 模块接入 **Hilt**（arch 不含）
 - [ ] 为每个 `business` 模块创建标准目录与 `README.md`
 - [ ] 定义各 `api-xxx` 能力接口并接入 Hilt
-- [ ] 选一条业务线（如 home → chat）打通网络 + 导航端到端示例
-- [ ] 业务模块接入组件化双模式（§15）：`build-logic` 读 `runAlone` 开关切 `application`/`library`；`src/debug` 独立运行入口；`ComponentApplication` + SPI 自注册
+- [x] 打通 `module-home` MVVM 端到端示范：`HomeRepository(safeCall)` → `HomeViewModel(StateFlow)` → `HomeFragment(collectIn)` → `home_nav_graph`（list→detail 传参），`app` 单 Activity + NavHost 汇总子图，**已在真机跑通**（暂用内存假数据，未接 Hilt/网络）
+- [x] 打通 `home → chat` **跨模块 deepLink 导航**：`module-chat` 在 `chat_nav_graph` 声明 `<deepLink aiguide://chat/detail/{conversationId}>`，`module-home` 仅用 URI 字符串 `navigate(...toUri())` 跳入，**`module-home` 零依赖 `module-chat`**（真机验证：`conversationId` 跨模块传参成功），印证 §15.1 支柱②；**待办**：接 `support-network` 真实数据
+- [x] 业务模块接入组件化双模式（§15）：5 个 `module-*` 骨架 + `runAlone` 开关内联切 `application`/`library` + `src/runalone` 独立入口 + `ComponentApplication`/SPI 自注册 + `GuideApp` 的 `ServiceLoader` 装配（已过 `:app:assembleDebug`）；**待办**：收敛进 `build-logic` 约定插件
 
 ---
 
@@ -1183,7 +1212,9 @@ libs-*  →  support-network / support-router  →  arch 接 Hilt（或在 busin
 
 ## 15. 组件化：模块可插拔（集成 / 组件双模式）
 
-> 本节为**蓝图（⬜）**，回答「怎么做组件化，让 `business/*` 模块可随意拔插」。落地前提是先按 §14 把业务模块骨架建起来。本方案**不引 ARouter**（理由见 `docs/02-navigation-vs-arouter.md`），全部用官方 API（Gradle 双模式 + `ServiceLoader`），不加第三方路由总线、不加额外 APT。
+> 本节回答「怎么做组件化，让 `business/*` 模块可随意拔插」。本方案**不引 ARouter**（理由见 `docs/02-navigation-vs-arouter.md`），全部用官方 API（Gradle 双模式 + `ServiceLoader`），不加第三方路由总线、不加额外 APT。
+>
+> **落地状态（🟡 已部分实现）**：5 个 `business/module-*` 骨架、双模式开关、`ComponentApplication` + SPI 自注册、`GuideApp` 的 `ServiceLoader` 装配**均已落地并通过 `:app:assembleDebug`**。当前双模式逻辑**内联在各模块 `build.gradle.kts`**（见 §15.3）；收敛进 `build-logic` 约定插件是后续优化项（§2.3 / §13），非阻塞。
 
 ### 15.1 「随意拔插」要解决什么：三根支柱
 
@@ -1191,7 +1222,7 @@ libs-*  →  support-network / support-router  →  arch 接 Hilt（或在 busin
 
 | 支柱 | 解决的问题 | 本工程方案 | 章节 |
 | --- | --- | --- | --- |
-| ① 依赖可切换 | 模块平时是 `library`（被集成），开发期能当 `application` 单独跑 | `gradle.properties` 开关 + `build-logic` 约定插件按开关切插件 | §15.2 / §15.3 / §15.4 |
+| ① 依赖可切换 | 模块平时是 `library`（被集成），开发期能当 `application` 单独跑 | `gradle.properties` 开关 + 模块脚本内联切插件（后续可收敛进 `build-logic`） | §15.2 / §15.3 / §15.4 |
 | ② 通信解耦 | A 用 B 的页面/能力时**不依赖 B 的实现类**，删 B 不会让 A 编译失败 | 跨页跳转走 deepLink URI、跨模块能力走 `api-*` + Hilt、事件走 `SharedFlow` | §5 / §6 / §11（**复用，不重写**） |
 | ③ 生命周期自注册 | 各模块自带初始化逻辑，`app` 增删模块时**不改 app 代码** | `arch` 定义 `ComponentApplication`，`ServiceLoader` 运行期自动发现 | §15.5 |
 
@@ -1203,7 +1234,7 @@ libs-*  →  support-network / support-router  →  arch 接 Hilt（或在 busin
 | --- | --- | --- |
 | 模块插件 | `com.android.library` | `com.android.application` |
 | 谁来组装 | 壳工程 `app` 集成全部业务模块 | 模块自己就是一个可安装 App |
-| 启动入口 | 无（`app` 的 `MainActivity` 唯一入口） | 模块 `src/debug` 提供独立 LAUNCHER |
+| 启动入口 | 无（`app` 的 `MainActivity` 唯一入口） | 模块 `src/runalone` 提供独立 LAUNCHER |
 | 用途 | 打正式包、联调全量 | 单模块快速编译 / 独立调试本模块 |
 | 开关 | `runAlone.xxx=false` | `runAlone.xxx=true` |
 
@@ -1219,69 +1250,71 @@ runAlone.chat=false
 
 > 约定：正式打包前确保所有 `runAlone.*=false`，避免某模块以 `application` 形态被误集成。
 
-### 15.3 业务模块双模式构建脚本（收敛进 build-logic 约定插件）
+### 15.3 业务模块双模式构建脚本（当前实现：内联切插件）
 
-双模式判断**不要散落在每个 `business/*/build.gradle.kts`**，而是收敛到 §2.3 的约定插件里。新增一个 `aiguide.android.feature` 约定插件，读开关后决定套哪个 Android 插件：
+`plugins { }` 块不能写条件，因此双模式靠**命令式 `apply(plugin = ...)`** 实现：模块脚本读 `runAlone.<key>` 开关决定套 `application` 还是 `library`，再用 `configure<BaseExtension>` 配置两种插件共有的部分。这是**当前各 `business/module-*/build.gradle.kts` 的真实写法**（已通过 `:app:assembleDebug`）：
 
 ```kotlin
-// build-logic/convention/.../AndroidFeatureConventionPlugin.kt（要点）
-class AndroidFeatureConventionPlugin : Plugin<Project> {
-    override fun apply(target: Project) = with(target) {
-        // moduleKey 取自模块名，如 module-home → "home"
-        val moduleKey = name.removePrefix("module-")
-        val runAlone = providers.gradleProperty("runAlone.$moduleKey")
-            .orNull?.toBoolean() ?: false
+// business/module-home/build.gradle.kts（真实实现，照抄即可）
+import com.android.build.gradle.BaseExtension
 
-        if (runAlone) {
-            pluginManager.apply("com.android.application")
-            extensions.configure<ApplicationExtension> {
-                defaultConfig.applicationId = "com.mic.guide.$moduleKey.dev"  // 独立包名，可与正式包并存
-                sourceSets["main"].manifest.srcFile("src/debug/AndroidManifest.xml")
-            }
-        } else {
-            pluginManager.apply("com.android.library")   // 集成模式：无 src/debug
+val runAlone = (project.findProperty("runAlone.home") as String?)?.toBoolean() ?: false
+
+if (runAlone) apply(plugin = "com.android.application")
+else          apply(plugin = "com.android.library")
+apply(plugin = "org.jetbrains.kotlin.android")
+
+configure<BaseExtension> {
+    namespace = "com.mic.guide.module.home"
+    compileSdkVersion(libs.versions.compileSdk.get().toInt())
+    defaultConfig {
+        minSdk = libs.versions.minSdk.get().toInt()
+        if (runAlone) {                                  // 仅组件模式才设 applicationId（library 设会报错）
+            applicationId = "com.mic.guide.home.dev"     // 独立包名，可与正式包并装
+            targetSdk = libs.versions.targetSdk.get().toInt()
         }
-        // 其余 android/kotlin/viewBinding/JVM toolchain 配置同 aiguide.android.library
+    }
+    buildFeatures.viewBinding = true
+    if (runAlone) {                                      // 组件模式才并入独立入口 src/runalone
+        sourceSets.getByName("main") {
+            manifest.srcFile("src/runalone/AndroidManifest.xml")
+            java.srcDir("src/runalone/java")
+        }
     }
 }
+
+dependencies { "api"(project(":arch")) }                 // 命令式 apply 后用字符串配置名
 ```
 
-```kotlin
-// business/module-home/build.gradle.kts —— 模块脚本不感知双模式细节
-plugins {
-    id("aiguide.android.feature")     // 双模式判断收敛在插件里
-    id("aiguide.android.hilt")
-}
-dependencies {
-    api(project(":arch"))
-    implementation(project(":support:support-router"))
-}
-```
+> 说明：① 命令式 `apply` 后 `dependencies {}` 内没有 `implementation(...)` 类型化访问器，故用 `"api"(...)`。② 编译参数（JDK21 toolchain / compileOptions）由根 `build.gradle.kts` 的 `subprojects { plugins.withId(...) }` 统一注入，模块脚本不重复写。
+>
+> **后续优化（蓝图 ⬜）**：模块数变多后把上述判断收敛进 §2.3 的 `build-logic` 约定插件 `aiguide.android.feature`，模块脚本即简化为 `id("aiguide.android.feature")` 一行。此为优化项，不影响当前可插拔能力。
 
-> 与 §2.3 一脉相承：模块脚本仍是「应用约定插件 + 几行依赖」，library/application 的切换全工程一处可改。
+### 15.4 组件模式独立运行入口（`src/main` vs `src/runalone` 分目录）
 
-### 15.4 组件模式独立运行入口（`src/main` vs `src/debug` 分目录）
-
-集成包**不能**含模块自己的 `<application>` 与 LAUNCHER，否则和壳工程冲突；独立运行又**必须**有入口。用 source set 分目录隔离：
+集成包**不能**含模块自己的 `<application>` 与 LAUNCHER，否则和壳工程冲突；独立运行又**必须**有入口。用 source set 分目录隔离（真实目录结构）：
 
 ```
 business/module-home/src/
 ├── main/                              # 集成 + 组件都参与编译
-│   ├── AndroidManifest.xml           # 只声明本模块 Fragment / Service，无 <application>、无 LAUNCHER
-│   └── java/com/mic/guide/module/home/...
-└── debug/                             # 仅组件模式（§15.3 中切到 application 时才把它设为 main manifest）
-    ├── AndroidManifest.xml           # 含 <application android:name=".HomeDebugApp"> + 带 LAUNCHER 的 MainActivity
-    └── java/com/mic/guide/module/home/HomeDebugApp.kt   # 继承 BaseApplication，单独初始化本模块所需 support/Hilt
+│   ├── AndroidManifest.xml           # 空壳 <manifest/>：无 <application>、无 LAUNCHER
+│   ├── java/com/mic/guide/module/home/HomeComponent.kt      # ComponentApplication 实现（§15.5）
+│   └── resources/META-INF/services/...ComponentApplication # SPI 注册文件
+└── runalone/                          # 仅当 runAlone.home=true 时由 §15.3 脚本并入编译
+    ├── AndroidManifest.xml           # 含 <application android:name=".HomeDebugApp"> + 带 LAUNCHER 的 Activity
+    └── java/com/mic/guide/module/home/
+        ├── HomeDebugApp.kt           # 继承 BaseApplication，单独跑一遍 ServiceLoader 装配
+        └── HomeDebugActivity.kt      # 独立入口占位页（替换为真实首页 Fragment）
 ```
 
 ```xml
-<!-- business/module-home/src/debug/AndroidManifest.xml（独立运行入口） -->
+<!-- business/module-home/src/runalone/AndroidManifest.xml（独立运行入口） -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
         android:name=".HomeDebugApp"
         android:label="HomeDev"
-        android:theme="@style/Theme.AiGuide">
-        <activity android:name=".HomeDebugMainActivity" android:exported="true">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".HomeDebugActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -1291,7 +1324,7 @@ business/module-home/src/
 </manifest>
 ```
 
-> ⚠️ **组件化最易踩的坑**：集成模式下务必让 `src/main/AndroidManifest.xml` 不含 `<application>`／LAUNCHER；本节用「`src/debug` 仅在 `application` 模式作为 manifest 参与编译」来隔离（见 §15.3 的 `sourceSets[...].manifest.srcFile`）。也可用 `manifestPlaceholders` 按模式注入，二选一即可。
+> ⚠️ **组件化最易踩的坑 —— 为什么用 `src/runalone` 而不是 `src/debug`**：`debug` 是 Android **内置 build-type** source set，`src/debug/` 会在 **library 的 debug 构建里被自动合并**——它的 `<application>`/LAUNCHER 会被合进宿主 App，污染集成包。改用非 build-type 的 `src/runalone/`，并**只在 `runAlone=true` 时由脚本显式 `srcFile`/`srcDir` 并入**（§15.3），集成模式下它完全不参与编译，从根上杜绝泄漏。`src/main/AndroidManifest.xml` 保持空壳是另一道保险。
 
 ### 15.5 组件生命周期自注册（ServiceLoader / SPI）——真正可插拔的关键
 
@@ -1347,6 +1380,6 @@ override fun onInit() {
 | --- | --- |
 | `app` 里 `when(module) { ... HomeComponent() ... }` 硬编码组件初始化 | `ServiceLoader` 自动发现 `ComponentApplication`（§15.5） |
 | `business-A` 直接 `implementation(project(":business:module-b"))` | deepLink 跳转 + `api-b` 能力接口（§5 / §6） |
-| 独立运行入口（LAUNCHER / `<application>`）写进 `src/main` | 放 `src/debug`，集成包不含独立入口（§15.4） |
+| 独立运行入口（LAUNCHER / `<application>`）写进 `src/main` 或 `src/debug` | 放非 build-type 的 `src/runalone`，仅 `runAlone=true` 时并入（§15.4） |
 | 各模块初始化逻辑堆在 `app.onCreate()` | 各模块 `ComponentApplication.onCreate()` 自治（§15.5） |
 | 正式打包时残留 `runAlone.xxx=true` | 打包前统一 `runAlone.*=false`（§15.2） |
