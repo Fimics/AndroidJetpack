@@ -24,7 +24,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|start"
         android:layout_margin="16dp"
-        android:text="去聊天(跨模块)" />
+        android:text="去聊天(api)" />
+
+    <Button
+        android:id="@+id/btnMusic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_margin="16dp"
+        android:text="播放音乐(api)" />
 
     <ProgressBar
         android:id="@+id/progress"

@@ -15,13 +15,13 @@
 | 层级 | 模块 | 状态 | 说明 |
 | --- | --- | --- | --- |
 | 壳工程 | `app` | ✅ | `MainActivity` / `GuideApp` / BottomNavigation 菜单 / 基础资源已就绪 |
-| 架构层 | `arch` | 🟡 | Base 类 + MVC/MVP/MVVM/MVI 四套模板已实现（Activity+Fragment 已对称）；全面 **协程 + Flow**（`StateFlow`/`SharedFlow`/`collectIn`）；**无 `di/`、`config/`、`BaseDialog`**，也**未引入 Hilt** |
-| 接口层 | `api/*` | ⬜ | `api-player` / `api-chat` / `api-music` / `api-settings` 均未建目录 |
-| 业务层 | `business/*` | 🟡 | `module-home/chat/music/video/settings` 五个**组件化骨架已建**（双模式 + `ComponentApplication`/SPI 自注册，见 §15，已过 `:app:assembleDebug`）；业务 UI/data 待填 |
-| 支撑层 | `support/*` | 🟡 | `support-router` 已建（`AppNavigator` 门面 + `Routes` + `NavigatorProvider`，deepLink 跳转 + 失败降级，已真机验证）；`network/websocket/storage/database/permission` 待建 |
-| 工具层 | `libs/*` | ⬜ | `lib-common/ui/log/image/extension` 均未建目录 |
+| 架构层 | `arch` | 🟡 | Base 类 + MVC/MVP/MVVM/MVI 四套模板已实现（Activity+Fragment 已对称）；全面 **协程 + Flow**（`StateFlow`/`SharedFlow`/`collectIn`）；新增 **`api/ApiRegistry`**（跨模块能力 SPI 注册表，§6.3）；**无 `di/`、`config/`、`BaseDialog`**，也**未引入 Hilt** |
+| 接口层 | `api/*` | ✅ | `api-chat`（`ChatApi`）/ `api-music`（`MusicApi`+`SongInfo`）/ `api-player`（`PlayerApi`+`PlayState`）/ `api-settings`（`SettingsApi`）四个**纯 Kotlin 接口模块**已建，**4 个能力均已接实现并经 `ApiRegistry` 注册**，消费方仅依赖接口经注册表取用（编译通过）：`ChatApi`/`MusicApi`/`SettingsApi` 由业务模块实现（`SettingsApi` 经 `support-storage` 持久化深色模式），`PlayerApi` **实现下沉 `support-media`/Media3 供 music/video 复用**（§6.6） |
+| 业务层 | `business/*` | 🟡 | `module-home/chat/music/video/settings` 五个**组件化骨架已建**（双模式 + `ComponentApplication`/SPI 自注册，见 §15，已过 `:app:assembleDebug`）；**五个模块均已打通完整 MVVM 端到端流程**（`data` + `repository(safeCall)` + `ViewModel(StateFlow)` + `Fragment(collectIn)` + 列表 Adapter + `nav_graph` 汇总进 `app`）：`home/chat/music/video` 接真实网络 jsonplaceholder，`settings` 走本地数据源演示同一分层；**`module-home` 已接 `support-database` 的 `CacheDao` 做缓存优先 + 网络后台刷新（§9.1）**；**`module-home`/`module-video` 列表项已用 `lib-image`（Glide 门面，带占位图 + 圆角）真实加载缩略图**；**`module-video` 已升级 Paging 3 分页 + RemoteMediator/Room 离线缓存 + LoadState 页脚**（自有 `VideoDatabase`，滚动到底自动翻页、离线看缓存页、页脚加载更多/重试，§9.2） |
+| 支撑层 | `support/*` | 🟡 | `support-router`（门面+降级，已真机验证）、`support-network`（NetworkClient/ApiResponse）已建；**`support-storage`（DataStore `PreferenceStorage`）/ `support-websocket`（OkHttp `WebSocketManager`）/ `support-permission`（ActivityResult `PermissionLauncher`）/ `support-media`（Media3 `Media3PlayerApi`，实现 `PlayerApi` 并 SPI 自注册，§6.6）/ **`support-database`（Room `AppDatabase`+`@Entity`+`@Dao`+`DatabaseProvider`，§9.1）** 已建并编译通过** |
+| 工具层 | `libs/*` | 🟡 | `lib-common`（`AppDispatchers`）/ `lib-extension`（View/Context 扩展）/ `lib-log`（`Logger` 门面）/ `lib-image`（Glide `ImageLoader`）/ `lib-ui`（colors/dimens 令牌）**五个已建并编译通过** |
 
-> ⚠️ **构建现状**：`settings.gradle.kts` `include` 了 22 个子模块，磁盘上已建 `:app` `:arch` 与 5 个 `:business:module-*`（共 **7 个**），`:app:assembleDebug` **已通过**。其余 **15 个 `api`/`support`/`libs` 模块**仍无目录、无 `build.gradle.kts`——它们被当作「空项目」容忍，因当前无人依赖故不报错；但**在被 `implementation(project(...))` 依赖前必须补骨架或注释掉其 `include`**，否则报 `does not exist`。修复办法见 **§14 落地修复步骤**。
+> ✅ **构建现状**：`settings.gradle.kts` `include` 的 **24 个子模块磁盘目录已全部建齐**（`:app` `:arch` + 5 `business` + 4 `api` + 7 `support`〔含 `support-media`〕 + 5 `libs`），`./gradlew projects` 全部配置成功、各模块 `compileDebugSources`/`compileKotlin` 均通过。原 §14「目录未建导致 sync 失败」已消除（步骤保留备查）。
 
 ---
 
@@ -89,11 +89,11 @@ AiGuide/ (根目录)
 │
 ├── app/                            ✅ 壳工程：MainActivity / GuideApp / NavHost / 路由汇总
 │
-├── api/                            ⬜ 业务对外能力接口（解耦用，非 HTTP）
-│   ├── api-player/
-│   ├── api-chat/
-│   ├── api-music/
-│   ├── api-settings/
+├── api/                            🟡 业务对外能力接口（解耦用，非 HTTP）
+│   ├── api-player/                 ✅ PlayerApi + PlayState
+│   ├── api-chat/                   ✅ ChatApi
+│   ├── api-music/                  ✅ MusicApi + SongInfo
+│   ├── api-settings/               ✅ SettingsApi
 │   ├── api-home/                   ➕★   补：与 module-home 对称
 │   └── api-video/                  ➕★   补：与 module-video 对称（当前缺）
 │
@@ -106,15 +106,15 @@ AiGuide/ (根目录)
 │   ├── module-video/
 │   └── module-settings/
 │
-├── support/                        ⬜ 支撑模块（垂直能力）
-│   ├── support-network/            # HTTP 基础设施（Retrofit 工厂、拦截器、统一响应）
-│   ├── support-websocket/          # WebSocket 长连接
-│   ├── support-router/             # 路由门面（封装 Jetpack Navigation）
-│   ├── support-storage/            # 本地存储（DataStore）
-│   ├── support-database/           # 数据库（Room）
-│   ├── support-permission/         # 运行时权限
+├── support/                        🟡 支撑模块（垂直能力，6 个已建）
+│   ├── support-network/            ✅ HTTP 基础设施（NetworkClient/ApiResponse）
+│   ├── support-websocket/          ✅ WebSocket 长连接（WebSocketManager/OkHttp）
+│   ├── support-router/             ✅ 路由门面（AppNavigator/deepLink 降级）
+│   ├── support-storage/            ✅ 本地存储（PreferenceStorage/DataStore）
+│   ├── support-database/           ✅ 数据库（Room AppDatabase + CacheEntity/CacheDao + DatabaseProvider）
+│   ├── support-permission/         ✅ 运行时权限（PermissionLauncher/ActivityResult）
+│   ├── support-media/              ✅ 音视频播放（Media3PlayerApi 实现 PlayerApi，SPI 自注册）
 │   ├── support-ai/                 ➕★★★ AI 能力：大模型对话/语音/识别 封装（AiGuide 核心）
-│   ├── support-media/              ➕★★  音视频播放（Media3 / ExoPlayer，依赖待补声明）
 │   ├── support-ble/                ➕★★  低功耗蓝牙（Nordic BLE）
 │   ├── support-serial/             ➕★★  串口通信（serialport）
 │   ├── support-camera/             ➕★★  相机（CameraX）
@@ -122,12 +122,12 @@ AiGuide/ (根目录)
 │   ├── support-push/               ➕★   推送
 │   └── support-update/             ➕★   应用内升级
 │
-├── libs/                           ⬜ 通用工具库
-│   ├── lib-common/
-│   ├── lib-ui/
-│   ├── lib-log/
-│   ├── lib-image/
-│   ├── lib-extension/
+├── libs/                           🟡 通用工具库（5 个已建）
+│   ├── lib-common/                 ✅ AppDispatchers（协程调度器门面）
+│   ├── lib-ui/                     ✅ colors / dimens 设计令牌
+│   ├── lib-log/                    ✅ Logger（统一日志门面）
+│   ├── lib-image/                  ✅ ImageLoader（Glide 门面：占位图/圆角，home/video 列表已接）
+│   ├── lib-extension/              ✅ View / Context 扩展
 │   ├── lib-widget/                 ➕★★  复杂自定义控件（lib-ui 管主题，lib-widget 管控件）
 │   └── lib-test/                   ➕★★  测试工具：协程/Flow 规则、Fake、MockWebServer（依赖待补声明）
 │
@@ -151,7 +151,7 @@ AiGuide/ (根目录)
 | DI | Hilt / androidx-hilt | 2.57.2 / 1.3.0 |
 | 架构组件 | Lifecycle | 2.5.1 |
 | 架构组件 | **Navigation** | **2.5.1** |
-| 架构组件 | Room | 2.4.0 |
+| 架构组件 | Room | 2.7.1（原 2.4.0；Kotlin 2.1 的 suspend/metadata 需 Room ≥2.7） |
 | 架构组件 | DataStore | 1.0.0 |
 | 架构组件 | Paging | 3.0.0 |
 | 架构组件 | WorkManager | 2.7.1 |
@@ -178,7 +178,7 @@ AiGuide/ (根目录)
 
 §2 树中标 **➕** 的即建议补充项，职责与推荐度（★）已在树内标注，这里只补两点落地约束：
 
-- **版本目录尚未声明、使用前需先补**：Media3 / ExoPlayer（`support-media`）、MockWebServer（`lib-test`）、`androidx.benchmark.macro`（`baseline-profile`）。其余（Chaquopy、Nordic BLE、serialport、CameraX，见 §2.1）已声明，可直接引。
+- **版本目录尚未声明、使用前需先补**：~~Media3 / ExoPlayer（`support-media`）~~ ✅ 已补（`media3 = 1.3.1`，`support-media` 已落地）、MockWebServer（`lib-test`）、`androidx.benchmark.macro`（`baseline-profile`）。其余（Chaquopy、Nordic BLE、serialport、CameraX，见 §2.1）已声明，可直接引。
 - **分层一致性**：`support-*` 只提供垂直能力、`api-*` 只放接口；硬件/AI 的业务编排放在 `business/*`，不得渗入 `support`。
 
 ### 2.3 build-logic 约定插件（强烈推荐）
@@ -252,6 +252,8 @@ business ────► api              （business 之间不可互相依赖�
    └──────────────────────────┘
         （arch 与 support 都建立在 libs 之上，互不依赖）
 ```
+
+> **例外（已知、受控）**：需要**自注册能力**的支撑模块（如 `support-media`，§6.6）会依赖 `arch`，仅为取用 `ApiRegistry` / `ComponentApplication` 这套注册契约——这是 support→arch 的**唯一**允许耦合点。若想彻底消除，可把该契约下沉到 `libs:lib-common`（arch 与 support 都依赖 libs），届时此例外即消失。
 
 ---
 
@@ -807,29 +809,152 @@ binding.bottomNav.setupWithNavController(navController)
 
 ---
 
-## 6. api 模块（能力接口层）
+## 6. api 模块（能力接口层，✅ 接口 + SPI 注册表已打通）
 
 > **这里的 `api` 不是网络 HTTP 接口模块**，而是 **业务模块对外暴露能力的接口模块**。
+>
+> **落地状态（✅，4/4 能力均已实现）**：`api-chat` / `api-music` / `api-player` / `api-settings` 四个**纯 Kotlin 接口模块**已建并全部接上实现，经 `ApiRegistry` 注册、消费方仅依赖接口取用，`:app:compileDebugSources` 通过：
+> - `ChatApi`（`module-chat`）/ `MusicApi`（`module-music`）——`module-home` 跨模块调用「去聊天 / 播放音乐」（§6.2）；
+> - `SettingsApi`（`module-settings`）——经 `support-storage`（DataStore）**持久化深色模式**，同步接口 × 异步存储桥接见 §6.5；
+> - `PlayerApi`（**实现下沉 `support-media`/Media3**）——`module-music` / `module-video` **复用同一播放能力**，彼此零耦合，见 §6.6。
+>
+> 本工程**不接 Hilt 做 api 装配**，改用更利于「随意拔插」的 **SPI 注册表**（与 §15.5 同一套 ServiceLoader 机制）。
 
 ### 6.1 作用
 
 - 模块 A 需要调用模块 B 的能力时，只 **依赖 `api-b`（接口）**，不依赖 `module-b`（实现）。
-- 实现类在各自业务模块中注册到 Hilt / 路由容器，调用方通过接口获取实例。
+- 实现类在各自业务模块中注册到 **`ApiRegistry`**，调用方通过接口类型取实例；删除 B 模块 → 它的组件不再被 `ServiceLoader` 发现 → 该能力 `get()` 返回 null，A **零编译依赖、运行期自动降级**。
 
-### 6.2 示例
+### 6.2 三方协作：接口 / 实现+注册 / 消费（磁盘真实代码）
+
+**① 接口（`api-music`，纯 Kotlin）**
 
 ```kotlin
 // api/api-music/.../MusicApi.kt
+data class SongInfo(val id: String, val title: String, val artist: String)
 interface MusicApi {
     fun play(songId: String)
+    fun pause()
     fun currentSong(): SongInfo?
 }
-
-// business/module-music 中实现并 @Binds 到 Hilt
-// business/module-home 仅依赖 api-music：
-// @Inject lateinit var musicApi: MusicApi
-// musicApi.play("1001")
 ```
+
+**② 实现 + 注册（`module-music`，在 §15.5 的 `Component.onCreate` 里登记）**
+
+```kotlin
+// business/module-music/.../MusicApiImpl.kt
+class MusicApiImpl : MusicApi {
+    @Volatile private var current: SongInfo? = null
+    override fun play(songId: String) { current = SongInfo(songId, "曲目 $songId", "歌手 $songId") }
+    override fun pause() { /* 委托 support-media */ }
+    override fun currentSong(): SongInfo? = current
+}
+
+// business/module-music/.../MusicComponent.kt —— ServiceLoader 自动触发，零 app 改动
+class MusicComponent : ComponentApplication {
+    override fun onCreate(app: Application) {
+        ApiRegistry.register(MusicApi::class.java, MusicApiImpl())
+    }
+}
+```
+
+**③ 消费（`module-home`，仅 `implementation(project(":api:api-music"))`，不依赖 `module-music`）**
+
+```kotlin
+// business/module-home/.../HomeFragment.kt
+val music = ApiRegistry.get(MusicApi::class.java)        // 未集成 module-music → null
+if (music != null) { music.play("1001"); toast("正在播放：${music.currentSong()?.title}") }
+else toast("音乐模块未集成")                              // 可插拔降级
+```
+
+### 6.3 注册表本体（`arch/api/ApiRegistry.kt`）
+
+放在 `arch`——所有业务模块都 `api(project(":arch"))`，因此注册方与消费方都能访问；注册表对**接口类型无感**（泛型 `Class<T>`），不反向依赖任何 `api-*`。
+
+```kotlin
+object ApiRegistry {
+    private val services = ConcurrentHashMap<Class<*>, Any>()
+    fun <T : Any> register(clazz: Class<T>, impl: T) { services[clazz] = impl }
+    @Suppress("UNCHECKED_CAST")
+    fun <T : Any> get(clazz: Class<T>): T? = services[clazz] as? T   // 未注册 → null，供降级
+    fun <T : Any> require(clazz: Class<T>): T = get(clazz) ?: error("未找到 ${clazz.name} 实现")
+}
+// reified 便捷式：ApiRegistry.get<MusicApi>()
+inline fun <reified T : Any> ApiRegistry.get(): T? = get(T::class.java)
+```
+
+> **为什么不用 Hilt 装配 api**：Hilt 多绑定要求 `app` 编译期聚合各实现，拔模块仍要改 `app` 依赖（§15.5 备选已述）。SPI 注册表把「注册」下沉到模块自己的 `Component.onCreate`，配合 `ServiceLoader` 发现——**加减模块只动 `settings`/`app` 的一行依赖，注册逻辑零改动**，可插拔性最强。代价是放弃编译期类型安全（取实现时需判 null），由 `get()` 的降级语义承接。
+
+### 6.4 路由 vs api 注册表：跨模块两条路（都零编译依赖）
+
+| 诉求 | 走哪条 | 机制 |
+| --- | --- | --- |
+| 打开对方**页面** | `support-router` deepLink | URI 字符串 + `navigateSafe` 降级（§5.7 方式1） |
+| 调对方**能力**（播放/未读数/开关） | `api-*` + `ApiRegistry` | 接口类型 + `get()` 降级（本节） |
+
+> 两者底层都是「不引用对方实现类 + 运行期解析 + 找不到则降级」，只是一个按 URI、一个按接口类型。`ChatApi.openConversation` 内部其实又委托了 deepLink——能力接口可以包装路由（§5.11）。
+
+### 6.5 能力实现下沉 support：`SettingsApi` × `support-storage`（同步接口 × 异步存储）
+
+`SettingsApi` 是「读写全局开关」的典型能力，实现 `SettingsApiImpl` 在 `module-settings`，把持久化下沉到 `support-storage` 的 `PreferenceStorage`（DataStore）。难点是**同步接口对异步存储**：`isDarkMode()` 要立即返回 `Boolean`，而 DataStore 是 `Flow`/`suspend`。用「内存缓存 + 启动期收集」桥接：
+
+```kotlin
+// business/module-settings/.../SettingsApiImpl.kt（磁盘真实代码，节选）
+class SettingsApiImpl(app: Application) : SettingsApi {
+    private val storage = PreferenceStorage(app)                       // support-storage
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+    @Volatile private var darkMode = false
+
+    init {                                                             // 进程启动即收集磁盘值回填缓存
+        storage.boolFlow("dark_mode", default = false)
+            .onEach { darkMode = it; applyNightMode(it) }              // 回填 + 应用夜间模式
+            .launchIn(scope)
+    }
+    override fun isDarkMode() = darkMode                               // 读缓存：O(1)、不阻塞
+    override fun setDarkMode(enabled: Boolean) {
+        darkMode = enabled; applyNightMode(enabled)
+        scope.launch { storage.putBool("dark_mode", enabled) }        // 异步落盘
+    }
+    private fun applyNightMode(on: Boolean) = AppCompatDelegate.setDefaultNightMode(
+        if (on) MODE_NIGHT_YES else MODE_NIGHT_NO)
+}
+```
+
+注册同前（`SettingsComponent.onCreate` 里 `ApiRegistry.register(SettingsApi::class.java, SettingsApiImpl(app))`）。设置页 `SettingsFragment` 用一个 `SwitchCompat`，经 `ApiRegistry.get(SettingsApi::class.java)` 读初值、改写——**任意模块都能这样读写深色模式而零依赖 `module-settings`**。
+
+> **分层落点**：能力**编排**（缓存桥接、应用夜间模式）在 `business/module-settings`，**持久化机制**（DataStore 读写）在 `support-storage`——印证 §2.2「硬件/存储能力下沉 support，业务编排留 business」。
+
+### 6.6 能力实现放 support 并自注册：`PlayerApi` × `support-media`（music/video 复用）
+
+前三个能力的实现都在**业务模块**；`PlayerApi` 是「音/视频播放」这种**被多个业务复用的基础设施**，把它放进业务模块会让另一个业务被迫依赖它。因此实现下沉到**支撑模块 `support-media`**（Media3/ExoPlayer），并让 **support 模块也实现 `ComponentApplication` 自注册**——这样 music、video 都只面对 `api-player` 接口，**彼此零耦合**，且删掉 `support-media` 时两边都自动降级。
+
+```kotlin
+// support/support-media/.../Media3PlayerApi.kt —— 把 ExoPlayer 封在 support，实现 api-player 接口
+class Media3PlayerApi(context: Context) : PlayerApi {
+    private val player by lazy { ExoPlayer.Builder(context.applicationContext).build() }   // 主线程懒构造
+    override fun play(url: String) { player.setMediaItem(MediaItem.fromUri(url)); player.prepare(); player.playWhenReady = true }
+    override fun pause() { player.playWhenReady = false }
+    override fun stop()  { player.stop() }
+    override fun state(): PlayState = when { player.isPlaying -> PlayState.PLAYING; /* … */ else -> PlayState.IDLE }
+}
+
+// support/support-media/.../MediaComponent.kt —— 支撑模块自注册（带 SPI 文件，priority 偏高）
+class MediaComponent : ComponentApplication {
+    override fun onCreate(app: Application) { ApiRegistry.register(PlayerApi::class.java, Media3PlayerApi(app)) }
+    override fun priority() = 90
+}
+
+// business/module-music/.../MusicApiImpl.kt —— 复用：只依赖 api-player，经注册表取实现
+override fun play(songId: String) {
+    current = SongInfo(songId, "曲目 $songId", "歌手 $songId")
+    ApiRegistry.get(PlayerApi::class.java)?.play("https://…/$songId.mp3")   // support-media 未集成 → null 降级
+}
+// business/module-video 同理：列表项点击 → ApiRegistry.get(PlayerApi)?.play(videoUrl)
+```
+
+> **依赖与分层**：`support-media` → `api-player`（接口）+ `arch`（仅为 `ApiRegistry`/`ComponentApplication` 契约）+ Media3。这是「**带组件的支撑模块**」——支撑模块需要自注册能力时，可取 `arch` 的注册契约（注册表/契约是 support 与 arch 间**唯一**的共享点）。Media3 版本已在 `gradle/libs.versions.toml` 补声明（`media3 = 1.3.1`，§2.2 待补项已补）；`app` 加一行 `implementation(project(":support:support-media"))` 即集成，`ServiceLoader` 自动发现其组件。
+>
+> **复用 = 零耦合**：music、video 都不依赖 `support-media`，只依赖 `api-player`；播放器实现、版本升级、换引擎全收敛在 `support-media` 一处。这正是「能力下沉 support、业务经 api 复用」（§2.2 / §9）的范式落地。
 
 ---
 
@@ -841,13 +966,16 @@ interface MusicApi {
 
 ```
 arch/src/main/java/com/mic/guide/arch/
+├── api/
+│   └── ApiRegistry.kt         # ★ 跨模块能力 SPI 注册表（register/get/require，§6.3）
 ├── base/
 │   ├── BaseActivity.kt        # ViewBinding 生命周期 + 钩子
 │   ├── BaseFragment.kt        # ViewBinding 生命周期 + 钩子
 │   ├── BaseViewModel.kt       # launchWithLoading / loading(StateFlow) / error(SharedFlow)
 │   ├── BaseRepository.kt      # safeCall → Result<T>
 │   ├── BaseApplication.kt     # 全局 context + onInit()
-│   └── FlowExt.kt             # ★ 本次新增：collectIn(owner) 生命周期安全收集
+│   ├── ComponentApplication.kt # 组件生命周期契约（SPI 自注册，§15.5）
+│   └── FlowExt.kt             # collectIn(owner) 生命周期安全收集
 ├── mvc/
 │   ├── MvcActivity.kt
 │   ├── MvcFragment.kt         # ★ 本次新增
@@ -1073,37 +1201,118 @@ business/module-home/
 
 ## 9. support 支撑模块（规划 ⬜）
 
-| 模块 | 职责 | 关键技术 |
-| --- | --- | --- |
-| `support-network` | HTTP **基础设施** | Retrofit 2.9.0 + OkHttp 4.11.0 + 拦截器 |
-| `support-websocket` | WebSocket 长连接 | OkHttp WebSocket |
-| `support-router` 🟡 | **Navigation 门面**（已落地）、Route 常量、deepLink 降级 | Jetpack Navigation 2.5.1 |
-| `support-storage` | 轻量 KV | DataStore 1.0.0 |
-| `support-database` | 结构化持久化 | Room 2.4.0 |
-| `support-permission` | 运行时权限 | ActivityResult API |
+| 模块 | 状态 | 职责 | 关键技术 / 入口类 |
+| --- | --- | --- | --- |
+| `support-network` | ✅ | HTTP **基础设施** | Retrofit 2.9.0 + OkHttp；`NetworkClient` / `ApiResponse` / `NetworkConfig` |
+| `support-websocket` | ✅ | WebSocket 长连接 | OkHttp WebSocket；`WebSocketManager(connect/send/close)` |
+| `support-router` | ✅ | **Navigation 门面**、Route 常量、deepLink 降级 | Jetpack Navigation 2.5.1；`AppNavigator` |
+| `support-storage` | ✅ | 轻量 KV | DataStore 1.0.0；`PreferenceStorage`（Flow 读 + suspend 写） |
+| `support-database` | ✅ | 结构化持久化 | Room 2.7.1（kapt）；`AppDatabase`/`CacheEntity`/`CacheDao`/`DatabaseProvider`（§9.1） |
+| `support-permission` | ✅ | 运行时权限 | ActivityResult API；`PermissionLauncher` |
+| `support-media` | ✅ | 音视频播放（实现 `PlayerApi`，SPI 自注册供 music/video 复用，§6.6） | Media3 1.3.1 / ExoPlayer；`Media3PlayerApi` |
 
 > 建议：本工程已声明的硬件/脚本能力（BLE、串口、CameraX、Chaquopy/Python）应各自独立成 `support-ble` / `support-serial` / `support-camera` / `support-python` 等模块，沿用相同分层规范，避免渗入业务层。
 
+### 9.1 `support-database`：Room 落地（`@Database` / `@Entity` / `@Dao`，✅）
+
+`support-database` 提供一张**通用缓存表**作为基础设施（结构化/较大的缓存走这里，轻量偏好仍走 `support-storage`/DataStore）。`@Database` 的 `version` 取 `DatabaseConfig.VERSION`（`const` 满足注解编译期常量要求）：
+
+```kotlin
+@Entity(tableName = "cache")
+data class CacheEntity(@PrimaryKey val key: String, val value: String, val updatedAt: Long)
+
+@Dao interface CacheDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun put(e: CacheEntity)
+    @Query("SELECT * FROM cache WHERE `key` = :key") suspend fun get(key: String): CacheEntity?
+    @Query("SELECT * FROM cache WHERE `key` LIKE :prefix || '%' ORDER BY updatedAt DESC")
+    fun observe(prefix: String): Flow<List<CacheEntity>>           // 流式观察
+    @Query("DELETE FROM cache WHERE `key` = :key") suspend fun delete(key: String)
+}
+
+@Database(entities = [CacheEntity::class], version = DatabaseConfig.VERSION, exportSchema = false)
+abstract class AppDatabase : RoomDatabase() { abstract fun cacheDao(): CacheDao }
+
+// 单例工厂（双检锁）：业务 data/local 经此拿 Dao，不直接碰 Room.databaseBuilder
+object DatabaseProvider {
+    fun get(context: Context): AppDatabase = …Room.databaseBuilder(appContext, AppDatabase::class.java, DatabaseConfig.DB_NAME)…
+    fun cacheDao(context: Context) = get(context).cacheDao()
+}
+```
+
+构建：`support-database` 加 `kotlin-kapt` 插件 + `kapt(libs.androidx.room.compiler)`。
+
+> ⚠️ **版本坑（已修）**：Room **2.4.0 无法解析 Kotlin 2.1 的 `suspend`**（kapt 把返回类型看成 `java.lang.Object`），**2.6.1 的 metadata 读取器仅支持到 Kotlin 2.0**（报 `Provided Metadata instance has version 2.1.0…`）。本工程把版本目录 `room` 升到 **2.7.1**（2.7 起支持 Kotlin 2.1）后 kapt 通过。新增业务实体：把 `@Entity` 加进 `AppDatabase.entities` 并加一个 abstract dao 即可；规模化后各业务可建独立数据库。
+
+**消费方一 `module-home`（缓存优先 + 网络后台刷新）**：UI 的数据来自 **Room 的 `Flow`**——`HomeRepository.feedStream(page)` 观察缓存表（`CacheDao.observe`），命中即发、磁盘变化自动再发；`refresh(page)` 只取网络并**写缓存**，写入后 `Flow` 自动把新数据推给 UI。「显示」与「刷新」彻底解耦：冷启动先显示上次缓存、在线则后台更新、刷新失败也不清空已显示内容（错误走 `BaseViewModel.error`）。`HomeRepository` 经 `DatabaseProvider.cacheDao(BaseApplication.appContext)` 拿 Dao（无 Hilt 时用 `arch` 的全局 `appContext`）。
+
+```kotlin
+// business/module-home/.../HomeRepository.kt（节选）
+fun feedStream(page: Int = 1): Flow<List<FeedItem>> =                 // 缓存优先：观察缓存行
+    cacheDao.observe("home:feed:$page").map { it.flatMap { e -> parse(e.value) } }
+
+suspend fun refresh(page: Int = 1): Result<Unit> = safeCall {         // 后台刷新：写缓存即驱动上面的 Flow 再发
+    val items = api.getPosts(page = page).map { FeedItem(it.id, it.title, it.body) }
+    cacheDao.put(CacheEntity("home:feed:$page", gson.toJson(items), System.currentTimeMillis()))
+}
+
+// business/module-home/.../HomeViewModel.kt（节选）—— feed 由缓存流 stateIn，init 触发后台刷新
+val feed: StateFlow<List<FeedItem>> =
+    repository.feedStream().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
+init { refresh() }
+```
+
+### 9.2 `module-video`：Paging 3 + RemoteMediator + Room（分页也离线缓存，✅）
+
+home 的缓存是「整页 JSON 一行」（适合小列表）；video 要**分页 + 离线**，用 Paging 3 的标准范式：**Room 作单一数据源 + `RemoteMediator` 补页写库**。这样离线能翻看已缓存的页、在线滚动到底自动拉新页。
+
+- **自有特征数据库**：`module-video` 建独立 `VideoDatabase`（`VideoEntity` + `VideoRemoteKey` 两张表 + 各自 `@Dao`），与 `support-database` 的通用库分开——印证「规模化后各业务可建独立数据库」。本模块加 `kotlin-kapt` + `room-runtime/ktx/paging` + `kapt(room.compiler)`。
+- **数据流**：`VideoDao.pagingSource()`（Room 生成 `PagingSource<Int, VideoEntity>`）是 SoT；`VideoRemoteMediator` 在 `REFRESH`/`APPEND` 时取网络、`withTransaction` 写 `video` + `video_remote_key` 表；`Pager(remoteMediator=…, pagingSourceFactory={ dao.pagingSource() })`。
+
+```kotlin
+// VideoRemoteMediator.load（节选，@OptIn(ExperimentalPagingApi::class)）
+val page = when (loadType) {
+    REFRESH -> 1
+    PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
+    APPEND  -> db.remoteKeyDao().remoteKey(state.lastItemOrNull()!!.id)?.nextKey
+        ?: return MediatorResult.Success(endOfPaginationReached = true)
+}
+val items = api.getPhotos(page, state.config.pageSize).map { VideoEntity(it.id, it.title, it.thumbnailUrl) }
+db.withTransaction {
+    if (loadType == REFRESH) { db.remoteKeyDao().clear(); db.videoDao().clear() }
+    db.remoteKeyDao().insertAll(items.map { VideoRemoteKey(it.id, prev, next) })
+    db.videoDao().upsertAll(items)                       // 写库 → Room PagingSource 自动发数据
+}
+
+// VideoRepository（节选）：Room 作 SoT、Mediator 补页，再把 Entity 映射成领域模型
+Pager(config, remoteMediator = VideoRemoteMediator(api, db)) { db.videoDao().pagingSource() }
+    .flow.map { it.map { e -> VideoItem(e.id, e.title, e.thumbnail) } }
+```
+
+**页脚（加载更多 / 重试）**：`VideoLoadStateAdapter : LoadStateAdapter`（页脚布局 `item_load_state`：转圈 / 错误提示 + 重试按钮），Fragment 用 `adapter.withLoadStateFooter(VideoLoadStateAdapter { adapter.retry() })` 拼成 `ConcatAdapter`；首屏刷新进度仍由 `adapter.loadStateFlow.refresh` 驱动。
+
+> **两种列表数据范式对照**：home = 缓存优先单页（Room `Flow` 整页 JSON）；video = Paging 3 分页离线（Room 行级 SoT + RemoteMediator）。前者轻量、后者支持无限滚动与逐页缓存——按列表规模选型。
+
 ---
 
-## 10. 端到端数据流总览
+## 10. 端到端数据流总览（✅ 已打通）
 
-以「首页点击会话 → 进入聊天详情 → 拉取消息列表」为例：
+以「首页点击会话 → 进入聊天详情 → 拉取消息列表」为例（下列三步**均已落地并可编译运行**，消息源暂用公共测试 API jsonplaceholder `/comments`）：
 
 ```
-1. 用户点击会话项
-   HomeFragment → HomeMviViewModel.dispatch(OpenChat(id))
-                → handleIntent → sendEffect(HomeEffect.NavigateToChat(id))
-                → HomeFragment.handleEffect → AppNavigator.toChatDetail(id)
+1. 用户点击「去聊天(跨模块)」
+   HomeFragment.btnChat → NavigatorProvider.navigator?.toChatDetail(id)
+   （当前 home 用 MVVM：按钮直接经门面跳转。若改 MVI，则
+    dispatch(OpenChat) → sendEffect(NavigateToChat) → handleEffect 调门面，见 §5.8）
 
-2. Navigation 打开 ChatDetailFragment（module-chat）
-   传入 argument: conversationId
+2. AppNavigator 经 deepLink (aiguide://chat/detail/{id}) 打开 ChatDetailFragment（module-chat）
+   conversationId 自动注入 arguments —— module-home 零依赖 module-chat（§15.1 支柱②）
 
-3. ChatDetailViewModel 初始化
-   → launchWithLoading { ChatRepository.loadMessages(conversationId) }
+3. ChatDetailFragment.initView() 读 arguments.conversationId → ChatViewModel.load(id)
+   → launchWithLoading { ChatRepository.loadMessages(id) }
    → ChatRepository.safeCall { ChatApiService.getMessages() }   // Retrofit
-   → support-network OkHttp 发请求
-   → Result 回传 → setState / StateFlow 更新 UI（异常自动进 error: SharedFlow）
+   → support-network OkHttp 发请求 → DTO 映射成 Message 领域模型
+   → Result 回传 → messages: StateFlow 更新 → ChatAdapter 渲染消息列表
+     （loading 自动驱动 ProgressBar；异常自动进 error: SharedFlow → 默认 toast）
 ```
 
 ---
@@ -1167,18 +1376,31 @@ dependencies {
 - [x] 生成 `arch` 基础代码：`BaseActivity` / `BaseFragment` / `BaseViewModel` / `BaseRepository` / `BaseApplication`（备注：**无 `di/` `config/` `BaseDialog`**）
 - [x] 生成 MVC / MVP / MVVM / MVI 四套架构模板基类（本次补齐 `MvcFragment` / `MviFragment`，四套 Activity+Fragment 已对称）
 - [x] arch 全面切换协程 + Flow：`loading: StateFlow`、`error: SharedFlow`、新增 `FlowExt.collectIn`，移除 `LiveDataExt`
-- [ ] 为 21 个已声明模块创建目录 + 最小 `build.gradle.kts`，让工程可 sync（§14）
+- [x] 为全部已声明模块创建目录 + `build.gradle.kts`，工程可 sync：`./gradlew projects` 列出 23 个模块全部配置成功（4 `api` + 5 `libs` + 6 `support` + 5 `business` + `app` + `arch`），各模块 `compileDebugSources`/`compileKotlin` 通过
 - [ ] 引入 `build-logic` 约定插件，收敛各模块构建脚本（§2.3）
 - [ ] 按工程性质补充扩展模块（§2 树中 ➕ 项，依赖与约束见 §2.2）：优先 `support-ai`，再按 ★ 推进 `support-media/ble/serial/camera/python`、`lib-widget/lib-test`、`common`、`baseline-profile`
 - [ ] 版本目录补声明 **Safe Args 插件**；根脚本启用
-- [ ] 搭建 `support-network` 骨架（NetworkClient / ApiResponse / 拦截器）
+- [x] 搭建 `support-network` 骨架（`NetworkClient` / `ApiResponse` / `NetworkException` / `NetworkConfig`，已被 home/chat/music/video 真实调用）
 - [x] 搭建 `support-router`（`Routes` / `AppNavigator` 门面 / `NavigatorProvider` / `navigateSafe` 降级），`app` 注册门面、`module-home` 经门面跨模块跳 chat，**已真机验证（含降级）**
 - [ ] `app` 改造：`MainActivity` + NavHost + 主 NavGraph + BottomNavigation 绑定
 - [ ] 在 business/support 模块接入 **Hilt**（arch 不含）
 - [ ] 为每个 `business` 模块创建标准目录与 `README.md`
-- [ ] 定义各 `api-xxx` 能力接口并接入 Hilt
+- [x] 定义各 `api-xxx` 能力接口（纯 Kotlin 模块，§6）：`api-chat`(`ChatApi`) / `api-music`(`MusicApi`+`SongInfo`) / `api-player`(`PlayerApi`+`PlayState`) / `api-settings`(`SettingsApi`) 已建并编译通过
+- [x] 打通 **api 实现注册与跨模块消费（SPI 注册表方案，§6.2/§6.3）**：`arch` 新增 `ApiRegistry`（`ConcurrentHashMap<Class<*>,Any>`）；`module-chat`/`module-music` 在各自 `XComponent.onCreate` 里 `ApiRegistry.register(...)` 登记 `ChatApiImpl`/`MusicApiImpl`（由 `ServiceLoader` 自动触发）；`module-home` **仅 `implementation(api-chat/api-music)`**、经 `ApiRegistry.get(...)` 调用「去聊天/播放音乐」并对 null 降级（拔模块不崩），`:app:compileDebugSources` 通过
+- [x] 接 **`SettingsApi` 实现 + 深色模式持久化（§6.5）**：`module-settings` 的 `SettingsApiImpl` 经 `support-storage` 的 `PreferenceStorage`(DataStore) 读写 `dark_mode`，用「内存缓存 + 启动期 `boolFlow` 收集」桥接同步接口与异步存储，`setDarkMode` 异步落盘并 `AppCompatDelegate.setDefaultNightMode` 应用夜间模式；`SettingsComponent` 注册进 `ApiRegistry`，`SettingsFragment` 用 `SwitchCompat` 经注册表读写，`:app:compileDebugSources` 通过
+- [x] 接 **`PlayerApi` 实现，下沉 `support-media` 供 music/video 复用（§6.6）**：版本目录补 `media3 = 1.3.1`，新建 `support-media`（`Media3PlayerApi` 用 ExoPlayer 实现 `PlayerApi`）；该 support 模块**也实现 `ComponentApplication` + SPI 自注册**（`MediaComponent` priority 90），`app` 加一行依赖即由 `ServiceLoader` 发现；`module-music`（`MusicApiImpl.play` 委托）与 `module-video`（列表项点击）**只依赖 `api-player`** 经 `ApiRegistry.get(PlayerApi)` 复用、彼此零耦合、未集成则降级，`:app:compileDebugSources` 通过 —— **4 个 api 能力全部接通**
+- [x] 接 **`support-database` 的 Room（§9.1）**：`AppDatabase`(`@Database`, version=`DatabaseConfig.VERSION`) + `CacheEntity`(`@Entity`) + `CacheDao`(`@Dao`, suspend/Flow) + `DatabaseProvider`(双检锁单例)；加 `kotlin-kapt` + `kapt(room.compiler)`；**因 Kotlin 2.1 兼容把 `room` 从 2.4.0 升到 2.7.1**（2.4 不识别 suspend、2.6.1 metadata 仅到 Kotlin 2.0），`:support:support-database:compileDebugSources` 通过
+- [x] **`module-home` 接 `CacheDao` 做缓存优先 + 网络后台刷新（§9.1）**：`HomeRepository.feedStream(page)` 观察 `CacheDao.observe` 的 Room `Flow`（命中即发），`refresh(page)` 取网络写缓存（key=`home:feed:页码`、Gson）即驱动 `Flow` 再发；`HomeViewModel.feed` 由缓存流 `stateIn` 暴露、`init` 触发刷新——冷启动先显缓存、在线后台更新、刷新失败不清屏；`:app:compileDebugSources` 通过
+- [x] **`lib-image` 在 `module-home`/`module-video` 列表真实加载缩略图**：列表项加 `ImageView`，Adapter 调 `ImageLoader.load(iv, url)`（Glide 门面）——video 用 `thumbnailUrl`，home（posts 无图）按 id 取占位图源；两模块加 `implementation(:libs:lib-image)`，`:app:compileDebugSources` 通过
+- [x] **`ImageLoader` 加占位图 + 圆角**：`lib-image` 内置 `ic_image_placeholder` 底图，`load(...)` 默认带占位/失败图，新增 `cornerRadiusDp` 参数（Glide `RoundedCorners` 变换）；home/video 列表项传 `cornerRadiusDp=8`
+- [x] **`module-video` 接 Paging 3 分页**：`VideoPagingSource`(按 `_page` 拉取、`LoadResult.Page/Error`) + `VideoRepository.videoPager()`(`Pager(PagingConfig).flow`) + `VideoViewModel.videos: Flow<PagingData>`(`cachedIn(viewModelScope)`) + `VideoAdapter: PagingDataAdapter`(DiffUtil) + `VideoFragment` 用 `submitData` 与 `loadStateFlow` 驱动进度/刷新；滚动到底自动翻页，列表项仍经 `PlayerApi` 播放；加 `implementation(libs.androidx.paging.runtime)`，`:app:compileDebugSources` 通过
+- [x] **`module-video` Paging 接 RemoteMediator + Room 做分页离线缓存（§9.2）**：自有 `VideoDatabase`（`VideoEntity`/`VideoRemoteKey` + Dao，加 `kotlin-kapt`/`room-runtime/ktx/paging`/`kapt(room.compiler)`，版本目录补 `androidx-room-paging`）；`VideoRemoteMediator` 以 Room 为单一数据源补页写库（`withTransaction`，REFRESH 清表）、`VideoRepository` 用 `Pager(remoteMediator=…){ dao.pagingSource() }` 并 `PagingData.map` 成领域模型——离线看缓存页、在线无限滚动，`:app:compileDebugSources` 通过
+- [x] **抽 `LoadStateAdapter` 页脚（§9.2）**：`VideoLoadStateAdapter`（布局 `item_load_state`：转圈 / 错误 + 重试）经 `adapter.withLoadStateFooter { adapter.retry() }` 拼接，底部「加载更多/重试」可用
+- [x] 搭建 `support`/`libs` 垂直能力与工具模块：`support-storage`(`PreferenceStorage`/DataStore) / `support-websocket`(`WebSocketManager`/OkHttp) / `support-permission`(`PermissionLauncher`/ActivityResult) / `support-database`(`DatabaseConfig`+Room runtime 骨架)；`lib-common`(`AppDispatchers`) / `lib-extension`(View/Context 扩展) / `lib-log`(`Logger`) / `lib-image`(`ImageLoader`/Glide) / `lib-ui`(colors/dimens 令牌) 均已建并编译通过
 - [x] 打通 `module-home` MVVM 端到端示范：`HomeRepository(safeCall)` → `HomeViewModel(StateFlow)` → `HomeFragment(collectIn)` → `home_nav_graph`（list→detail 传参），`app` 单 Activity + NavHost 汇总子图，**已在真机跑通**（暂用内存假数据，未接 Hilt/网络）
-- [x] 打通 `home → chat` **跨模块 deepLink 导航**：`module-chat` 在 `chat_nav_graph` 声明 `<deepLink aiguide://chat/detail/{conversationId}>`，`module-home` 仅用 URI 字符串 `navigate(...toUri())` 跳入，**`module-home` 零依赖 `module-chat`**（真机验证：`conversationId` 跨模块传参成功），印证 §15.1 支柱②；**待办**：接 `support-network` 真实数据
+- [x] 打通 `home → chat` **跨模块 deepLink 导航**：`module-chat` 在 `chat_nav_graph` 声明 `<deepLink aiguide://chat/detail/{conversationId}>`，`module-home` 仅用 URI 字符串 `navigate(...toUri())` 跳入，**`module-home` 零依赖 `module-chat`**（真机验证：`conversationId` 跨模块传参成功），印证 §15.1 支柱②
+- [x] 打通 `module-chat` **MVVM 端到端流程**（与 `module-home` 对称）：`ChatApiService`/`CommentDto`（data/remote）→ `ChatRepository(safeCall)` → `ChatViewModel(StateFlow)` → `ChatDetailFragment(MvvmFragment + collectIn)` + `ChatAdapter`（按 `fromMe` 左右气泡）；`ChatDetailFragment` 从 `arguments.conversationId` 触发 `load(id)` 拉取消息列表，**已接真实网络**（jsonplaceholder `/comments`），`:app:compileDebugSources` 通过
+- [x] 打通 `module-music` / `module-video` / `module-settings` **同构 MVVM 流程**：各自 `data`（music→`/albums`、video→`/photos` 真实网络；settings→本地 `SettingsLocalSource`）→ `Repository(safeCall)` → `ViewModel(StateFlow)` → `Fragment(MvvmFragment + collectIn)` + 列表 Adapter，并各建 `xxx_nav_graph.xml`、由 `app` 的 `nav_graph_main` 统一 `<include>`；`:app:compileDebugSources` 通过。要点：**settings 数据天然在本地、不依赖 support-network**，印证同一分层对本地/远程一致
 - [x] 业务模块接入组件化双模式（§15）：5 个 `module-*` 骨架 + `runAlone` 开关内联切 `application`/`library` + `src/runalone` 独立入口 + `ComponentApplication`/SPI 自注册 + `GuideApp` 的 `ServiceLoader` 装配（已过 `:app:assembleDebug`）；**待办**：收敛进 `build-logic` 约定插件
 
 ---
@@ -1339,12 +1561,16 @@ interface ComponentApplication {
 ```
 
 ```kotlin
-// business/module-home/.../HomeComponent.kt —— 模块自己的实现
-class HomeComponent : ComponentApplication {
-    override fun onCreate(app: Application) { /* 初始化 home 模块 */ }
-    override fun priority(): Int = 10
+// business/module-chat/.../ChatComponent.kt —— 模块自己的实现（在此注册 api 能力，见 §6）
+class ChatComponent : ComponentApplication {
+    override fun onCreate(app: Application) {
+        ApiRegistry.register(ChatApi::class.java, ChatApiImpl())   // 把本模块能力登记进注册表
+    }
+    override fun priority(): Int = 50
 }
 ```
+
+> **`onCreate` 里做什么**：这正是 §6.3 `ApiRegistry` 的注册时机——模块把自己的 `api-*` 实现登记进注册表。`ServiceLoader` 发现该组件 → 调用 `onCreate` → 能力可用；拔掉模块 → 组件不被发现 → 能力 `get()` 返回 null。一处机制同时解决「生命周期自注册」与「api 实现装配」。
 
 ```
 # business/module-home/src/main/resources/META-INF/services/com.mic.guide.arch.base.ComponentApplication

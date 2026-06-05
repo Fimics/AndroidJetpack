@@ -10,6 +10,7 @@ if (runAlone) {
     apply(plugin = "com.android.library")
 }
 apply(plugin = "org.jetbrains.kotlin.android")
+apply(plugin = "org.jetbrains.kotlin.kapt")   // Room 注解处理（本模块自有特征数据库）
 
 configure<BaseExtension> {
     namespace = "com.mic.guide.module.video"
@@ -39,4 +40,18 @@ configure<BaseExtension> {
 dependencies {
     // arch 以 api 暴露：业务页面继承 arch 的 Base 类
     "api"(project(":arch"))
+
+    // 命令式 apply 后无类型化访问器，依赖配置名用字符串
+    "implementation"(libs.androidx.fragment.ktx)            // by viewModels()
+    "implementation"(libs.androidx.navigation.fragment.ktx) // nav 子图
+    "implementation"(libs.androidx.recyclerview)
+    "implementation"(libs.androidx.paging.runtime)          // Paging 3 分页（PagingSource/PagingDataAdapter）
+    // 本模块自有特征数据库（Room）+ RemoteMediator：分页离线缓存（§9.2）
+    "implementation"(libs.androidx.room.runtime)
+    "implementation"(libs.androidx.room.ktx)                // withTransaction
+    "implementation"(libs.androidx.room.paging)             // Room 生成 PagingSource<Int, Entity>
+    "kapt"(libs.androidx.room.compiler)
+    "implementation"(project(":support:support-network"))   // VideoApiService + NetworkClient（真实网络）
+    "implementation"(project(":api:api-player"))            // 复用 support-media 的播放能力（经接口，§6.6）
+    "implementation"(project(":libs:lib-image"))            // ImageLoader（Glide 门面）加载缩略图
 }

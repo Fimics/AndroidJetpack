@@ -44,6 +44,11 @@ dependencies {
     "implementation"(libs.androidx.fragment.ktx)            // by viewModels()
     "implementation"(libs.androidx.navigation.fragment.ktx) // findNavController() / nav 子图
     "implementation"(libs.androidx.recyclerview)
-    "implementation"(project(":support:support-router"))    // 经 AppNavigator 跨模块跳转（不依赖 module-chat）
     "implementation"(project(":support:support-network"))   // HomeApiService + NetworkClient（真实网络）
+    "implementation"(project(":support:support-database"))  // CacheDao 离线缓存（§9.1）
+    "implementation"(project(":libs:lib-image"))            // ImageLoader（Glide 门面）加载列表缩略图
+    "implementation"(libs.gson)                             // feed 列表序列化进缓存表
+    // 跨模块能力：只依赖 api-* 接口，经 ApiRegistry 取实现，零依赖 module-chat / module-music（§6）
+    "implementation"(project(":api:api-chat"))
+    "implementation"(project(":api:api-music"))
 }

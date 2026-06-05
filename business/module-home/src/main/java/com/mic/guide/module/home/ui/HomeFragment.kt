@@ -7,11 +7,13 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mic.guide.api.chat.ChatApi
+import com.mic.guide.api.music.MusicApi
+import com.mic.guide.arch.api.ApiRegistry
 import com.mic.guide.arch.base.collectIn
 import com.mic.guide.arch.mvvm.MvvmFragment
 import com.mic.guide.module.home.R
 import com.mic.guide.module.home.databinding.FragmentHomeBinding
-import com.mic.guide.support.router.NavigatorProvider
 
 /**
  * 首页 Fragment（MVVM 端到端示范）：
@@ -39,10 +41,22 @@ class HomeFragment : MvvmFragment<FragmentHomeBinding, HomeViewModel>() {
         binding.rvFeed.adapter = adapter
         binding.btnRefresh.setOnClickListener { viewModel.refresh() }
 
-        // 跨模块跳转：经 support-router 的 AppNavigator 门面（§5.7 方式1），
-        // 内部走 deepLink + 失败降级；module-home 仍零依赖 module-chat。
+        // 跨模块能力调用（§5.7 方式2 / §6）：只依赖 api-chat 接口，经 ApiRegistry 取实现。
+        // module-chat 被拔掉时 get() 返回 null → 降级提示，不崩、不编译失败。
         binding.btnChat.setOnClickListener {
-            NavigatorProvider.navigator?.toChatDetail("from-home-42")
+            val chat = ApiRegistry.get(ChatApi::class.java)
+            if (chat != null) chat.openConversation("from-home-42") else toast("聊天模块未集成")
+        }
+
+        // 跨模块「非 UI 能力」（§5.11）：经 MusicApi 播放并读当前曲目，零依赖 module-music。
+        binding.btnMusic.setOnClickListener {
+            val music = ApiRegistry.get(MusicApi::class.java)
+            if (music != null) {
+                music.play("1001")
+                toast("正在播放：${music.currentSong()?.title}")
+            } else {
+                toast("音乐模块未集成")
+            }
         }
     }
 

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 设置业务子图：由 app 的 nav_graph_main 通过 <include> 汇总（见 §5.10）。 -->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/settings_nav_graph"
+    app:startDestination="@id/settingsFragment">
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.mic.guide.module.settings.ui.SettingsFragment"
+        android:label="Settings" />
+
+</navigation>

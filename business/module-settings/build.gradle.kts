@@ -39,4 +39,12 @@ configure<BaseExtension> {
 dependencies {
     // arch 以 api 暴露：业务页面继承 arch 的 Base 类
     "api"(project(":arch"))
+
+    // 命令式 apply 后无类型化访问器，依赖配置名用字符串
+    "implementation"(libs.androidx.fragment.ktx)            // by viewModels()
+    "implementation"(libs.androidx.navigation.fragment.ktx) // nav 子图
+    "implementation"(libs.androidx.recyclerview)
+    // 注意：设置页列表数据走本地，故不依赖 support-network
+    "implementation"(project(":api:api-settings"))          // 实现并注册 SettingsApi 能力（§6）
+    "implementation"(project(":support:support-storage"))   // 经 PreferenceStorage(DataStore) 持久化深色模式
 }

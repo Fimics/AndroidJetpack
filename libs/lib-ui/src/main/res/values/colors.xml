@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 全工程通用设计令牌（lib-ui 管主题/颜色，见 §2 注）。业务模块引用 @color/brand_primary 等。 -->
+<resources>
+    <color name="brand_primary">#FF6D00</color>
+    <color name="brand_primary_dark">#E65100</color>
+    <color name="text_primary">#222222</color>
+    <color name="text_secondary">#888888</color>
+    <color name="divider">#EEEEEE</color>
+</resources>

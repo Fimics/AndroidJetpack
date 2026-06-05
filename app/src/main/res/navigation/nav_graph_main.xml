@@ -11,4 +11,9 @@
     <!-- chat_nav_graph 来自 :business:module-chat，含隐式 deepLink；汇总进来后 home 才能跨模块跳入 -->
     <include app:graph="@navigation/chat_nav_graph" />
 
+    <!-- music / video / settings 子图：各自一条 MVVM 列表业务线（见 §10 同构示范） -->
+    <include app:graph="@navigation/music_nav_graph" />
+    <include app:graph="@navigation/video_nav_graph" />
+    <include app:graph="@navigation/settings_nav_graph" />
+
 </navigation>

@@ -66,6 +66,7 @@ dependencies {
     implementation(project(":business:module-music"))
     implementation(project(":business:module-video"))
     implementation(project(":business:module-settings"))
+    implementation(project(":support:support-media"))      // PlayerApi 实现（Media3），SPI 自注册供 music/video 复用
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

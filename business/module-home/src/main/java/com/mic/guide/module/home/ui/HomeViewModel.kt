@@ -1,33 +1,32 @@
 package com.mic.guide.module.home.ui
 
+import androidx.lifecycle.viewModelScope
 import com.mic.guide.arch.mvvm.MvvmViewModel
 import com.mic.guide.module.home.data.repository.HomeRepository
 import com.mic.guide.module.home.domain.model.FeedItem
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.stateIn
 
 /**
- * 首页 ViewModel：继承 [MvvmViewModel]（= BaseViewModel），用 `StateFlow` 暴露 UI 状态。
+ * 首页 ViewModel：继承 [MvvmViewModel]（= BaseViewModel）。
  *
- * 无参构造，可由 `by viewModels()` 默认工厂创建；当前手动 new 出 [HomeRepository]
- * （接入 Hilt 后改为 `@HiltViewModel` + `@Inject` 注入，页面写法不变）。
+ * **缓存优先**：[feed] 直接由 Repository 的缓存流 `stateIn` 而来——冷启动先发缓存、磁盘变化自动更新；
+ * `init` 触发一次 [refresh] 做网络后台刷新（写缓存即驱动 [feed] 再发）。接入 Hilt 后改 `@HiltViewModel`，写法不变。
  */
 class HomeViewModel : MvvmViewModel() {
 
     private val repository = HomeRepository()
 
-    private val _feed = MutableStateFlow<List<FeedItem>>(emptyList())
-    val feed: StateFlow<List<FeedItem>> = _feed.asStateFlow()
+    val feed: StateFlow<List<FeedItem>> = repository.feedStream()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
     init {
         refresh()
     }
 
     fun refresh(page: Int = 1) {
-        // 自动管理 loading；失败统一进基类 error(SharedFlow)，无需在此 try/catch
-        launchWithLoading {
-            repository.loadFeed(page).onSuccess { _feed.value = it }
-        }
+        // 网络后台刷新：自动管理 loading；失败进基类 error(SharedFlow)，UI 仍显示缓存
+        launchWithLoading { repository.refresh(page) }
     }
 }

@@ -39,4 +39,12 @@ configure<BaseExtension> {
 dependencies {
     // arch 以 api 暴露：业务页面继承 arch 的 Base 类
     "api"(project(":arch"))
+
+    // 命令式 apply 后无类型化访问器，依赖配置名用字符串
+    "implementation"(libs.androidx.fragment.ktx)            // by viewModels()
+    "implementation"(libs.androidx.navigation.fragment.ktx) // nav 子图 / deepLink 目标
+    "implementation"(libs.androidx.recyclerview)
+    "implementation"(project(":support:support-network"))   // ChatApiService + NetworkClient（真实网络）
+    "implementation"(project(":support:support-router"))    // ChatApiImpl 经门面 deepLink 打开会话
+    "implementation"(project(":api:api-chat"))              // 实现并注册 ChatApi 能力（§6）
 }

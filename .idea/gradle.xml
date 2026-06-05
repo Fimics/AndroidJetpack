@@ -31,6 +31,7 @@
             <option value="$PROJECT_DIR$/libs/lib-ui" />
             <option value="$PROJECT_DIR$/support" />
             <option value="$PROJECT_DIR$/support/support-database" />
+            <option value="$PROJECT_DIR$/support/support-media" />
             <option value="$PROJECT_DIR$/support/support-network" />
             <option value="$PROJECT_DIR$/support/support-permission" />
             <option value="$PROJECT_DIR$/support/support-router" />

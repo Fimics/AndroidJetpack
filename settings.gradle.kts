@@ -54,6 +54,7 @@ include(":support:support-router")
 include(":support:support-storage")
 include(":support:support-database")
 include(":support:support-permission")
+include(":support:support-media")
 
 // ============================================================
 // 工具层（libs）：通用工具、UI、日志、图片、扩展

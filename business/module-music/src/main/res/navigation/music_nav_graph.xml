@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 音乐业务子图：由 app 的 nav_graph_main 通过 <include> 汇总（见 §5.10）。 -->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/music_nav_graph"
+    app:startDestination="@id/musicFragment">
+
+    <fragment
+        android:id="@+id/musicFragment"
+        android:name="com.mic.guide.module.music.ui.MusicFragment"
+        android:label="Music" />
+
+</navigation>
