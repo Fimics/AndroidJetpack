@@ -3,6 +3,7 @@ package com.mic.guide.arch.mvvm
 import androidx.viewbinding.ViewBinding
 import com.mic.guide.arch.base.BaseActivity
 import com.mic.guide.arch.base.BaseViewModel
+import com.mic.guide.arch.base.collectIn
 
 /**
  * MVVM 架构 Activity 基类：持有 [BaseViewModel] 并自动观察其 Loading / 异常。
@@ -21,8 +22,8 @@ abstract class MvvmActivity<VB : ViewBinding, VM : BaseViewModel> : BaseActivity
     protected abstract val viewModel: VM
 
     override fun beforeInit() {
-        viewModel.loading.observe(this) { onLoading(it) }
-        viewModel.error.observe(this) { onError(it) }
+        viewModel.loading.collectIn(this) { onLoading(it) }
+        viewModel.error.collectIn(this) { onError(it) }
     }
 
     /** 默认空实现，子类按需展示 Loading。 */

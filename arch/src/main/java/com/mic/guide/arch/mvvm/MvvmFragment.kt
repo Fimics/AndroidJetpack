@@ -3,6 +3,7 @@ package com.mic.guide.arch.mvvm
 import androidx.viewbinding.ViewBinding
 import com.mic.guide.arch.base.BaseFragment
 import com.mic.guide.arch.base.BaseViewModel
+import com.mic.guide.arch.base.collectIn
 
 /**
  * MVVM 架构 Fragment 基类：持有 [BaseViewModel] 并自动观察其 Loading / 异常。
@@ -20,8 +21,8 @@ abstract class MvvmFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFragment
     protected abstract val viewModel: VM
 
     override fun beforeInit() {
-        viewModel.loading.observe(viewLifecycleOwner) { onLoading(it) }
-        viewModel.error.observe(viewLifecycleOwner) { onError(it) }
+        viewModel.loading.collectIn(viewLifecycleOwner) { onLoading(it) }
+        viewModel.error.collectIn(viewLifecycleOwner) { onError(it) }
     }
 
     protected open fun onLoading(loading: Boolean) {}
