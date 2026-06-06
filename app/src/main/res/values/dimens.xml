@@ -1,1 +1,6 @@
-<resources></resources>
+<resources>
+    <!-- 列表/页面通用间距令牌 -->
+    <dimen name="list_gutter">16dp</dimen>
+    <dimen name="card_gap">12dp</dimen>
+    <dimen name="list_bottom_inset">96dp</dimen>
+</resources>

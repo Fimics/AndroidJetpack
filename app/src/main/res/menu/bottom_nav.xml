@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 底部导航：每个 item 的 id 对应一个业务子图根 id（见 nav_graph_main 的 <include>，§5.10）。
-     setupWithNavController 据此切 tab，各 tab 保留自己的返回栈。 -->
+     图标用 state-list（选中实心/未选中线性），setupWithNavController 据此切 tab。 -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@id/home_nav_graph"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/tab_home"
         android:title="@string/tab_home" />
 
     <item
         android:id="@id/chat_nav_graph"
-        android:icon="@drawable/ic_chat"
+        android:icon="@drawable/tab_chat"
         android:title="@string/tab_chat" />
 
     <item
         android:id="@id/music_nav_graph"
-        android:icon="@drawable/ic_music"
+        android:icon="@drawable/tab_music"
         android:title="@string/tab_music" />
 
     <item
         android:id="@id/video_nav_graph"
-        android:icon="@drawable/ic_video"
+        android:icon="@drawable/tab_video"
         android:title="@string/tab_video" />
 
     <item
         android:id="@id/settings_nav_graph"
-        android:icon="@drawable/ic_me"
+        android:icon="@drawable/tab_me"
         android:title="@string/tab_me" />
 
 </menu>

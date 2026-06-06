@@ -10,6 +10,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.mic.guide.databinding.ActivityMainBinding
@@ -55,8 +57,29 @@ class MainActivity : AppCompatActivity() {
         val navHost = supportFragmentManager
             .findFragmentById(R.id.nav_host) as NavHostFragment
 
-        // 底部 5 个 tab 与 NavController 绑定：点 tab 切到对应子图、各自保留返回栈（§5.10）
-        binding.bottomNav.setupWithNavController(navHost.navController)
+        // 底部 5 个 tab 与 NavController 绑定：先 setup 同步「当前页 → 高亮哪个 tab」
+        val navController = navHost.navController
+        binding.bottomNav.setupWithNavController(navController)
+
+        // 覆盖默认选择行为：切 tab 一律回到该 tab 的起始页（单一返回栈，不恢复旧栈）——
+        // 修复「从其他 tab 切回首页时，因 saveState 恢复到详情页而非首页列表」，保证点 Home 一定回首页。
+        binding.bottomNav.setOnItemSelectedListener { item ->
+            val options = NavOptions.Builder()
+                .setLaunchSingleTop(true)
+                .setRestoreState(false)
+                .setPopUpTo(navController.graph.findStartDestination().id, inclusive = false, saveState = false)
+                .build()
+            try {
+                navController.navigate(item.itemId, null, options)
+                true
+            } catch (e: IllegalArgumentException) {
+                false
+            }
+        }
+        // 再次点击当前 tab：回到该 tab 的起始页（清空该 tab 内部的前进栈）
+        binding.bottomNav.setOnItemReselectedListener { item ->
+            navController.popBackStack(item.itemId, inclusive = false)
+        }
 
         // 注册全局路由门面：业务层经 NavigatorProvider.navigator 跳转（§5.5）
         NavigatorProvider.navigator = AppNavigator(navHost.navController) { uri ->

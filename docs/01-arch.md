@@ -19,10 +19,13 @@ bqt# Android 多模块项目结构与架构设计
 | 架构层 | `arch` | 🟡 | Base 类 + MVC/MVP/MVVM/MVI 四套模板已实现（Activity+Fragment 已对称）；全面 **协程 + Flow**（`StateFlow`/`SharedFlow`/`collectIn`）；新增 **`api/ApiRegistry`**（跨模块能力 SPI 注册表，§6.3）；**无 `di/`、`config/`、`BaseDialog`**，也**未引入 Hilt** |
 | 接口层 | `api/*` | ✅ | `api-chat`（`ChatApi`）/ `api-music`（`MusicApi`+`SongInfo`）/ `api-player`（`PlayerApi`+`PlayState`）/ `api-settings`（`SettingsApi`）四个**纯 Kotlin 接口模块**已建，**4 个能力均已接实现并经 `ApiRegistry` 注册**，消费方仅依赖接口经注册表取用（编译通过）：`ChatApi`/`MusicApi`/`SettingsApi` 由业务模块实现（`SettingsApi` 经 `support-storage` 持久化深色模式），`PlayerApi` **实现下沉 `support-media`/Media3 供 music/video 复用**（§6.6） |
 | 业务层 | `business/*` | 🟡 | `module-home/chat/music/video/settings` 五个**组件化骨架已建**（双模式 + `ComponentApplication`/SPI 自注册，见 §15，已过 `:app:assembleDebug`）；**五个模块均已打通完整 MVVM 端到端流程**（`data` + `repository(safeCall)` + `ViewModel(StateFlow)` + `Fragment(collectIn)` + 列表 Adapter + `nav_graph` 汇总进 `app`）：`home/chat/music/video` 接真实网络 jsonplaceholder，`settings` 走本地数据源演示同一分层；**`module-home` 已接 `support-database` 的 `CacheDao` 做缓存优先 + 网络后台刷新（§9.1）**；**`module-home`/`module-video` 列表项已用 `lib-image`（Glide 门面，带占位图 + 圆角）真实加载缩略图**；**`module-video` 已升级 Paging 3 分页 + RemoteMediator/Room 离线缓存 + LoadState 页脚**（自有 `VideoDatabase`，滚动到底自动翻页、离线看缓存页、页脚加载更多/重试，§9.2） |
-| 支撑层 | `support/*` | 🟡 | `support-router`（门面+降级，已真机验证）、`support-network`（NetworkClient/ApiResponse）已建；**`support-storage`（DataStore `PreferenceStorage`）/ `support-websocket`（OkHttp `WebSocketManager`）/ `support-permission`（ActivityResult `PermissionLauncher`）/ `support-media`（Media3 `Media3PlayerApi`，实现 `PlayerApi` 并 SPI 自注册，§6.6）/ **`support-database`（Room `AppDatabase`+`@Entity`+`@Dao`+`DatabaseProvider`，§9.1）** 已建并编译通过** |
-| 工具层 | `libs/*` | 🟡 | `lib-common`（`AppDispatchers`）/ `lib-extension`（View/Context 扩展）/ `lib-log`（`Logger` 门面）/ `lib-image`（Glide `ImageLoader`）/ `lib-ui`（colors/dimens 令牌）**五个已建并编译通过** |
+不| 支撑层 | `support/*` | 🟡 | `support-router`（门面+降级，已真机验证）、`support-network`（NetworkClient/ApiResponse）已建；**`support-storage`（DataStore `PreferenceStorage`）/ `support-websocket`（OkHttp `WebSocketManager`）/ `support-permission`（ActivityResult `PermissionLauncher`）/ `support-media`（Media3 `Media3PlayerApi`，实现 `PlayerApi` 并 SPI 自注册，§6.6）/ **`support-database`（Room `AppDatabase`+`@Entity`+`@Dao`+`DatabaseProvider`，§9.1）** 已建并编译通过**；**新增 7 个垂直能力模块均已建并 `compileDebugKotlin` 通过：`support-ai`（OpenAI 兼容大模型对话 + SSE 流式 + SPI 自注册）/ `support-camera`（CameraX）/ `support-ble`（Nordic 扫描 + 原生 GATT）/ `support-serial`（串口）/ `support-python`（Chaquopy）/ `support-push`（推送门面）/ `support-update`（应用内升级），见 §9** |
+| 工具层 | `libs/*` | ✅ | `lib-common`（`AppDispatchers`）/ `lib-extension`（View/Context 扩展）/ `lib-log`（`Logger` 门面）/ `lib-image`（Glide `ImageLoader`）/ `lib-ui`（colors/dimens 令牌）**五个已建并编译通过**；新增 `lib-widget`（`StateView` 多状态容器 + `LoadingButton`）/ `lib-test`（`MainDispatcherRule` + Flow 测试扩展 + `MockWebServerRule`，纯 JVM）**两个已建并编译通过** |
+| 资源/性能 | `common` / `baseline-profile` | ✅ | `common`（跨模块 colors/strings/dimens + `Theme.AiGuide.Common`）；`baseline-profile`（`com.android.test` + Macrobenchmark：`BaselineProfileGenerator` 生成基线 + `StartupBenchmark` 冷启动对照） |
 
-> ✅ **构建现状**：`settings.gradle.kts` `include` 的 **24 个子模块磁盘目录已全部建齐**（`:app` `:arch` + 5 `business` + 4 `api` + 7 `support`〔含 `support-media`〕 + 5 `libs`），`./gradlew projects` 全部配置成功、各模块 `compileDebugSources`/`compileKotlin` 均通过。原 §14「目录未建导致 sync 失败」已消除（步骤保留备查）。
+> ✅ **构建现状**：`settings.gradle.kts` `include` 的 **36 个子模块磁盘目录已全部建齐**（`:app` `:arch` + 5 `business` + 6 `api` + 14 `support` + 7 `libs` + `common` + `baseline-profile`），`./gradlew projects` 全部配置成功、各模块 `compileDebugKotlin`/`compileKotlin` 均通过。原 §2 树中标 ➕ 的待建模块**仅剩 `build-logic` 约定插件**（蓝图项，非阻塞，§2.3）。原 §14「目录未建导致 sync 失败」已消除（步骤保留备查）。
+>
+> ⚠️ **两点环境约束（不影响 `:app` 构建，已实测）**：① `support-python`（Chaquopy）在配置阶段会启动 `buildPython` 外部进程，与 Gradle **配置缓存不兼容**——单独构建该模块需加 `--no-configuration-cache`（`:app` 默认不依赖它，故不受影响）；② `support-camera/ble/serial/python` 等硬件/脚本模块按需在 `app/build.gradle.kts` 加一行 `implementation(project(...))` 才集成，未集成时其能力不参与打包（可插拔，§15）。
 
 ---
 
@@ -90,13 +93,13 @@ AiGuide/ (根目录)
 │
 ├── app/                            ✅ 壳工程：MainActivity / GuideApp / NavHost / 路由汇总
 │
-├── api/                            🟡 业务对外能力接口（解耦用，非 HTTP）
+├── api/                            ✅ 业务对外能力接口（解耦用，非 HTTP）
 │   ├── api-player/                 ✅ PlayerApi + PlayState
 │   ├── api-chat/                   ✅ ChatApi
 │   ├── api-music/                  ✅ MusicApi + SongInfo
 │   ├── api-settings/               ✅ SettingsApi
-│   ├── api-home/                   ➕★   补：与 module-home 对称
-│   └── api-video/                  ➕★   补：与 module-video 对称（当前缺）
+│   ├── api-home/                   ✅ HomeApi + HomeSummary（与 module-home 对称）
+│   └── api-video/                  ✅ VideoApi + VideoInfo（与 module-video 对称）
 │
 ├── arch/                           🟡 架构基础库（核心，已部分落地）
 │
@@ -115,13 +118,13 @@ AiGuide/ (根目录)
 │   ├── support-database/           ✅ 数据库（Room AppDatabase + CacheEntity/CacheDao + DatabaseProvider）
 │   ├── support-permission/         ✅ 运行时权限（PermissionLauncher/ActivityResult）
 │   ├── support-media/              ✅ 音视频播放（Media3PlayerApi 实现 PlayerApi，SPI 自注册）
-│   ├── support-ai/                 ➕★★★ AI 能力：大模型对话/语音/识别 封装（AiGuide 核心）
-│   ├── support-ble/                ➕★★  低功耗蓝牙（Nordic BLE）
-│   ├── support-serial/             ➕★★  串口通信（serialport）
-│   ├── support-camera/             ➕★★  相机（CameraX）
-│   ├── support-python/             ➕★★  内嵌 Python 脚本（Chaquopy）
-│   ├── support-push/               ➕★   推送
-│   └── support-update/             ➕★   应用内升级
+│   ├── support-ai/                 ✅ AI 能力：OpenAI 兼容大模型对话（AiChatClient：chat + chatStream SSE，SPI 自注册，AiGuide 核心）
+│   ├── support-ble/                ✅ 低功耗蓝牙（Nordic 扫描 + 原生 GATT：BleScanner/BleConnection）
+│   ├── support-serial/             ✅ 串口通信（licheedev serialport：SerialManager 读线程 + Flow）
+│   ├── support-camera/             ✅ 相机（CameraX LifecycleCameraController：CameraManager 预览/拍照/前后摄/闪光）
+│   ├── support-python/             ✅ 内嵌 Python 脚本（Chaquopy：PythonEngine.call/runCode）
+│   ├── support-push/               ✅ 推送（PushManager 门面 + PushProvider 适配 + NotificationHelper）
+│   └── support-update/             ✅ 应用内升级（AppUpdater：DownloadManager 下载 + FileProvider 安装）
 │
 ├── libs/                           🟡 通用工具库（5 个已建）
 │   ├── lib-common/                 ✅ AppDispatchers（协程调度器门面）
@@ -129,11 +132,11 @@ AiGuide/ (根目录)
 │   ├── lib-log/                    ✅ Logger（统一日志门面）
 │   ├── lib-image/                  ✅ ImageLoader（Glide 门面：占位图/圆角，home/video 列表已接）
 │   ├── lib-extension/              ✅ View / Context 扩展
-│   ├── lib-widget/                 ➕★★  复杂自定义控件（lib-ui 管主题，lib-widget 管控件）
-│   └── lib-test/                   ➕★★  测试工具：协程/Flow 规则、Fake、MockWebServer（依赖待补声明）
+│   ├── lib-widget/                 ✅ 自定义控件（StateView 多状态容器 + LoadingButton；lib-ui 管主题）
+│   └── lib-test/                   ✅ 测试工具：MainDispatcherRule / Flow 测试扩展 / MockWebServerRule（纯 JVM）
 │
-├── common/                         ➕★★  公共资源（colors / strings / dimens / theme）
-└── baseline-profile/               ➕★   启动/滚动性能基线（Macrobenchmark，依赖待补声明）
+├── common/                         ✅ 公共资源（colors / strings / dimens / Theme.AiGuide.Common）
+└── baseline-profile/               ✅ 启动性能基线（Macrobenchmark：BaselineProfileGenerator + StartupBenchmark）
 ```
 
 > `➕` 模块尚未在 `settings.gradle.kts` 声明，按推荐度逐步引入；其依赖缺口与分层约束见 §2.2。
@@ -179,7 +182,7 @@ AiGuide/ (根目录)
 
 §2 树中标 **➕** 的即建议补充项，职责与推荐度（★）已在树内标注，这里只补两点落地约束：
 
-- **版本目录尚未声明、使用前需先补**：~~Media3 / ExoPlayer（`support-media`）~~ ✅ 已补（`media3 = 1.3.1`，`support-media` 已落地）、MockWebServer（`lib-test`）、`androidx.benchmark.macro`（`baseline-profile`）。其余（Chaquopy、Nordic BLE、serialport、CameraX，见 §2.1）已声明，可直接引。
+- **版本目录尚未声明、使用前需先补**：~~Media3 / ExoPlayer（`support-media`）~~ ✅ 已补（`media3 = 1.3.1`）、~~MockWebServer（`lib-test`）~~ ✅ 已补（`mockwebserver` + `kotlinx-coroutines-test`，复用 okhttp/协程版本）、~~`androidx.benchmark.macro`（`baseline-profile`）~~ ✅ 已补（`benchmark = 1.2.4` + `uiautomator` + `profileinstaller`，并补 `com.android.test`/`androidx.baselineprofile` 插件声明）。其余（Chaquopy、Nordic BLE、serialport、CameraX，见 §2.1）已声明，均已在对应 `support-*` 模块落地。
 - **分层一致性**：`support-*` 只提供垂直能力、`api-*` 只放接口；硬件/AI 的业务编排放在 `business/*`，不得渗入 `support`。
 
 ### 2.3 build-logic 约定插件（强烈推荐）
@@ -1224,8 +1227,15 @@ business/module-home/
 | `support-database` | ✅ | 结构化持久化 | Room 2.7.1（kapt）；`AppDatabase`/`CacheEntity`/`CacheDao`/`DatabaseProvider`（§9.1） |
 | `support-permission` | ✅ | 运行时权限 | ActivityResult API；`PermissionLauncher` |
 | `support-media` | ✅ | 音视频播放（实现 `PlayerApi`，SPI 自注册供 music/video 复用，§6.6） | Media3 1.3.1 / ExoPlayer；`Media3PlayerApi` |
+| `support-ai` | ✅ | **AI 大模型对话（AiGuide 核心）**：一次性 + SSE 流式 | OkHttp/Retrofit；`AiChatClient`(`chat`/`chatStream`) + `AiConfig` + SPI 自注册（§9.3） |
+| `support-camera` | ✅ | 相机：预览 / 拍照 / 前后摄 / 闪光 | CameraX 1.3.4 `LifecycleCameraController`；`CameraManager` |
+| `support-ble` | ✅ | 低功耗蓝牙：扫描 + 连接 + 读写 + 订阅通知 | Nordic 扫描兼容库 + 原生 `BluetoothGatt`；`BleScanner`(Flow) / `BleConnection`(StateFlow+SharedFlow) |
+| `support-serial` | ✅ | 串口通信：枚举 / 打开 / 收发 | licheedev `android-serialport`；`SerialManager`（读线程 + `incoming` SharedFlow） |
+| `support-python` | ✅ | 内嵌 Python 脚本执行 | Chaquopy 3.11；`PythonEngine.call/callRaw/runCode`（§9.4） |
+| `support-push` | ✅ | 推送：厂商适配 + 通知落地 | `PushManager` 门面 + `PushProvider` 适配契约 + `NotificationHelper`（渠道） |
+| `support-update` | ✅ | 应用内升级：版本比对 / 下载 / 安装 | `DownloadManager` + `FileProvider`；`AppUpdater`（进度 Flow） |
 
-> 建议：本工程已声明的硬件/脚本能力（BLE、串口、CameraX、Chaquopy/Python）应各自独立成 `support-ble` / `support-serial` / `support-camera` / `support-python` 等模块，沿用相同分层规范，避免渗入业务层。
+> 上述硬件/脚本/AI 能力均**各自独立成 `support-*` 模块**、沿用相同分层规范（垂直能力下沉 support、业务编排留 business），不渗入业务层。需要自注册的（如 `support-ai`）实现 `ComponentApplication` + SPI，与 `support-media` 同款（§6.6 / §15.5）。
 
 ### 9.1 `support-database`：Room 落地（`@Database` / `@Entity` / `@Dao`，✅）
 
@@ -1305,6 +1315,75 @@ Pager(config, remoteMediator = VideoRemoteMediator(api, db)) { db.videoDao().pag
 **页脚（加载更多 / 重试）**：`VideoLoadStateAdapter : LoadStateAdapter`（页脚布局 `item_load_state`：转圈 / 错误提示 + 重试按钮），Fragment 用 `adapter.withLoadStateFooter(VideoLoadStateAdapter { adapter.retry() })` 拼成 `ConcatAdapter`；首屏刷新进度仍由 `adapter.loadStateFlow.refresh` 驱动。
 
 > **两种列表数据范式对照**：home = 缓存优先单页（Room `Flow` 整页 JSON）；video = Paging 3 分页离线（Room 行级 SoT + RemoteMediator）。前者轻量、后者支持无限滚动与逐页缓存——按列表规模选型。
+
+### 9.3 `support-ai`：大模型对话（一次性 + SSE 流式，AiGuide 核心，✅）
+
+OpenAI 兼容协议（`/v1/chat/completions`），换 `AiConfig.baseUrl/apiKey/model` 即可对接 OpenAI / DeepSeek / 通义千问 / Moonshot 等任意 OpenAI 风格网关。两条主流用法：
+
+- **一次性** `chat(messages)`：`suspend` 取完整回答，走 Retrofit。
+- **流式** `chatStream(messages)`：把网关 SSE（`data: {chunk}` / 终止 `data: [DONE]`）逐 token 包成 `Flow<String>`，UI 边收边渲染（打字机效果），用 `callbackFlow` 桥接裸 OkHttp，下游取消即 `awaitClose { call.cancel() }`。
+
+```kotlin
+// 配置（通常在设置页 / 启动时）
+AiConfig.apiKey = "sk-..."; AiConfig.model = "deepseek-chat"
+
+// 业务侧经 ApiRegistry 取实现（support-ai 经 AiComponent SPI 自注册，零依赖具体类）
+val ai = ApiRegistry.get(AiChatClient::class.java)
+ai?.chatStream(listOf(AiMessage.system("你是导览助手"), AiMessage.user("介绍一下故宫")))
+    ?.collectIn(viewLifecycleOwner) { token -> binding.tvAnswer.append(token) }
+```
+
+> 分层：`support-ai` → `arch`（仅取 `ApiRegistry`/`ComponentApplication` 契约）+ OkHttp/Retrofit；与 `support-media` 同为「带组件的支撑模块」，`app` 加一行依赖即由 `ServiceLoader` 装配。`AiComponent.priority()=80`。
+
+### 9.4 `support-python`：内嵌 Python（Chaquopy，✅）
+
+把 Python 脚本放 `src/main/python/`，Kotlin 经 `PythonEngine` 调用；进程启动调一次 `PythonEngine.init(context)`。
+
+```kotlin
+PythonEngine.init(app)                                   // 幂等，Application/Component.onCreate
+PythonEngine.call("aiguide_demo", "greet", "world")      // → "Hello, world! ..."
+PythonEngine.runCode("result = 6 * 7")                   // → "42"
+```
+
+> ⚠️ **构建注意**：Chaquopy 在**配置阶段**启动 `buildPython` 外部进程，与 Gradle 配置缓存不兼容；单独构建本模块加 `--no-configuration-cache`。Chaquopy 全工程**只能有一个模块**应用（已固定在 `support-python`）。`build.gradle.kts` 配 `ndk.abiFilters` + `chaquopy { defaultConfig { version = "3.11" } }`，第三方包用 `pip { install(...) }`。
+
+### 9.5 `support-camera`：相机（CameraX，✅）
+
+基于 `LifecycleCameraController` 一站式管理「预览 + 拍照」，`CameraManager` 暴露 `bind/takePicture(suspend)/switchCamera/enableTorch`。调用前需经 `support-permission` 申请到 `CAMERA` 运行期权限。
+
+```kotlin
+val cam = CameraManager(context)
+cam.bind(viewLifecycleOwner, binding.previewView)
+val file = cam.takePicture(File(cacheDir, "shot.jpg"))   // suspend，回调挂起
+```
+
+### 9.6 `support-ble`：低功耗蓝牙（Nordic 扫描 + 原生 GATT，✅）
+
+扫描用 Nordic `BluetoothLeScannerCompat`（抹平各版本差异）包成冷 `Flow`；连接/读写用原生 `BluetoothGatt`，状态走 `StateFlow<BleConnectionState>`、收到的数据走 `SharedFlow<BleData>`。需 `BLUETOOTH_SCAN`/`BLUETOOTH_CONNECT`（API31+）权限。
+
+```kotlin
+BleScanner().scan().collectIn(owner) { dev -> /* 列设备 */ }
+val conn = BleConnection(context)
+conn.state.collectIn(owner) { if (it == SERVICES_DISCOVERED) conn.enableNotifications(svc, chr) }
+conn.incoming.collectIn(owner) { data -> /* 收数据 */ }
+conn.connect(address)
+```
+
+### 9.7 `support-serial`：串口（licheedev，✅）
+
+`SerialManager`：`availablePorts()` 枚举节点、`open(path, baud)` 打开（内部起读线程），读到的字节走 `incoming: SharedFlow<ByteArray>`，`send/sendHex` 发送。读写在子线程进行（串口要求）。
+
+### 9.8 `support-push` / `support-update`（✅）
+
+- **`support-push`**：`PushManager` 聚合具体 `PushProvider`（FCM/极光/个推… 各自实现接口，换厂商不改业务），暴露 `token: StateFlow` + `messages: SharedFlow`，下行消息经 `NotificationHelper`（含渠道）落地系统通知。
+- **`support-update`**：`AppUpdater.hasUpdate(info)` 比对 versionCode；`downloadApk(info)` 返回 `Flow<DownloadStatus>`（DownloadManager 轮询进度）；`installApk(path)` 经 `FileProvider` 拉起系统安装器（宿主需声明 `${applicationId}.fileprovider`）。
+
+### 9.9 工具/资源新增模块（✅）
+
+- **`lib-widget`**：`StateView`（内容/加载/空/错误 多状态容器，`showLoading()/showEmpty()/showError{retry}/showContent()`）+ `LoadingButton`（`loading=true` 防重复提交）。`lib-ui` 管主题、`lib-widget` 管控件。
+- **`lib-test`**（纯 JVM，`testImplementation` 引入）：`MainDispatcherRule`（替换 `Dispatchers.Main`）、`collectValues(n)`/`runFlowTest` Flow 测试扩展、`MockWebServerRule`（假后端 + `enqueueJson`）。版本目录已补 `kotlinx-coroutines-test` / `mockwebserver`。
+- **`common`**：跨模块 colors/strings/dimens + `Theme.AiGuide.Common`（Material DayNight）。
+- **`baseline-profile`**（`com.android.test`）：`BaselineProfileGenerator`（`./gradlew :app:generateBaselineProfile`）+ `StartupBenchmark`（冷启动「无 Profile」vs「有 Profile」对照）。版本目录已补 `benchmark`/`uiautomator`/`profileinstaller`，根脚本补 `com.android.test`/`androidx.baselineprofile` 插件声明与 toolchain 配置。
 
 ---
 
@@ -1391,10 +1470,10 @@ dependencies {
 - [x] 生成 `arch` 基础代码：`BaseActivity` / `BaseFragment` / `BaseViewModel` / `BaseRepository` / `BaseApplication`（备注：**无 `di/` `config/` `BaseDialog`**）
 - [x] 生成 MVC / MVP / MVVM / MVI 四套架构模板基类（本次补齐 `MvcFragment` / `MviFragment`，四套 Activity+Fragment 已对称）
 - [x] arch 全面切换协程 + Flow：`loading: StateFlow`、`error: SharedFlow`、新增 `FlowExt.collectIn`，移除 `LiveDataExt`
-- [x] 为全部已声明模块创建目录 + `build.gradle.kts`，工程可 sync：`./gradlew projects` 列出 23 个模块全部配置成功（4 `api` + 5 `libs` + 6 `support` + 5 `business` + `app` + `arch`），各模块 `compileDebugSources`/`compileKotlin` 通过
+- [x] 为全部已声明模块创建目录 + `build.gradle.kts`，工程可 sync：`./gradlew projects` 列出 **36 个模块**全部配置成功（6 `api` + 7 `libs` + 14 `support` + 5 `business` + `app` + `arch` + `common` + `baseline-profile`），各模块 `compileDebugKotlin`/`compileKotlin` 通过
 - [ ] 引入 `build-logic` 约定插件，收敛各模块构建脚本（§2.3）
-- [ ] 按工程性质补充扩展模块（§2 树中 ➕ 项，依赖与约束见 §2.2）：优先 `support-ai`，再按 ★ 推进 `support-media/ble/serial/camera/python`、`lib-widget/lib-test`、`common`、`baseline-profile`
-- [ ] 版本目录补声明 **Safe Args 插件**；根脚本启用
+- [x] **按工程性质补齐全部扩展模块（§2 树中 ➕ 项）**：`api-home`/`api-video`；`support-ai`（OpenAI 兼容大模型对话 + SSE 流式 + SPI 自注册）/`support-camera`(CameraX)/`support-ble`(Nordic 扫描+原生 GATT)/`support-serial`(串口)/`support-python`(Chaquopy)/`support-push`(推送门面)/`support-update`(应用内升级)；`lib-widget`(StateView+LoadingButton)/`lib-test`(协程·Flow·MockWebServer 测试工具)；`common`(公共资源)；`baseline-profile`(Macrobenchmark)——**全部 `compileDebugKotlin`/`compileKotlin` 通过**（§9.3–§9.9）。版本目录补声明 `kotlinx-coroutines-test`/`mockwebserver`/`benchmark`/`uiautomator`/`profileinstaller`，根脚本补 `com.android.test`/`androidx.baselineprofile` 插件与 toolchain 配置。**唯一仍未落地的 ➕ 项是 `build-logic` 约定插件**（蓝图项）
+- [x] 版本目录 `[plugins]` 补声明 **Safe Args 插件** `navigation-safeargs-kotlin`（需用 `*Directions` 的模块自行 `alias(...)` 应用 + 放 `res/navigation/` xml）
 - [x] 搭建 `support-network` 骨架（`NetworkClient` / `ApiResponse` / `NetworkException` / `NetworkConfig`，已被 home/chat/music/video 真实调用）
 - [x] 搭建 `support-router`（`Routes` / `AppNavigator` 门面 / `NavigatorProvider` / `navigateSafe` 降级），`app` 注册门面、`module-home` 经门面跨模块跳 chat，**已真机验证（含降级）**
 - [x] `app` 改造：`MainActivity` + NavHost + 主 NavGraph + **BottomNavigation 5 tab 绑定**（首页/聊天/音乐/视频/我的；菜单项 id == 子图根 id，`setupWithNavController`，加 `navigation-ui-ktx`），`:app:assembleDebug` 资源/编译通过（§5.10）
@@ -1417,6 +1496,11 @@ dependencies {
 - [x] 打通 `module-chat` **MVVM 端到端流程**（与 `module-home` 对称）：`ChatApiService`/`CommentDto`（data/remote）→ `ChatRepository(safeCall)` → `ChatViewModel(StateFlow)` → `ChatDetailFragment(MvvmFragment + collectIn)` + `ChatAdapter`（按 `fromMe` 左右气泡）；`ChatDetailFragment` 从 `arguments.conversationId` 触发 `load(id)` 拉取消息列表，**已接真实网络**（jsonplaceholder `/comments`），`:app:compileDebugSources` 通过
 - [x] 打通 `module-music` / `module-video` / `module-settings` **同构 MVVM 流程**：各自 `data`（music→`/albums`、video→`/photos` 真实网络；settings→本地 `SettingsLocalSource`）→ `Repository(safeCall)` → `ViewModel(StateFlow)` → `Fragment(MvvmFragment + collectIn)` + 列表 Adapter，并各建 `xxx_nav_graph.xml`、由 `app` 的 `nav_graph_main` 统一 `<include>`；`:app:compileDebugSources` 通过。要点：**settings 数据天然在本地、不依赖 support-network**，印证同一分层对本地/远程一致
 - [x] 业务模块接入组件化双模式（§15）：5 个 `module-*` 骨架 + `runAlone` 开关内联切 `application`/`library` + `src/runalone` 独立入口 + `ComponentApplication`/SPI 自注册 + `GuideApp` 的 `ServiceLoader` 装配（已过 `:app:assembleDebug`）；**待办**：收敛进 `build-logic` 约定插件
+- [x] 接 **`support-ai` 大模型对话（AiGuide 核心，§9.3）**：`AiConfig`（OpenAI 兼容，可换 DeepSeek/通义等）+ `AiService`(Retrofit 非流式) + `AiChatClient.chat`(suspend)/`chatStream`(裸 OkHttp SSE → `Flow<String>` 打字机) + `AiException`；`AiComponent`(priority 80) 经 SPI 把 `AiChatClient` 注册进 `ApiRegistry`，任意模块零依赖具体类即可取用，`compileDebugKotlin` 通过
+- [x] 接 **硬件/脚本能力模块（§9.4–§9.7）**：`support-camera`(CameraX `CameraManager`：bind/takePicture suspend/前后摄/闪光) / `support-ble`(`BleScanner` Flow 扫描 + `BleConnection` 原生 GATT，state StateFlow + incoming SharedFlow) / `support-serial`(`SerialManager` 读线程 + incoming SharedFlow) / `support-python`(`PythonEngine.call/runCode`，Chaquopy 3.11，配置缓存需 `--no-configuration-cache`)，各自声明所需权限，`compileDebugKotlin` 通过
+- [x] 接 **`support-push` / `support-update`（§9.8）**：`PushManager`+`PushProvider`+`NotificationHelper`（token/messages 流 + 通知渠道）；`AppUpdater`（versionCode 比对 + DownloadManager 进度 Flow + FileProvider 安装），`compileDebugKotlin` 通过
+- [x] 接 **`lib-widget` / `lib-test` / `common` / `baseline-profile`（§9.9）**：`StateView`+`LoadingButton`；`MainDispatcherRule`+Flow 测试扩展+`MockWebServerRule`；公共 colors/strings/dimens/theme；Macrobenchmark `BaselineProfileGenerator`+`StartupBenchmark`（`com.android.test`，`compileBenchmarkReleaseKotlin` 通过）
+- [x] 补 `api-home`(`HomeApi`+`HomeSummary`) / `api-video`(`VideoApi`+`VideoInfo`) 能力接口（纯 Kotlin，与对应业务模块对称，`compileKotlin` 通过）
 
 ---
 

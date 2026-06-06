@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- video tab：选中实心 / 未选中线性（itemIconTint 选择器再上色） -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/ic_tab_video_filled" android:state_checked="true" />
+    <item android:drawable="@drawable/ic_tab_video" />
+</selector>

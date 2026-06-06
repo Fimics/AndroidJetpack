@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.android.test) apply false
+    alias(libs.plugins.androidx.baselineprofile) apply false
     alias(libs.plugins.jetbrains.kotlin.android) apply false
     alias(libs.plugins.jetbrains.kotlin.compose) apply false
     alias(libs.plugins.dagger.hilt) apply false
@@ -49,6 +51,21 @@ subprojects {
             }
         }
         // 配置 Kotlin 编译选项（toolchain 同时作用于 Kotlin 与 Java 编译）
+        plugins.withId("org.jetbrains.kotlin.android") {
+            configure<org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension> {
+                jvmToolchain(libs.versions.java.version.get().toInt())
+            }
+        }
+    }
+
+    // 配置 Android Test 模块（baseline-profile / Macrobenchmark）
+    plugins.withId("com.android.test") {
+        configure<com.android.build.gradle.TestExtension> {
+            compileOptions {
+                sourceCompatibility = JavaVersion.valueOf("VERSION_${libs.versions.java.source.compatibility.get()}")
+                targetCompatibility = JavaVersion.valueOf("VERSION_${libs.versions.java.target.compatibility.get()}")
+            }
+        }
         plugins.withId("org.jetbrains.kotlin.android") {
             configure<org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension> {
                 jvmToolchain(libs.versions.java.version.get().toInt())

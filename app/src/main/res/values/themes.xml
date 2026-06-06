@@ -1,22 +1,100 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+
+    <!-- ===== 应用主题（day/night 共用：配色名都带 -night 限定符，自动切换） ===== -->
     <style name="Theme.AndroidJetpack" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryDark">@color/purple_700</item>
-        <item name="colorAccent">@color/teal_200</item>
+        <!-- 主色 -->
+        <item name="colorPrimary">@color/brand_primary</item>
+        <item name="colorPrimaryDark">@color/brand_primary_dark</item>
+        <item name="colorPrimaryVariant">@color/brand_primary_dark</item>
+        <item name="colorOnPrimary">@color/brand_on_primary</item>
+        <!-- 次色 -->
+        <item name="colorSecondary">@color/brand_secondary</item>
+        <item name="colorSecondaryVariant">@color/brand_primary_dark</item>
+        <item name="colorOnSecondary">@color/brand_on_secondary</item>
+        <item name="colorAccent">@color/brand_secondary</item>
+        <!-- 表面 / 背景 -->
+        <item name="android:colorBackground">@color/md_background</item>
+        <item name="colorSurface">@color/md_surface</item>
+        <item name="colorOnSurface">@color/md_on_surface</item>
+        <item name="colorOnBackground">@color/md_on_surface</item>
+        <item name="colorError">@color/md_error</item>
+        <item name="android:windowBackground">@color/md_background</item>
+        <!-- 文本色 -->
+        <item name="android:textColorPrimary">@color/md_on_surface</item>
+        <item name="android:textColorSecondary">@color/md_on_surface_variant</item>
+        <item name="android:textColorTertiary">@color/md_outline</item>
+
+        <!-- 圆角形状系统（统一卡片/按钮/弹窗圆角） -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.AiGuide.Small</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.AiGuide.Medium</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.AiGuide.Large</item>
+
+        <!-- 组件默认样式 -->
+        <item name="materialButtonStyle">@style/Widget.AiGuide.Button</item>
+        <item name="bottomNavigationStyle">@style/Widget.AiGuide.BottomNav</item>
+
         <!-- 边到边全屏：系统栏透明，内容绘制到状态栏/导航栏/刘海之下（避让由 MainActivity 的 insets 处理） -->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
+    <!-- ===== 形状 ===== -->
+    <style name="ShapeAppearance.AiGuide.Small" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10dp</item>
+    </style>
+
+    <style name="ShapeAppearance.AiGuide.Medium" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="ShapeAppearance.AiGuide.Large" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">24dp</item>
+    </style>
+
+    <!-- ===== 组件样式 ===== -->
+    <style name="Widget.AiGuide.Button" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">14dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+    <style name="Widget.AiGuide.Button.Tonal" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="cornerRadius">14dp</item>
+        <item name="backgroundTint">@color/md_surface_variant</item>
+        <item name="android:textColor">@color/brand_primary</item>
+        <item name="iconTint">@color/brand_primary</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="elevation">0dp</item>
+    </style>
+
+    <style name="Widget.AiGuide.BottomNav" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="elevation">8dp</item>
+        <item name="itemIconTint">@color/bottom_nav_item_color</item>
+        <item name="itemTextColor">@color/bottom_nav_item_color</item>
+        <item name="itemIconSize">24dp</item>
+        <item name="labelVisibilityMode">labeled</item>
+    </style>
+
+    <!-- 卡片统一样式：圆角 + 轻阴影，列表项复用 -->
+    <style name="Widget.AiGuide.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">1dp</item>
+        <item name="cardBackgroundColor">?attr/colorSurface</item>
+        <item name="rippleColor">@color/brand_secondary</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
 
     <style name="TabLayoutTextStyle">
         <item name="android:textSize">@dimen/text_size_16sp</item>
         <item name="textAllCaps">false</item>
         <item name="android:textStyle">normal</item>
     </style>
-
 
 </resources>

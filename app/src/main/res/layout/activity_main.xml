@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground">
 
     <!-- 单 Activity + NavHost：汇总各业务子图（见 §5.3 / §5.5 / §5.10） -->
     <androidx.fragment.app.FragmentContainerView
@@ -11,22 +12,31 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@id/bottomNav"
+        app:layout_constraintBottom_toTopOf="@id/navDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/nav_graph_main" />
 
-    <!-- 底部 5 个 tab，与 NavController 绑定。背景 ?attr/colorSurface 随日/夜变色；
-         itemIconTint/itemTextColor 选择器保证 5 个 tab 都清晰（选中紫/未选中灰）。 -->
+    <!-- 顶部细分隔线：比阴影更克制地把内容与导航栏区分（M3 扁平观感） -->
+    <View
+        android:id="@+id/navDivider"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:background="@color/md_outline"
+        android:alpha="0.4"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- 底部 5 个 tab，与 NavController 绑定。样式来自主题 bottomNavigationStyle
+         (Widget.AiGuide.BottomNav)：选中实心图标 + 浅紫药丸指示器 + 加粗标签。 -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="?attr/colorSurface"
-        app:itemIconTint="@color/bottom_nav_item_color"
-        app:itemTextColor="@color/bottom_nav_item_color"
-        app:labelVisibilityMode="labeled"
+        android:paddingTop="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

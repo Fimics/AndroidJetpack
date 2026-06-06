@@ -111,6 +111,11 @@ nordic-scanner = "1.6.0"
 #serialport
 serialport = "2.1.5"
 
+# ====== 性能基线 / Macrobenchmark（baseline-profile，§2.2 待补已补） ======
+benchmark = "1.2.4"
+uiautomator = "2.3.0"
+profileinstaller = "1.3.1"
+
 
 [libraries]
 # ====== Gradle 插件类路径 ======
@@ -132,6 +137,8 @@ javassist= { group = "org.javassist", name = "javassist", version.ref = "javassi
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit-ext = { group = "androidx.test.ext", name = "junit", version.ref = "junit-ext" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "ktcoroutines" }
+mockwebserver = { group = "com.squareup.okhttp3", name = "mockwebserver", version.ref = "okhttp" }
 
 # ====== Compose 相关 ======
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
@@ -257,6 +264,11 @@ nordic-scanner = { group = "no.nordicsemi.android.support.v18", name = "scanner"
 #serialport
 serialport = { group = "com.licheedev", name = "android-serialport", version.ref = "serialport" }
 
+# ====== Macrobenchmark / Baseline Profile ======
+androidx-benchmark-macro-junit4 = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "benchmark" }
+androidx-test-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "uiautomator" }
+androidx-profileinstaller = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "profileinstaller" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
@@ -266,3 +278,6 @@ jetbrains-kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt-plugin" }
 jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-serialization" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+android-test = { id = "com.android.test", version.ref = "agp" }
+androidx-baselineprofile = { id = "androidx.baselineprofile", version.ref = "benchmark" }
+navigation-safeargs-kotlin = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }
