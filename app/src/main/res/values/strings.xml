@@ -7,5 +7,11 @@
     <string name="view">view</string>
     <string name="jetpack">jetpack</string>
 
+    <!-- 底部 5 个 tab -->
+    <string name="tab_home">首页</string>
+    <string name="tab_chat">聊天</string>
+    <string name="tab_music">音乐</string>
+    <string name="tab_video">视频</string>
+    <string name="tab_me">我的</string>
 
 </resources>

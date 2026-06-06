@@ -61,6 +61,7 @@ dependencies {
     implementation(project(":arch"))
     implementation(project(":support:support-router"))      // 注册 AppNavigator 门面
     implementation(libs.androidx.navigation.fragment.ktx)   // 壳工程承载 NavHost + 汇总子图
+    implementation(libs.androidx.navigation.ui.ktx)         // BottomNavigationView.setupWithNavController
     implementation(project(":business:module-home"))
     implementation(project(":business:module-chat"))
     implementation(project(":business:module-music"))

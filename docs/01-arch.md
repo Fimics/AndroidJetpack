@@ -14,7 +14,7 @@
 
 | 层级 | 模块 | 状态 | 说明 |
 | --- | --- | --- | --- |
-| 壳工程 | `app` | ✅ | `MainActivity` / `GuideApp` / BottomNavigation 菜单 / 基础资源已就绪 |
+| 壳工程 | `app` | ✅ | `MainActivity`（单 Activity + NavHost + **BottomNavigation 5 tab 绑定**：首页/聊天/音乐/视频/我的）/ `GuideApp`（SPI 装配）/ 基础资源已就绪 |
 | 架构层 | `arch` | 🟡 | Base 类 + MVC/MVP/MVVM/MVI 四套模板已实现（Activity+Fragment 已对称）；全面 **协程 + Flow**（`StateFlow`/`SharedFlow`/`collectIn`）；新增 **`api/ApiRegistry`**（跨模块能力 SPI 注册表，§6.3）；**无 `di/`、`config/`、`BaseDialog`**，也**未引入 Hilt** |
 | 接口层 | `api/*` | ✅ | `api-chat`（`ChatApi`）/ `api-music`（`MusicApi`+`SongInfo`）/ `api-player`（`PlayerApi`+`PlayState`）/ `api-settings`（`SettingsApi`）四个**纯 Kotlin 接口模块**已建，**4 个能力均已接实现并经 `ApiRegistry` 注册**，消费方仅依赖接口经注册表取用（编译通过）：`ChatApi`/`MusicApi`/`SettingsApi` 由业务模块实现（`SettingsApi` 经 `support-storage` 持久化深色模式），`PlayerApi` **实现下沉 `support-media`/Media3 供 music/video 复用**（§6.6） |
 | 业务层 | `business/*` | 🟡 | `module-home/chat/music/video/settings` 五个**组件化骨架已建**（双模式 + `ComponentApplication`/SPI 自注册，见 §15，已过 `:app:assembleDebug`）；**五个模块均已打通完整 MVVM 端到端流程**（`data` + `repository(safeCall)` + `ViewModel(StateFlow)` + `Fragment(collectIn)` + 列表 Adapter + `nav_graph` 汇总进 `app`）：`home/chat/music/video` 接真实网络 jsonplaceholder，`settings` 走本地数据源演示同一分层；**`module-home` 已接 `support-database` 的 `CacheDao` 做缓存优先 + 网络后台刷新（§9.1）**；**`module-home`/`module-video` 列表项已用 `lib-image`（Glide 门面，带占位图 + 圆角）真实加载缩略图**；**`module-video` 已升级 Paging 3 分页 + RemoteMediator/Room 离线缓存 + LoadState 页脚**（自有 `VideoDatabase`，滚动到底自动翻页、离线看缓存页、页脚加载更多/重试，§9.2） |
@@ -767,27 +767,38 @@ dependencies {
 
 > ⚠️ **待补**：当前 `gradle/libs.versions.toml` 含 `navigation = 2.5.1`，但**尚未声明 Safe Args 的 Gradle 插件**（`androidx.navigation.safeargs.kotlin`）。使用 Safe Args 前需在根 `build.gradle.kts`（或版本目录 `[plugins]`）补声明该插件，否则 `*Directions` 类不会生成。各模块还需在 `res/navigation/` 下放 xml。
 
-### 5.10 BottomNavigation + 多子图（常见主页结构）
+### 5.10 BottomNavigation + 多子图（✅ 5 tab 已落地）
 
-`app` 现有 `res/menu/bottom_nav.xml`（菜单项含 home / music / video / me / folder 等图标）。BottomNavigation 的每个 item 对应一个子图，切 tab 时各自保留返回栈：
+`app` 单 Activity 承载 `NavHost`，底部 `BottomNavigationView` 5 个 tab 对应 5 条业务子图，切 tab 各自保留返回栈。**关键：菜单项 id 必须等于被 `<include>` 子图的根 id**（用 `@id/` 引用，非 `@+id/`，否则不匹配）：
 
 ```xml
-<!-- nav_graph_main.xml -->
+<!-- app/res/navigation/nav_graph_main.xml：startDestination 指首页子图，include 五条线 -->
 <navigation ... app:startDestination="@id/home_nav_graph">
-  <include app:graph="@navigation/home_nav_graph" android:id="@+id/home_nav_graph" />
-  <include app:graph="@navigation/music_nav_graph" android:id="@+id/music_nav_graph" />
-  <include app:graph="@navigation/video_nav_graph" android:id="@+id/video_nav_graph" />
-  <include app:graph="@navigation/settings_nav_graph" android:id="@+id/settings_nav_graph" />
+  <include app:graph="@navigation/home_nav_graph" />
+  <include app:graph="@navigation/chat_nav_graph" />
+  <include app:graph="@navigation/music_nav_graph" />
+  <include app:graph="@navigation/video_nav_graph" />
+  <include app:graph="@navigation/settings_nav_graph" />
 </navigation>
+
+<!-- app/res/menu/bottom_nav.xml：item id == 子图根 id（来自各模块 nav xml，资源合并后可引用） -->
+<item android:id="@id/home_nav_graph"     android:icon="@drawable/ic_home"  android:title="@string/tab_home" />
+<item android:id="@id/chat_nav_graph"     android:icon="@drawable/ic_chat"  android:title="@string/tab_chat" />
+<item android:id="@id/music_nav_graph"    android:icon="@drawable/ic_music" android:title="@string/tab_music" />
+<item android:id="@id/video_nav_graph"    android:icon="@drawable/ic_video" android:title="@string/tab_video" />
+<item android:id="@id/settings_nav_graph" android:icon="@drawable/ic_me"    android:title="@string/tab_me" />
 ```
 
 ```kotlin
-// BottomNavigation 与 NavController 绑定
-binding.bottomNav.setupWithNavController(navController)
-// 每个 tab 对应一个子图，切换时保留各自返回栈
+// app/MainActivity.kt：一行绑定，点 tab 切到对应子图、各 tab 保留各自返回栈
+binding.bottomNav.setupWithNavController(navHost.navController)
 ```
 
-> ⚠️ **命名对齐**：`bottom_nav.xml` 的菜单项 id 需与子图 `startDestination`/规划的 business 模块对应。当前菜单图标命名（home/music/video/me/folder）与规划模块（module-home/chat/music/video/settings）略有出入，落地时请统一（例如 `me`↔`settings`、明确 `folder`/`chat` 归属）。
+> 依赖：`app` 需 `implementation(libs.androidx.navigation.ui.ktx)`（`setupWithNavController` 扩展）。`@id/xxx_nav_graph` 能在 `app` 的菜单里引用，是因为各业务模块的 `nav xml` 声明了 `@+id/xxx_nav_graph`、随依赖**资源合并**进 `app`——也正是「业务子图自带 id、壳工程只汇总」的体现。拔掉某模块时，删 `app` 依赖 + 对应 `<include>`/菜单项两处即可。
+>
+> ⚠️ **两个真机踩坑（已修）**：
+> 1. **主题必须是 Material**：`BottomNavigationView` 是 Material 组件，`app` 主题原为 `Theme.AppCompat.*` 时会**只显示第一个 tab、其余看不清**。改 `app/res/values/themes.xml` 的 `Theme.AndroidJetpack` 父主题为 `Theme.MaterialComponents.DayNight.NoActionBar` 修复。
+> 2. **显式 item 颜色**：为彻底保证 5 个 tab 都清晰，给 `BottomNavigationView` 设 `app:itemIconTint`/`app:itemTextColor` 为颜色选择器（`res/color/bottom_nav_item_color.xml`：选中 `purple_500`、未选中灰 `#9E9E9E`）+ `app:labelVisibilityMode="labeled"` + 纯色背景；图标 vector 不要写死 `android:tint`，交给 `itemIconTint` 控制。
 
 ### 5.11 路由 vs api 能力：何时用哪个
 
@@ -1382,7 +1393,7 @@ dependencies {
 - [ ] 版本目录补声明 **Safe Args 插件**；根脚本启用
 - [x] 搭建 `support-network` 骨架（`NetworkClient` / `ApiResponse` / `NetworkException` / `NetworkConfig`，已被 home/chat/music/video 真实调用）
 - [x] 搭建 `support-router`（`Routes` / `AppNavigator` 门面 / `NavigatorProvider` / `navigateSafe` 降级），`app` 注册门面、`module-home` 经门面跨模块跳 chat，**已真机验证（含降级）**
-- [ ] `app` 改造：`MainActivity` + NavHost + 主 NavGraph + BottomNavigation 绑定
+- [x] `app` 改造：`MainActivity` + NavHost + 主 NavGraph + **BottomNavigation 5 tab 绑定**（首页/聊天/音乐/视频/我的；菜单项 id == 子图根 id，`setupWithNavController`，加 `navigation-ui-ktx`），`:app:assembleDebug` 资源/编译通过（§5.10）
 - [ ] 在 business/support 模块接入 **Hilt**（arch 不含）
 - [ ] 为每个 `business` 模块创建标准目录与 `README.md`
 - [x] 定义各 `api-xxx` 能力接口（纯 Kotlin 模块，§6）：`api-chat`(`ChatApi`) / `api-music`(`MusicApi`+`SongInfo`) / `api-player`(`PlayerApi`+`PlayState`) / `api-settings`(`SettingsApi`) 已建并编译通过

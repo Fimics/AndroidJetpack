@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 底部 tab 图标/文字颜色：选中=品牌紫，未选中=中灰（保证 5 个 tab 都清晰可见）。 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/purple_500" android:state_checked="true" />
+    <item android:color="#9E9E9E" />
+</selector>

@@ -5,13 +5,27 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!-- 单 Activity + NavHost：汇总各业务子图（见 §5.3 / §5.5） -->
+    <!-- 单 Activity + NavHost：汇总各业务子图（见 §5.3 / §5.5 / §5.10） -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph_main" />
+
+    <!-- 底部 5 个 tab，与 NavController 绑定。
+         背景用 ?attr/colorSurface（随日/夜模式变色，dark 下不再是亮色）；
+         itemIconTint/itemTextColor 选择器保证 5 个 tab 都清晰可见（选中紫/未选中灰，两种模式都可见）。 -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurface"
+        app:labelVisibilityMode="labeled"
+        app:itemIconTint="@color/bottom_nav_item_color"
+        app:itemTextColor="@color/bottom_nav_item_color"
+        app:menu="@menu/bottom_nav" />
 
 </LinearLayout>
