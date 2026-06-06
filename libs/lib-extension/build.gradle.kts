@@ -11,4 +11,7 @@ android {
 
 dependencies {
     api(libs.androidx.core.ktx)
+    // ToastUtils 依赖全局 Application（lib-common），日志走 lib-log
+    implementation(project(":libs:lib-common"))
+    implementation(project(":libs:lib-log"))
 }

@@ -11,4 +11,7 @@ android {
 
 dependencies {
     api(libs.androidx.activity.ktx)
+    // PermissionUtils（迁移自 libcore）静态检查依赖全局 Application
+    implementation(project(":libs:lib-common"))
+    implementation(libs.androidx.core.ktx)
 }

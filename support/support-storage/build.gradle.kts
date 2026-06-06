@@ -12,4 +12,6 @@ android {
 dependencies {
     api(libs.androidx.datastore.preferences)
     implementation(libs.kotlinx.coroutines.android)
+    // Prefs（SharedPreferences 门面，迁移自 libcore P）依赖全局 Application
+    implementation(project(":libs:lib-common"))
 }
