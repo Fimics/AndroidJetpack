@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 聊天配色（深色模式）。 -->
+<resources>
+    <color name="chat_bg">#121212</color>
+    <color name="chat_bubble_me">#7C4DFF</color>     <!-- 深色下用更亮的紫 -->
+    <color name="chat_bubble_other">#2A2A2A</color>
+    <color name="chat_bubble_stroke">#1AFFFFFF</color>
+    <color name="chat_text_on_me">#FFFFFF</color>
+    <color name="chat_text_primary">#ECECEC</color>
+    <color name="chat_text_secondary">#AAAAAA</color>
+</resources>

@@ -44,6 +44,7 @@ dependencies {
     "implementation"(libs.androidx.fragment.ktx)            // by viewModels()
     "implementation"(libs.androidx.navigation.fragment.ktx) // nav 子图
     "implementation"(libs.androidx.recyclerview)
+    "implementation"(libs.androidx.constraintlayout)        // ConstraintLayout 页面布局
     "implementation"(project(":support:support-network"))   // MusicApiService + NetworkClient（真实网络）
     "implementation"(project(":api:api-music"))             // 实现并注册 MusicApi 能力（§6）
     "implementation"(project(":api:api-player"))            // 复用 support-media 的播放能力（经接口，§6.6）

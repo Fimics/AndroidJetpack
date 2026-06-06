@@ -44,7 +44,9 @@ dependencies {
     "implementation"(libs.androidx.fragment.ktx)            // by viewModels()
     "implementation"(libs.androidx.navigation.fragment.ktx) // nav 子图
     "implementation"(libs.androidx.recyclerview)
+    "implementation"(libs.androidx.constraintlayout)        // ConstraintLayout 页面布局
     // 注意：设置页列表数据走本地，故不依赖 support-network
     "implementation"(project(":api:api-settings"))          // 实现并注册 SettingsApi 能力（§6）
     "implementation"(project(":support:support-storage"))   // 经 PreferenceStorage(DataStore) 持久化深色模式
+    "implementation"(project(":libs:lib-image"))            // 头像加载（Glide 门面，圆形）
 }

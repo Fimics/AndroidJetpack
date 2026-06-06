@@ -44,6 +44,7 @@ dependencies {
     "implementation"(libs.androidx.fragment.ktx)            // by viewModels()
     "implementation"(libs.androidx.navigation.fragment.ktx) // findNavController() / nav 子图
     "implementation"(libs.androidx.recyclerview)
+    "implementation"(libs.androidx.constraintlayout)        // ConstraintLayout 页面布局
     "implementation"(project(":support:support-network"))   // HomeApiService + NetworkClient（真实网络）
     "implementation"(project(":support:support-database"))  // CacheDao 离线缓存（§9.1）
     "implementation"(project(":libs:lib-image"))            // ImageLoader（Glide 门面）加载列表缩略图

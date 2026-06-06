@@ -41,7 +41,12 @@ class VideoRemoteMediator(
 
         return try {
             val items = api.getPhotos(page = page, limit = state.config.pageSize).map { dto ->
-                VideoEntity(id = dto.id, title = dto.title, thumbnail = dto.thumbnailUrl)
+                // jsonplaceholder 的 thumbnailUrl 指向 via.placeholder.com（常年不稳定/挂）→ 换成稳定的 picsum 按 id 取图
+                VideoEntity(
+                    id = dto.id,
+                    title = dto.title,
+                    thumbnail = "https://picsum.photos/seed/v${dto.id}/200",
+                )
             }
             val endReached = items.isEmpty()
 

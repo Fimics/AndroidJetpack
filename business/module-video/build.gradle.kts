@@ -45,6 +45,7 @@ dependencies {
     "implementation"(libs.androidx.fragment.ktx)            // by viewModels()
     "implementation"(libs.androidx.navigation.fragment.ktx) // nav 子图
     "implementation"(libs.androidx.recyclerview)
+    "implementation"(libs.androidx.constraintlayout)        // ConstraintLayout 页面布局
     "implementation"(libs.androidx.paging.runtime)          // Paging 3 分页（PagingSource/PagingDataAdapter）
     // 本模块自有特征数据库（Room）+ RemoteMediator：分页离线缓存（§9.2）
     "implementation"(libs.androidx.room.runtime)

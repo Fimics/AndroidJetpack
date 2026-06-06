@@ -44,6 +44,7 @@ dependencies {
     "implementation"(libs.androidx.fragment.ktx)            // by viewModels()
     "implementation"(libs.androidx.navigation.fragment.ktx) // nav 子图 / deepLink 目标
     "implementation"(libs.androidx.recyclerview)
+    "implementation"(libs.androidx.constraintlayout)        // ConstraintLayout 页面布局
     "implementation"(project(":support:support-network"))   // ChatApiService + NetworkClient（真实网络）
     "implementation"(project(":support:support-router"))    // ChatApiImpl 经门面 deepLink 打开会话
     "implementation"(project(":api:api-chat"))              // 实现并注册 ChatApi 能力（§6）

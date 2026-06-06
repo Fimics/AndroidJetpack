@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 设置模块文案（默认=中文）。英文见 values-en/strings.xml。 -->
+<resources>
+    <string name="settings_user_name">AiGuide 用户</string>
+    <string name="settings_account_hint">ID: 10086 · 点击登录</string>
+    <string name="settings_logout">退出登录</string>
+    <string name="settings_signed_out">已退出登录</string>
+    <string name="settings_sign_in">点击登录</string>
+    <string name="settings_profile_title">个人资料</string>
+
+    <string name="settings_title_account">账号与安全</string>
+    <string name="settings_summary_account">登录设备、密码、注销</string>
+    <string name="settings_title_notify">消息通知</string>
+    <string name="settings_summary_notify">推送、声音、振动</string>
+    <string name="settings_title_dark">深色模式</string>
+    <string name="settings_summary_dark">跟随系统 / 开 / 关</string>
+    <string name="settings_title_language">多语言</string>
+    <string name="settings_summary_language">中文 / English</string>
+    <string name="settings_title_storage">存储与缓存</string>
+    <string name="settings_summary_storage">清理缓存、下载目录</string>
+    <string name="settings_title_about">关于</string>
+    <string name="settings_summary_about">版本号、开源许可、检查更新</string>
+
+    <string name="lang_dialog_title">选择语言</string>
+    <string name="lang_follow_system">跟随系统</string>
+    <string name="lang_chinese">中文</string>
+    <string name="lang_english">English</string>
+
+    <!-- 二级页面：个人资料 -->
+    <string name="pf_avatar">头像</string>
+    <string name="pf_nickname">昵称</string>
+    <string name="pf_account">账号</string>
+    <string name="pf_qrcode">二维码名片</string>
+    <!-- 二级页面：账号与安全 -->
+    <string name="ac_devices">登录设备</string>
+    <string name="ac_password">修改密码</string>
+    <string name="ac_delete">账号注销</string>
+    <!-- 二级页面：消息通知 -->
+    <string name="nt_push">推送通知</string>
+    <string name="nt_sound">声音</string>
+    <string name="nt_vibrate">振动</string>
+    <!-- 二级页面：存储与缓存 -->
+    <string name="st_clear">清理缓存</string>
+    <string name="st_download">下载目录</string>
+    <string name="st_auto">自动清理</string>
+    <!-- 二级页面：关于 -->
+    <string name="ab_version">版本号 3.0.1</string>
+    <string name="ab_license">开源许可</string>
+    <string name="ab_update">检查更新</string>
+</resources>

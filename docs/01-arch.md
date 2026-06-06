@@ -1,4 +1,5 @@
-# Android 多模块项目结构与架构设计
+
+bqt# Android 多模块项目结构与架构设计
 
 > 工程名：**AiGuide** ｜ 根包名：**`com.mic.guide`** ｜ 构建脚本：**Kotlin DSL（`.gradle.kts`）** ｜ 版本管理：**Version Catalog（`gradle/libs.versions.toml`）**
 
@@ -796,9 +797,11 @@ binding.bottomNav.setupWithNavController(navHost.navController)
 
 > 依赖：`app` 需 `implementation(libs.androidx.navigation.ui.ktx)`（`setupWithNavController` 扩展）。`@id/xxx_nav_graph` 能在 `app` 的菜单里引用，是因为各业务模块的 `nav xml` 声明了 `@+id/xxx_nav_graph`、随依赖**资源合并**进 `app`——也正是「业务子图自带 id、壳工程只汇总」的体现。拔掉某模块时，删 `app` 依赖 + 对应 `<include>`/菜单项两处即可。
 >
-> ⚠️ **两个真机踩坑（已修）**：
+> ⚠️ **真机踩坑（均已修，已设备验证）**：
 > 1. **主题必须是 Material**：`BottomNavigationView` 是 Material 组件，`app` 主题原为 `Theme.AppCompat.*` 时会**只显示第一个 tab、其余看不清**。改 `app/res/values/themes.xml` 的 `Theme.AndroidJetpack` 父主题为 `Theme.MaterialComponents.DayNight.NoActionBar` 修复。
-> 2. **显式 item 颜色**：为彻底保证 5 个 tab 都清晰，给 `BottomNavigationView` 设 `app:itemIconTint`/`app:itemTextColor` 为颜色选择器（`res/color/bottom_nav_item_color.xml`：选中 `purple_500`、未选中灰 `#9E9E9E`）+ `app:labelVisibilityMode="labeled"` + 纯色背景；图标 vector 不要写死 `android:tint`，交给 `itemIconTint` 控制。
+> 2. **显式 item 颜色**：为彻底保证 5 个 tab 都清晰，给 `BottomNavigationView` 设 `app:itemIconTint`/`app:itemTextColor` 为颜色选择器（`res/color/bottom_nav_item_color.xml`：选中 `purple_500`、未选中灰 `#9E9E9E`）+ `app:labelVisibilityMode="labeled"`；图标 vector 不要写死 `android:tint`，交给 `itemIconTint` 控制。
+> 3. **暗色模式不搭调**：tab 栏背景原写死 `@color/white`，dark 下仍是亮色。改 `android:background="?attr/colorSurface"`（随日/夜变色）修复。
+> 4. **边到边全屏 + 刘海适配**：① 主题里系统栏透明（`android:statusBarColor`/`navigationBarColor`=`@android:color/transparent` + `windowDrawsSystemBarBackgrounds=true`）；② `MainActivity` 调 `WindowCompat.setDecorFitsSystemWindows(window, false)`、API28+ 设 `layoutInDisplayCutoutMode=SHORT_EDGES`、按日/夜设 `isAppearanceLight{Status,Navigation}Bars`；③ `ViewCompat.setOnApplyWindowInsetsListener` 把 `systemBars()|displayCutout()` 的 insets 作内边距——顶部(含刘海)给 `nav_host`、底部给 `bottomNav`、左右防横屏刘海，返回 `CONSUMED`。内容全屏绘制且不被状态栏/左上摄像头/手势条遮挡。
 
 ### 5.11 路由 vs api 能力：何时用哪个
 
@@ -1378,6 +1381,7 @@ dependencies {
 - **状态与数据流（协程 + Flow）**：UI 状态用 `StateFlow`，一次性事件（导航/Toast/错误）用 `SharedFlow` / `Channel`；页面一律 `collectIn(viewLifecycleOwner)` 在 `STARTED` 收集，禁止裸 `lifecycleScope.launch { flow.collect }` 收集（易泄漏/后台空转）。Repository 流式数据（Room/DataStore）直接返回 `Flow`，一次性请求用 `safeCall → Result`。
 - **构建收敛**：模块数量增多后用 `build-logic` 约定插件统一构建脚本（见 §2.3）。
 - **命名规范**：包名 `com.mic.guide.<层>.<模块>`；路由 URI `模块/页面/{参数}`。
+- **布局统一 ConstraintLayout**：所有页面/列表项根布局一律用 `androidx.constraintlayout.widget.ConstraintLayout`（扁平层级、更好性能与适配），各模块按需加 `implementation(libs.androidx.constraintlayout)`。列表项里左右气泡这类「对齐」用 `layout_constraintHorizontal_bias`（在 Adapter 里 `(view.layoutParams as ConstraintLayout.LayoutParams).horizontalBias = …`），不要回退到 `FrameLayout` + `gravity`。已全量改造 13 个布局并真机验证（首页/音乐/聊天气泡等）。
 
 ---
 

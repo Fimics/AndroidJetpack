@@ -11,7 +11,7 @@ import androidx.room.RoomDatabase
  */
 @Database(
     entities = [VideoEntity::class, VideoRemoteKey::class],
-    version = 1,
+    version = 2,   // v2：缩略图源由 via.placeholder 改 picsum，destructive 重建丢弃旧缓存行
     exportSchema = false,
 )
 abstract class VideoDatabase : RoomDatabase() {

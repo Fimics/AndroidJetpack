@@ -2,6 +2,7 @@ package com.mic.guide.module.settings
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import com.mic.guide.api.settings.SettingsApi
 import com.mic.guide.support.storage.PreferenceStorage
 import kotlinx.coroutines.CoroutineScope
@@ -52,6 +53,21 @@ class SettingsApiImpl(app: Application) : SettingsApi {
         AppCompatDelegate.setDefaultNightMode(
             if (enabled) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO,
         )
+    }
+
+    // ── 语言：用 AppCompat「按应用语言」实现，自动持久化（pre-T 需 manifest 的 AppLocalesMetadataHolderService）并重建界面 ──
+
+    override fun getLanguage(): String =
+        AppCompatDelegate.getApplicationLocales().toLanguageTags()
+            .substringBefore('-')   // zh-CN → zh；空串=跟随系统
+
+    override fun setLanguage(tag: String) {
+        val locales = if (tag.isBlank()) {
+            LocaleListCompat.getEmptyLocaleList()        // 跟随系统
+        } else {
+            LocaleListCompat.forLanguageTags(tag)        // "zh" / "en"
+        }
+        AppCompatDelegate.setApplicationLocales(locales)
     }
 
     private companion object {

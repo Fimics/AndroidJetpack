@@ -8,6 +8,24 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.mic.guide.module.settings.ui.SettingsFragment"
-        android:label="Settings" />
+        android:label="Settings">
+        <action
+            android:id="@+id/action_settings_to_detail"
+            app:destination="@id/settingsDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsDetailFragment"
+        android:name="com.mic.guide.module.settings.ui.SettingsDetailFragment"
+        android:label="SettingsDetail">
+        <argument
+            android:name="sectionKey"
+            app:argType="string"
+            android:defaultValue="" />
+        <argument
+            android:name="sectionTitle"
+            app:argType="string"
+            android:defaultValue="" />
+    </fragment>
 
 </navigation>

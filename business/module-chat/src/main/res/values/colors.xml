@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 聊天配色（浅色模式）。dark 模式见 values-night/colors.xml。 -->
+<resources>
+    <color name="chat_bg">#F2F2F7</color>           <!-- 页面背景 -->
+    <color name="chat_bubble_me">#6200EE</color>    <!-- 我的气泡（品牌紫） -->
+    <color name="chat_bubble_other">#FFFFFF</color> <!-- 对方气泡 -->
+    <color name="chat_bubble_stroke">#1A000000</color> <!-- 对方气泡描边（浅色下分隔） -->
+    <color name="chat_text_on_me">#FFFFFF</color>   <!-- 我的气泡内文字 -->
+    <color name="chat_text_primary">#1A1A1A</color> <!-- 对方气泡正文 -->
+    <color name="chat_text_secondary">#888888</color> <!-- 作者/次要文字 -->
+</resources>

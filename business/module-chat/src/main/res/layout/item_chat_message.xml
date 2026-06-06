@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 单条消息：外层 FrameLayout 控制左右对齐，内层 bubble 为气泡（背景/对齐由 Adapter 按 fromMe 设置）。 -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- 单条消息：外层 ConstraintLayout，内层 bubble（ConstraintLayout）为气泡。
+     bubble 的左右对齐(horizontalBias)与背景由 Adapter 按 fromMe 设置。 -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingHorizontal="12dp"
     android:paddingVertical="4dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bubble"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxWidth="280dp"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:background="@drawable/bg_bubble_other"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/tvAuthor"
@@ -20,7 +24,9 @@
             android:layout_height="wrap_content"
             android:textColor="#666666"
             android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvContent"
@@ -28,8 +34,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:textColor="#222222"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAuthor" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
