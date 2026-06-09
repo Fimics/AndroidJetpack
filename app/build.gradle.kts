@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.jetbrains.kotlin.compose)
     alias(libs.plugins.jetbrains.kotlin.kapt)
+    alias(libs.plugins.androidx.baselineprofile)
 }
 
 android {
@@ -31,6 +32,24 @@ android {
                 "proguard-rules.pro"
             )
         }
+
+        getByName("release") {
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android.txt"),
+                "proguard-rules.pro"
+            )
+            // 本地基准/调试用 debug 签名即可；正式发布请改为真实 release keystore
+            signingConfig = signingConfigs.getByName("debug")
+        }
+
+        // Macrobenchmark 专用：非 debuggable 的可安装包，供 :baseline-profile 跑基准
+        create("benchmark") {
+            initWith(getByName("release"))
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks += listOf("release")
+            isDebuggable = false
+        }
     }
 
 
@@ -56,6 +75,10 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("includes" to listOf("*.aar", "*.jar"), "dir" to "libs")))
+
+    // Baseline Profile：关联生产端模块 + 运行时加载器
+    "baselineProfile"(project(":baseline-profile"))
+    implementation(libs.androidx.profileinstaller)
 
     // 架构层 + 业务模块（组件化：集成模式下作为 library 被壳工程集成，见 §15）
     implementation(project(":arch"))
